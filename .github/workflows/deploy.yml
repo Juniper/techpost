@@ -91,10 +91,6 @@ jobs:
           if [ "$BRANCH" != "main" ]; then
             echo "Patching mkdocs.yml for branch $BRANCH"
             BRANCH="$BRANCH" python3 .github/scripts/patch_mkdocs.py
-
-            mkdir -p docs
-            echo "# WORK IN PROGRESS" > docs/index.md
-            echo "This is the branch work page **$BRANCH** - click on Your-docs menu" >> docs/index.md
           fi
 
           echo "==== mkdocs.yml content before build ===="
@@ -326,6 +322,94 @@ jobs:
           unique_pdfs=$(printf '%s\n' "${pdf_files[@]}" | sort -u | tr '\n' ',' | sed 's/,$//')
           echo "[${unique_pdfs}]" > "$OUTPUT_FILE"
           echo "Generated $OUTPUT_FILE with updated PDF list."
+
+      # ----------------------------
+      # Branch preview: convert ONLY docs/articles/<branch>/ and publish its PDF/EPUB
+      # into that branch's portal. Pages deploy per branch (destination_dir: <branch>,
+      # publish_dir: ./site), so ./site/download lands at gh-pages/<branch>/download/.
+      # ----------------------------
+      - name: Convert branch article to PDF/EPUB (preview)
+        if: github.ref_type == 'branch' && github.ref_name != 'main'
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          ARTICLE_DIR="docs/articles/${BRANCH_NAME}"
+          if [ ! -d "$ARTICLE_DIR" ]; then
+            echo "No article folder '$ARTICLE_DIR' for branch '$BRANCH_NAME'. Skipping."
+            exit 0
+          fi
+
+          OUTPUT_FILE="$MAIN_PDF_DIR/pdf-list.json"
+          mkdir -p "$MAIN_PDF_DIR"
+
+          # Restore this branch's already-published downloads so keep_files and the
+          # JSON list stay consistent (mkdocs build flushed ./site).
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            git fetch --depth=1 origin gh-pages
+            if git cat-file -e "origin/gh-pages:${BRANCH_NAME}/download" 2>/dev/null; then
+              echo "Restoring existing downloads for branch '$BRANCH_NAME'"
+              git archive origin/gh-pages "${BRANCH_NAME}/download" | tar -x -C "$MAIN_PDF_DIR" --strip-components=2
+            fi
+          fi
+
+          cd "$ARTICLE_DIR" || exit 1
+
+          md_files=""
+          if ls article*.md 1>/dev/null 2>&1; then
+              for article in $(ls article*.md | sort -V); do
+                  md_files="$md_files $article"
+              done
+          fi
+          if [ -z "$md_files" ]; then
+              echo "No article markdown found in $ARTICLE_DIR. Skipping."
+              exit 0
+          fi
+
+          cat /dev/null > combined.md
+          for file in $md_files; do
+              sed '/^---$/,/^---$/d' "$file" >> combined.md
+              echo "" >> combined.md
+              echo "\pagebreak" >> combined.md
+          done
+
+          echo "Cleaning up markdown references"
+          python3 ../../../.github/scripts/clean_md_links.py combined.md
+          sed -i -e 's/<a\s*[^>]*id="\([^"]*\)"[^>]*>/\\label{\1}/g' -e 's/\xC2\xA0/ /g' combined.md
+          echo "sanitize md files to remove hidden unicode characters"
+          python3 ../../../.github/scripts/sanitize_md.py combined.md
+
+          pandoc -s --number-sections --listings --template "/usr/share/pandoc/data/templates/custom.latex" \
+                 --metadata-file article-desc.yml --metadata-file pandoc-pdf.yml --output="${BRANCH_NAME}.pdf" combined.md
+
+          if [ -f "${BRANCH_NAME}.pdf" ]; then
+              echo "PDF generated for branch '$BRANCH_NAME'"
+              cp "${BRANCH_NAME}.pdf" "$MAIN_PDF_DIR"
+
+              output_png="$MAIN_PDF_DIR/${BRANCH_NAME}"
+              pdftoppm -png -f 1 -l 1 -singlefile "${BRANCH_NAME}.pdf" "$output_png"
+              if [ -f "$output_png.png" ]; then
+                  echo "Generating EPUB for branch '$BRANCH_NAME'"
+                  python3 ../../../.github/scripts/clean_for_epub.py combined.md combined-epub.md
+                  python3 ../../../.github/scripts/epub_numbering.py combined-epub.md
+                  pandoc -s --metadata-file=pandoc-epub.yml \
+                         --metadata-file article-desc.yml --epub-cover-image="$output_png.png" --output="${BRANCH_NAME}.epub" combined-epub.md
+                  if [ -f "${BRANCH_NAME}.epub" ]; then
+                      cp "${BRANCH_NAME}.epub" "$MAIN_PDF_DIR"
+                  else
+                      echo "Failed to generate EPUB for branch '$BRANCH_NAME'."
+                  fi
+              else
+                  echo "Failed to generate icon for '${BRANCH_NAME}.pdf'; skipping EPUB."
+              fi
+          else
+              echo "PDF generation failed for branch '$BRANCH_NAME'."
+          fi
+
+          cd "$GITHUB_WORKSPACE" || exit 1
+          # Refresh this branch's pdf-list.json from the download folder
+          branch_pdfs=$(find "$MAIN_PDF_DIR" -maxdepth 1 -name '*.pdf' -printf '"%f",' 2>/dev/null | sed 's/,$//')
+          echo "[${branch_pdfs}]" > "$OUTPUT_FILE"
+          echo "Branch preview downloads ready in $MAIN_PDF_DIR (deploys to gh-pages/${BRANCH_NAME}/download/)."
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

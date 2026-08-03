@@ -3,7 +3,7 @@ import yaml
 
 BRANCH_NAME = os.environ.get("BRANCH_NAME", "main")
 MKDOCS_FILE = "mkdocs.yml"
-ARTICLE_PATH = "docs/articles/" + BRANCH_NAME + "/article.md"
+ARTICLE_PATH = "articles/" + BRANCH_NAME + "/article"
 INDEX_FILE = "docs/index.md"
 
 if BRANCH_NAME == "main":
