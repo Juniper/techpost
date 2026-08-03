@@ -283,7 +283,7 @@ jobs:
                   python3 ../../../.github/scripts/sanitize_md.py combined.md
 
                   pandoc -s --number-sections --listings --template "/usr/share/pandoc/data/templates/custom.latex" \
-                         --metadata-file book-desc.yml --metadata-file pandoc-pdf.yml --output="${docs%/}.pdf" combined.md
+                         --metadata-file article-desc.yml --metadata-file pandoc-pdf.yml --output="${docs%/}.pdf" combined.md
 
                   if [ -f "${docs%/}.pdf" ]; then
                       echo "PDF generated successfully for $docs"
@@ -303,7 +303,7 @@ jobs:
                           python3 ../../../.github/scripts/epub_numbering.py combined-epub.md
                           echo "Generating EPUB for ${docs%/}.epub"
                           pandoc -s --metadata-file=pandoc-epub.yml \
-                                 --metadata-file book-desc.yml --epub-cover-image="$output_png.png" --output="${docs%/}.epub" combined-epub.md
+                                 --metadata-file article-desc.yml --epub-cover-image="$output_png.png" --output="${docs%/}.epub" combined-epub.md
                           if [ -f "${docs%/}.epub" ]; then
                               echo "EPUB generated successfully for $docs"
                               cp "${docs%/}.epub" "$MAIN_PDF_DIR"
