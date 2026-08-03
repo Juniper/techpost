@@ -34,8 +34,8 @@ def main():
 
     icons_html = (
         f'<br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;">'
-        f'<a href="../../download/{name}.pdf" target="_blank" title="Download PDF" style="display:inline-flex; align-items:center;">{pdf_svg}</a>'
-        f'<a href="../../download/{name}.epub" target="_blank" title="Download ePUB" style="display:inline-flex; align-items:center;">{epub_svg}</a>'
+        f'<a href="../../../download/{name}.pdf" target="_blank" title="Download PDF" style="display:inline-flex; align-items:center;">{pdf_svg}</a>'
+        f'<a href="../../../download/{name}.epub" target="_blank" title="Download ePUB" style="display:inline-flex; align-items:center;">{epub_svg}</a>'
         f'<a href="mailto:techpost@hpe.com" title="Contact us" style="display:inline-flex; align-items:center;">{mail_svg}</a>'
         f'</span>\n'
     )
