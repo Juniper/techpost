@@ -6,7 +6,7 @@ Usage:
     python3 add_download_icons.py <article.md path> <name>
 
 Example:
-    python3 add_download_icons.py docs/techpost/mx301-deepdive/article.md mx301-deepdive
+    python3 add_download_icons.py docs/articles/mx301-deepdive/article.md mx301-deepdive
 """
 
 import sys

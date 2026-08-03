@@ -36,12 +36,12 @@ markdown_extensions:
 nav:
 - Home: index.md
 - All Articles:
-  - Select a Techpost: techpost/menu/main.md
+  - Select a Techpost: articles/menu/main.md
   - Platforms / Line Cards Deepdive:
     - MX Series:
-      - MX301 Deepdive: techpost/mx301-deepdive/article.md
-      - MX301 High-Performance FlowSpec Without Compromise: techpost/mx301-high-performance-flowspec-without-compromise/article.md
-      - MX301 A Powerful Filtering Gateway: techpost/mx301-a-powerful-filtering-gateway/article.md
+      - MX301 Deepdive: articles/mx301-deepdive/article.md
+      - MX301 High-Performance FlowSpec Without Compromise: articles/mx301-high-performance-flowspec-without-compromise/article.md
+      - MX301 A Powerful Filtering Gateway: articles/mx301-a-powerful-filtering-gateway/article.md
 - About us: about.md
 plugins:
 - caption-per-book

@@ -12,8 +12,8 @@ The Juniper Networks MX301 is the newest member of the MX family. We presented t
 
 In this article, we will use MX301 platform to highlight a relatively recent MX/Trio feature introduced in Junos 24.4: **FlowSpec Hardware Acceleration**. As you may know, the Trio ASIC leverages its embedded, specialized filtering block, called **FLT**, to accelerate processing of complex, large filters (up to 8K terms). This unique capability has already been covered in several TechPosts:
 
-- [Fast Lookup Tuple: An Innovative Filtering Feature](https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article) [2]
-- [Packet Filtering on Juniper Silicon](https://juniper.github.io/techposts/packet-filtering-on-juniper-silicon/article) [3]
+- [Fast Lookup Tuple: An Innovative Filtering Feature](https://juniper.github.io/techpost/articles/fast-lookup-tuple-an-innovative-filtering-feature/article) [2]
+- [Packet Filtering on Juniper Silicon](https://juniper.github.io/techpost/articles/packet-filtering-on-juniper-silicon/article) [3]
 
 > *Note: We use MX301 for illustration purposes; everything covered in this article is fully applicable to any other MX10K platforms, including the MX304 and other classical MX.*
 
@@ -36,7 +36,7 @@ These ports are:
 - et-0/0/13
 - and et-0/0/22.
 
-As discussed in the [YT deep dive](https://juniper.github.io/techposts/trio-6-packet-walkthrough/article) [4], the Trio 6 internally consists of two slices, also known as PFEs. Each slice/PFE provides 800 Gbps of full-duplex forwarding capacity. On the MX301, ports et-0/0/0 and et-0/0/12 are connected to the first PFE, while et-0/0/13 and et-0/0/22 are connected to the second PFE.
+As discussed in the [YT deep dive](https://juniper.github.io/techpost/articles/trio-6-packet-walkthrough/article) [4], the Trio 6 internally consists of two slices, also known as PFEs. Each slice/PFE provides 800 Gbps of full-duplex forwarding capacity. On the MX301, ports et-0/0/0 and et-0/0/12 are connected to the first PFE, while et-0/0/13 and et-0/0/22 are connected to the second PFE.
 
 ### Standard 2K FlowSpec Rules Test
 
@@ -188,10 +188,10 @@ In this article, we demonstrated how the MX301, combined with Junos 24.4, delive
 
 ### External Links
 
-- [1] [https://juniper.github.io/techposts/mx301-deepdive/article](https://juniper.github.io/techposts/mx301-deepdive/article)
-- [2] [https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article](https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article)
-- [3] [https://juniper.github.io/techposts/packet-filtering-on-juniper-silicon/article](https://juniper.github.io/techposts/packet-filtering-on-juniper-silicon/article)
-- [4] [https://juniper.github.io/techposts/trio-6-packet-walkthrough/article](https://juniper.github.io/techposts/trio-6-packet-walkthrough/article)
+- [1] [https://juniper.github.io/techpost/articles/mx301-deepdive/article](https://juniper.github.io/techpost/articles/mx301-deepdive/article)
+- [2] [https://juniper.github.io/techpost/articles/fast-lookup-tuple-an-innovative-filtering-feature/article](https://juniper.github.io/techpost/articles/fast-lookup-tuple-an-innovative-filtering-feature/article)
+- [3] [https://juniper.github.io/techpost/articles/packet-filtering-on-juniper-silicon/article](https://juniper.github.io/techpost/articles/packet-filtering-on-juniper-silicon/article)
+- [4] [https://juniper.github.io/techpost/articles/trio-6-packet-walkthrough/article](https://juniper.github.io/techpost/articles/trio-6-packet-walkthrough/article)
 
 ## Glossary
 

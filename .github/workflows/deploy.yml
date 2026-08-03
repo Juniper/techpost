@@ -101,7 +101,7 @@ jobs:
           cat mkdocs.yml
           echo "========================================="
 
-          cd docs/techpost || exit 1
+          cd docs/articles || exit 1
           for docs in */; do
               if [ "${docs%/}" = "menu" ]; then
                   echo "Skipping $docs"
@@ -130,7 +130,7 @@ jobs:
           mkdocs build
 
           echo "cleaning up the md file - removing line 4"
-          cd docs/techpost || exit 1
+          cd docs/articles || exit 1
           for docs in */; do
               if [ "${docs%/}" = "menu" ]; then
                   echo "Skipping $docs"
@@ -206,9 +206,9 @@ jobs:
           else
             echo "Detecting modified article.md files..."
             if [ -n "$COMMIT_BEFORE" ] && [ "$COMMIT_BEFORE" != "0000000000000000000000000000000000000000" ]; then
-              CHANGED_FILES=$(git diff --name-only "$COMMIT_BEFORE" "$COMMIT_SHA" -- 'docs/techpost/*/article*.md' || true)
+              CHANGED_FILES=$(git diff --name-only "$COMMIT_BEFORE" "$COMMIT_SHA" -- 'docs/articles/*/article*.md' || true)
             else
-              CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'docs/techpost/*/article*.md' || true)
+              CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'docs/articles/*/article*.md' || true)
             fi
 
             if [ -z "$CHANGED_FILES" ]; then
@@ -225,14 +225,14 @@ jobs:
             echo "$CHANGED_FILES"
 
             # Extract unique directory names that have changes
-            CHANGED_DIRS=$(echo "$CHANGED_FILES" | sed 's|docs/techpost/\([^/]*\)/.*|\1|' | sort -u)
+            CHANGED_DIRS=$(echo "$CHANGED_FILES" | sed 's|docs/articles/\([^/]*\)/.*|\1|' | sort -u)
             echo "Directories to rebuild: $CHANGED_DIRS"
           fi
 
-          cd docs/techpost || exit 1
+          cd docs/articles || exit 1
           docs_dirs=$(find . -mindepth 1 -maxdepth 1 -type d ! -name '.*')
           if [ -z "$docs_dirs" ]; then
-              echo "No actual docs directories found in docs/techpost. Skipping PDF build."
+              echo "No actual docs directories found in docs/articles. Skipping PDF build."
               echo "[]" > "$OUTPUT_FILE"
               exit 0
           fi

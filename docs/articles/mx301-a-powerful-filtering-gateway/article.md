@@ -8,7 +8,7 @@ Let's use the Juniper filtering tools in a more comprehensive and realistic use 
 
 ## Introduction
 
-This is the second article on the MX301 platform's filtering topic. [The first article [1]](https://juniper.github.io/techposts/mx301-deepdive/article).
+This is the second article on the MX301 platform's filtering topic. [The first article [1]](https://juniper.github.io/techpost/articles/mx301-deepdive/article).
 
 ## MX301 as a Filtering Gateway
 
@@ -819,8 +819,8 @@ In this article, we used the newest MX301 platform to illustrate a powerful impr
 
 ### Links
 
-- [1] [https://juniper.github.io/techposts/mx301-high-performance-flowspec-without-compromise/article](https://juniper.github.io/techposts/mx301-high-performance-flowspec-without-compromise/article)
-- [2] [https://juniper.github.io/techposts/mx301-deepdive/article](https://juniper.github.io/techposts/mx301-deepdive/article)
+- [1] [https://juniper.github.io/techpost/articles/mx301-high-performance-flowspec-without-compromise/article](https://juniper.github.io/techpost/articles/mx301-high-performance-flowspec-without-compromise/article)
+- [2] [https://juniper.github.io/techpost/articles/mx301-deepdive/article](https://juniper.github.io/techpost/articles/mx301-deepdive/article)
 - [3] [https://bgp.potaroo.net ](https://bgp.potaroo.net)
 - [4] [https://github.com/door7302/openjts ](https://github.com/door7302/openjts)
 - [5] [https://fastnetmon.com/2025/07/30/understanding-volumetric-amplification-ddos-attacks/](https://fastnetmon.com/2025/07/30/understanding-volumetric-amplification-ddos-attacks/)

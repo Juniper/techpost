@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var latestGrid = document.getElementById('latest-articles');
     if (latestGrid) {
         var baseUrl = window.location.href.replace(/[^/]*$/, '');
-        fetch(baseUrl + 'techpost/menu/main/')
+        fetch(baseUrl + 'articles/menu/main/')
             .then(function(res) { return res.text(); })
             .then(function(html) {
                 var doc = new DOMParser().parseFromString(html, 'text/html');
@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 for (var i = 0; i < count; i++) {
                     var card = cards[i].cloneNode(true);
                     var href = card.getAttribute('href');
-                    if (href) card.setAttribute('href', href.replace(/^\.\.\/\.\.\//, 'techpost/'));
+                    if (href) card.setAttribute('href', href.replace(/^\.\.\/\.\.\//, 'articles/'));
                     var img = card.querySelector('img');
                     if (img) {
                         var src = img.getAttribute('src');
-                        if (src) img.setAttribute('src', src.replace(/^\.\.\/\.\.\//, 'techpost/'));
+                        if (src) img.setAttribute('src', src.replace(/^\.\.\/\.\.\//, 'articles/'));
                     }
                     latestGrid.appendChild(card);
                 }

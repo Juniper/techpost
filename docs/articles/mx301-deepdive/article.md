@@ -447,7 +447,7 @@ In summary, the MX301 combines performance, compactness, and versatility, extend
 
 ## Useful links
 
-- [1] [https://juniper.github.io/techposts/trio-6-packet-walkthrough/article](https://juniper.github.io/techposts/trio-6-packet-walkthrough/article)
+- [1] [https://juniper.github.io/techpost/articles/trio-6-packet-walkthrough/article](https://juniper.github.io/techpost/articles/trio-6-packet-walkthrough/article)
 
 ## Glossary
 
