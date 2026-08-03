@@ -1,0 +1,973 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Techpost"><link href=../../mx301-high-performance-flowspec-without-compromise/article/ rel=prev><link href=../../../about/ rel=next><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>MX301 A Powerful Filtering Gateway - TECHPOST - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Google+Sans:300,300i,400,400i,700,700i%7CNova:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Google Sans";--md-code-font:"Nova"}</style><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#mx301-a-powerful-filtering-gateway class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="TECHPOST - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="TECHPOST - Technical articles by HPE Networking" data-md-component=logo> <img src=../../../images/hpen.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> TECHPOST - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> MX301 A Powerful Filtering Gateway </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to dark mode" type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title="Switch to dark mode" for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to light mode" type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title="Switch to light mode" for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg> </label> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../.. class=md-tabs__link> Home </a> </li> <li class="md-tabs__item md-tabs__item--active"> <a href=../../menu/main/ class=md-tabs__link> All Articles </a> </li> <li class=md-tabs__item> <a href=../../../about/ class=md-tabs__link> About us </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="TECHPOST - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="TECHPOST - Technical articles by HPE Networking" data-md-component=logo> <img src=../../../images/hpen.png alt=logo> </a> TECHPOST - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2 checked> <label class=md-nav__link for=__nav_2 id=__nav_2_label tabindex> <span class=md-ellipsis> All Articles </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_2_label aria-expanded=true> <label class=md-nav__title for=__nav_2> <span class="md-nav__icon md-icon"></span> All Articles </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../menu/main/ class=md-nav__link> <span class=md-ellipsis> Select a Techpost </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2 checked> <label class=md-nav__link for=__nav_2_2 id=__nav_2_2_label tabindex=0> <span class=md-ellipsis> Platforms / Line Cards Deepdive </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_2_label aria-expanded=true> <label class=md-nav__title for=__nav_2_2> <span class="md-nav__icon md-icon"></span> Platforms / Line Cards Deepdive </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2_1 checked> <label class=md-nav__link for=__nav_2_2_1 id=__nav_2_2_1_label tabindex=0> <span class=md-ellipsis> MX Series </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_2_1_label aria-expanded=true> <label class=md-nav__title for=__nav_2_2_1> <span class="md-nav__icon md-icon"></span> MX Series </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../mx301-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX301 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../mx301-high-performance-flowspec-without-compromise/article/ class=md-nav__link> <span class=md-ellipsis> MX301 High-Performance FlowSpec Without Compromise </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> MX301 A Powerful Filtering Gateway </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> MX301 A Powerful Filtering Gateway </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#mx301-as-a-filtering-gateway class=md-nav__link> <span class=md-ellipsis> MX301 as a Filtering Gateway </span> </a> <nav class=md-nav aria-label="MX301 as a Filtering Gateway"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#network-topology class=md-nav__link> <span class=md-ellipsis> Network Topology </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#how-to-secure-the-network class=md-nav__link> <span class=md-ellipsis> How to Secure the Network? </span> </a> </li> <li class=md-nav__item> <a href=#putting-our-mx301-under-attack class=md-nav__link> <span class=md-ellipsis> Putting our MX301 Under Attack </span> </a> </li> <li class=md-nav__item> <a href=#secure-the-customers-infra class=md-nav__link> <span class=md-ellipsis> Secure the Customer's Infra </span> </a> </li> <li class=md-nav__item> <a href=#the-cherry-on-top-of-this-cake class=md-nav__link> <span class=md-ellipsis> The Cherry on Top of This Cake </span> </a> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> <nav class=md-nav aria-label=Conclusion> <ul class=md-nav__list> <li class=md-nav__item> <a href=#links class=md-nav__link> <span class=md-ellipsis> Links </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#mx301-as-a-filtering-gateway class=md-nav__link> <span class=md-ellipsis> MX301 as a Filtering Gateway </span> </a> <nav class=md-nav aria-label="MX301 as a Filtering Gateway"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#network-topology class=md-nav__link> <span class=md-ellipsis> Network Topology </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#how-to-secure-the-network class=md-nav__link> <span class=md-ellipsis> How to Secure the Network? </span> </a> </li> <li class=md-nav__item> <a href=#putting-our-mx301-under-attack class=md-nav__link> <span class=md-ellipsis> Putting our MX301 Under Attack </span> </a> </li> <li class=md-nav__item> <a href=#secure-the-customers-infra class=md-nav__link> <span class=md-ellipsis> Secure the Customer's Infra </span> </a> </li> <li class=md-nav__item> <a href=#the-cherry-on-top-of-this-cake class=md-nav__link> <span class=md-ellipsis> The Cherry on Top of This Cake </span> </a> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> <nav class=md-nav aria-label=Conclusion> <ul class=md-nav__list> <li class=md-nav__item> <a href=#links class=md-nav__link> <span class=md-ellipsis> Links </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=mx301-a-powerful-filtering-gateway>MX301 A Powerful Filtering Gateway<a class=headerlink href=#mx301-a-powerful-filtering-gateway title="Permanent link">¶</a></h1> <p><strong>David Roy - 04/24/2026</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/mx301-a-powerful-filtering-gateway.pdf style="display:inline-flex; align-items:center;" target=_blank title="Download PDF"><svg fill=#d32f2f height=32 viewbox="0 0 384 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"></path></svg></a><a href=../../../download/mx301-a-powerful-filtering-gateway.epub style="display:inline-flex; align-items:center;" target=_blank title="Download ePUB"><svg fill=#1565c0 height=32 viewbox="0 0 448 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"></path></svg></a><a href=mailto:techpost@hpe.com style="display:inline-flex; align-items:center;" title="Contact us"><svg fill=#616161 height=32 viewbox="0 0 512 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"></path></svg></a></span></p> <p><figure><img alt="MX301 A Powerful Filtering Gateway" src=../images/picture2.png><figcaption>Figure 1: MX301 A Powerful Filtering Gateway</figcaption></figure></p> <p>Let's use the Juniper filtering tools in a more comprehensive and realistic use case in which MX301 will serve as a filtering routing gateway to protect peering points, critical cloud platforms, or any network infrastructure that requires large-scale security.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">¶</a></h2> <p>This is the second article on the MX301 platform's filtering topic. <a href=https://juniper.github.io/techposts/mx301-deepdive/article>The first article [1]</a>.</p> <h2 id=mx301-as-a-filtering-gateway>MX301 as a Filtering Gateway<a class=headerlink href=#mx301-as-a-filtering-gateway title="Permanent link">¶</a></h2> <p>In this second article, we will reuse the FlowSpec FLT Acceleration feature alongside other Juniper filtering tools in a more comprehensive and realistic use case in which MX301 will serve as a filtering routing gateway to protect peering points, critical cloud platforms, or any network infrastructure that requires large-scale security.</p> <h3 id=network-topology>Network Topology<a class=headerlink href=#network-topology title="Permanent link">¶</a></h3> <p>We use the following typical architecture, illustrated in Figure 2. In this architecture, certain devices sit at the boundary between two zones: a Trust Zone, which hosts critical customer resources, and an Untrust Zone, which is unmanaged from the customer's point of view. These devices should serve as the means of securely interconnecting these two worlds. In the lab, we simulated this role by adding this feature set on MX301:</p> <ul> <li>800Gbps allocated for the trust and the untrust zones</li> <li>2 times the BGP IPv4 and IPv6 Full view (we used official tables from [3])</li> <li>Rib-Sharding enabled</li> <li>IPv4 and IPv6 PIC Edge (Protect core)</li> <li>2K ISIS nodes / ~10K ISIS routes (for the Trust Zone)</li> <li>Ingress IPFIX enabled with a 1:4000 sampling rate on all interfaces</li> <li>gRPC gNMI Streaming telemetry enabled (using OpenJTS [4] as collector)</li> </ul> <p><figure><img alt="Typical network architecture with a network filtering gateway." src=../images/picture3.png><figcaption>Figure 2: Typical network architecture with a network filtering gateway.</figcaption></figure></p> <p>Let's first review the current state and scaling figures on our MX301. We can start with the routing table summary ,Äì as shown, there are approximately 9K IS-IS routes, both the IPv4 and IPv6 BGP "official" Internet tables in the RIB, and 2K BGP FlowSpec entries.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span>
+<span class=normal><a href=#__codelineno-0-11>11</a></span>
+<span class=normal><a href=#__codelineno-0-12>12</a></span>
+<span class=normal><a href=#__codelineno-0-13>13</a></span>
+<span class=normal><a href=#__codelineno-0-14>14</a></span>
+<span class=normal><a href=#__codelineno-0-15>15</a></span>
+<span class=normal><a href=#__codelineno-0-16>16</a></span>
+<span class=normal><a href=#__codelineno-0-17>17</a></span>
+<span class=normal><a href=#__codelineno-0-18>18</a></span>
+<span class=normal><a href=#__codelineno-0-19>19</a></span>
+<span class=normal><a href=#__codelineno-0-20>20</a></span>
+<span class=normal><a href=#__codelineno-0-21>21</a></span>
+<span class=normal><a href=#__codelineno-0-22>22</a></span>
+<span class=normal><a href=#__codelineno-0-23>23</a></span>
+<span class=normal><a href=#__codelineno-0-24>24</a></span>
+<span class=normal><a href=#__codelineno-0-25>25</a></span>
+<span class=normal><a href=#__codelineno-0-26>26</a></span>
+<span class=normal><a href=#__codelineno-0-27>27</a></span>
+<span class=normal><a href=#__codelineno-0-28>28</a></span>
+<span class=normal><a href=#__codelineno-0-29>29</a></span>
+<span class=normal><a href=#__codelineno-0-30>30</a></span>
+<span class=normal><a href=#__codelineno-0-31>31</a></span>
+<span class=normal><a href=#__codelineno-0-32>32</a></span>
+<span class=normal><a href=#__codelineno-0-33>33</a></span>
+<span class=normal><a href=#__codelineno-0-34>34</a></span>
+<span class=normal><a href=#__codelineno-0-35>35</a></span>
+<span class=normal><a href=#__codelineno-0-36>36</a></span>
+<span class=normal><a href=#__codelineno-0-37>37</a></span>
+<span class=normal><a href=#__codelineno-0-38>38</a></span>
+<span class=normal><a href=#__codelineno-0-39>39</a></span>
+<span class=normal><a href=#__codelineno-0-40>40</a></span>
+<span class=normal><a href=#__codelineno-0-41>41</a></span>
+<span class=normal><a href=#__codelineno-0-42>42</a></span>
+<span class=normal><a href=#__codelineno-0-43>43</a></span>
+<span class=normal><a href=#__codelineno-0-44>44</a></span>
+<span class=normal><a href=#__codelineno-0-45>45</a></span>
+<span class=normal><a href=#__codelineno-0-46>46</a></span>
+<span class=normal><a href=#__codelineno-0-47>47</a></span>
+<span class=normal><a href=#__codelineno-0-48>48</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>lab@rtme-mx301-01&gt; show isis database brief level 2 |match LSPs 
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>  2022 LSPs
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>lab@rtme-mx301-01&gt; show route summary 
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>Autonomous system number: 65000
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>Router ID: 10.255.152.59
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>Highwater Mark (All time / Time averaged watermark)
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>    RIB unique destination routes: 1521714 at 2025-12-15 05:36:54 / 0
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>    RIB routes                   : 2808095 at 2025-12-15 04:13:58 / 0
+<a id=__codelineno-0-11 name=__codelineno-0-11></a>    FIB routes                   : 1291504 at 2025-12-15 05:40:12 / 0
+<a id=__codelineno-0-12 name=__codelineno-0-12></a>    VRF type routing instances   : 0 at 2025-12-15 01:45:02
+<a id=__codelineno-0-13 name=__codelineno-0-13></a>
+<a id=__codelineno-0-14 name=__codelineno-0-14></a>inet.0: 1050840 destinations, 2092629 routes (1050839 active, 0 holddown, 1 hidden)
+<a id=__codelineno-0-15 name=__codelineno-0-15></a>              Direct:      9 routes,      8 active
+<a id=__codelineno-0-16 name=__codelineno-0-16></a>               Local:      4 routes,      4 active
+<a id=__codelineno-0-17 name=__codelineno-0-17></a>                 BGP: 2083576 routes, 1041788 active
+<a id=__codelineno-0-18 name=__codelineno-0-18></a>              Static:     20 routes,     20 active
+<a id=__codelineno-0-19 name=__codelineno-0-19></a>               IS-IS:   9019 routes,   9018 active
+<a id=__codelineno-0-20 name=__codelineno-0-20></a>                 LDP:      1 routes,      1 active
+<a id=__codelineno-0-21 name=__codelineno-0-21></a>
+<a id=__codelineno-0-22 name=__codelineno-0-22></a>inet.3: 2025 destinations, 2025 routes (2025 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-23 name=__codelineno-0-23></a>                 LDP:   2025 routes,   2025 active
+<a id=__codelineno-0-24 name=__codelineno-0-24></a>
+<a id=__codelineno-0-25 name=__codelineno-0-25></a>__raass__inet.inet.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-26 name=__codelineno-0-26></a>                RaaS:      2 routes,      2 active
+<a id=__codelineno-0-27 name=__codelineno-0-27></a>
+<a id=__codelineno-0-28 name=__codelineno-0-28></a>iso.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-29 name=__codelineno-0-29></a>              Direct:      2 routes,      2 active
+<a id=__codelineno-0-30 name=__codelineno-0-30></a>
+<a id=__codelineno-0-31 name=__codelineno-0-31></a>mpls.0: 2056 destinations, 2056 routes (2056 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-32 name=__codelineno-0-32></a>                MPLS:      6 routes,      6 active
+<a id=__codelineno-0-33 name=__codelineno-0-33></a>                 LDP:   2050 routes,   2050 active
+<a id=__codelineno-0-34 name=__codelineno-0-34></a>
+<a id=__codelineno-0-35 name=__codelineno-0-35></a>inet6.0: 238630 destinations, 477250 routes (238630 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-36 name=__codelineno-0-36></a>              Direct:      4 routes,      4 active
+<a id=__codelineno-0-37 name=__codelineno-0-37></a>               Local:      5 routes,      5 active
+<a id=__codelineno-0-38 name=__codelineno-0-38></a>                 BGP: 477240 routes, 238620 active
+<a id=__codelineno-0-39 name=__codelineno-0-39></a>               INET6:      1 routes,      1 active
+<a id=__codelineno-0-40 name=__codelineno-0-40></a>
+<a id=__codelineno-0-41 name=__codelineno-0-41></a>inet6.3: 2025 destinations, 2025 routes (2025 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-42 name=__codelineno-0-42></a>                 LDP:   2025 routes,   2025 active
+<a id=__codelineno-0-43 name=__codelineno-0-43></a>
+<a id=__codelineno-0-44 name=__codelineno-0-44></a>__raass__inet6.inet6.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-45 name=__codelineno-0-45></a>                RaaS:      2 routes,      2 active
+<a id=__codelineno-0-46 name=__codelineno-0-46></a>
+<a id=__codelineno-0-47 name=__codelineno-0-47></a>inetflow.0: 2003 destinations, 2003 routes (2003 active, 0 holddown, 0 hidden)
+<a id=__codelineno-0-48 name=__codelineno-0-48></a>                Flow:   2003 routes,   2003 active
+</code></pre></div></td></tr></table></div> <p>The second command shows us the 2K ISIS nodes:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1>1</a></span>
+<span class=normal><a href=#__codelineno-1-2>2</a></span>
+<span class=normal><a href=#__codelineno-1-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>lab@rtme-mx301-01&gt; show isis database level 2 | match LSP 
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>LSP ID                      Sequence Checksum Lifetime Attributes
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>  2022 LSPs
+</code></pre></div></td></tr></table></div> <p>As configured below, the PIC-Edge feature installs both the nominal and backup paths in the FIB.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span>
+<span class=normal><a href=#__codelineno-2-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>set routing-options rib inet6.0 protect core
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>set routing-options protect core
+</code></pre></div></td></tr></table></div> <p>In practice, we only consume a single "unlist next-hop" ,Äì not twice the full views. Thanks to the Trio's NextHop hierarchy, this "unilist next-hop" handles the nominal/backup forwarding next-hop indirection and consumes only a few more ASIC memory. Let's verify this using a well-known Internet route:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1> 1</a></span>
+<span class=normal><a href=#__codelineno-3-2> 2</a></span>
+<span class=normal><a href=#__codelineno-3-3> 3</a></span>
+<span class=normal><a href=#__codelineno-3-4> 4</a></span>
+<span class=normal><a href=#__codelineno-3-5> 5</a></span>
+<span class=normal><a href=#__codelineno-3-6> 6</a></span>
+<span class=normal><a href=#__codelineno-3-7> 7</a></span>
+<span class=normal><a href=#__codelineno-3-8> 8</a></span>
+<span class=normal><a href=#__codelineno-3-9> 9</a></span>
+<span class=normal><a href=#__codelineno-3-10>10</a></span>
+<span class=normal><a href=#__codelineno-3-11>11</a></span>
+<span class=normal><a href=#__codelineno-3-12>12</a></span>
+<span class=normal><a href=#__codelineno-3-13>13</a></span>
+<span class=normal><a href=#__codelineno-3-14>14</a></span>
+<span class=normal><a href=#__codelineno-3-15>15</a></span>
+<span class=normal><a href=#__codelineno-3-16>16</a></span>
+<span class=normal><a href=#__codelineno-3-17>17</a></span>
+<span class=normal><a href=#__codelineno-3-18>18</a></span>
+<span class=normal><a href=#__codelineno-3-19>19</a></span>
+<span class=normal><a href=#__codelineno-3-20>20</a></span>
+<span class=normal><a href=#__codelineno-3-21>21</a></span>
+<span class=normal><a href=#__codelineno-3-22>22</a></span>
+<span class=normal><a href=#__codelineno-3-23>23</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>lab@rtme-mx301-01&gt; show route forwarding-table destination 8.8.8.0/24 extensive 
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>Routing table: default.inet [Index 0] 
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>Internet:
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>Destination:  8.8.8.0/24
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>  Route type: user                  
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>  Route reference: 0                   Route interface-index: 0   
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>  Multicast RPF nh index: 0             
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>  P2mpidx: 0              
+<a id=__codelineno-3-10 name=__codelineno-3-10></a>  Flags: sent to PFE, rt nh decoupled  
+<a id=__codelineno-3-11 name=__codelineno-3-11></a>  Next-hop type: unilist               Index: 1048579  Reference: 1041789
+<a id=__codelineno-3-12 name=__codelineno-3-12></a>  Next-hop type: indirect              Index: 1048577  Reference: 2    
+<a id=__codelineno-3-13 name=__codelineno-3-13></a>                                    Weight: 0x1  &lt;&lt; NOMINAL BGP
+<a id=__codelineno-3-14 name=__codelineno-3-14></a>  Nexthop: 192.168.1.6
+<a id=__codelineno-3-15 name=__codelineno-3-15></a>  Next-hop type: Push 51450            Index: 876      Reference: 2    
+<a id=__codelineno-3-16 name=__codelineno-3-16></a>  Label: None              
+<a id=__codelineno-3-17 name=__codelineno-3-17></a>  Next-hop interface: ae0.0         Weight: 0x1  
+<a id=__codelineno-3-18 name=__codelineno-3-18></a>  Next-hop type: indirect              Index: 1048578  Reference: 2    
+<a id=__codelineno-3-19 name=__codelineno-3-19></a>                                    Weight: 0x4000   &lt;&lt; BACKUP BGP
+<a id=__codelineno-3-20 name=__codelineno-3-20></a>  Nexthop: 192.168.1.6
+<a id=__codelineno-3-21 name=__codelineno-3-21></a>  Next-hop type: Push 51451            Index: 877      Reference: 2    
+<a id=__codelineno-3-22 name=__codelineno-3-22></a>  Label: None              
+<a id=__codelineno-3-23 name=__codelineno-3-23></a>  Next-hop interface: ae1.0         Weight: 0x4000
+</code></pre></div></td></tr></table></div> <p>As mentioned, we also rely on IPFIX for exporting flow statistics to an external appliance. IPFIX is configured as follows ,Äì we only show the IPv4 config, but the config would be the same for IPv6 and MPLS family.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1> 1</a></span>
+<span class=normal><a href=#__codelineno-4-2> 2</a></span>
+<span class=normal><a href=#__codelineno-4-3> 3</a></span>
+<span class=normal><a href=#__codelineno-4-4> 4</a></span>
+<span class=normal><a href=#__codelineno-4-5> 5</a></span>
+<span class=normal><a href=#__codelineno-4-6> 6</a></span>
+<span class=normal><a href=#__codelineno-4-7> 7</a></span>
+<span class=normal><a href=#__codelineno-4-8> 8</a></span>
+<span class=normal><a href=#__codelineno-4-9> 9</a></span>
+<span class=normal><a href=#__codelineno-4-10>10</a></span>
+<span class=normal><a href=#__codelineno-4-11>11</a></span>
+<span class=normal><a href=#__codelineno-4-12>12</a></span>
+<span class=normal><a href=#__codelineno-4-13>13</a></span>
+<span class=normal><a href=#__codelineno-4-14>14</a></span>
+<span class=normal><a href=#__codelineno-4-15>15</a></span>
+<span class=normal><a href=#__codelineno-4-16>16</a></span>
+<span class=normal><a href=#__codelineno-4-17>17</a></span>
+<span class=normal><a href=#__codelineno-4-18>18</a></span>
+<span class=normal><a href=#__codelineno-4-19>19</a></span>
+<span class=normal><a href=#__codelineno-4-20>20</a></span>
+<span class=normal><a href=#__codelineno-4-21>21</a></span>
+<span class=normal><a href=#__codelineno-4-22>22</a></span>
+<span class=normal><a href=#__codelineno-4-23>23</a></span>
+<span class=normal><a href=#__codelineno-4-24>24</a></span>
+<span class=normal><a href=#__codelineno-4-25>25</a></span>
+<span class=normal><a href=#__codelineno-4-26>26</a></span>
+<span class=normal><a href=#__codelineno-4-27>27</a></span>
+<span class=normal><a href=#__codelineno-4-28>28</a></span>
+<span class=normal><a href=#__codelineno-4-29>29</a></span>
+<span class=normal><a href=#__codelineno-4-30>30</a></span>
+<span class=normal><a href=#__codelineno-4-31>31</a></span>
+<span class=normal><a href=#__codelineno-4-32>32</a></span>
+<span class=normal><a href=#__codelineno-4-33>33</a></span>
+<span class=normal><a href=#__codelineno-4-34>34</a></span>
+<span class=normal><a href=#__codelineno-4-35>35</a></span>
+<span class=normal><a href=#__codelineno-4-36>36</a></span>
+<span class=normal><a href=#__codelineno-4-37>37</a></span>
+<span class=normal><a href=#__codelineno-4-38>38</a></span>
+<span class=normal><a href=#__codelineno-4-39>39</a></span>
+<span class=normal><a href=#__codelineno-4-40>40</a></span>
+<span class=normal><a href=#__codelineno-4-41>41</a></span>
+<span class=normal><a href=#__codelineno-4-42>42</a></span>
+<span class=normal><a href=#__codelineno-4-43>43</a></span>
+<span class=normal><a href=#__codelineno-4-44>44</a></span>
+<span class=normal><a href=#__codelineno-4-45>45</a></span>
+<span class=normal><a href=#__codelineno-4-46>46</a></span>
+<span class=normal><a href=#__codelineno-4-47>47</a></span>
+<span class=normal><a href=#__codelineno-4-48>48</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>lab@rtme-mx301-01&gt; show configuration forwarding-options 
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>sampling {
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>    instance {
+<a id=__codelineno-4-4 name=__codelineno-4-4></a>        flow-ipfix {
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>            input {
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>                rate 4000;
+<a id=__codelineno-4-7 name=__codelineno-4-7></a>                max-packets-per-second 65535;
+<a id=__codelineno-4-8 name=__codelineno-4-8></a>            }
+<a id=__codelineno-4-9 name=__codelineno-4-9></a>            family inet {
+<a id=__codelineno-4-10 name=__codelineno-4-10></a>                output {
+<a id=__codelineno-4-11 name=__codelineno-4-11></a>                    flow-server 10.1.1.1 {
+<a id=__codelineno-4-12 name=__codelineno-4-12></a>                        port 9999;
+<a id=__codelineno-4-13 name=__codelineno-4-13></a>                        autonomous-system-type peer;
+<a id=__codelineno-4-14 name=__codelineno-4-14></a>                        no-local-dump;
+<a id=__codelineno-4-15 name=__codelineno-4-15></a>                        source-address 172.16.255.1;
+<a id=__codelineno-4-16 name=__codelineno-4-16></a>                        version-ipfix {
+<a id=__codelineno-4-17 name=__codelineno-4-17></a>                            template {
+<a id=__codelineno-4-18 name=__codelineno-4-18></a>                                template1;
+<a id=__codelineno-4-19 name=__codelineno-4-19></a>                            }
+<a id=__codelineno-4-20 name=__codelineno-4-20></a>                        }
+<a id=__codelineno-4-21 name=__codelineno-4-21></a>                    }
+<a id=__codelineno-4-22 name=__codelineno-4-22></a>                    inline-jflow {
+<a id=__codelineno-4-23 name=__codelineno-4-23></a>                        source-address 172.16.255.1;
+<a id=__codelineno-4-24 name=__codelineno-4-24></a>                    }
+<a id=__codelineno-4-25 name=__codelineno-4-25></a>                }
+<a id=__codelineno-4-26 name=__codelineno-4-26></a>            }
+<a id=__codelineno-4-27 name=__codelineno-4-27></a>[...]
+<a id=__codelineno-4-28 name=__codelineno-4-28></a>
+<a id=__codelineno-4-29 name=__codelineno-4-29></a>lab@rtme-mx301-01&gt; show configuration services 
+<a id=__codelineno-4-30 name=__codelineno-4-30></a>flow-monitoring {
+<a id=__codelineno-4-31 name=__codelineno-4-31></a>    version-ipfix {
+<a id=__codelineno-4-32 name=__codelineno-4-32></a>        template template1 {
+<a id=__codelineno-4-33 name=__codelineno-4-33></a>            flow-active-timeout 10;
+<a id=__codelineno-4-34 name=__codelineno-4-34></a>            flow-inactive-timeout 10;
+<a id=__codelineno-4-35 name=__codelineno-4-35></a>            nexthop-learning {
+<a id=__codelineno-4-36 name=__codelineno-4-36></a>                enable;
+<a id=__codelineno-4-37 name=__codelineno-4-37></a>            }
+<a id=__codelineno-4-38 name=__codelineno-4-38></a>            template-refresh-rate {
+<a id=__codelineno-4-39 name=__codelineno-4-39></a>                packets 100;
+<a id=__codelineno-4-40 name=__codelineno-4-40></a>                seconds 10;
+<a id=__codelineno-4-41 name=__codelineno-4-41></a>            }
+<a id=__codelineno-4-42 name=__codelineno-4-42></a>            option-refresh-rate {
+<a id=__codelineno-4-43 name=__codelineno-4-43></a>                packets 1000;
+<a id=__codelineno-4-44 name=__codelineno-4-44></a>                seconds 10;
+<a id=__codelineno-4-45 name=__codelineno-4-45></a>            }
+<a id=__codelineno-4-46 name=__codelineno-4-46></a>            ipv4-template;
+<a id=__codelineno-4-47 name=__codelineno-4-47></a>        } 
+<a id=__codelineno-4-48 name=__codelineno-4-48></a>[...]
+</code></pre></div></td></tr></table></div> <p>With this configuration and scaling, RPD consumes about 5% of the RE memory. The heap memory of the "pseudo-FPC" reaches 41%, while the NextHop ASIC memory partition still has 73% free space:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1> 1</a></span>
+<span class=normal><a href=#__codelineno-5-2> 2</a></span>
+<span class=normal><a href=#__codelineno-5-3> 3</a></span>
+<span class=normal><a href=#__codelineno-5-4> 4</a></span>
+<span class=normal><a href=#__codelineno-5-5> 5</a></span>
+<span class=normal><a href=#__codelineno-5-6> 6</a></span>
+<span class=normal><a href=#__codelineno-5-7> 7</a></span>
+<span class=normal><a href=#__codelineno-5-8> 8</a></span>
+<span class=normal><a href=#__codelineno-5-9> 9</a></span>
+<span class=normal><a href=#__codelineno-5-10>10</a></span>
+<span class=normal><a href=#__codelineno-5-11>11</a></span>
+<span class=normal><a href=#__codelineno-5-12>12</a></span>
+<span class=normal><a href=#__codelineno-5-13>13</a></span>
+<span class=normal><a href=#__codelineno-5-14>14</a></span>
+<span class=normal><a href=#__codelineno-5-15>15</a></span>
+<span class=normal><a href=#__codelineno-5-16>16</a></span>
+<span class=normal><a href=#__codelineno-5-17>17</a></span>
+<span class=normal><a href=#__codelineno-5-18>18</a></span>
+<span class=normal><a href=#__codelineno-5-19>19</a></span>
+<span class=normal><a href=#__codelineno-5-20>20</a></span>
+<span class=normal><a href=#__codelineno-5-21>21</a></span>
+<span class=normal><a href=#__codelineno-5-22>22</a></span>
+<span class=normal><a href=#__codelineno-5-23>23</a></span>
+<span class=normal><a href=#__codelineno-5-24>24</a></span>
+<span class=normal><a href=#__codelineno-5-25>25</a></span>
+<span class=normal><a href=#__codelineno-5-26>26</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>lab@rtme-mx301-01&gt; show task memory                           
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>Memory                 Size (kB)  Percentage  When
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>  Currently In Use:      4455064          5%  now
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>  Maximum Ever Used:     4736364          5%  25/12/15 05:15:02
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>  Available:            83809688        100%  now
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>lab@rtme-mx301-01&gt; show chassis fpc    
+<a id=__codelineno-5-8 name=__codelineno-5-8></a>                     Temp  CPU Utilization (%)   CPU Utilization (%)  Memory    Utilization (%)
+<a id=__codelineno-5-9 name=__codelineno-5-9></a>Slot State            (C)  Total  Interrupt      1min   5min   15min  DRAM (MB) Heap     Buffer
+<a id=__codelineno-5-10 name=__codelineno-5-10></a>  0  Online            43      3          0        2      2      5    32768      41          0
+<a id=__codelineno-5-11 name=__codelineno-5-11></a>
+<a id=__codelineno-5-12 name=__codelineno-5-12></a>lab@rtme-mx301-01&gt; show system resource-monitor fpc slot 0    
+<a id=__codelineno-5-13 name=__codelineno-5-13></a>FPC Resource Usage Summary
+<a id=__codelineno-5-14 name=__codelineno-5-14></a>
+<a id=__codelineno-5-15 name=__codelineno-5-15></a>Free Heap Mem Watermark         : 20  %
+<a id=__codelineno-5-16 name=__codelineno-5-16></a>Free NH Mem Watermark           : 20  %
+<a id=__codelineno-5-17 name=__codelineno-5-17></a>Free Filter Mem Watermark       : 20  %       
+<a id=__codelineno-5-18 name=__codelineno-5-18></a>
+<a id=__codelineno-5-19 name=__codelineno-5-19></a>* - Watermark reached
+<a id=__codelineno-5-20 name=__codelineno-5-20></a>
+<a id=__codelineno-5-21 name=__codelineno-5-21></a>Slot #         % Heap Free        RTT      Average RTT
+<a id=__codelineno-5-22 name=__codelineno-5-22></a>     0             58
+<a id=__codelineno-5-23 name=__codelineno-5-23></a>
+<a id=__codelineno-5-24 name=__codelineno-5-24></a>                 PFE #      % ENCAP mem Free      % NH mem Free      % FW mem Free         
+<a id=__codelineno-5-25 name=__codelineno-5-25></a>                    0                                 73                 99
+<a id=__codelineno-5-26 name=__codelineno-5-26></a>                    1                                 73                 99 
+</code></pre></div></td></tr></table></div> <h2 id=how-to-secure-the-network>How to Secure the Network?<a class=headerlink href=#how-to-secure-the-network title="Permanent link">¶</a></h2> <p>In the previous section, we detailed our baseline. To build this "secure" gateway use case, we will use four main Junos features.</p> <p><em>Note: Of course, there are other ways to secure a network architecture. BGP RTBH is one of the most popular, efficient, and simplest solutions to deploy destination blackholing at scale. However, in this article, we focus on a smarter approach that combines multiple Trio capabilities to mitigate various attack types against a destination while keeping it reachable.</em></p> <ul> <li>Unicast RPF (uRPF): for every packet entering the MX301 from an untrust interface, we will check the source IP address against the RIB (source lookup). uRPF provides only a basic, first-level source validation, which, by itself, is no longer sufficient from a security standpoint. But since Trio can easily support source lookup along with destination, without any performance degradation, why not add this feature to secure our infrastructure a bit more? We have the following three choices ,Äì in our example, we will select the third one, which offers a good compromise.</li> </ul> <p><strong>uRPF Strict Mode</strong>: BCP38 at the customer,ÄìSP edge. Each incoming packet is validated against the FIB. If the ingress interface does not match the best reverse path, the packet is dropped.</p> <p><strong>uRPF Loose Mode</strong>: sRTBH anywhere in the network. The router verifies only the presence of a route in the FIB. If no route exists, the packet is dropped; if a route is present, the packet is accepted. This mode is well-suited for sRTBH and for mitigating specific spoofed traffic at peering edges.</p> <p><strong>uRPF Feasible Path Mode</strong>: sRTBH anywhere in the network and BCP38 for multihomed or asymmetric environments. In feasible-path mode, the FIB retains multiple valid routes to a destination IP address. A packet is forwarded if its ingress interface matches any of these feasible paths; otherwise, it is dropped.</p> <ul> <li> <p>A set of static firewall filter terms and policers designed to mitigate well-known DDoS attack patterns. In practice, DDoS attacks are most often a combination of amplification attacks and dynamic attacks. Amplification attacks exploit vulnerabilities in well-known network services to generate large volumes of DDoS traffic, typically consisting of large UDP packets and fragmented payloads. Common amplification vectors include DNS and NTP service vulnerabilities but not only. The signature of these kinds of attacks is well-known. Why policing and not dropping those attacks instead? The challenge with the Amplification Attacks is that they use standard protocols that are very useful, like DNS. Dropping all the DNS traffic will bring you a lot of trouble, as you may imagine J. So, the idea with these static filters is to dramatically limit the load from these attacks and leave enough bandwidth in the nominal state for forwarding legitimate traffic associated with those network services.</p> </li> <li> <p>BGP FlowSpec, together with its new FLT acceleration, is the third security mechanism used to precisely blackhole dynamic attack signatures, which are most often observed alongside amplification attacks (but not always). This approach provides a much more granular, targeted mitigation, allowing us to eliminate the remaining traffic from a complex attack. In this article, we use IPFIX as the flow observability protocol. IPFIX is enabled on all ingress interfaces and exports flow records to an external appliance, which quickly identifies dynamic attack signatures and generates corresponding BGP FlowSpec updates toward our security gateway. The details of this scrubbing solution are beyond the scope of this article.</p> </li> <li> <p>Finally, we will leverage the Juniper Streaming Telemetry stack to monitor in real time all "data-plane" counters associated with the three previously described features. This allows monitoring and NOC teams to observe the benefits of each solution under different attack types in real time.</p> </li> </ul> <h2 id=putting-our-mx301-under-attack>Putting our MX301 Under Attack<a class=headerlink href=#putting-our-mx301-under-attack title="Permanent link">¶</a></h2> <p>For now, let's assume that our MX301 has no security features enabled, except for BGP FlowSpec and the FLT acceleration described in our previous article [1]. We also assume that 2K FlowSpec routes,Äîof varying complexity,Äîare already installed. Their complexity is not a concern here, as we rely on FLT acceleration.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>set routing-options rib inet6.0 flow fast-lookup-filter
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>set routing-options flow fast-lookup-filter
+</code></pre></div></td></tr></table></div> <p>But, why this baseline of pre-installed FlowSpec rules? First, to stress a bit more the MX301, but we could also imagine this "customer" uses BGP FlowSpec not only to mitigate Dynamic DDoS attacks but also to blackhole some well-known illegal destinations/contents permanently.</p> <p>Let's focus our eyes on these interfaces:</p> <ul> <li>Untrust interface: ae0 made of 2x400GE ports (one port per PFE)</li> <li>Trust interface: ae2 made of 1 single 400GE port.</li> </ul> <p>As mentioned earlier, we have nothing fancy configured by default on these interfaces ,Äì just IPFIX to provide flow statistics to an external scrubbing center.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1> 1</a></span>
+<span class=normal><a href=#__codelineno-7-2> 2</a></span>
+<span class=normal><a href=#__codelineno-7-3> 3</a></span>
+<span class=normal><a href=#__codelineno-7-4> 4</a></span>
+<span class=normal><a href=#__codelineno-7-5> 5</a></span>
+<span class=normal><a href=#__codelineno-7-6> 6</a></span>
+<span class=normal><a href=#__codelineno-7-7> 7</a></span>
+<span class=normal><a href=#__codelineno-7-8> 8</a></span>
+<span class=normal><a href=#__codelineno-7-9> 9</a></span>
+<span class=normal><a href=#__codelineno-7-10>10</a></span>
+<span class=normal><a href=#__codelineno-7-11>11</a></span>
+<span class=normal><a href=#__codelineno-7-12>12</a></span>
+<span class=normal><a href=#__codelineno-7-13>13</a></span>
+<span class=normal><a href=#__codelineno-7-14>14</a></span>
+<span class=normal><a href=#__codelineno-7-15>15</a></span>
+<span class=normal><a href=#__codelineno-7-16>16</a></span>
+<span class=normal><a href=#__codelineno-7-17>17</a></span>
+<span class=normal><a href=#__codelineno-7-18>18</a></span>
+<span class=normal><a href=#__codelineno-7-19>19</a></span>
+<span class=normal><a href=#__codelineno-7-20>20</a></span>
+<span class=normal><a href=#__codelineno-7-21>21</a></span>
+<span class=normal><a href=#__codelineno-7-22>22</a></span>
+<span class=normal><a href=#__codelineno-7-23>23</a></span>
+<span class=normal><a href=#__codelineno-7-24>24</a></span>
+<span class=normal><a href=#__codelineno-7-25>25</a></span>
+<span class=normal><a href=#__codelineno-7-26>26</a></span>
+<span class=normal><a href=#__codelineno-7-27>27</a></span>
+<span class=normal><a href=#__codelineno-7-28>28</a></span>
+<span class=normal><a href=#__codelineno-7-29>29</a></span>
+<span class=normal><a href=#__codelineno-7-30>30</a></span>
+<span class=normal><a href=#__codelineno-7-31>31</a></span>
+<span class=normal><a href=#__codelineno-7-32>32</a></span>
+<span class=normal><a href=#__codelineno-7-33>33</a></span>
+<span class=normal><a href=#__codelineno-7-34>34</a></span>
+<span class=normal><a href=#__codelineno-7-35>35</a></span>
+<span class=normal><a href=#__codelineno-7-36>36</a></span>
+<span class=normal><a href=#__codelineno-7-37>37</a></span>
+<span class=normal><a href=#__codelineno-7-38>38</a></span>
+<span class=normal><a href=#__codelineno-7-39>39</a></span>
+<span class=normal><a href=#__codelineno-7-40>40</a></span>
+<span class=normal><a href=#__codelineno-7-41>41</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>lab@rtme-mx301-01&gt; show configuration interfaces ae0 
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>description TO_INTERNET;
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>unit 0 {
+<a id=__codelineno-7-4 name=__codelineno-7-4></a>    family inet {
+<a id=__codelineno-7-5 name=__codelineno-7-5></a>        filter {
+<a id=__codelineno-7-6 name=__codelineno-7-6></a>            group 1;
+<a id=__codelineno-7-7 name=__codelineno-7-7></a>        }
+<a id=__codelineno-7-8 name=__codelineno-7-8></a>        sampling {
+<a id=__codelineno-7-9 name=__codelineno-7-9></a>            input;
+<a id=__codelineno-7-10 name=__codelineno-7-10></a>        }
+<a id=__codelineno-7-11 name=__codelineno-7-11></a>        address 172.16.254.1/31;
+<a id=__codelineno-7-12 name=__codelineno-7-12></a>    }
+<a id=__codelineno-7-13 name=__codelineno-7-13></a>    family inet6 {
+<a id=__codelineno-7-14 name=__codelineno-7-14></a>        filter {
+<a id=__codelineno-7-15 name=__codelineno-7-15></a>            group 1;
+<a id=__codelineno-7-16 name=__codelineno-7-16></a>        }
+<a id=__codelineno-7-17 name=__codelineno-7-17></a>        sampling {
+<a id=__codelineno-7-18 name=__codelineno-7-18></a>            input;
+<a id=__codelineno-7-19 name=__codelineno-7-19></a>        }
+<a id=__codelineno-7-20 name=__codelineno-7-20></a>        address 2001:cafe:254::1/127;
+<a id=__codelineno-7-21 name=__codelineno-7-21></a>    }
+<a id=__codelineno-7-22 name=__codelineno-7-22></a>}
+<a id=__codelineno-7-23 name=__codelineno-7-23></a>
+<a id=__codelineno-7-24 name=__codelineno-7-24></a>lab@rtme-mx301-01&gt; show configuration interfaces ae2    
+<a id=__codelineno-7-25 name=__codelineno-7-25></a>description TO_POP_2;
+<a id=__codelineno-7-26 name=__codelineno-7-26></a>mtu 9200;
+<a id=__codelineno-7-27 name=__codelineno-7-27></a>unit 0 {
+<a id=__codelineno-7-28 name=__codelineno-7-28></a>    family inet {
+<a id=__codelineno-7-29 name=__codelineno-7-29></a>        sampling {
+<a id=__codelineno-7-30 name=__codelineno-7-30></a>            input;
+<a id=__codelineno-7-31 name=__codelineno-7-31></a>        }
+<a id=__codelineno-7-32 name=__codelineno-7-32></a>        address 192.85.1.1/24;
+<a id=__codelineno-7-33 name=__codelineno-7-33></a>    }
+<a id=__codelineno-7-34 name=__codelineno-7-34></a>    family inet6 {
+<a id=__codelineno-7-35 name=__codelineno-7-35></a>        sampling {
+<a id=__codelineno-7-36 name=__codelineno-7-36></a>            input;
+<a id=__codelineno-7-37 name=__codelineno-7-37></a>        }
+<a id=__codelineno-7-38 name=__codelineno-7-38></a>        address 2001::1/64;
+<a id=__codelineno-7-39 name=__codelineno-7-39></a>    }
+<a id=__codelineno-7-40 name=__codelineno-7-40></a>    family mpls;
+<a id=__codelineno-7-41 name=__codelineno-7-41></a>}    
+</code></pre></div></td></tr></table></div> <p>However, you may notice that we also configured "filter group 1" on both families of ae0. Why is that? Recall that FlowSpec is enabled by default on all interfaces. Here, we want to apply FS only on untrust interfaces. To achieve this, we assigned the arbitrary group ID "1" to those interfaces and explicitly bound FlowSpec to this group:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1>1</a></span>
+<span class=normal><a href=#__codelineno-8-2>2</a></span>
+<span class=normal><a href=#__codelineno-8-3>3</a></span>
+<span class=normal><a href=#__codelineno-8-4>4</a></span>
+<span class=normal><a href=#__codelineno-8-5>5</a></span>
+<span class=normal><a href=#__codelineno-8-6>6</a></span>
+<span class=normal><a href=#__codelineno-8-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>lab@rtme-mx301-01&gt; show configuration routing-options flow                     
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>interface-group 1;
+<a id=__codelineno-8-3 name=__codelineno-8-3></a>fast-lookup-filter;
+<a id=__codelineno-8-4 name=__codelineno-8-4></a>
+<a id=__codelineno-8-5 name=__codelineno-8-5></a>lab@rtme-mx301-01&gt; show configuration routing-options rib inet6.0 flow    
+<a id=__codelineno-8-6 name=__codelineno-8-6></a>interface-group 1;
+<a id=__codelineno-8-7 name=__codelineno-8-7></a>fast-lookup-filter;
+</code></pre></div></td></tr></table></div> <p>Based on this initial configuration, let's assume these legitimate flows constitute the traffic baseline. All flows are IPv4, but everything we will describe later in this article is fully applicable to IPv6.</p> <table> <thead> <tr> <th style="text-align: left;">Flow</th> <th style="text-align: left;">Direction</th> <th style="text-align: left;">Throughput bps or rate pps</th> <th style="text-align: left;">Traffic pattern</th> <th style="text-align: left;">Description</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">Customer traffic downstream</td> <td style="text-align: left;">AE0 to AE2</td> <td style="text-align: left;">240Gbps / 30Mpps</td> <td style="text-align: left;">IMIX</td> <td style="text-align: left;">Typical Internet traffic</td> </tr> <tr> <td style="text-align: left;">Customer trafficupstream</td> <td style="text-align: left;">AE2 to AE0</td> <td style="text-align: left;">100Gbps / 12Mpps</td> <td style="text-align: left;">IMIX</td> <td style="text-align: left;">Typical Internet traffic</td> </tr> <tr> <td style="text-align: left;">Legitimate DNS traffic (to recursive DNS)</td> <td style="text-align: left;">AE0 to AE0</td> <td style="text-align: left;">200Mbps / 90Kpps</td> <td style="text-align: left;">~256 Bytes</td> <td style="text-align: left;">Simulate "Internet DNS" responses toward the Customer Recursive DNS</td> </tr> </tbody> </table><p class=table-caption style="text-align:center; font-style:italic;">Table 1: Legitimate baseline traffic.</p> <p>Why do we simulate legitimate DNS server traffic? The goal is to illustrate further the complexity of handling DNS amplification attacks. As is well known, the DNS infrastructure is highly distributed. In our example, we assume a fictitious customer operating both recursive and authoritative DNS servers. To briefly simplify the DNS workflow: the customer's recursive DNS server processes end-user DNS queries. It first checks its local cache and, if no entry is found, it recursively queries the DNS hierarchy (root servers, then authoritative DNS servers). These external DNS servers respond to the customer's recursive DNS queries, typically using source port 53. The customer's authoritative DNS server is responsible for serving records for the customer's own domain names. Let's consider our customer has 2 Recursive DNS VIP:</p> <ul> <li>10.0.0.1/32</li> <li>10.0.0.2/32</li> </ul> <p>Also, remind you, we monitor via streaming telemetry the interface throughput that confirms everything is well forwarded:</p> <p><figure><img alt="Physical Interface traffic monitoring via Telemetry" src=../images/picture4.png><figcaption>Figure 3: Physical Interface traffic monitoring via Telemetry</figcaption></figure></p> <p>And our tester also monitors transmitted and received traffic ,Äì as seen below, everything is forwarded well:</p> <table> <thead> <tr> <th style="text-align: left;">Type of traffic</th> <th style="text-align: left;">Direction</th> <th style="text-align: left;">Tx L1 Rate (bps)</th> <th style="text-align: left;">Rx L1 Rate (bps)</th> <th style="text-align: left;">Tx Rate (fps)</th> <th style="text-align: left;">Rx Rate (fps)</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">Legitimate Downstream customer traffic</td> <td style="text-align: left;">AE0 to AE2</td> <td style="text-align: left;">240,022,896,663</td> <td style="text-align: left;">240,022,904,892</td> <td style="text-align: left;">30,460,810</td> <td style="text-align: left;">30,460,792</td> </tr> <tr> <td style="text-align: left;">Legitimate DNS Traffic</td> <td style="text-align: left;">AE0 to AE2</td> <td style="text-align: left;">197,913,101</td> <td style="text-align: left;">197,913,023</td> <td style="text-align: left;">89,635</td> <td style="text-align: left;">89,634</td> </tr> <tr> <td style="text-align: left;">Legitimate Upstream customer traffic</td> <td style="text-align: left;">AE2 to AE0</td> <td style="text-align: left;">99,999,999,667</td> <td style="text-align: left;">100,000,010,902</td> <td style="text-align: left;">12,690,791</td> <td style="text-align: left;">12,690,692</td> </tr> </tbody> </table><p class=table-caption style="text-align:center; font-style:italic;">Table 2: Baseline traffic statistics collected by the tester</p> <p>Now, the idea is to simulate a complex DDoS attack by combining private IP address spoofing, DNS amplification, and dynamic TCP attacks.</p> <p>Important note of the simulated attack: All these parallel flows will target a single IPv4 destination host located inside the customer's network. In this example, this host represents our critical resource under attack. Let's assume the IP address is 192.168.1.1/32 (in real life, this would be a public IP).</p> <p>Here is the profile of the DDoS attack received on the ae0 interface:</p> <table> <thead> <tr> <th style="text-align: left;">Flow</th> <th style="text-align: left;">Throughput bps or rate pps</th> <th style="text-align: left;">Traffic pattern</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">IP spoofing target</td> <td style="text-align: left;">7.3Gbps / 3Mpps</td> <td style="text-align: left;">Size 256 Bytes - Random IP Source (IP Spoofed from customer's IP ranges)</td> </tr> <tr> <td style="text-align: left;">DNS Amplification</td> <td style="text-align: left;">158Gbps / 13.3Mpps</td> <td style="text-align: left;">Size 1500Bytes - UDP port source 53</td> </tr> <tr> <td style="text-align: left;">DNS Amplification</td> <td style="text-align: left;">158Gbps / 13.3Mpps</td> <td style="text-align: left;">Size 1500Bytes (except the last frag) - UDP fragments (trailing packets of the DNS attack)</td> </tr> <tr> <td style="text-align: left;">Dynamic TCP Attack</td> <td style="text-align: left;">72Gbps / 46Mpps</td> <td style="text-align: left;">Random Size 128-256 Bytes ,Äì TCP random IP Source, Random Source Ports, 4 Destination Ports: 1024, 1025, 1026, 5000</td> </tr> </tbody> </table><p class=table-caption style="text-align:center; font-style:italic;">Table 3: Flow attacks definition</p> <p>Let's start our attacks. As you can see below, the physical port et-0/0/0, a member link of the ae2 trust interface, is totally overloaded and experiences massive RED drops. This is expected, since ae0 receives more than 600 Gbps, while ae2 (the interface on which 192.168.1.1/32 is reachable) has a maximum capacity of 400 Gbps.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1> 1</a></span>
+<span class=normal><a href=#__codelineno-9-2> 2</a></span>
+<span class=normal><a href=#__codelineno-9-3> 3</a></span>
+<span class=normal><a href=#__codelineno-9-4> 4</a></span>
+<span class=normal><a href=#__codelineno-9-5> 5</a></span>
+<span class=normal><a href=#__codelineno-9-6> 6</a></span>
+<span class=normal><a href=#__codelineno-9-7> 7</a></span>
+<span class=normal><a href=#__codelineno-9-8> 8</a></span>
+<span class=normal><a href=#__codelineno-9-9> 9</a></span>
+<span class=normal><a href=#__codelineno-9-10>10</a></span>
+<span class=normal><a href=#__codelineno-9-11>11</a></span>
+<span class=normal><a href=#__codelineno-9-12>12</a></span>
+<span class=normal><a href=#__codelineno-9-13>13</a></span>
+<span class=normal><a href=#__codelineno-9-14>14</a></span>
+<span class=normal><a href=#__codelineno-9-15>15</a></span>
+<span class=normal><a href=#__codelineno-9-16>16</a></span>
+<span class=normal><a href=#__codelineno-9-17>17</a></span>
+<span class=normal><a href=#__codelineno-9-18>18</a></span>
+<span class=normal><a href=#__codelineno-9-19>19</a></span>
+<span class=normal><a href=#__codelineno-9-20>20</a></span>
+<span class=normal><a href=#__codelineno-9-21>21</a></span>
+<span class=normal><a href=#__codelineno-9-22>22</a></span>
+<span class=normal><a href=#__codelineno-9-23>23</a></span>
+<span class=normal><a href=#__codelineno-9-24>24</a></span>
+<span class=normal><a href=#__codelineno-9-25>25</a></span>
+<span class=normal><a href=#__codelineno-9-26>26</a></span>
+<span class=normal><a href=#__codelineno-9-27>27</a></span>
+<span class=normal><a href=#__codelineno-9-28>28</a></span>
+<span class=normal><a href=#__codelineno-9-29>29</a></span>
+<span class=normal><a href=#__codelineno-9-30>30</a></span>
+<span class=normal><a href=#__codelineno-9-31>31</a></span>
+<span class=normal><a href=#__codelineno-9-32>32</a></span>
+<span class=normal><a href=#__codelineno-9-33>33</a></span>
+<span class=normal><a href=#__codelineno-9-34>34</a></span>
+<span class=normal><a href=#__codelineno-9-35>35</a></span>
+<span class=normal><a href=#__codelineno-9-36>36</a></span>
+<span class=normal><a href=#__codelineno-9-37>37</a></span>
+<span class=normal><a href=#__codelineno-9-38>38</a></span>
+<span class=normal><a href=#__codelineno-9-39>39</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>lab@rtme-mx301-01&gt; show interfaces queue et-0/0/0  
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>Physical interface: et-0/0/0, Enabled, Physical link is Up
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>  Interface index: 158, SNMP ifIndex: 534
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>  Description: TO_POP_2
+<a id=__codelineno-9-5 name=__codelineno-9-5></a>Forwarding classes: 16 supported, 6 in use
+<a id=__codelineno-9-6 name=__codelineno-9-6></a>Egress queues: 8 supported, 6 in use
+<a id=__codelineno-9-7 name=__codelineno-9-7></a>Queue: 0, Forwarding classes: BEST-EFFORT
+<a id=__codelineno-9-8 name=__codelineno-9-8></a>  Queued:
+<a id=__codelineno-9-9 name=__codelineno-9-9></a>    Packets              :          134671505681             132068620 pps
+<a id=__codelineno-9-10 name=__codelineno-9-10></a>    Bytes                :        75562459379016          627097108480 bps
+<a id=__codelineno-9-11 name=__codelineno-9-11></a>  Transmitted:
+<a id=__codelineno-9-12 name=__codelineno-9-12></a>    Packets              :          109413590220              81493768 pps
+<a id=__codelineno-9-13 name=__codelineno-9-13></a>    Bytes                :        60570127525651          386967339008 bps
+<a id=__codelineno-9-14 name=__codelineno-9-14></a>    Tail-dropped packets :                     0                     0 pps
+<a id=__codelineno-9-15 name=__codelineno-9-15></a>    RL-dropped packets   :                     0                     0 pps
+<a id=__codelineno-9-16 name=__codelineno-9-16></a>    RL-dropped bytes     :                     0                     0 bps
+<a id=__codelineno-9-17 name=__codelineno-9-17></a>    RED-dropped packets  :           25257915461              50574852 pps
+<a id=__codelineno-9-18 name=__codelineno-9-18></a>     Low                 :           25257915461              50574852 pps
+<a id=__codelineno-9-19 name=__codelineno-9-19></a>     Medium-low          :                     0                     0 pps
+<a id=__codelineno-9-20 name=__codelineno-9-20></a>     Medium-high         :                     0                     0 pps
+<a id=__codelineno-9-21 name=__codelineno-9-21></a>     High                :                     0                     0 pps
+<a id=__codelineno-9-22 name=__codelineno-9-22></a>    RED-dropped bytes    :        14992331853365          240129769472 bps
+<a id=__codelineno-9-23 name=__codelineno-9-23></a>     Low                 :        14992331853365          240129769472 bps
+<a id=__codelineno-9-24 name=__codelineno-9-24></a>     Medium-low          :                     0                     0 bps
+<a id=__codelineno-9-25 name=__codelineno-9-25></a>     Medium-high         :                     0                     0 bps
+<a id=__codelineno-9-26 name=__codelineno-9-26></a>     High                :                     0                     0 bps
+<a id=__codelineno-9-27 name=__codelineno-9-27></a>  Queue-depth bytes      : 
+<a id=__codelineno-9-28 name=__codelineno-9-28></a>    Average              :            1233108992
+<a id=__codelineno-9-29 name=__codelineno-9-29></a>    Current              :            1233550187
+<a id=__codelineno-9-30 name=__codelineno-9-30></a>    Peak                 :            1234426636
+<a id=__codelineno-9-31 name=__codelineno-9-31></a>    Maximum              :            1258291200
+<a id=__codelineno-9-32 name=__codelineno-9-32></a>
+<a id=__codelineno-9-33 name=__codelineno-9-33></a>lab@rtme-mx301-01&gt; show interfaces ae0 | match rate    
+<a id=__codelineno-9-34 name=__codelineno-9-34></a>  Input rate     : 606975448960 bps (132067379 pps)
+<a id=__codelineno-9-35 name=__codelineno-9-35></a>  Output rate    : 96143530352 bps (12691126 pps)
+<a id=__codelineno-9-36 name=__codelineno-9-36></a>
+<a id=__codelineno-9-37 name=__codelineno-9-37></a>lab@rtme-mx301-01&gt; show interfaces ae2 | match rate    
+<a id=__codelineno-9-38 name=__codelineno-9-38></a>  Input rate     : 96142644648 bps (12690704 pps)
+<a id=__codelineno-9-39 name=__codelineno-9-39></a>  Output rate    : 374550573856 bps (81503216 pps)   
+</code></pre></div></td></tr></table></div> <p>Thanks to the rich Junos data-plane telemetry sensors, we can confirm and monitor these drops. As shown below, we observe the "peak of traffic" on ae2, Queue 0 being full, and the RED engine working heavily by dropping a large amount of "Internet traffic."</p> <p><figure><img alt="Egress Port congestion" src=../images/picture5.png><figcaption>Figure 4: Egress Port congestion</figcaption></figure></p> <p><figure><img alt="Queue Depth real-time monitoring" src=../images/picture6.png><figcaption>Figure 5: Queue Depth real-time monitoring</figcaption></figure></p> <p><figure><img alt="Per-Queue and port RED/TAIL drops monitoring" src=../images/picture7.png><figcaption>Figure 6: Per-Queue and port RED/TAIL drops monitoring</figcaption></figure></p> <p>Now, if we look at the tester's statistics, we can confirm that this DDoS attack has a significant impact on our downstream legitimate traffic, including DNS traffic.</p> <table> <thead> <tr> <th style="text-align: left;">Type of traffic</th> <th style="text-align: left;">Direction</th> <th style="text-align: left;">Tx L1 Rate (bps)</th> <th style="text-align: left;">Rx L1 Rate (bps)</th> <th style="text-align: left;">Tx Rate (fps)</th> <th style="text-align: left;">Rx Rate (fps)</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">Legitimate Downstream customer traffic</td> <td style="text-align: left;">AE0 to AE2</td> <td style="text-align: left;">239,904,620,780</td> <td style="text-align: left;">148,244,312,502</td> <td style="text-align: left;">30,445,733</td> <td style="text-align: left;">18,800,049</td> </tr> <tr> <td style="text-align: left;">Legitimate DNS Traffic</td> <td style="text-align: left;">AE0 to AE2</td> <td style="text-align: left;">197,912,101</td> <td style="text-align: left;">72,002,114</td> <td style="text-align: left;">89,632</td> <td style="text-align: left;">32,610</td> </tr> <tr> <td style="text-align: left;">Legitimate Upstream customer traffic</td> <td style="text-align: left;">AE2 to AE0</td> <td style="text-align: left;">100,000,001,318</td> <td style="text-align: left;">99,999,988,451</td> <td style="text-align: left;">12,690,787</td> <td style="text-align: left;">12,690,945</td> </tr> </tbody> </table><p class=table-caption style="text-align:center; font-style:italic;">Table 4: Traffic impact measured by the Tester</p> <h2 id=secure-the-customers-infra>Secure the Customer's Infra<a class=headerlink href=#secure-the-customers-infra title="Permanent link">¶</a></h2> <p>Now, it's time to secure our trust infrastructure. First, we will enable uRPF strict mode with the <strong>feasible-paths</strong> option. As mentioned earlier, nowadays, uRPF does not help much, but why deprive ourselves of this feature if Trio enables it without compromise? It could help our customer to mitigate some IP spoofing attacks. Let's start by enabling the "feasible-paths" uRPF option globally:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>set routing-options forwarding-table unicast-reverse-path feasible-paths
+</code></pre></div></td></tr></table></div> <p>Then, we create a dedicated firewall filter that applies the "discard" "log," and "count" actions for spoofed IP traffic.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1> 1</a></span>
+<span class=normal><a href=#__codelineno-11-2> 2</a></span>
+<span class=normal><a href=#__codelineno-11-3> 3</a></span>
+<span class=normal><a href=#__codelineno-11-4> 4</a></span>
+<span class=normal><a href=#__codelineno-11-5> 5</a></span>
+<span class=normal><a href=#__codelineno-11-6> 6</a></span>
+<span class=normal><a href=#__codelineno-11-7> 7</a></span>
+<span class=normal><a href=#__codelineno-11-8> 8</a></span>
+<span class=normal><a href=#__codelineno-11-9> 9</a></span>
+<span class=normal><a href=#__codelineno-11-10>10</a></span>
+<span class=normal><a href=#__codelineno-11-11>11</a></span>
+<span class=normal><a href=#__codelineno-11-12>12</a></span>
+<span class=normal><a href=#__codelineno-11-13>13</a></span>
+<span class=normal><a href=#__codelineno-11-14>14</a></span>
+<span class=normal><a href=#__codelineno-11-15>15</a></span>
+<span class=normal><a href=#__codelineno-11-16>16</a></span>
+<span class=normal><a href=#__codelineno-11-17>17</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>lab@rtme-mx301-01&gt; show configuration firewall family inet filter uRPFv4 
+<a id=__codelineno-11-2 name=__codelineno-11-2></a>term 1 {
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>    then {
+<a id=__codelineno-11-4 name=__codelineno-11-4></a>        count urpfv4;
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>        log;
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>        discard;
+<a id=__codelineno-11-7 name=__codelineno-11-7></a>    }
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>}
+<a id=__codelineno-11-9 name=__codelineno-11-9></a>
+<a id=__codelineno-11-10 name=__codelineno-11-10></a>lab@rtme-mx301-01&gt; show configuration firewall family inet6 filter uRPFv6   
+<a id=__codelineno-11-11 name=__codelineno-11-11></a>term 1 {
+<a id=__codelineno-11-12 name=__codelineno-11-12></a>    then {
+<a id=__codelineno-11-13 name=__codelineno-11-13></a>        count urpfv6;
+<a id=__codelineno-11-14 name=__codelineno-11-14></a>        log;
+<a id=__codelineno-11-15 name=__codelineno-11-15></a>        discard;
+<a id=__codelineno-11-16 name=__codelineno-11-16></a>    }
+<a id=__codelineno-11-17 name=__codelineno-11-17></a>}
+</code></pre></div></td></tr></table></div> <p>Finally, enable IPv4 and IPv6 uRPF feature on Untrust interfaces (i.e. ae0):</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1> 1</a></span>
+<span class=normal><a href=#__codelineno-12-2> 2</a></span>
+<span class=normal><a href=#__codelineno-12-3> 3</a></span>
+<span class=normal><a href=#__codelineno-12-4> 4</a></span>
+<span class=normal><a href=#__codelineno-12-5> 5</a></span>
+<span class=normal><a href=#__codelineno-12-6> 6</a></span>
+<span class=normal><a href=#__codelineno-12-7> 7</a></span>
+<span class=normal><a href=#__codelineno-12-8> 8</a></span>
+<span class=normal><a href=#__codelineno-12-9> 9</a></span>
+<span class=normal><a href=#__codelineno-12-10>10</a></span>
+<span class=normal><a href=#__codelineno-12-11>11</a></span>
+<span class=normal><a href=#__codelineno-12-12>12</a></span>
+<span class=normal><a href=#__codelineno-12-13>13</a></span>
+<span class=normal><a href=#__codelineno-12-14>14</a></span>
+<span class=normal><a href=#__codelineno-12-15>15</a></span>
+<span class=normal><a href=#__codelineno-12-16>16</a></span>
+<span class=normal><a href=#__codelineno-12-17>17</a></span>
+<span class=normal><a href=#__codelineno-12-18>18</a></span>
+<span class=normal><a href=#__codelineno-12-19>19</a></span>
+<span class=normal><a href=#__codelineno-12-20>20</a></span>
+<span class=normal><a href=#__codelineno-12-21>21</a></span>
+<span class=normal><a href=#__codelineno-12-22>22</a></span>
+<span class=normal><a href=#__codelineno-12-23>23</a></span>
+<span class=normal><a href=#__codelineno-12-24>24</a></span>
+<span class=normal><a href=#__codelineno-12-25>25</a></span>
+<span class=normal><a href=#__codelineno-12-26>26</a></span>
+<span class=normal><a href=#__codelineno-12-27>27</a></span>
+<span class=normal><a href=#__codelineno-12-28>28</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>lab@rtme-mx301-01&gt; show configuration interfaces ae0 
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>description TO_INTERNET;
+<a id=__codelineno-12-3 name=__codelineno-12-3></a>unit 0 {
+<a id=__codelineno-12-4 name=__codelineno-12-4></a>    family inet {
+<a id=__codelineno-12-5 name=__codelineno-12-5></a>        rpf-check {
+<a id=__codelineno-12-6 name=__codelineno-12-6></a>            fail-filter uRPFv4;
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>        }
+<a id=__codelineno-12-8 name=__codelineno-12-8></a>        filter {
+<a id=__codelineno-12-9 name=__codelineno-12-9></a>            group 1;
+<a id=__codelineno-12-10 name=__codelineno-12-10></a>        }
+<a id=__codelineno-12-11 name=__codelineno-12-11></a>        sampling {
+<a id=__codelineno-12-12 name=__codelineno-12-12></a>            input;
+<a id=__codelineno-12-13 name=__codelineno-12-13></a>        }
+<a id=__codelineno-12-14 name=__codelineno-12-14></a>        address 172.16.254.1/31;
+<a id=__codelineno-12-15 name=__codelineno-12-15></a>    }
+<a id=__codelineno-12-16 name=__codelineno-12-16></a>    family inet6 {
+<a id=__codelineno-12-17 name=__codelineno-12-17></a>        rpf-check {
+<a id=__codelineno-12-18 name=__codelineno-12-18></a>            fail-filter uRPFv6;
+<a id=__codelineno-12-19 name=__codelineno-12-19></a>        }
+<a id=__codelineno-12-20 name=__codelineno-12-20></a>        filter {
+<a id=__codelineno-12-21 name=__codelineno-12-21></a>            group 1;
+<a id=__codelineno-12-22 name=__codelineno-12-22></a>        }
+<a id=__codelineno-12-23 name=__codelineno-12-23></a>        sampling {
+<a id=__codelineno-12-24 name=__codelineno-12-24></a>            input;
+<a id=__codelineno-12-25 name=__codelineno-12-25></a>        }
+<a id=__codelineno-12-26 name=__codelineno-12-26></a>        address 2001:cafe:254::1/127;
+<a id=__codelineno-12-27 name=__codelineno-12-27></a>    }
+<a id=__codelineno-12-28 name=__codelineno-12-28></a>}
+</code></pre></div></td></tr></table></div> <p>As shown, our legitimate traffic remains affected. The telemetry dashboard confirms that Queue 0 on the ae2 interface is still full.</p> <p><figure><img alt="uRPF impact" src=../images/picture8.png><figcaption>Figure 7: uRPF impact</figcaption></figure></p> <p>Nevertheless, if we switch to the Firewall Dashboard (using the Junos firewall filter sensor, which exposes all firewall counters and policer information), we can see that the uRPF filter is discarding ~3 Mpps of spoofed attack traffic. But this is not enough, as expected.</p> <p><figure><img alt="Real-time firewall filter monitoring" src=../images/picture9.png><figcaption>Figure 8: Real-time firewall filter monitoring</figcaption></figure></p> <p>As we discussed earlier, most of today's attacks are a mix of well-known amplification attacks with well-known signatures and dynamic attacks with unpredictable signatures. How can we mitigate well-known amplification attacks? Based on my previous experience within a Service Provider NOC team, I share below a typical (non-exhaustive) list of well-known amplification attacks and their corresponding signatures. Moreover, several public articles also mention some of those attacks, for example [5] or [6]:</p> <table> <thead> <tr> <th style="text-align: left;">Attack Type</th> <th style="text-align: left;">Network Signature</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">DNS</td> <td style="text-align: left;">UDP traffic sourced from port 53 (DNS amplification)</td> </tr> <tr> <td style="text-align: left;">UDP-FRAGMENT</td> <td style="text-align: left;">UDP packets that are IP fragments (protocol udp with is-fragment)</td> </tr> <tr> <td style="text-align: left;">NTP</td> <td style="text-align: left;">UDP traffic sourced from port 123 (NTP amplification/reflection)</td> </tr> <tr> <td style="text-align: left;">UPNP</td> <td style="text-align: left;">UDP traffic sourced from port 1900 (UPnP SSDP amplification)</td> </tr> <tr> <td style="text-align: left;">CHARGEN</td> <td style="text-align: left;">UDP traffic sourced from port 19 (CHARGEN amplification)</td> </tr> <tr> <td style="text-align: left;">SNMP</td> <td style="text-align: left;">UDP traffic sourced from port 161 (SNMP amplification)</td> </tr> <tr> <td style="text-align: left;">ONCRPC</td> <td style="text-align: left;">UDP traffic sourced from port 111 (ONC RPC / Portmapper amplification)</td> </tr> <tr> <td style="text-align: left;">LDAP</td> <td style="text-align: left;">UDP traffic sourced from port 389 (LDAP amplification)</td> </tr> <tr> <td style="text-align: left;">MEMCACHED</td> <td style="text-align: left;">UDP traffic sourced from port 11211 (Memcached amplification)</td> </tr> <tr> <td style="text-align: left;">UDP-80</td> <td style="text-align: left;">UDP traffic destined to port 80, excluding source port 53 (non-DNS UDP floods toward HTTP services)</td> </tr> </tbody> </table><p class=table-caption style="text-align:center; font-style:italic;">Table 5: Some well-known DDOS Amplification Attacks</p> <p>The DNS attack is among the most challenging. As mentioned earlier, we cannot "blindly" police DNS traffic, especially when customers host their own DNS services. During DNS attacks, we will rely on the pseudo-algorithm below to preserve as much bandwidth as possible for legitimate DNS services while policing traffic likely part of a DNS amplification attack.</p> <p><figure><img alt="Pseudo Algorithm to protect DNS infra from DDOS attacks" src=../images/picture10.png><figcaption>Figure 9: Pseudo Algorithm to protect DNS infra from DDOS attacks</figcaption></figure></p> <p>How does it work? First, you need to create prefix-lists (v4 and v6), including IP ranges of the customer DNS infrastructure:</p> <ul> <li>A prefix-list for the Authoritative DNS servers: we chose DNS-AUTHORITATIVE and DNS-AUTHORITATIVE-V6 as prefix-list names.</li> <li>A prefix-list for the Recursive DNS servers: we chose DNS-RECURSIVE and DNS-RECURSIVE-V6 as prefix-list names.</li> </ul> <p>Additionally, if the customer relies on third-party DNS or allows his customers to use well-known public DNS services (such as Google or Cloudflare), you could also create:</p> <ul> <li>A prefix-list for Third Party DNS servers: we chose the names DNS-THIRD-PARTY and DNS-THIRD-PARTY-V6 as the prefix-list.</li> </ul> <p>Then, the algorithm is working as follows: it applies to both IPv4 and IPv6 DNS:</p> <ul> <li>Term 1: First, handle DNS traffic (UDP/TCP destination port 53) coming from the Internet/untrust zone and targeting the customer's authoritative DNS server(s) (serving the customer's domain name(s)). We use the "DNS-AUTHORITATIVE" prefix lists to match destination addresses. For this traffic, apply an "Accept" action and an optional dedicated policer (it may also be wise to rate-limit DNS traffic explicitly targeting the DNS servers to mitigate direct DNS server attacks).</li> <li>Term 2: Then, handle DNS reply traffic (UDP/TCP source port 53) coming from the Internet/untrust zone and targeting the customer's recursive DNS server(s) (replies to recursive requests initiated by the customer's recursive DNS servers). We use the "DNS-RECURSIVE" prefix lists to match destination addresses. For this traffic, apply an "Accept" action and an optional dedicated policer (again, it may be wise to rate-limit DNS traffic explicitly targeting the DNS servers to mitigate direct DNS server attacks).</li> <li>Term 3: Allow UDP fragmented packets targeting both the customer's recursive and authoritative DNS servers. For this traffic, apply an "Accept" action and an optional dedicated policer (it may be wise to also rate-limit DNS traffic explicitly targeting the DNS servers).</li> <li>Term 4: Drop all other traffic targeting the customer's recursive and authoritative DNS servers to protect your DNS infrastructure.</li> <li>Term 5 (<strong>optional</strong>): Handle replies (UDP/TCP source port 53) from well-known and customer-authorized third-party DNS servers hosted outside the customer network. We use the "DNS-THIRD-PARTY" prefix lists to match source addresses. For this traffic, apply an "Accept" action and an optional dedicated policer (it may be wise to rate-limit DNS traffic generated by well-known third-party DNS servers to mitigate spoofing attacks of public DNS server IPs).</li> <li>Term 6: The final term handles all other UDP-based DNS traffic, which represents most amplification attacks. However, it is not advisable to drop everything at this point. The goal of these static filters and policers is to reduce the blast radius of amplification attacks significantly. Therefore, the action is "Accept," but this time associated with a <strong>mandatory</strong> policer that rate-limits DNS amplification attacks.</li> </ul> <p>Below is the IPv4 DDOS mitigation filter configuration. The first six terms relate to the "pseudo-algorithm" described above, and the following terms aim to mitigate the other simpler, well-known amplification attacks previously described in Table 5. You may notice that we also explicitly redirect all traffic to the BEST-EFFORT forwarding class, with an explicit ingress remarking of the DSCP value to 0.</p> <p>Since this filter is applied on ingress untrust interfaces, we consider the traffic as untrusted. This is purely for illustration purposes and should not be taken as a recommendation.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1>  1</a></span>
+<span class=normal><a href=#__codelineno-13-2>  2</a></span>
+<span class=normal><a href=#__codelineno-13-3>  3</a></span>
+<span class=normal><a href=#__codelineno-13-4>  4</a></span>
+<span class=normal><a href=#__codelineno-13-5>  5</a></span>
+<span class=normal><a href=#__codelineno-13-6>  6</a></span>
+<span class=normal><a href=#__codelineno-13-7>  7</a></span>
+<span class=normal><a href=#__codelineno-13-8>  8</a></span>
+<span class=normal><a href=#__codelineno-13-9>  9</a></span>
+<span class=normal><a href=#__codelineno-13-10> 10</a></span>
+<span class=normal><a href=#__codelineno-13-11> 11</a></span>
+<span class=normal><a href=#__codelineno-13-12> 12</a></span>
+<span class=normal><a href=#__codelineno-13-13> 13</a></span>
+<span class=normal><a href=#__codelineno-13-14> 14</a></span>
+<span class=normal><a href=#__codelineno-13-15> 15</a></span>
+<span class=normal><a href=#__codelineno-13-16> 16</a></span>
+<span class=normal><a href=#__codelineno-13-17> 17</a></span>
+<span class=normal><a href=#__codelineno-13-18> 18</a></span>
+<span class=normal><a href=#__codelineno-13-19> 19</a></span>
+<span class=normal><a href=#__codelineno-13-20> 20</a></span>
+<span class=normal><a href=#__codelineno-13-21> 21</a></span>
+<span class=normal><a href=#__codelineno-13-22> 22</a></span>
+<span class=normal><a href=#__codelineno-13-23> 23</a></span>
+<span class=normal><a href=#__codelineno-13-24> 24</a></span>
+<span class=normal><a href=#__codelineno-13-25> 25</a></span>
+<span class=normal><a href=#__codelineno-13-26> 26</a></span>
+<span class=normal><a href=#__codelineno-13-27> 27</a></span>
+<span class=normal><a href=#__codelineno-13-28> 28</a></span>
+<span class=normal><a href=#__codelineno-13-29> 29</a></span>
+<span class=normal><a href=#__codelineno-13-30> 30</a></span>
+<span class=normal><a href=#__codelineno-13-31> 31</a></span>
+<span class=normal><a href=#__codelineno-13-32> 32</a></span>
+<span class=normal><a href=#__codelineno-13-33> 33</a></span>
+<span class=normal><a href=#__codelineno-13-34> 34</a></span>
+<span class=normal><a href=#__codelineno-13-35> 35</a></span>
+<span class=normal><a href=#__codelineno-13-36> 36</a></span>
+<span class=normal><a href=#__codelineno-13-37> 37</a></span>
+<span class=normal><a href=#__codelineno-13-38> 38</a></span>
+<span class=normal><a href=#__codelineno-13-39> 39</a></span>
+<span class=normal><a href=#__codelineno-13-40> 40</a></span>
+<span class=normal><a href=#__codelineno-13-41> 41</a></span>
+<span class=normal><a href=#__codelineno-13-42> 42</a></span>
+<span class=normal><a href=#__codelineno-13-43> 43</a></span>
+<span class=normal><a href=#__codelineno-13-44> 44</a></span>
+<span class=normal><a href=#__codelineno-13-45> 45</a></span>
+<span class=normal><a href=#__codelineno-13-46> 46</a></span>
+<span class=normal><a href=#__codelineno-13-47> 47</a></span>
+<span class=normal><a href=#__codelineno-13-48> 48</a></span>
+<span class=normal><a href=#__codelineno-13-49> 49</a></span>
+<span class=normal><a href=#__codelineno-13-50> 50</a></span>
+<span class=normal><a href=#__codelineno-13-51> 51</a></span>
+<span class=normal><a href=#__codelineno-13-52> 52</a></span>
+<span class=normal><a href=#__codelineno-13-53> 53</a></span>
+<span class=normal><a href=#__codelineno-13-54> 54</a></span>
+<span class=normal><a href=#__codelineno-13-55> 55</a></span>
+<span class=normal><a href=#__codelineno-13-56> 56</a></span>
+<span class=normal><a href=#__codelineno-13-57> 57</a></span>
+<span class=normal><a href=#__codelineno-13-58> 58</a></span>
+<span class=normal><a href=#__codelineno-13-59> 59</a></span>
+<span class=normal><a href=#__codelineno-13-60> 60</a></span>
+<span class=normal><a href=#__codelineno-13-61> 61</a></span>
+<span class=normal><a href=#__codelineno-13-62> 62</a></span>
+<span class=normal><a href=#__codelineno-13-63> 63</a></span>
+<span class=normal><a href=#__codelineno-13-64> 64</a></span>
+<span class=normal><a href=#__codelineno-13-65> 65</a></span>
+<span class=normal><a href=#__codelineno-13-66> 66</a></span>
+<span class=normal><a href=#__codelineno-13-67> 67</a></span>
+<span class=normal><a href=#__codelineno-13-68> 68</a></span>
+<span class=normal><a href=#__codelineno-13-69> 69</a></span>
+<span class=normal><a href=#__codelineno-13-70> 70</a></span>
+<span class=normal><a href=#__codelineno-13-71> 71</a></span>
+<span class=normal><a href=#__codelineno-13-72> 72</a></span>
+<span class=normal><a href=#__codelineno-13-73> 73</a></span>
+<span class=normal><a href=#__codelineno-13-74> 74</a></span>
+<span class=normal><a href=#__codelineno-13-75> 75</a></span>
+<span class=normal><a href=#__codelineno-13-76> 76</a></span>
+<span class=normal><a href=#__codelineno-13-77> 77</a></span>
+<span class=normal><a href=#__codelineno-13-78> 78</a></span>
+<span class=normal><a href=#__codelineno-13-79> 79</a></span>
+<span class=normal><a href=#__codelineno-13-80> 80</a></span>
+<span class=normal><a href=#__codelineno-13-81> 81</a></span>
+<span class=normal><a href=#__codelineno-13-82> 82</a></span>
+<span class=normal><a href=#__codelineno-13-83> 83</a></span>
+<span class=normal><a href=#__codelineno-13-84> 84</a></span>
+<span class=normal><a href=#__codelineno-13-85> 85</a></span>
+<span class=normal><a href=#__codelineno-13-86> 86</a></span>
+<span class=normal><a href=#__codelineno-13-87> 87</a></span>
+<span class=normal><a href=#__codelineno-13-88> 88</a></span>
+<span class=normal><a href=#__codelineno-13-89> 89</a></span>
+<span class=normal><a href=#__codelineno-13-90> 90</a></span>
+<span class=normal><a href=#__codelineno-13-91> 91</a></span>
+<span class=normal><a href=#__codelineno-13-92> 92</a></span>
+<span class=normal><a href=#__codelineno-13-93> 93</a></span>
+<span class=normal><a href=#__codelineno-13-94> 94</a></span>
+<span class=normal><a href=#__codelineno-13-95> 95</a></span>
+<span class=normal><a href=#__codelineno-13-96> 96</a></span>
+<span class=normal><a href=#__codelineno-13-97> 97</a></span>
+<span class=normal><a href=#__codelineno-13-98> 98</a></span>
+<span class=normal><a href=#__codelineno-13-99> 99</a></span>
+<span class=normal><a href=#__codelineno-13-100>100</a></span>
+<span class=normal><a href=#__codelineno-13-101>101</a></span>
+<span class=normal><a href=#__codelineno-13-102>102</a></span>
+<span class=normal><a href=#__codelineno-13-103>103</a></span>
+<span class=normal><a href=#__codelineno-13-104>104</a></span>
+<span class=normal><a href=#__codelineno-13-105>105</a></span>
+<span class=normal><a href=#__codelineno-13-106>106</a></span>
+<span class=normal><a href=#__codelineno-13-107>107</a></span>
+<span class=normal><a href=#__codelineno-13-108>108</a></span>
+<span class=normal><a href=#__codelineno-13-109>109</a></span>
+<span class=normal><a href=#__codelineno-13-110>110</a></span>
+<span class=normal><a href=#__codelineno-13-111>111</a></span>
+<span class=normal><a href=#__codelineno-13-112>112</a></span>
+<span class=normal><a href=#__codelineno-13-113>113</a></span>
+<span class=normal><a href=#__codelineno-13-114>114</a></span>
+<span class=normal><a href=#__codelineno-13-115>115</a></span>
+<span class=normal><a href=#__codelineno-13-116>116</a></span>
+<span class=normal><a href=#__codelineno-13-117>117</a></span>
+<span class=normal><a href=#__codelineno-13-118>118</a></span>
+<span class=normal><a href=#__codelineno-13-119>119</a></span>
+<span class=normal><a href=#__codelineno-13-120>120</a></span>
+<span class=normal><a href=#__codelineno-13-121>121</a></span>
+<span class=normal><a href=#__codelineno-13-122>122</a></span>
+<span class=normal><a href=#__codelineno-13-123>123</a></span>
+<span class=normal><a href=#__codelineno-13-124>124</a></span>
+<span class=normal><a href=#__codelineno-13-125>125</a></span>
+<span class=normal><a href=#__codelineno-13-126>126</a></span>
+<span class=normal><a href=#__codelineno-13-127>127</a></span>
+<span class=normal><a href=#__codelineno-13-128>128</a></span>
+<span class=normal><a href=#__codelineno-13-129>129</a></span>
+<span class=normal><a href=#__codelineno-13-130>130</a></span>
+<span class=normal><a href=#__codelineno-13-131>131</a></span>
+<span class=normal><a href=#__codelineno-13-132>132</a></span>
+<span class=normal><a href=#__codelineno-13-133>133</a></span>
+<span class=normal><a href=#__codelineno-13-134>134</a></span>
+<span class=normal><a href=#__codelineno-13-135>135</a></span>
+<span class=normal><a href=#__codelineno-13-136>136</a></span>
+<span class=normal><a href=#__codelineno-13-137>137</a></span>
+<span class=normal><a href=#__codelineno-13-138>138</a></span>
+<span class=normal><a href=#__codelineno-13-139>139</a></span>
+<span class=normal><a href=#__codelineno-13-140>140</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a>set firewall family inet filter DDOS_MITIG_V4 interface-specific
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT from destination-prefix-list DNS-AUTHORITATIVE
+<a id=__codelineno-13-4 name=__codelineno-13-4></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT from destination-port 53
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT then policer DNS-AUT
+<a id=__codelineno-13-6 name=__codelineno-13-6></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT then count DNS-AUT
+<a id=__codelineno-13-7 name=__codelineno-13-7></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT then loss-priority low
+<a id=__codelineno-13-8 name=__codelineno-13-8></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-9 name=__codelineno-13-9></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT then accept
+<a id=__codelineno-13-10 name=__codelineno-13-10></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-AUT then dscp be
+<a id=__codelineno-13-11 name=__codelineno-13-11></a>
+<a id=__codelineno-13-12 name=__codelineno-13-12></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC from destination-prefix-list DNS-RECURSIVE
+<a id=__codelineno-13-13 name=__codelineno-13-13></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC from source-port 53
+<a id=__codelineno-13-14 name=__codelineno-13-14></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC then policer DNS-REC
+<a id=__codelineno-13-15 name=__codelineno-13-15></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC then count DNS-REC
+<a id=__codelineno-13-16 name=__codelineno-13-16></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC then loss-priority low
+<a id=__codelineno-13-17 name=__codelineno-13-17></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-18 name=__codelineno-13-18></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC then accept
+<a id=__codelineno-13-19 name=__codelineno-13-19></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-REC then dscp be&lt;
+<a id=__codelineno-13-20 name=__codelineno-13-20></a>
+<a id=__codelineno-13-21 name=__codelineno-13-21></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG from destination-prefix-list DNS-AUTHORITATIVE
+<a id=__codelineno-13-22 name=__codelineno-13-22></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG from destination-prefix-list DNS-RECURSIVE
+<a id=__codelineno-13-23 name=__codelineno-13-23></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG from is-fragment
+<a id=__codelineno-13-24 name=__codelineno-13-24></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG from protocol udp
+<a id=__codelineno-13-25 name=__codelineno-13-25></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG then policer DNS-FRAG
+<a id=__codelineno-13-26 name=__codelineno-13-26></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG then count DNS-FRAG
+<a id=__codelineno-13-27 name=__codelineno-13-27></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG then loss-priority low
+<a id=__codelineno-13-28 name=__codelineno-13-28></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-29 name=__codelineno-13-29></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG then accept
+<a id=__codelineno-13-30 name=__codelineno-13-30></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-FRAG then dscp be&lt;
+<a id=__codelineno-13-31 name=__codelineno-13-31></a>
+<a id=__codelineno-13-32 name=__codelineno-13-32></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-DROP from destination-prefix-list DNS-AUTHORITATIVE
+<a id=__codelineno-13-33 name=__codelineno-13-33></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-DROP from destination-prefix-list DNS-RECURSIVE
+<a id=__codelineno-13-34 name=__codelineno-13-34></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-DROP then count DNS-DROP
+<a id=__codelineno-13-35 name=__codelineno-13-35></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-INFRA-DROP then discard&lt;
+<a id=__codelineno-13-36 name=__codelineno-13-36></a>
+<a id=__codelineno-13-37 name=__codelineno-13-37></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY from source-prefix-list DNS-THIRD-PARTY
+<a id=__codelineno-13-38 name=__codelineno-13-38></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY from source-port 53
+<a id=__codelineno-13-39 name=__codelineno-13-39></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY then policer DNS-THIRD
+<a id=__codelineno-13-40 name=__codelineno-13-40></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY then count DNS-THIRD
+<a id=__codelineno-13-41 name=__codelineno-13-41></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY then loss-priority low
+<a id=__codelineno-13-42 name=__codelineno-13-42></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-43 name=__codelineno-13-43></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY then accept
+<a id=__codelineno-13-44 name=__codelineno-13-44></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-THIRD-PARTY then dscp be&lt;
+<a id=__codelineno-13-45 name=__codelineno-13-45></a>
+<a id=__codelineno-13-46 name=__codelineno-13-46></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN from protocol udp
+<a id=__codelineno-13-47 name=__codelineno-13-47></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN from source-port 53
+<a id=__codelineno-13-48 name=__codelineno-13-48></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN then policer DNS-UNKNOWN
+<a id=__codelineno-13-49 name=__codelineno-13-49></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN then count DNS-UNKNOWN
+<a id=__codelineno-13-50 name=__codelineno-13-50></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN then loss-priority low
+<a id=__codelineno-13-51 name=__codelineno-13-51></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-52 name=__codelineno-13-52></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN then accept
+<a id=__codelineno-13-53 name=__codelineno-13-53></a>set firewall family inet filter DDOS_MITIG_V4 term DNS-UNKNOWN then dscp be
+<a id=__codelineno-13-54 name=__codelineno-13-54></a>
+<a id=__codelineno-13-55 name=__codelineno-13-55></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT from is-fragment
+<a id=__codelineno-13-56 name=__codelineno-13-56></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT from protocol udp
+<a id=__codelineno-13-57 name=__codelineno-13-57></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT then policer UDP-FRAGMENT
+<a id=__codelineno-13-58 name=__codelineno-13-58></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT then count UDP-FRAGMENT
+<a id=__codelineno-13-59 name=__codelineno-13-59></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT then loss-priority low
+<a id=__codelineno-13-60 name=__codelineno-13-60></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-61 name=__codelineno-13-61></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT then accept
+<a id=__codelineno-13-62 name=__codelineno-13-62></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-FRAGMENT then dscp be
+<a id=__codelineno-13-63 name=__codelineno-13-63></a>
+<a id=__codelineno-13-64 name=__codelineno-13-64></a>set firewall family inet filter DDOS_MITIG_V4 term NTP from protocol udp
+<a id=__codelineno-13-65 name=__codelineno-13-65></a>set firewall family inet filter DDOS_MITIG_V4 term NTP from source-port 123
+<a id=__codelineno-13-66 name=__codelineno-13-66></a>set firewall family inet filter DDOS_MITIG_V4 term NTP then policer NTP
+<a id=__codelineno-13-67 name=__codelineno-13-67></a>set firewall family inet filter DDOS_MITIG_V4 term NTP then count NTP
+<a id=__codelineno-13-68 name=__codelineno-13-68></a>set firewall family inet filter DDOS_MITIG_V4 term NTP then loss-priority low
+<a id=__codelineno-13-69 name=__codelineno-13-69></a>set firewall family inet filter DDOS_MITIG_V4 term NTP then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-70 name=__codelineno-13-70></a>set firewall family inet filter DDOS_MITIG_V4 term NTP then accept
+<a id=__codelineno-13-71 name=__codelineno-13-71></a>set firewall family inet filter DDOS_MITIG_V4 term NTP then dscp be
+<a id=__codelineno-13-72 name=__codelineno-13-72></a>
+<a id=__codelineno-13-73 name=__codelineno-13-73></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP from protocol udp
+<a id=__codelineno-13-74 name=__codelineno-13-74></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP from source-port 1900
+<a id=__codelineno-13-75 name=__codelineno-13-75></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP then policer UPNP
+<a id=__codelineno-13-76 name=__codelineno-13-76></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP then count UPNP
+<a id=__codelineno-13-77 name=__codelineno-13-77></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP then loss-priority low
+<a id=__codelineno-13-78 name=__codelineno-13-78></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-79 name=__codelineno-13-79></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP then accept
+<a id=__codelineno-13-80 name=__codelineno-13-80></a>set firewall family inet filter DDOS_MITIG_V4 term UPNP then dscp be
+<a id=__codelineno-13-81 name=__codelineno-13-81></a>
+<a id=__codelineno-13-82 name=__codelineno-13-82></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN from protocol udp
+<a id=__codelineno-13-83 name=__codelineno-13-83></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN from source-port 19
+<a id=__codelineno-13-84 name=__codelineno-13-84></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN then policer CHARGEN
+<a id=__codelineno-13-85 name=__codelineno-13-85></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN then count CHARGEN
+<a id=__codelineno-13-86 name=__codelineno-13-86></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN then loss-priority low
+<a id=__codelineno-13-87 name=__codelineno-13-87></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-88 name=__codelineno-13-88></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN then accept
+<a id=__codelineno-13-89 name=__codelineno-13-89></a>set firewall family inet filter DDOS_MITIG_V4 term CHARGEN then dscp be
+<a id=__codelineno-13-90 name=__codelineno-13-90></a>
+<a id=__codelineno-13-91 name=__codelineno-13-91></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP from protocol udp
+<a id=__codelineno-13-92 name=__codelineno-13-92></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP from source-port 161
+<a id=__codelineno-13-93 name=__codelineno-13-93></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP then policer SNMP
+<a id=__codelineno-13-94 name=__codelineno-13-94></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP then count SNMP
+<a id=__codelineno-13-95 name=__codelineno-13-95></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP then loss-priority low
+<a id=__codelineno-13-96 name=__codelineno-13-96></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-97 name=__codelineno-13-97></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP then accept
+<a id=__codelineno-13-98 name=__codelineno-13-98></a>set firewall family inet filter DDOS_MITIG_V4 term SNMP then dscp be
+<a id=__codelineno-13-99 name=__codelineno-13-99></a>
+<a id=__codelineno-13-100 name=__codelineno-13-100></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC from protocol udp
+<a id=__codelineno-13-101 name=__codelineno-13-101></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC from source-port 111
+<a id=__codelineno-13-102 name=__codelineno-13-102></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC then policer ONCRPC
+<a id=__codelineno-13-103 name=__codelineno-13-103></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC then count ONCRPC
+<a id=__codelineno-13-104 name=__codelineno-13-104></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC then loss-priority low
+<a id=__codelineno-13-105 name=__codelineno-13-105></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-106 name=__codelineno-13-106></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC then accept
+<a id=__codelineno-13-107 name=__codelineno-13-107></a>set firewall family inet filter DDOS_MITIG_V4 term ONCRPC then dscp be
+<a id=__codelineno-13-108 name=__codelineno-13-108></a>
+<a id=__codelineno-13-109 name=__codelineno-13-109></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP from protocol udp
+<a id=__codelineno-13-110 name=__codelineno-13-110></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP from source-port 389
+<a id=__codelineno-13-111 name=__codelineno-13-111></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP then policer LDAP
+<a id=__codelineno-13-112 name=__codelineno-13-112></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP then count LDAP
+<a id=__codelineno-13-113 name=__codelineno-13-113></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP then loss-priority low
+<a id=__codelineno-13-114 name=__codelineno-13-114></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-115 name=__codelineno-13-115></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP then accept
+<a id=__codelineno-13-116 name=__codelineno-13-116></a>set firewall family inet filter DDOS_MITIG_V4 term LDAP then dscp be
+<a id=__codelineno-13-117 name=__codelineno-13-117></a>
+<a id=__codelineno-13-118 name=__codelineno-13-118></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED from protocol udp
+<a id=__codelineno-13-119 name=__codelineno-13-119></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED from source-port 11211
+<a id=__codelineno-13-120 name=__codelineno-13-120></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED then policer MEMCACHED
+<a id=__codelineno-13-121 name=__codelineno-13-121></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED then count MEMCACHED
+<a id=__codelineno-13-122 name=__codelineno-13-122></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED then loss-priority low
+<a id=__codelineno-13-123 name=__codelineno-13-123></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-124 name=__codelineno-13-124></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED then accept
+<a id=__codelineno-13-125 name=__codelineno-13-125></a>set firewall family inet filter DDOS_MITIG_V4 term MEMCACHED then dscp be
+<a id=__codelineno-13-126 name=__codelineno-13-126></a>
+<a id=__codelineno-13-127 name=__codelineno-13-127></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 from protocol udp
+<a id=__codelineno-13-128 name=__codelineno-13-128></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 from source-port-except 53
+<a id=__codelineno-13-129 name=__codelineno-13-129></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 from destination-port 80
+<a id=__codelineno-13-130 name=__codelineno-13-130></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 then policer UDP-80
+<a id=__codelineno-13-131 name=__codelineno-13-131></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 then count UDP-80
+<a id=__codelineno-13-132 name=__codelineno-13-132></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-133 name=__codelineno-13-133></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 then accept
+<a id=__codelineno-13-134 name=__codelineno-13-134></a>set firewall family inet filter DDOS_MITIG_V4 term UDP-80 then dscp be
+<a id=__codelineno-13-135 name=__codelineno-13-135></a>
+<a id=__codelineno-13-136 name=__codelineno-13-136></a>set firewall family inet filter DDOS_MITIG_V4 term ACCEPT-ALL then count CLEAN
+<a id=__codelineno-13-137 name=__codelineno-13-137></a>set firewall family inet filter DDOS_MITIG_V4 term ACCEPT-ALL then loss-priority low
+<a id=__codelineno-13-138 name=__codelineno-13-138></a>set firewall family inet filter DDOS_MITIG_V4 term ACCEPT-ALL then forwarding-class BEST-EFFORT
+<a id=__codelineno-13-139 name=__codelineno-13-139></a>set firewall family inet filter DDOS_MITIG_V4 term ACCEPT-ALL then accept
+<a id=__codelineno-13-140 name=__codelineno-13-140></a>set firewall family inet filter DDOS_MITIG_V4 term ACCEPT-ALL then dscp be
+</code></pre></div></td></tr></table></div> <p>For the IPv6 filter instance, this is roughly the same; we share below one term to highlight the syntax differences:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1> 1</a></span>
+<span class=normal><a href=#__codelineno-14-2> 2</a></span>
+<span class=normal><a href=#__codelineno-14-3> 3</a></span>
+<span class=normal><a href=#__codelineno-14-4> 4</a></span>
+<span class=normal><a href=#__codelineno-14-5> 5</a></span>
+<span class=normal><a href=#__codelineno-14-6> 6</a></span>
+<span class=normal><a href=#__codelineno-14-7> 7</a></span>
+<span class=normal><a href=#__codelineno-14-8> 8</a></span>
+<span class=normal><a href=#__codelineno-14-9> 9</a></span>
+<span class=normal><a href=#__codelineno-14-10>10</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a>[...]
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP from payload-protocol udp
+<a id=__codelineno-14-3 name=__codelineno-14-3></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP from source-port 123
+<a id=__codelineno-14-4 name=__codelineno-14-4></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP then policer NTP-V6
+<a id=__codelineno-14-5 name=__codelineno-14-5></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP then count NTP-V6
+<a id=__codelineno-14-6 name=__codelineno-14-6></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP then loss-priority low
+<a id=__codelineno-14-7 name=__codelineno-14-7></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP then forwarding-class BEST-EFFORT
+<a id=__codelineno-14-8 name=__codelineno-14-8></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP then traffic-class be
+<a id=__codelineno-14-9 name=__codelineno-14-9></a>set firewall family inet6 filter DDOS_MITIG_V6 term NTP then accept
+<a id=__codelineno-14-10 name=__codelineno-14-10></a>[...]
+</code></pre></div></td></tr></table></div> <p>The prefix-list definition on Junos is relatively well-known and standard. Remember, we mentioned at the beginning of the session that our customer had two recursive DNS servers. Here is how we configured the DNS-RECURSIVE IPv4 prefix-list. All the other prefix-lists followed the same configuration syntax:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1>1</a></span>
+<span class=normal><a href=#__codelineno-15-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a>set policy-options prefix-list DNS-RECURSIVE 10.0.0.1/32
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>set policy-options prefix-list DNS-RECURSIVE 10.0.0.2/32
+</code></pre></div></td></tr></table></div> <p>For each policer associated with each term, it is up to each customer to select the best values based on their infrastructure, traffic levels, traffic forecast, etc. In our example, each policer is configured that way ,Äì 500 Mbps max.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-16-1>1</a></span>
+<span class=normal><a href=#__codelineno-16-2>2</a></span>
+<span class=normal><a href=#__codelineno-16-3>3</a></span>
+<span class=normal><a href=#__codelineno-16-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-16-1 name=__codelineno-16-1></a>set firewall policer UDP-80 shared-bandwidth-policer
+<a id=__codelineno-16-2 name=__codelineno-16-2></a>set firewall policer UDP-80 if-exceeding bandwidth-limit 500m
+<a id=__codelineno-16-3 name=__codelineno-16-3></a>set firewall policer UDP-80 if-exceeding burst-size-limit 6250000
+<a id=__codelineno-16-4 name=__codelineno-16-4></a>set firewall policer UDP-80 then discard
+</code></pre></div></td></tr></table></div> <p>Why the "<strong>shared-bandwidth-policer</strong>" knob? At that time, I highly recommend using this when you apply a policer to LAG interfaces. Indeed, a LAG may be composed of several member links spread across multiple PFEs, ASICs, or even line cards. Without this knob, each PFE receives the same policer value. For example, if you have a LAG with three member links, each attached to a different PFE, and you configure a policer at 500 Mbps, each PFE will enforce 500 Mbps, resulting in a total of 1.5 Gbps for the whole LAG; that is a behavior you could expect/want to have. If not, and you'd prefer to enforce the policer value from the LAG perspective, you need this policer option.</p> <p>The system will automatically compute and update (when links are added, removed, or during flaps) the per-PFE policer value based on the number of PFEs and the number of ports per PFE in the LAG. This results in a derived policer value for each LAG and policer.</p> <p>In the previous example, with three links across three PFEs, the system will instantiate a policer of approximately 166 Mbps per PFE. If one link goes down, the policer value is automatically updated to 250 Mbps per PFE. Even on the MX301, this is a valuable option, especially in our case, whereas our "Untrust" LAG ae0 has member links on two different PFE (Remember Trio 6 has two embedded PFE/Slices).</p> <p>Let's apply our static filters on the ae0 ingress port and commit the changes.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-17-1> 1</a></span>
+<span class=normal><a href=#__codelineno-17-2> 2</a></span>
+<span class=normal><a href=#__codelineno-17-3> 3</a></span>
+<span class=normal><a href=#__codelineno-17-4> 4</a></span>
+<span class=normal><a href=#__codelineno-17-5> 5</a></span>
+<span class=normal><a href=#__codelineno-17-6> 6</a></span>
+<span class=normal><a href=#__codelineno-17-7> 7</a></span>
+<span class=normal><a href=#__codelineno-17-8> 8</a></span>
+<span class=normal><a href=#__codelineno-17-9> 9</a></span>
+<span class=normal><a href=#__codelineno-17-10>10</a></span>
+<span class=normal><a href=#__codelineno-17-11>11</a></span>
+<span class=normal><a href=#__codelineno-17-12>12</a></span>
+<span class=normal><a href=#__codelineno-17-13>13</a></span>
+<span class=normal><a href=#__codelineno-17-14>14</a></span>
+<span class=normal><a href=#__codelineno-17-15>15</a></span>
+<span class=normal><a href=#__codelineno-17-16>16</a></span>
+<span class=normal><a href=#__codelineno-17-17>17</a></span>
+<span class=normal><a href=#__codelineno-17-18>18</a></span>
+<span class=normal><a href=#__codelineno-17-19>19</a></span>
+<span class=normal><a href=#__codelineno-17-20>20</a></span>
+<span class=normal><a href=#__codelineno-17-21>21</a></span>
+<span class=normal><a href=#__codelineno-17-22>22</a></span>
+<span class=normal><a href=#__codelineno-17-23>23</a></span>
+<span class=normal><a href=#__codelineno-17-24>24</a></span>
+<span class=normal><a href=#__codelineno-17-25>25</a></span>
+<span class=normal><a href=#__codelineno-17-26>26</a></span>
+<span class=normal><a href=#__codelineno-17-27>27</a></span>
+<span class=normal><a href=#__codelineno-17-28>28</a></span>
+<span class=normal><a href=#__codelineno-17-29>29</a></span>
+<span class=normal><a href=#__codelineno-17-30>30</a></span>
+<span class=normal><a href=#__codelineno-17-31>31</a></span>
+<span class=normal><a href=#__codelineno-17-32>32</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-17-1 name=__codelineno-17-1></a>lab@rtme-mx301-01&gt; show configuration interfaces ae0 
+<a id=__codelineno-17-2 name=__codelineno-17-2></a>description TO_INTERNET;
+<a id=__codelineno-17-3 name=__codelineno-17-3></a>unit 0 {
+<a id=__codelineno-17-4 name=__codelineno-17-4></a>    family inet {
+<a id=__codelineno-17-5 name=__codelineno-17-5></a>        rpf-check {
+<a id=__codelineno-17-6 name=__codelineno-17-6></a>            fail-filter uRPFv4;
+<a id=__codelineno-17-7 name=__codelineno-17-7></a>            mode loose;
+<a id=__codelineno-17-8 name=__codelineno-17-8></a>        }
+<a id=__codelineno-17-9 name=__codelineno-17-9></a>        filter {
+<a id=__codelineno-17-10 name=__codelineno-17-10></a>            input DDOS_MITIG_V4;
+<a id=__codelineno-17-11 name=__codelineno-17-11></a>            group 1;
+<a id=__codelineno-17-12 name=__codelineno-17-12></a>        }
+<a id=__codelineno-17-13 name=__codelineno-17-13></a>        sampling {
+<a id=__codelineno-17-14 name=__codelineno-17-14></a>            input;
+<a id=__codelineno-17-15 name=__codelineno-17-15></a>        }
+<a id=__codelineno-17-16 name=__codelineno-17-16></a>        address 172.16.254.1/31;
+<a id=__codelineno-17-17 name=__codelineno-17-17></a>    }
+<a id=__codelineno-17-18 name=__codelineno-17-18></a>    family inet6 {
+<a id=__codelineno-17-19 name=__codelineno-17-19></a>        rpf-check {
+<a id=__codelineno-17-20 name=__codelineno-17-20></a>            fail-filter uRPFv6;
+<a id=__codelineno-17-21 name=__codelineno-17-21></a>            mode loose;
+<a id=__codelineno-17-22 name=__codelineno-17-22></a>        }
+<a id=__codelineno-17-23 name=__codelineno-17-23></a>        filter {
+<a id=__codelineno-17-24 name=__codelineno-17-24></a>            input DDOS_MITIG_V6;
+<a id=__codelineno-17-25 name=__codelineno-17-25></a>            group 1;
+<a id=__codelineno-17-26 name=__codelineno-17-26></a>        }
+<a id=__codelineno-17-27 name=__codelineno-17-27></a>        sampling {
+<a id=__codelineno-17-28 name=__codelineno-17-28></a>            input;
+<a id=__codelineno-17-29 name=__codelineno-17-29></a>        }
+<a id=__codelineno-17-30 name=__codelineno-17-30></a>        address 2001:cafe:254::1/127;
+<a id=__codelineno-17-31 name=__codelineno-17-31></a>    }
+<a id=__codelineno-17-32 name=__codelineno-17-32></a>}
+</code></pre></div></td></tr></table></div> <p>Now, let's look at the egress interface statistics for ae2. As shown below, the static filters mitigation dropped most of the DNS amplification attack; only 500 Mbps of UDP 53 and 500 Mbps of trailing fragments have survived. But remember, the attack is complex and mixes dynamic flows. This is why we still observed some extra traffic forwarded toward the target of the attack. The AE2 interface is no longer under congestion, but since a subset of the attack is still forwarded, it does not mean there is no service impact. Indeed, we have been considering the attack, with all the different parallel signatures, as targeting a single destination: our 192.168.1.1/32 critical resource. If this resource hosts a critical public web portal or any other critical service, it is important to clean the remaining attack flows.</p> <p><figure><img alt="Effect of the Static Filtering / Policing" src=../images/picture11.png><figcaption>Figure 10: Effect of the Static Filtering / Policing</figcaption></figure></p> <p>Before doing that, look at the tester results. As expected, that sounds better. The overall legitimate traffic is no longer impacted, and thanks to our DNS protection "pseudo algorithm", even though we heavily police DNS traffic (attacks), our legitimate DNS traffic between Internet DNS servers and our recursive DNS server remains safe.</p> <table> <thead> <tr> <th style="text-align: left;">Type of traffic</th> <th style="text-align: left;">Direction</th> <th style="text-align: left;">Tx L1 Rate (bps)</th> <th style="text-align: left;">Rx L1 Rate (bps)</th> <th style="text-align: left;">Tx Rate (fps)</th> <th style="text-align: left;">Rx Rate (fps)</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">Legitimate Downstream customer traffic</td> <td style="text-align: left;">AE0 to AE2</td> <td style="text-align: left;">239,904,625,976</td> <td style="text-align: left;">239,904,551,270</td> <td style="text-align: left;">30,445,773</td> <td style="text-align: left;">30,445,853</td> </tr> <tr> <td style="text-align: left;">Legitimate DNS Traffic</td> <td style="text-align: left;">AE0 to AE2</td> <td style="text-align: left;">197,911,212</td> <td style="text-align: left;">197,911,102</td> <td style="text-align: left;">197,912,098</td> <td style="text-align: left;">89,623</td> </tr> <tr> <td style="text-align: left;">Legitimate Upstream customer traffic</td> <td style="text-align: left;">AE2 to AE0</td> <td style="text-align: left;">100,000,000,350</td> <td style="text-align: left;">100,000,007,927</td> <td style="text-align: left;">12,690,808</td> <td style="text-align: left;">12,690,808</td> </tr> </tbody> </table><p class=table-caption style="text-align:center; font-style:italic;">Table 6: Legitimate flows status</p> <p>To clean the remaining attack, we need to rely on an external solution to provide us with dynamic signatures. In our example, the MX301 exports IPFIX flow statistics to an external collector. We assume the external solution provides us with the attack signatures as fast as possible. On MX, the minimum flow-inactive-timeout and flow-active-timeout can be set to 10 seconds. If this is not fast enough, you may rely on the Inline Monitoring solution, which is cacheless.</p> <p>Note: a solution like Corero, which is fully integrated with the MX portfolio, including the MX301, might be another way to detect and mitigate dynamic signatures, thanks to dynamic flexible match filters pushed into the ephemeral DB.</p> <p>In our example, as we rely on IPFIX with a cache set to the minimum (10 seconds), the external solution should probably identify these signatures in 15 to 20 seconds:</p> <ul> <li><strong>TCP Flood</strong>: 192.168.1.1/32 - Source IP: Random ,Äì Destination Ports: 1024, 1025, 1026, 5000 ,Äì Source Ports: Random</li> <li><strong>UDP DNS</strong>: Destination IP 192.168.1.1/32 - Source IP: Random - Destination Ports: Random ,Äì Source Ports: 53</li> <li><strong>UDP Fragments</strong>: Destination IP 192.168.1.1/32 - Source IP: Random</li> </ul> <p>Once again, we assumed that the external solution would generate three FlowSpec rules covering these signatures and propagate them via BGP to our MX301. If we analyze the inetflow.0 table, we can see these three new rules, added to the existing 2K rules, which should completely clean the remaining attack:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-18-1> 1</a></span>
+<span class=normal><a href=#__codelineno-18-2> 2</a></span>
+<span class=normal><a href=#__codelineno-18-3> 3</a></span>
+<span class=normal><a href=#__codelineno-18-4> 4</a></span>
+<span class=normal><a href=#__codelineno-18-5> 5</a></span>
+<span class=normal><a href=#__codelineno-18-6> 6</a></span>
+<span class=normal><a href=#__codelineno-18-7> 7</a></span>
+<span class=normal><a href=#__codelineno-18-8> 8</a></span>
+<span class=normal><a href=#__codelineno-18-9> 9</a></span>
+<span class=normal><a href=#__codelineno-18-10>10</a></span>
+<span class=normal><a href=#__codelineno-18-11>11</a></span>
+<span class=normal><a href=#__codelineno-18-12>12</a></span>
+<span class=normal><a href=#__codelineno-18-13>13</a></span>
+<span class=normal><a href=#__codelineno-18-14>14</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-18-1 name=__codelineno-18-1></a>lab@rtme-mx301-01&gt; show route table inetflow.0 
+<a id=__codelineno-18-2 name=__codelineno-18-2></a>
+<a id=__codelineno-18-3 name=__codelineno-18-3></a>inetflow.0: 2003 destinations, 2003 routes (2003 active, 0 holddown, 0 hidden)
+<a id=__codelineno-18-4 name=__codelineno-18-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-18-5 name=__codelineno-18-5></a>
+<a id=__codelineno-18-6 name=__codelineno-18-6></a>192.168.1.1,*,proto=6,dstport=1024,=1025,=1026,=5000/term:2            
+<a id=__codelineno-18-7 name=__codelineno-18-7></a>                   *[Flow/5] 00:01:28
+<a id=__codelineno-18-8 name=__codelineno-18-8></a>                       Fictitious
+<a id=__codelineno-18-9 name=__codelineno-18-9></a>192.168.1.1,*,proto=17,srcport=53/term:3            
+<a id=__codelineno-18-10 name=__codelineno-18-10></a>                   *[Flow/5] 00:01:28
+<a id=__codelineno-18-11 name=__codelineno-18-11></a>                       Fictitious
+<a id=__codelineno-18-12 name=__codelineno-18-12></a>192.168.1.1,*,proto=17,frag:02/term:4            
+<a id=__codelineno-18-13 name=__codelineno-18-13></a>                   *[Flow/5] 00:01:28
+<a id=__codelineno-18-14 name=__codelineno-18-14></a>                       Fictitious
+</code></pre></div></td></tr></table></div> <p>Finally, we could look at the telemetry interface statistics:</p> <p><figure><img alt="Traffic normalization by combining several Junos filtering tools." src=../images/picture12.png><figcaption>Figure 11: Traffic normalization by combining several Junos filtering tools.</figcaption></figure></p> <p>Also, by default on MX, FlowSpec route accounting is enabled, providing per-rule bytes/packets both via CLI and streaming Telemetry:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-19-1>1</a></span>
+<span class=normal><a href=#__codelineno-19-2>2</a></span>
+<span class=normal><a href=#__codelineno-19-3>3</a></span>
+<span class=normal><a href=#__codelineno-19-4>4</a></span>
+<span class=normal><a href=#__codelineno-19-5>5</a></span>
+<span class=normal><a href=#__codelineno-19-6>6</a></span>
+<span class=normal><a href=#__codelineno-19-7>7</a></span>
+<span class=normal><a href=#__codelineno-19-8>8</a></span>
+<span class=normal><a href=#__codelineno-19-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-19-1 name=__codelineno-19-1></a>lab@rtme-mx301-01&gt; show firewall filter __flowspec_default_inet__ 
+<a id=__codelineno-19-2 name=__codelineno-19-2></a>
+<a id=__codelineno-19-3 name=__codelineno-19-3></a>Filter: __flowspec_default_inet__                            
+<a id=__codelineno-19-4 name=__codelineno-19-4></a>Counters:
+<a id=__codelineno-19-5 name=__codelineno-19-5></a>Name                                                                            Bytes              Packets [...]
+<a id=__codelineno-19-6 name=__codelineno-19-6></a>192.168.1.1,*,proto=17,frag:02                                               112800117306             77154663
+<a id=__codelineno-19-7 name=__codelineno-19-7></a>192.168.1.1,*,proto=17,srcport=53                                            112799588062             77154301
+<a id=__codelineno-19-8 name=__codelineno-19-8></a>192.168.1.1,*,proto=6,dstport=1024,=1025,=1026,=5000                       14815652138069          85147901488
+<a id=__codelineno-19-9 name=__codelineno-19-9></a>[...]
+</code></pre></div></td></tr></table></div> <p>Note: if you don't need FlowSpec rules accounting, you could disable it by configuring: set routing-options flow no-per-route-accounting In our case, we kept this feature enabled by default, so we could leverage the telemetry solution to export those statistics:</p> <p><figure><img alt="FlowSpec rules statistics monitoring" src=../images/picture13.png><figcaption>Figure 12: FlowSpec rules statistics monitoring</figcaption></figure></p> <p>Remember, uRPF and static mitigation filters have no latency. Once the attack starts, these two initial filtering solutions work immediately. The dynamic signature mitigation could take more or less time depending on the flow protocol used (IPFIX, IMON, sFLOW,Ä), the detection mechanism, and the countermeasure approach used (BGP FlowSpec, dynamic filters,Ä).</p> <h2 id=the-cherry-on-top-of-this-cake>The Cherry on Top of This Cake<a class=headerlink href=#the-cherry-on-top-of-this-cake title="Permanent link">¶</a></h2> <p>This last section is not directly related to filtering, but I wanted to wrap up the article with another touch of streaming telemetry and our newest MX301. Thanks to the "power monitoring" sensor, we can check the power consumption of the MX301 device while under attack, with all the discussed features enabled and at the current scaling + 50% of traffic ,Äì as seen below, that's pretty low, less than 250W (or ~0.35W/Gbps as shown on the graph)</p> <p><figure><img alt="Power Consumption Monitoring" src=../images/picture14.png><figcaption>Figure 13: Power Consumption Monitoring</figcaption></figure></p> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">¶</a></h2> <p>In this article, we used the newest MX301 platform to illustrate a powerful improvement in Junos/Trio FlowSpec performance. We showed how to leverage this new feature, combined with other components of the Juniper filtering toolkit, to make the MX301 a flexible and robust secure routing gateway. The telemetry stack and rich data-plane sensors also provide real-time observability to NOC and 24/7 teams, enabling monitoring of the benefits of attack countermeasures and/or helping tune static policers over time. All of these features are fully applicable across the entire MX portfolio for both IPv4 and IPv6 traffic.</p> <h3 id=links>Links<a class=headerlink href=#links title="Permanent link">¶</a></h3> <ul> <li>[1] <a href=https://juniper.github.io/techposts/mx301-high-performance-flowspec-without-compromise/article>https://juniper.github.io/techposts/mx301-high-performance-flowspec-without-compromise/article</a></li> <li>[2] <a href=https://juniper.github.io/techposts/mx301-deepdive/article>https://juniper.github.io/techposts/mx301-deepdive/article</a></li> <li>[3] <a href=https://bgp.potaroo.net>https://bgp.potaroo.net </a></li> <li>[4] <a href=https://github.com/door7302/openjts>https://github.com/door7302/openjts </a></li> <li>[5] <a href=https://fastnetmon.com/2025/07/30/understanding-volumetric-amplification-ddos-attacks/ >https://fastnetmon.com/2025/07/30/understanding-volumetric-amplification-ddos-attacks/</a></li> <li>[6] <a href=https://qrator.net/library/learning-center/Ddos/What-Are-Amplification-DDoS-Attacks>https://qrator.net/library/learning-center/Ddos/What-Are-Amplification-DDoS-Attacks</a></li> </ul> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">¶</a></h2> <ul> <li>AE: Aggregated Ethernet</li> <li>ASIC: Application-Specific Integrated Circuit</li> <li>BCP38: Best Current Practice 38 (ingress filtering to prevent IP spoofing)</li> <li>BGP: Border Gateway Protocol</li> <li>DNS: Domain Name System</li> <li>DSCP: Differentiated Services Code Point</li> <li>DDoS: Distributed Denial of Service</li> <li>FIB: Forwarding Information Base</li> <li>FLT: Filter (in "FlowSpec FLT Acceleration")</li> <li>FPC: Flexible PIC Concentrator</li> <li>FS / FlowSpec: BGP Flow Specification</li> <li>Gbps: Gigabits per second</li> <li>IMIX: Internet Mix (typical Internet traffic mix)</li> <li>IPFIX: IP Flow Information Export</li> <li>IPv4: Internet Protocol version 4</li> <li>IPv6: Internet Protocol version 6</li> <li>ISP: Internet Service Provider</li> <li>JFlow: Juniper Flow Monitoring (inline-jflow)</li> <li>L1: Layer 1 (physical layer)</li> <li>L2: Layer 2 (data-link layer)</li> <li>L3: Layer 3 (network layer)</li> <li>LAG: Link Aggregation Group</li> <li>LDP: Label Distribution Protocol</li> <li>LSP: Link-State Packet (IS-IS)</li> <li>Mbps: Megabits per second</li> <li>MPLS: Multiprotocol Label Switching</li> <li>MX: Juniper MX Series router</li> <li>NOC: Network Operations Center</li> <li>NTP: Network Time Protocol</li> <li>ONCRPC: Open Network Computing Remote Procedure Call</li> <li>PIC Edge: Prefix Independent Convergence Edge</li> <li>PFE: Packet Forwarding Engine</li> <li>QoS: Quality of Service</li> <li>RaaS: Routing as a Service</li> <li>RED: Random Early Detection</li> <li>RE: Routing Engine</li> <li>RIB: Routing Information Base</li> <li>RTT: Round-Trip Time</li> <li>RTBH: Remote Triggered Black Hole</li> <li>sRTBH: Source-based Remote Triggered Black Hole</li> <li>sFLOW: Sampled Flow</li> <li>SNMP: Simple Network Management Protocol</li> <li>SSDP: Simple Service Discovery Protocol</li> <li>TCP: Transmission Control Protocol</li> <li>UDP: User Datagram Protocol</li> <li>uRPF: Unicast Reverse Path Forwarding</li> <li>UPnP: Universal Plug and Play</li> <li>VIP: Virtual IP</li> <li>VRF: Virtual Routing and Forwarding</li> </ul> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> <footer class=md-footer> <nav class="md-footer__inner md-grid" aria-label=Footer> <a href=../../mx301-high-performance-flowspec-without-compromise/article/ class="md-footer__link md-footer__link--prev" aria-label="Previous: MX301 High-Performance FlowSpec Without Compromise"> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </div> <div class=md-footer__title> <span class=md-footer__direction> Previous </span> <div class=md-ellipsis> MX301 High-Performance FlowSpec Without Compromise </div> </div> </a> <a href=../../../about/ class="md-footer__link md-footer__link--next" aria-label="Next: About us"> <div class=md-footer__title> <span class=md-footer__direction> Next </span> <div class=md-ellipsis> About us </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg> </div> </a> </nav> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> <div class=md-copyright__highlight> This site is maintained by HPE/Juniper Networking employees. Powered by Material for MkDocs & Pandoc </div> </div> <div class=md-social> <a href=https://www.linkedin.com/company/hewlett-packard-enterprise target=_blank rel=noopener title=www.linkedin.com class=md-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg> </a> <a href=https://github.com/juniper target=_blank rel=noopener title=github.com class=md-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.footer", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js></script> <script src=https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js></script> <script src=https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js></script> <script src=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> </body> </html>
