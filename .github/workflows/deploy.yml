@@ -1,0 +1,380 @@
+name: Build and Deploy Techpost Site
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '*rebuild-all*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    env:
+      MAIN_PDF_DIR: ${{ github.workspace }}/site/download
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Full history is required by the change-detection git diff in the convert step
+          fetch-depth: 0
+
+      # ----------------------------
+      # Python (with pip cache)
+      # ----------------------------
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      # ----------------------------
+      # Cache Pandoc .deb
+      # ----------------------------
+      - name: Cache Pandoc
+        uses: actions/cache@v4
+        id: pandoc-cache
+        with:
+          path: /tmp/pandoc-3.5-1-amd64.deb
+          key: pandoc-3.5-amd64
+
+      - name: Download Pandoc
+        if: steps.pandoc-cache.outputs.cache-hit != 'true'
+        run: wget -O /tmp/pandoc-3.5-1-amd64.deb https://github.com/jgm/pandoc/releases/download/3.5/pandoc-3.5-1-amd64.deb
+
+      # ----------------------------
+      # Cache apt / TexLive packages
+      # ----------------------------
+      - name: Cache apt packages
+        uses: actions/cache@v4
+        id: apt-cache
+        with:
+          path: |
+            /var/cache/apt/archives/*.deb
+          key: apt-texlive-poppler-${{ runner.os }}
+
+      - name: Install Pandoc + TeX Live + PDF utilities
+        run: |
+          sudo dpkg -i /tmp/pandoc-3.5-1-amd64.deb
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-latex-recommended \
+                                  texlive-fonts-recommended texlive-fonts-extra poppler-utils
+
+      - name: Copy Pandoc templates
+        run: |
+          sudo mkdir -p /usr/share/pandoc/data/templates
+          sudo cp templates/custom.latex /usr/share/pandoc/data/templates/custom.latex
+          sudo cp templates/listings-setup.tex /usr/share/pandoc/data/templates/listings-setup.tex
+
+      # ----------------------------
+      # Python / MkDocs
+      # ----------------------------
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install .
+
+      # ----------------------------
+      # Build MkDocs site (converted from GitLab `build_site` stage)
+      # ----------------------------
+      - name: Build MkDocs site
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          BRANCH="$BRANCH_NAME"
+          echo "Branch detected: $BRANCH"
+          if [ "$BRANCH" != "main" ]; then
+            echo "Patching mkdocs.yml for branch $BRANCH"
+            BRANCH="$BRANCH" python3 .github/scripts/patch_mkdocs.py
+
+            mkdir -p docs
+            echo "# WORK IN PROGRESS" > docs/index.md
+            echo "This is the branch work page **$BRANCH** - click on Your-docs menu" >> docs/index.md
+          fi
+
+          echo "==== mkdocs.yml content before build ===="
+          cat mkdocs.yml
+          echo "========================================="
+
+          cd docs/techpost || exit 1
+          for docs in */; do
+              if [ "${docs%/}" = "menu" ]; then
+                  echo "Skipping $docs"
+                  continue
+              fi
+
+              echo "Processing $docs"
+              cd "$docs" || continue
+
+              # Check if any article.md files exist
+              if ls article.md 1>/dev/null 2>&1; then
+                echo "Cleaning up markdown references"
+                python3 ../../../.github/scripts/clean_md_links.py article.md
+                sed -i -e 's/<a\s*[^>]*id="\([^"]*\)"[^>]*>/\\label{\1}/g' -e 's/\xC2\xA0/ /g' article.md
+                echo "sanitize md files to remove hidden unicode characters"
+                python3 ../../../.github/scripts/sanitize_md.py article.md
+                echo "add download buttons to md files"
+                python3 ../../../.github/scripts/add_download_icons.py article.md "${docs%/}"
+              fi
+
+              cd ..
+          done
+          cd ../..
+
+          echo "Building site"
+          mkdocs build
+
+          echo "cleaning up the md file - removing line 4"
+          cd docs/techpost || exit 1
+          for docs in */; do
+              if [ "${docs%/}" = "menu" ]; then
+                  echo "Skipping $docs"
+                  continue
+              fi
+
+              echo "Processing $docs"
+              cd "$docs" || continue
+
+              # Check if any article*.md files exist
+              if ls article*.md 1>/dev/null 2>&1; then
+                echo "remove line 4 from md files"
+                python3 ../../../.github/scripts/remove_line4.py article.md
+              fi
+
+              cd ..
+          done
+          cd ../..
+
+      # ----------------------------
+      # Restore already-published download assets from gh-pages so incremental
+      # builds keep them and pdf-list.json stays complete (mkdocs build flushes ./site)
+      # ----------------------------
+      - name: Restore published downloads from gh-pages
+        if: github.ref == 'refs/heads/main' || (github.ref_type == 'tag' && contains(github.ref_name, 'rebuild-all'))
+        run: |
+          mkdir -p "$MAIN_PDF_DIR"
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            echo "Fetching gh-pages branch"
+            git fetch --depth=1 origin gh-pages
+            if git cat-file -e origin/gh-pages:download 2>/dev/null; then
+              echo "Restoring previously published download assets into $MAIN_PDF_DIR"
+              git archive origin/gh-pages download | tar -x -C "$MAIN_PDF_DIR" --strip-components=1
+              echo "Restored $(find "$MAIN_PDF_DIR" -type f | wc -l) published files"
+            else
+              echo "No download/ folder on gh-pages yet; nothing to restore"
+            fi
+          else
+            echo "gh-pages branch does not exist yet; nothing to restore"
+          fi
+
+      # ----------------------------
+      # Convert articles to PDF / EPUB (converted from GitLab `convertion` stage)
+      # Runs only on main, or on a tag / commit flagged with rebuild-all
+      # ----------------------------
+      - name: Convert articles to PDF/EPUB
+        if: github.ref == 'refs/heads/main' || (github.ref_type == 'tag' && contains(github.ref_name, 'rebuild-all'))
+        env:
+          COMMIT_BEFORE: ${{ github.event.before }}
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          IS_TAG: ${{ github.ref_type == 'tag' }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          OUTPUT_FILE="$MAIN_PDF_DIR/pdf-list.json"
+          echo "Saving PDFs to $MAIN_PDF_DIR"
+          mkdir -p "$MAIN_PDF_DIR"
+
+          # Check if full rebuild is requested via tag or commit message via rebuild-all
+          REBUILD_ALL=false
+          if [ "$IS_TAG" = "true" ] && echo "$REF_NAME" | grep -qi "rebuild-all"; then
+            echo "Tag '$REF_NAME' detected — forcing full rebuild of all PDFs/EPUBs/PNGs"
+            REBUILD_ALL=true
+          elif echo "$COMMIT_MESSAGE" | grep -qi "\[rebuild-all\]"; then
+            echo "Commit message contains [rebuild-all] — forcing full rebuild of all PDFs/EPUBs/PNGs"
+            REBUILD_ALL=true
+          fi
+
+          # Determine which article.md files were modified in this commit/merge
+          if [ "$REBUILD_ALL" = "true" ]; then
+            echo "Full rebuild requested. Processing all articles."
+            CHANGED_FILES="all"
+          else
+            echo "Detecting modified article.md files..."
+            if [ -n "$COMMIT_BEFORE" ] && [ "$COMMIT_BEFORE" != "0000000000000000000000000000000000000000" ]; then
+              CHANGED_FILES=$(git diff --name-only "$COMMIT_BEFORE" "$COMMIT_SHA" -- 'docs/techpost/*/article*.md' || true)
+            else
+              CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'docs/techpost/*/article*.md' || true)
+            fi
+
+            if [ -z "$CHANGED_FILES" ]; then
+              echo "No article.md files were modified. Skipping PDF/EPUB generation."
+              # Rebuild pdf-list.json from existing PDFs in MAIN_PDF_DIR
+              existing_pdfs=$(find "$MAIN_PDF_DIR" -maxdepth 1 -name '*.pdf' -printf '"%f",' 2>/dev/null | sed 's/,$//')
+              echo "[${existing_pdfs}]" > "$OUTPUT_FILE"
+              exit 0
+            fi
+          fi
+
+          if [ "$REBUILD_ALL" != "true" ]; then
+            echo "Modified article files:"
+            echo "$CHANGED_FILES"
+
+            # Extract unique directory names that have changes
+            CHANGED_DIRS=$(echo "$CHANGED_FILES" | sed 's|docs/techpost/\([^/]*\)/.*|\1|' | sort -u)
+            echo "Directories to rebuild: $CHANGED_DIRS"
+          fi
+
+          cd docs/techpost || exit 1
+          docs_dirs=$(find . -mindepth 1 -maxdepth 1 -type d ! -name '.*')
+          if [ -z "$docs_dirs" ]; then
+              echo "No actual docs directories found in docs/techpost. Skipping PDF build."
+              echo "[]" > "$OUTPUT_FILE"
+              exit 0
+          fi
+
+          # Collect existing PDFs for the final JSON list
+          pdf_files=()
+          for existing_pdf in "$MAIN_PDF_DIR"/*.pdf; do
+            [ -f "$existing_pdf" ] && pdf_files+=("\"$(basename "$existing_pdf")\"")
+          done
+
+          for docs in */; do
+              if [ "${docs%/}" = "menu" ]; then
+                  echo "Skipping $docs"
+                  continue
+              fi
+
+              # Only process directories with modified article.md files (unless full rebuild)
+              if [ "$REBUILD_ALL" != "true" ] && ! echo "$CHANGED_DIRS" | grep -qx "${docs%/}"; then
+                  echo "Skipping $docs (no changes detected)"
+                  continue
+              fi
+
+              echo "Processing $docs (modified)"
+              cd "$docs" || continue
+
+              md_files=""
+              # Check if any article*.md files exist
+              if ls article*.md 1>/dev/null 2>&1; then
+                  # Loop over files sorted numerically (article.md, article2.md, ...)
+                  for article in $(ls article*.md | sort -V); do
+                      md_files="$md_files $article"
+                  done
+              fi
+
+              if [ -n "$md_files" ]; then
+                  cat /dev/null > combined.md
+                  for file in $md_files; do
+                      sed '/^---$/,/^---$/d' "$file" >> combined.md
+                      echo "" >> combined.md
+                      echo "\pagebreak" >> combined.md
+                  done
+
+                  echo "Cleaning up markdown references"
+                  python3 ../../../.github/scripts/clean_md_links.py combined.md
+                  sed -i -e 's/<a\s*[^>]*id="\([^"]*\)"[^>]*>/\\label{\1}/g' -e 's/\xC2\xA0/ /g' combined.md
+
+                  echo "sanitize md files to remove hidden unicode characters"
+                  python3 ../../../.github/scripts/sanitize_md.py combined.md
+
+                  pandoc -s --number-sections --listings --template "/usr/share/pandoc/data/templates/custom.latex" \
+                         --metadata-file book-desc.yml --metadata-file pandoc-pdf.yml --output="${docs%/}.pdf" combined.md
+
+                  if [ -f "${docs%/}.pdf" ]; then
+                      echo "PDF generated successfully for $docs"
+                      cp "${docs%/}.pdf" "$MAIN_PDF_DIR"
+                      pdf_files+=("\"${docs%/}.pdf\"")
+
+                      # Generate PNG icons for the PDF
+                      echo "Generating icon for ${docs%/}.pdf"
+                      output_png="$MAIN_PDF_DIR/${docs%/}"
+                      pdftoppm -png -f 1 -l 1 -singlefile "${docs%/}.pdf" "$output_png"
+
+                      if [ -f "$output_png.png" ]; then
+                          echo "PDF image icon generated at $output_png.png"
+                          echo "Cleaning up markdown for EPUB"
+                          python3 ../../../.github/scripts/clean_for_epub.py combined.md combined-epub.md
+                          echo "Generating numbering for sections, figures and tables for EPUB"
+                          python3 ../../../.github/scripts/epub_numbering.py combined-epub.md
+                          echo "Generating EPUB for ${docs%/}.epub"
+                          pandoc -s --metadata-file=pandoc-epub.yml \
+                                 --metadata-file book-desc.yml --epub-cover-image="$output_png.png" --output="${docs%/}.epub" combined-epub.md
+                          if [ -f "${docs%/}.epub" ]; then
+                              echo "EPUB generated successfully for $docs"
+                              cp "${docs%/}.epub" "$MAIN_PDF_DIR"
+                          else
+                              echo "Failed to generate EPUB for $docs."
+                          fi
+                      else
+                          echo "Failed to generate icon for ${docs%/}.pdf and therefore epub version"
+                      fi
+                  else
+                      echo "PDF generation failed for $docs. See pandoc.log for details."
+                  fi
+              else
+                  echo "No markdown files found for $docs. Skipping PDF generation."
+              fi
+              cd ..
+          done
+
+          # Write JSON list of PDFs (deduplicated)
+          unique_pdfs=$(printf '%s\n' "${pdf_files[@]}" | sort -u | tr '\n' ',' | sed 's/,$//')
+          echo "[${unique_pdfs}]" > "$OUTPUT_FILE"
+          echo "Generated $OUTPUT_FILE with updated PDF list."
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./site
+          keep_files: true
+          destination_dir: ${{ github.ref_name != 'main' && github.ref_name || '' }}
+
+  # ==========================================================
+  # CLEANUP JOB 
+  # ==========================================================
+  cleanup-previews:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Remove obsolete branch previews
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd gh-pages
+
+          WHITELIST="addon assets books download images search stylesheets"
+          ACTIVE_BRANCHES=$(gh api repos/${GITHUB_REPOSITORY}/branches --jq '.[].name')
+
+          for dir in *; do
+            [ -d "$dir" ] || continue
+
+            if echo "$WHITELIST" | grep -qw "$dir"; then
+              continue
+            fi
+
+            if ! echo "$ACTIVE_BRANCHES" | grep -qw "$dir"; then
+              echo "Removing obsolete preview: $dir"
+              rm -rf "$dir"
+            fi
+          done
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Cleanup obsolete branch previews" || echo "Nothing to clean"
+          git push
