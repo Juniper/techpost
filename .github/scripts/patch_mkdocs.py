@@ -1,13 +1,15 @@
 import os
 import yaml
 
-BRANCH = os.environ.get("BRANCH", "main")
-REPO = os.environ.get("REPO_NAME", "article")
-
+BRANCH_NAME = os.environ.get("BRANCH_NAME", "main")
 MKDOCS_FILE = "mkdocs.yml"
-BOOK_DESC_FILE = "docs/articles/" + REPO + "/article-desc.yml"
+ARTICLE_PATH = "docs/articles/" + BRANCH_NAME + "/article.md"
 INDEX_FILE = "docs/index.md"
 
+if BRANCH_NAME == "main":
+    print("Branch is 'main'; no patching needed.")
+    exit(0)
+    
 # -------------------------------
 # Load mkdocs.yml
 # -------------------------------
@@ -19,106 +21,57 @@ with open(MKDOCS_FILE, "r") as f:
 # -------------------------------
 # extra_css = config.get("extra_css", [])
 # 
-# if BRANCH != "main":
-#     extra_css = [
-#         "stylesheets/extra-branch.css" if css == "stylesheets/extra.css" else css
-#         for css in extra_css
-#     ]
+# extra_css = [
+#     "stylesheets/extra-branch.css" if css == "stylesheets/extra.css" else css
+#     for css in extra_css
+# ]
 # 
 # config["extra_css"] = extra_css
 
-# -------------------------------
-# 2. Build book menus
-# -------------------------------
-book_links = [
-    {"PDF Article": f"download/{REPO}.pdf"},
-    {"ePUB Article": f"download/{REPO}.epub"},
-]
-
-if BRANCH != "main":
-    book_links.append(
-        {"DOCX Article (for review only)": f"download/{REPO}.docx"}
-    )
 
 # -------------------------------
-# 3. Insert menus before "About us"
+# 2. Create a new nav for the branch
 # -------------------------------
-nav = config.get("nav", [])
-new_nav = []
-inserted = False
-
-for item in nav:
-    if isinstance(item, dict) and "About us" in item and not inserted:
-        for link in book_links:
-            new_nav.append(link)
-        inserted = True
-    new_nav.append(item)
-
-if not inserted:
-    new_nav.extend(book_links)
-
+new_nav = [
+    {"Home": "index.md"},
+    {"Your work-in-progress Article": ARTICLE_PATH},
+    {"DOCX version (for review only)": f"download/{BRANCH_NAME}.docx"},
+    {"About us": "docs/about.md"}
+    ]
 config["nav"] = new_nav
 
 # -------------------------------
-# 4. Write back mkdocs.yml
+# 3. Write back mkdocs.yml
 # -------------------------------
 with open(MKDOCS_FILE, "w") as f:
     yaml.dump(config, f, sort_keys=False)
 
-print(f"mkdocs.yml patched for branch: {BRANCH}")
-
-# -------------------------------
-# 5. Generate docs/index.md
-# -------------------------------
-# Load book description YAML
-book_title = book_subtitle = book_author = "Unknown"
-if os.path.exists(BOOK_DESC_FILE):
-    with open(BOOK_DESC_FILE, "r") as f:
-        all_docs = list(yaml.safe_load_all(f))
-        if len(all_docs) > 0:
-            # Take first document (adjust if needed)
-            book_meta = all_docs[0]
-            book_title = book_meta.get("title", book_title)
-            book_subtitle = book_meta.get("subtitle", book_subtitle)
-            book_author = book_meta.get("author", book_author)
+print(f"mkdocs.yml patched for branch: {BRANCH_NAME}")
 
 # Prepare WARNING message
-if BRANCH == "main":
-    banner = (
-        '<p align="center">'
-        '<a href="https://juniper.net">'
-            '<img class="my-icon" src="images/logo.png?sanitize=true" alt="logo"/>'
-        '</a>'
-        '</p>'
-    )
-else:
-    banner = (
-        '<p align="center">'
-        '<img src="images/warn.gif" alt="Animated GIF" style="display: block; margin: 0 auto; width: 100px; height: auto;"><br>'
-        f'<strong>THIS IS A WORK-IN-PROGRESS BOOK - BRANCH {BRANCH}</strong>'
-        '</p>'
-    )
+banner = (
+    '<p align="center">'
+    '<img src="images/warn.gif" alt="Animated GIF" style="display: block; margin: 0 auto; width: 100px; height: auto;"><br>'
+    f'<strong>THIS IS A WORK-IN-PROGRESS ARTICLE - BRANCH {BRANCH_NAME}</strong>'
+    '</p>'
+)
 
 # Markdown template
-index_md = f"""# {book_title} - Dayone Book
+index_md = f"""
+---
+hide:
+  - toc
+  - navigation
+---
+
+<div class="hero-section">
+  <a href="https://hpe.com">
+    <img class="hero-logo" src="images/mainlogo.png?sanitize=true" alt="HPE Juniper Techpost"/>
+  </a>
+  <p class="hero-subtitle">The HPE Juniper Engineering Technical Library</p>
+  <p class="hero-description">In-depth technical articles written by engineers, for engineers.</p>
+</div>
 {banner}
-## About the content
-
-This is the digital Dayone book repository of: **{book_title} - {book_subtitle}**
-
-By {book_author}
-
-You will find the book in three versions: Web, PDF and ePUB.
-
-Enjoy reading!
-
-## More books? 
-
-Please check out our [Dayone Book Catalog](https://www.juniper.net/documentation/jnbooks/us/en/day-one-books), where you can find all our available books. 
-
-## Legal disclaimer
-
-*Juniper Networks may disclose information related to development and plans for future products, features or enhancements, known as a Plan of Record (“POR”).  These details provided are based on Juniper’s current development efforts and plans. These development efforts and plans are subject to change at Juniper’s sole discretion, without notice.  Except as may be set forth in definitive agreements, Juniper Networks provides no assurances and assumes no responsibility to introduce products, features or enhancements described in this presentation.  Purchasing decisions by third-parties should not be based on this POR and no purchases are contingent upon Juniper Networks delivering any feature or functionality depicted in this presentation.*
 """
 
 # Ensure docs directory exists
@@ -128,4 +81,4 @@ os.makedirs("docs", exist_ok=True)
 with open(INDEX_FILE, "w") as f:
     f.write(index_md)
 
-print(f"docs/index.md generated for branch: {BRANCH}")
+print(f"docs/index.md generated for branch: {BRANCH_NAME}")
