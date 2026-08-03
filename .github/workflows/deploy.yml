@@ -377,7 +377,18 @@ jobs:
           sed -i -e 's/<a\s*[^>]*id="\([^"]*\)"[^>]*>/\\label{\1}/g' -e 's/\xC2\xA0/ /g' combined.md
           echo "sanitize md files to remove hidden unicode characters"
           python3 ../../../.github/scripts/sanitize_md.py combined.md
-
+          
+          echo "Generating DOCX for branch '$BRANCH_NAME'"
+          pandoc -s --number-sections \
+                 --metadata-file article-desc.yml --metadata-file pandoc-pdf.yml --output="${BRANCH_NAME}.docx" combined.md
+          if [ -f "${BRANCH_NAME}.docx" ]; then
+              echo "DOCX generated for branch '$BRANCH_NAME'"
+              cp "${BRANCH_NAME}.docx" "$MAIN_PDF_DIR"
+          else
+              echo "Failed to generate DOCX for branch '$BRANCH_NAME'."
+          fi
+          
+          echo "Generating PDF for branch '$BRANCH_NAME'"
           pandoc -s --number-sections --listings --template "/usr/share/pandoc/data/templates/custom.latex" \
                  --metadata-file article-desc.yml --metadata-file pandoc-pdf.yml --output="${BRANCH_NAME}.pdf" combined.md
 

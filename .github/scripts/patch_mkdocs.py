@@ -58,12 +58,6 @@ banner = (
 
 # Markdown template
 index_md = f"""
----
-hide:
-  - toc
-  - navigation
----
-
 <div class="hero-section">
   <a href="https://hpe.com">
     <img class="hero-logo" src="images/mainlogo.png?sanitize=true" alt="HPE Juniper Techpost"/>
