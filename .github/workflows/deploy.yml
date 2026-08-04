@@ -6,6 +6,7 @@ on:
       - '**'
     tags:
       - '*rebuild-all*'
+  delete:
   workflow_dispatch:
 
 permissions:
@@ -13,6 +14,8 @@ permissions:
 
 jobs:
   build-deploy:
+    # Branch deletions only need the cleanup job, not a rebuild/redeploy.
+    if: github.event_name != 'delete'
     runs-on: ubuntu-latest
     env:
       MAIN_PDF_DIR: ${{ github.workspace }}/site/download
@@ -435,7 +438,7 @@ jobs:
   # CLEANUP JOB 
   # ==========================================================
   cleanup-previews:
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'delete' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
