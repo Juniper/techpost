@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+
+  {#- Article title for social previews -#}
+  <meta property="og:title" content="{{ page.title | default(config.site_name, true) }}" />
+
+  {#- Per-article thumbnail (images/logo.png next to article.md); fall back to site logo -#}
+  {% if page and page.file.src_uri.endswith("article.md") %}
+    {% set og_image_path = page.file.src_uri | replace("article.md", "images/logo.png") %}
+  {% else %}
+    {% set og_image_path = "images/logo.png" %}
+  {% endif %}
+  {% if config.site_url %}
+    {% set og_image = config.site_url | trim("/") ~ "/" ~ og_image_path %}
+  {% else %}
+    {% set og_image = og_image_path | url %}
+  {% endif %}
+  <meta property="og:image" content="{{ og_image }}" />
+
+  <meta property="og:type" content="article" />
+  {% if page and page.canonical_url %}
+  <meta property="og:url" content="{{ page.canonical_url }}" />
+  {% endif %}
+{% endblock %}
