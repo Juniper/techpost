@@ -1,9 +1,12 @@
-# Start your techpost here
+# This is my tile 1 
 
-Main rules:  
+## Tile david 
 
-- One unique Level‑1 title per article  
-- Make sure your tables and images have captions  
-- Use only the supported Markdown format: more info [here](https://github.com/Juniper/techpost/blob/main/supported_md.md)
+jkqdhqjksH **KLDKLJ** Dqs 
 
-Enjoy writing.
+- Bullet item
+
+![This is my caption](images/this-is-my-caption-af204a.png)
+
+dkdhqsjd
+lksqfkls 
