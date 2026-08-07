@@ -1,0 +1,830 @@
+/* =========================================================
+   Fonts
+   ========================================================= */
+
+@font-face {
+    font-family: 'HPE Graphik XXCondensed';
+    src: url('./fonts/HPEGraphikXXCondensed.woff2') format('woff2'),
+         url('./fonts/HPEGraphikXXCondensed.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* =========================================================
+   Lightbox & Images
+   ========================================================= */
+
+.md-typeset a.glightbox {
+    position: relative;
+    display: inline-block;
+    cursor: zoom-in;
+}
+
+.md-typeset a.glightbox::after {
+    content: "\1F50D";
+    /* 🔍 Unicode magnifying glass icon */
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 2px #000;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.md-typeset a.glightbox:hover::after {
+    opacity: 1;
+}
+
+/* ✅ More specific image rule for MkDocs' .md-typeset content
+   (redundant with the above "img", but ensures priority inside MkDocs) */
+.md-typeset img[width] {
+    max-width: none !important;
+    height: auto !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.md-typeset img {
+    max-width: 80% !important;
+    height: auto !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.md-typeset figcaption {
+    margin: 0em auto !important;
+}
+
+
+/* =========================================================
+   Tables
+   ========================================================= */
+
+/* ✅ Center ALL Markdown tables */
+.md-typeset .md-typeset__table {
+    display: flex;
+    /* wrapper adapts to table size */
+    justify-content: center;
+    /* centers table horizontally */
+}
+
+.md-typeset .md-typeset__table table {
+    width: max-content;
+    /* table shrinks to fit its content */
+    max-width: 95%;
+    /* still responsive, won’t overflow */
+    margin: 0 auto;
+    /* fallback centering */
+}
+
+.md-typeset table {
+    border-collapse: collapse;
+    border: 1px solid var(--md-default-fg-color--lighter);
+}
+
+.md-typeset table th,
+.md-typeset table td {
+    border: 1px solid var(--md-default-fg-color--lighter);
+}
+
+/* Table header styling */
+.md-typeset table thead th {
+    background-color: #1d1f27 !important;
+    color: white !important;
+    text-transform: uppercase !important;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+/* Table body styling */
+.md-typeset table tbody tr {
+    font-size: 0.7rem;
+}
+
+.md-typeset table-caption {
+    margin: 0em auto !important;
+}
+
+/* =========================================================
+   Layout & Grid
+   ========================================================= */
+
+/* Only apply fixed sidebar widths on desktop screens */
+@media screen and (min-width: 76.25em) {
+    .md-sidebar {
+        width: 15rem;
+    }
+
+    .md-nav--primary .md-nav__list {
+        width: 14rem;
+    }
+}
+
+.md-content__inner {
+    margin-left: 6rem !important;
+    margin-right: 6rem !important;
+}
+
+/* ✅ Adjust page grid (wider container than default MkDocs Material) */
+.md-grid {
+    max-width: 85rem;
+}
+
+
+/* =========================================================
+   Typography
+   ========================================================= */
+
+.md-typeset h1 {
+    margin: 0 0 0.25em !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    font-family: 'HPE Graphik XXCondensed';
+    font-size: clamp(28px, 5vw, 64px);
+    text-transform: uppercase;
+}
+
+.md-typeset h2 {
+    margin: 0.2em 0 .2em !important;
+    font-weight: bold !important;
+    font-size: clamp(22px, 3vw, 34px);
+}
+
+.md-typeset h3 {
+    margin: 0.1em 0 .1em !important;
+    font-weight: bold !important;
+    font-size: clamp(18px, 2.5vw, 24px);
+}
+
+.md-typeset ul li {
+    margin-bottom: .0 !important;
+}
+
+
+/* =========================================================
+   Header / Navigation / Tabs
+   ========================================================= */
+
+/* Header bar */
+[data-md-color-scheme="default"] .md-header {
+    background-color: #000000 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+[data-md-color-scheme="default"] .md-header__inner {
+    background-color: transparent !important;
+}
+
+/* Logo area */
+[data-md-color-scheme="default"] .md-header .md-logo img {
+    filter: invert(1);
+}
+
+.md-header .md-logo {
+    padding: 0.3rem 0;
+}
+
+/* Site title in header */
+.md-header .md-header__title {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+}
+
+/* Search bar styling */
+.md-search__input {
+    border-radius: 6px !important;
+    font-size: 0.8rem !important;
+}
+
+[data-md-color-scheme="default"] .md-search__input {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-md-color-scheme="default"] .md-search__input:focus {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(0, 206, 158, 0.6) !important;
+}
+
+[data-md-color-scheme="default"] .md-search__input::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Navigation tabs bar */
+[data-md-color-scheme="default"] .md-tabs {
+    background-color: #292D3A !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Tab links */
+.md-tabs__link {
+    font-size: 0.72rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.03em !important;
+    text-transform: uppercase !important;
+    padding: 0 1.2em !important;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+    border-bottom: 2px solid transparent;
+}
+
+/* Active tab */
+[data-md-color-scheme="default"] .md-tabs__item--active > .md-tabs__link {
+    color: white !important;
+    opacity: 1;
+    border-bottom-color: #00ce9e !important;
+}
+
+/* Hover state on tab links */
+[data-md-color-scheme="default"] .md-tabs__link:hover {
+    color: white !important;
+    opacity: 1;
+    border-bottom-color: rgba(0, 206, 158, 0.4) !important;
+}
+
+/* Header icons (theme toggle, repo, etc.) */
+.md-header__button {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.md-header__button:hover {
+    opacity: 1;
+}
+
+/* Dark theme (slate) header and tabs */
+[data-md-color-scheme="slate"] .md-header {
+    background-color: #017b5e !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-md-color-scheme="slate"] .md-header__inner {
+    background-color: transparent !important;
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+    background-color: #01A982 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 6px !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input:focus {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-md-color-scheme="slate"] .md-tabs__item--active > .md-tabs__link {
+    color: white !important;
+    opacity: 1;
+    border-bottom-color: #7dd3fc !important;
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link:hover {
+    color: white !important;
+    opacity: 1;
+    border-bottom-color: rgba(125, 211, 252, 0.4) !important;
+}
+
+
+/* =========================================================
+   Sidebar Navigation Polish
+   ========================================================= */
+
+/* Sidebar nav items */
+.md-nav__link {
+    font-size: 0.72rem;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    border-radius: 4px;
+    padding: 0.35em 0.6em !important;
+}
+
+.md-nav__link:hover {
+    background-color: rgba(0, 115, 157, 0.06);
+}
+
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+    background-color: rgba(125, 211, 252, 0.06);
+}
+
+/* Active sidebar link indicator */
+.md-nav__link--active {
+    font-weight: 600 !important;
+    border-left: 3px solid #00a3e0;
+    padding-left: 0.5em !important;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+    border-left-color: #7dd3fc;
+}
+
+/* Section labels in sidebar */
+.md-nav__item--nested > .md-nav__link {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   Mobile / Responsive
+   ========================================================= */
+
+/* Tablets and small screens */
+@media screen and (max-width: 960px) {
+    .md-content__inner {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+    }
+
+    .md-typeset h1 {
+        font-size: 36px;
+    }
+
+    .md-typeset h2 {
+        font-size: 26px;
+    }
+
+    .md-typeset h3 {
+        font-size: 20px;
+    }
+
+}
+
+/* Phones */
+@media screen and (max-width: 600px) {
+    .md-content__inner {
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+
+    .md-typeset h1 {
+        font-size: 28px;
+    }
+
+    .md-typeset h2 {
+        font-size: 22px;
+    }
+
+    .md-typeset h3 {
+        font-size: 18px;
+    }
+
+    .md-typeset img {
+        max-width: 100% !important;
+    }
+
+    .md-typeset img[width] {
+        max-width: 100% !important;
+    }
+}
+
+
+/* =========================================================
+   Footer
+   ========================================================= */
+
+/* ✅ Footer custom styling */
+.mdx-content__footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.mdx-content__footer a {
+    display: inline-block;
+    transition: transform 250ms cubic-bezier(0.1, 0.7, 0.1, 1), color 125ms;
+}
+
+.mdx-content__footer a:focus,
+.mdx-content__footer a:hover {
+    transform: scale(1.2);
+}
+
+.mdx-content__footer hr {
+    display: inline-block;
+    width: 40px;
+    margin: 16px;
+    vertical-align: middle;
+    background-color: currentColor;
+    border: none;
+}
+
+/* ✅ Footer (light theme) */
+[data-md-color-scheme="default"] .md-footer {
+    background-color: #000000 !important;
+    color: white !important;
+}
+
+[data-md-color-scheme="default"] .md-footer-meta {
+    background-color: #000000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ✅ Footer (dark theme) */
+[data-md-color-scheme="slate"] .md-footer {
+    background-color: #017b5e !important;
+    color: white !important;
+}
+
+[data-md-color-scheme="slate"] .md-footer-meta {
+    background-color: #017b5e;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ✅ Footer links */
+.md-footer a {
+    color: white !important;
+}
+
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+
+/* ✅ Custom pill-shaped button */
+.custom-button {
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    background-color: #0f172a;
+    color: white !important;
+    border-radius: 999px;
+    /* makes it pill-shaped */
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+/* ✅ Font Awesome icons inside custom buttons */
+.custom-button svg.svg-inline--fa {
+    width: 2em;
+    height: 2em;
+    vertical-align: middle;
+    margin-right: 0.4em;
+    transform: translateY(2px);
+    /* tweak alignment */
+    color: white;
+    /* ensures icons are white */
+}
+
+/* ✅ Hover effect on custom button */
+.custom-button:hover {
+    background-color: #0f172a;
+}
+
+/* ✅ Dark mode button color (same as default here) */
+[data-md-color-scheme="slate"] .custom-button {
+    background-color: #0f172a;
+}
+
+
+/* =========================================================
+   Hero Section (Landing Page)
+   ========================================================= */
+
+/* Hide the auto-generated page title when hero-section is present */
+.md-typeset:has(.hero-section) > h1,
+.md-content:has(.hero-section) h1:first-of-type,
+.md-typeset:has(.hero-section) h1,
+article:has(.hero-section) h1 {
+    display: none !important;
+}
+
+/* On home page, always show site title in header (prevent page title takeover) */
+body:has(.hero-section) .md-header__topic:nth-child(2) {
+    display: none !important;
+}
+body:has(.hero-section) .md-header__topic:first-child {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+.hero-section {
+    text-align: center;
+    max-width: 800px;
+    margin-inline: auto;
+}
+
+.hero-logo {
+    max-width: 220px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem;
+    color: #292D3A;
+}
+
+[data-md-color-scheme="slate"] .hero-title {
+    color: #f0f2f5;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #292D3A;
+    margin: 0 0 0.5rem;
+}
+
+[data-md-color-scheme="slate"] .hero-subtitle {
+    color: #cbd5e1;
+}
+
+.hero-description {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin: 0 0 2rem;
+}
+
+[data-md-color-scheme="slate"] .hero-description {
+    color: #94a3b8;
+}
+
+.hero-cta {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #00739d;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-cta:hover {
+    background-color: #005a7a;
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .hero-cta {
+    background-color: #3db8e5;
+    color: #0f172a;
+}
+
+[data-md-color-scheme="slate"] .hero-cta:hover {
+    background-color: #60c8ed;
+}
+
+/* =========================================================
+   Latest Section
+   ========================================================= */
+
+.latest-section {
+    max-width: 1400px;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.latest-heading {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #292D3A;
+    margin: 0 auto 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #292D3A;
+    display: block;
+    text-align: center;
+}
+
+[data-md-color-scheme="slate"] .latest-heading {
+    color: #f0f2f5;
+    border-bottom-color: #01A982;
+}
+
+/* =========================================================
+   Latest Articles Grid (Home page)
+   ========================================================= */
+
+.latest-grid {
+    display: grid;
+    text-align: left;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.latest-grid .card {
+    font-size: 0.85rem;
+}
+
+.latest-grid .card-icon {
+    height: 90px;
+    margin-top: 0.5rem;
+}
+
+.latest-grid .card-text {
+    padding: 0.5rem 0.6rem 0.6rem;
+}
+
+.latest-grid .card-title {
+    font-size: 0.72rem;
+}
+
+.latest-grid .card-subtitle {
+    font-size: 0.6rem;
+}
+
+@media (max-width: 768px) {
+    .latest-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .latest-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================================================
+   Cards
+   ========================================================= */
+
+/* ✅ Card filter input */
+.card-filter-container {
+    max-width: 1400px;
+    margin-inline: auto;
+    padding: 1rem 0 0;
+}
+
+.card-filter-input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+    color: #1d1f27;
+    box-sizing: border-box;
+}
+
+.card-filter-input:focus {
+    border-color: #00739d;
+    box-shadow: 0 0 0 3px rgba(0, 115, 157, 0.15);
+}
+
+[data-md-color-scheme="slate"] .card-filter-input {
+    background-color: #1e2433;
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #f0f2f5;
+}
+
+[data-md-color-scheme="slate"] .card-filter-input:focus {
+    border-color: #3db8e5;
+    box-shadow: 0 0 0 3px rgba(61, 184, 229, 0.15);
+}
+
+/* ✅ Card grid layout */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 1.75rem;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding: 1rem 0;
+}
+
+/* ✅ Card component — magazine style */
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] .card {
+    background-color: #1e2433;
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: #00739d;
+}
+
+[data-md-color-scheme="slate"] .card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    border-color: #3db8e5;
+}
+
+/* ✅ Card cover image */
+.card-icon {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    margin-top: 0.5rem;
+    background-color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .card-icon {
+    background-color: #ffffff;
+}
+
+/* ✅ Card text area */
+.card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.25rem 1.25rem;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* ✅ Title */
+.card-title {
+    color: #1d1f27;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+[data-md-color-scheme="slate"] .card-title {
+    color: #f0f2f5;
+}
+
+/* ✅ Subtitle / Author */
+.card-subtitle {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: #6b7280;
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+
+[data-md-color-scheme="slate"] .card-subtitle {
+    color: #94a3b8;
+}
+
+/* ✅ Responsive: tablets */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+        gap: 1.25rem;
+    }
+
+    .card-icon {
+        height: 130px;
+    }
+}
+
+/* ✅ Responsive: phones */
+@media (max-width: 480px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card-icon {
+        height: 140px;
+    }
+
+    .card-text {
+        padding: 0.85rem 1rem 1rem;
+    }
+}
