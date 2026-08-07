@@ -60,6 +60,7 @@
 
 .md-typeset figcaption {
     margin: 0em auto !important;
+    text-align: center !important;
 }
 
 
@@ -108,8 +109,10 @@
     font-size: 0.7rem;
 }
 
-.md-typeset table-caption {
+.md-typeset caption {
     margin: 0em auto !important;
+    text-align: center !important;
+    caption-side: top;
 }
 
 /* =========================================================
