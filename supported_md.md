@@ -1,4 +1,4 @@
-# Ready to Start Writing - Follow MD rules below
+# Follow MD rules below
 
 **This is the markdown formatting validated to be well rendered to Static HTML along with the PDF exportation. Please only use these validated formats**
 
