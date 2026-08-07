@@ -1,5 +1,4 @@
-copyright: This site is maintained by HPE/Juniper Networking employees. Powered by
-  Material for MkDocs & Pandoc
+copyright: This site is maintained by HPE/Juniper Networking employees. Powered by Material for MkDocs & Pandoc
 docs_dir: docs
 extra:
   generator: false
@@ -42,6 +41,9 @@ nav:
       - MX301 Deepdive: articles/mx301-deepdive/article.md
       - MX301 High-Performance FlowSpec Without Compromise: articles/mx301-high-performance-flowspec-without-compromise/article.md
       - MX301 A Powerful Filtering Gateway: articles/mx301-a-powerful-filtering-gateway/article.md
+  - Routing:
+    - EVPN:
+      - This is my new article david: articles/this-is-my-new-article-david/article.md
 - About us: about.md
 plugins:
 - caption-per-book
@@ -88,4 +90,3 @@ theme:
     toggle:
       icon: material/brightness-auto
       name: Switch to light mode
-
