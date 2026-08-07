@@ -19,7 +19,14 @@ with open(MKDOCS_FILE, "r") as f:
 # -------------------------------
 # 1. Switch extra.css for branches
 # -------------------------------
-config["extra_css"] = "extra-branch.css"
+extra_css = config.get("extra_css", [])
+
+extra_css = [
+    "stylesheets/extra-branch.css" if css == "stylesheets/extra.css" else css
+    for css in extra_css
+]
+
+config["extra_css"] = extra_css
 
 
 # -------------------------------
