@@ -28,7 +28,7 @@ We use the following typical architecture, illustrated in Figure 2. In this arch
 
 ![Typical network architecture with a network filtering gateway.](images/picture3.png)
 
-Let's first review the current state and scaling figures on our MX301. We can start with the routing table summary ,Äì as shown, there are approximately 9K IS-IS routes, both the IPv4 and IPv6 BGP "official" Internet tables in the RIB, and 2K BGP FlowSpec entries.
+Let's first review the current state and scaling figures on our MX301. We can start with the routing table summary - as shown, there are approximately 9K IS-IS routes, both the IPv4 and IPv6 BGP "official" Internet tables in the RIB, and 2K BGP FlowSpec entries.
 
 ```
 lab@rtme-mx301-01> show isis database brief level 2 |match LSPs 
@@ -96,7 +96,7 @@ set routing-options rib inet6.0 protect core
 set routing-options protect core
 ```
 
-In practice, we only consume a single "unlist next-hop" ,Äì not twice the full views. Thanks to the Trio's NextHop hierarchy, this "unilist next-hop" handles the nominal/backup forwarding next-hop indirection and consumes only a few more ASIC memory. Let's verify this using a well-known Internet route:
+In practice, we only consume a single "unlist next-hop" - not twice the full views. Thanks to the Trio's NextHop hierarchy, this "unilist next-hop" handles the nominal/backup forwarding next-hop indirection and consumes only a few more ASIC memory. Let's verify this using a well-known Internet route:
 
 ```
 lab@rtme-mx301-01> show route forwarding-table destination 8.8.8.0/24 extensive 
@@ -124,7 +124,7 @@ Destination:  8.8.8.0/24
   Next-hop interface: ae1.0         Weight: 0x4000
 ```
 
-As mentioned, we also rely on IPFIX for exporting flow statistics to an external appliance. IPFIX is configured as follows ,Äì we only show the IPv4 config, but the config would be the same for IPv6 and MPLS family.
+As mentioned, we also rely on IPFIX for exporting flow statistics to an external appliance. IPFIX is configured as follows - we only show the IPv4 config, but the config would be the same for IPv6 and MPLS family.
 
 ```
 lab@rtme-mx301-01> show configuration forwarding-options 
@@ -214,9 +214,9 @@ In the previous section, we detailed our baseline.  To build this "secure" gatew
 
 *Note: Of course, there are other ways to secure a network architecture. BGP RTBH is one of the most popular, efficient, and simplest solutions to deploy destination blackholing at scale. However, in this article, we focus on a smarter approach that combines multiple Trio capabilities to mitigate various attack types against a destination while keeping it reachable.*
 
-- Unicast RPF (uRPF): for every packet entering the MX301 from an untrust interface, we will check the source IP address against the RIB (source lookup). uRPF provides only a basic, first-level source validation, which, by itself, is no longer sufficient from a security standpoint. But since Trio can easily support source lookup along with destination, without any performance degradation, why not add this feature to secure our infrastructure a bit more? We have the following three choices ,Äì in our example, we will select the third one, which offers a good compromise.
+- Unicast RPF (uRPF): for every packet entering the MX301 from an untrust interface, we will check the source IP address against the RIB (source lookup). uRPF provides only a basic, first-level source validation, which, by itself, is no longer sufficient from a security standpoint. But since Trio can easily support source lookup along with destination, without any performance degradation, why not add this feature to secure our infrastructure a bit more? We have the following three choices - in our example, we will select the third one, which offers a good compromise.
 
-**uRPF Strict Mode**: BCP38 at the customer,ÄìSP edge. Each incoming packet is validated against the FIB. If the ingress interface does not match the best reverse path, the packet is dropped.
+**uRPF Strict Mode**: BCP38 at the customer-SP edge. Each incoming packet is validated against the FIB. If the ingress interface does not match the best reverse path, the packet is dropped.
 
 **uRPF Loose Mode**: sRTBH anywhere in the network. The router verifies only the presence of a route in the FIB. If no route exists, the packet is dropped; if a route is present, the packet is accepted. This mode is well-suited for sRTBH and for mitigating specific spoofed traffic at peering edges.
 
@@ -244,7 +244,7 @@ Let's focus our eyes on these interfaces:
 - Untrust interface: ae0 made of 2x400GE ports (one port per PFE)
 - Trust interface: ae2 made of 1 single 400GE port.
 
-As mentioned earlier, we have nothing fancy configured by default on these interfaces ,Äì just IPFIX to provide flow statistics to an external scrubbing center.
+As mentioned earlier, we have nothing fancy configured by default on these interfaces - just IPFIX to provide flow statistics to an external scrubbing center.
 
 ```
 lab@rtme-mx301-01> show configuration interfaces ae0 
@@ -321,7 +321,7 @@ Also, remind you, we monitor via streaming telemetry the interface throughput th
 
 ![Physical Interface traffic monitoring via Telemetry](images/picture4.png)
 
-And our tester also monitors transmitted and received traffic ,Äì as seen below, everything is forwarded well:
+And our tester also monitors transmitted and received traffic - as seen below, everything is forwarded well:
 
 Table: Baseline traffic statistics collected by the tester
 
@@ -344,7 +344,7 @@ Table: Flow attacks definition
 | IP spoofing target | 7.3Gbps / 3Mpps | Size 256 Bytes - Random IP Source (IP Spoofed from customer's IP ranges) |
 | DNS Amplification | 158Gbps / 13.3Mpps | Size 1500Bytes - UDP port source 53 |
 | DNS Amplification | 158Gbps / 13.3Mpps | Size 1500Bytes (except the last frag) - UDP fragments (trailing packets of the DNS attack) |
-| Dynamic TCP Attack | 72Gbps / 46Mpps | Random Size 128-256 Bytes ,Äì TCP random IP Source, Random Source Ports, 4 Destination Ports: 1024, 1025, 1026, 5000 |
+| Dynamic TCP Attack | 72Gbps / 46Mpps | Random Size 128-256 Bytes - TCP random IP Source, Random Source Ports, 4 Destination Ports: 1024, 1025, 1026, 5000 |
 
 Let's start our attacks. As you can see below, the physical port et-0/0/0, a member link of the ae2 trust interface, is totally overloaded and experiences massive RED drops. This is expected, since ae0 receives more than 600 Gbps, while ae2 (the interface on which 192.168.1.1/32 is reachable) has a maximum capacity of 400 Gbps.
 
@@ -687,7 +687,7 @@ set policy-options prefix-list DNS-RECURSIVE 10.0.0.1/32
 set policy-options prefix-list DNS-RECURSIVE 10.0.0.2/32
 ```
 
-For each policer associated with each term, it is up to each customer to select the best values based on their infrastructure, traffic levels, traffic forecast, etc. In our example, each policer is configured that way ,Äì 500 Mbps max.
+For each policer associated with each term, it is up to each customer to select the best values based on their infrastructure, traffic levels, traffic forecast, etc. In our example, each policer is configured that way - 500 Mbps max.
 
 ```
 set firewall policer UDP-80 shared-bandwidth-policer
@@ -759,8 +759,8 @@ Note: a solution like Corero, which is fully integrated with the MX portfolio, i
 
 In our example, as we rely on IPFIX with a cache set to the minimum (10 seconds), the external solution should probably identify these signatures in 15 to 20 seconds:
 
-- **TCP Flood**: 192.168.1.1/32 - Source IP: Random ,Äì Destination Ports: 1024, 1025, 1026, 5000 ,Äì Source Ports: Random
-- **UDP DNS**: Destination IP 192.168.1.1/32 - Source IP: Random - Destination Ports: Random ,Äì Source Ports: 53
+- **TCP Flood**: 192.168.1.1/32 - Source IP: Random - Destination Ports: 1024, 1025, 1026, 5000 - Source Ports: Random
+- **UDP DNS**: Destination IP 192.168.1.1/32 - Source IP: Random - Destination Ports: Random - Source Ports: 53
 - **UDP Fragments**: Destination IP 192.168.1.1/32 - Source IP: Random
 
 Once again, we assumed that the external solution would generate three FlowSpec rules covering these signatures and propagate them via BGP to our MX301. If we analyze the inetflow.0 table, we can see these three new rules, added to the existing 2K rules, which should completely clean the remaining attack:
@@ -809,7 +809,7 @@ Remember, uRPF and static mitigation filters have no latency. Once the attack st
 
 ## The Cherry on Top of This Cake
 
-This last section is not directly related to filtering, but I wanted to wrap up the article with another touch of streaming telemetry and our newest MX301. Thanks to the "power monitoring" sensor, we can check the power consumption of the MX301 device while under attack, with all the discussed features enabled and at the current scaling + 50% of traffic ,Äì as seen below, that's pretty low, less than 250W (or ~0.35W/Gbps as shown on the graph)
+This last section is not directly related to filtering, but I wanted to wrap up the article with another touch of streaming telemetry and our newest MX301. Thanks to the "power monitoring" sensor, we can check the power consumption of the MX301 device while under attack, with all the discussed features enabled and at the current scaling + 50% of traffic - as seen below, that's pretty low, less than 250W (or ~0.35W/Gbps as shown on the graph)
 
 ![Power Consumption Monitoring](images/picture14.png)
 
