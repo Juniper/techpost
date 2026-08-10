@@ -1,5 +1,14 @@
 # MX301 A Powerful Filtering Gateway
 
+Table: enter-table-caption
+
+| Header_1 | Header_2 | Header_3 | Header_4 |
+|----------|----------|----------|----------|
+| Cell_1 | Cell_2 | Cell_3 | Cell_4 |
+| Cell_5 | Cell_6 | Cell_7 | Cell_8 |
+| Cell_9 | Cell_10 | Cell_11 | Cell_12 |
+| Cell_13 | Cell_14 | Cell_15 | Cell_16 |
+
 **David Roy - 04/24/2026**
 
 ![MX301 A Powerful Filtering Gateway](images/picture2.png)
