@@ -268,7 +268,7 @@
 
 /* Dark theme (slate) header and tabs */
 [data-md-color-scheme="slate"] .md-header {
-    background-color: #017b5e !important;
+    background-color: #292d3a !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 }
@@ -278,7 +278,7 @@
 }
 
 [data-md-color-scheme="slate"] .md-tabs {
-    background-color: #01A982 !important;
+    background-color: #292d3a !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -443,12 +443,12 @@
 
 /* ✅ Footer (dark theme) */
 [data-md-color-scheme="slate"] .md-footer {
-    background-color: #017b5e !important;
+    background-color: #292d3a !important;
     color: white !important;
 }
 
 [data-md-color-scheme="slate"] .md-footer-meta {
-    background-color: #017b5e;
+    background-color: #292d3a;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
