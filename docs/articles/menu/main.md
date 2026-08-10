@@ -3,6 +3,14 @@
 </div>
 
 <div class="card-grid">
+  <a class="card" href="../../test-editor/article">
+    <img src="../../test-editor/images/logo.png" class="card-icon" alt="Getting Started">
+    <div class="card-text">
+      <div class="card-title">Test editor</div>
+      <div class="card-subtitle">By David Roy</div>
+    </div>
+  </a>
+
   
   <a class="card" href="../../mx301-a-powerful-filtering-gateway/article">
     <img src="../../mx301-a-powerful-filtering-gateway/images/logo.png" class="card-icon" alt="Getting Started">
