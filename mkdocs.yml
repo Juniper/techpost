@@ -71,9 +71,7 @@ theme:
   - content.action.edit
   - content.tooltips
   - content.footnote.tooltips
-  font:
-    code: Nova
-    text: Google Sans
+  font: false
   language: en
   logo: images/hpen.png
   name: material
