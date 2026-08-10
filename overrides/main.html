@@ -24,10 +24,25 @@
   <meta property="og:url" content="{{ page.canonical_url }}" />
   {% endif %}
 
+  {#- HPE required metadata (corporate standard). The Header/Footer version
+      (hp_inav_version) is intentionally NOT set here: it must be injected
+      automatically by the HFWS and must never be coded manually. -#}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="{{ page.meta.description if page and page.meta and page.meta.description else 'In-depth technical articles written by engineers, for engineers, from HPE Networking.' }}" />
+  <meta name="keywords" content="{{ page.meta.keywords if page and page.meta and page.meta.keywords else 'HPE, Juniper, networking, routing, technical articles, engineering' }}" />
+  <meta name="hp_design_version" content="hpe.1.0" />
+  <meta name="lifecycle" content="applied_use" />
+  <meta name="robots" content="follow, index" />
+  <meta name="segment" content="Segment Neutral" />
+  <meta name="target_country" content="ww" />
+  {#- TODO: replace RXXXXX with your Web section ID from the HPE Publishing Interface. -#}
+  <meta name="web_section_id" content="RXXXXX" />
+
   {#- HPE Header/Footer Web Service (HFWS): corporate branded header & footer.
       jQuery must load before the HFWS loader script. -#}
- <script src="https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js"></script>
+<script src="https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js"></script>
 <script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script>
+<script src="  src="https://www.hpe.com/global/metrics/easy/basic_measurement.js"> </script>"
 {% endblock %}
 
 {#- Corporate branded header above the Material header (keeps the theme intact). -#}
