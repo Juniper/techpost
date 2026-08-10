@@ -75,6 +75,7 @@ theme:
     code: Nova
     text: Google Sans
   language: en
+  logo: images/hpen.png
   name: material
   palette:
   - media: '(prefers-color-scheme: light)'
