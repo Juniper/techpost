@@ -12,6 +12,12 @@ on:
 permissions:
   contents: write
 
+# Serialize gh-pages work so concurrent runs never reject each other's push and
+# leave a branch's portal showing stale content.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
+
 jobs:
   build-deploy:
     # Branch deletions only need the cleanup job, not a rebuild/redeploy.
@@ -126,7 +132,9 @@ jobs:
           cd ../..
 
           echo "Building site"
-          mkdocs build
+          # Fail loudly: a silent build failure would flush ./site and, combined
+          # with keep_files on deploy, leave the branch portal showing stale HTML.
+          mkdocs build || { echo "::error::mkdocs build failed for branch ${BRANCH}"; exit 1; }
 
           echo "cleaning up the md file - removing line 4"
           cd docs/articles || exit 1
@@ -435,10 +443,13 @@ jobs:
           destination_dir: ${{ github.ref_name != 'main' && github.ref_name || '' }}
 
   # ==========================================================
-  # CLEANUP JOB 
+  # CLEANUP JOB — remove ONLY the deleted branch's preview.
+  # The main site is published at the gh-pages root, so a blind sweep would
+  # delete main's own folders (articles, js, ...). We therefore delete just the
+  # subfolder named after the deleted branch.
   # ==========================================================
-  cleanup-previews:
-    if: github.event_name == 'delete' || github.ref == 'refs/heads/main'
+  cleanup-preview:
+    if: github.event_name == 'delete' && github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
 
     steps:
@@ -448,31 +459,28 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Remove obsolete branch previews
+      - name: Remove the deleted branch's preview
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DELETED_BRANCH: ${{ github.event.ref }}
         run: |
           set -euo pipefail
           cd gh-pages
 
-          WHITELIST="addon assets books download images search stylesheets"
-          ACTIVE_BRANCHES=$(gh api repos/${GITHUB_REPOSITORY}/branches --jq '.[].name')
+          # Never touch the main site (published at the gh-pages root).
+          if [ -z "${DELETED_BRANCH}" ] || [ "${DELETED_BRANCH}" = "main" ]; then
+            echo "Refusing to remove '${DELETED_BRANCH}'."
+            exit 0
+          fi
+          if [ ! -d "${DELETED_BRANCH}" ]; then
+            echo "No preview directory for branch '${DELETED_BRANCH}'; nothing to do."
+            exit 0
+          fi
 
-          for dir in *; do
-            [ -d "$dir" ] || continue
-
-            if echo "$WHITELIST" | grep -qw "$dir"; then
-              continue
-            fi
-
-            if ! echo "$ACTIVE_BRANCHES" | grep -qw "$dir"; then
-              echo "Removing obsolete preview: $dir"
-              rm -rf "$dir"
-            fi
-          done
+          echo "Removing preview for deleted branch: ${DELETED_BRANCH}"
+          rm -rf -- "${DELETED_BRANCH}"
 
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add .
-          git commit -m "Cleanup obsolete branch previews" || echo "Nothing to clean"
+          git add -A
+          git commit -m "Cleanup preview for deleted branch ${DELETED_BRANCH}" || echo "Nothing to clean"
           git push
