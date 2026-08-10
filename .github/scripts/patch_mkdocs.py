@@ -3,7 +3,9 @@ import yaml
 
 BRANCH_NAME = os.environ.get("BRANCH_NAME", "main")
 MKDOCS_FILE = "mkdocs.yml"
-ARTICLE_PATH = "articles/" + BRANCH_NAME + "/article"
+# Nav paths are relative to docs_dir and must include the .md extension so MkDocs
+# can match the source page (otherwise the nav link is broken / points nowhere).
+ARTICLE_PATH = "articles/" + BRANCH_NAME + "/article.md"
 INDEX_FILE = "docs/index.md"
 
 if BRANCH_NAME == "main":
@@ -36,7 +38,7 @@ new_nav = [
     {"Home": "index.md"},
     {"Your work-in-progress Article": ARTICLE_PATH},
     {"DOCX version (for review only)": f"download/{BRANCH_NAME}.docx"},
-    {"About us": "docs/about.md"}
+    {"About us": "about.md"}
     ]
 config["nav"] = new_nav
 
