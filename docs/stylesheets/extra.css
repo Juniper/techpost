@@ -186,11 +186,6 @@
     background-color: transparent !important;
 }
 
-/* Logo area */
-[data-md-color-scheme="default"] .md-header .md-logo img {
-    filter: invert(1);
-}
-
 .md-header .md-logo {
     padding: 0.3rem 0;
 }
