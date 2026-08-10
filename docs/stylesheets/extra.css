@@ -432,12 +432,12 @@
 
 /* ✅ Footer (light theme) */
 [data-md-color-scheme="default"] .md-footer {
-    background-color: #000000 !important;
+    background-color: #292d3a !important;
     color: white !important;
 }
 
 [data-md-color-scheme="default"] .md-footer-meta {
-    background-color: #000000;
+    background-color: #292d3a;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
