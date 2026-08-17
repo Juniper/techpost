@@ -1,6 +1,58 @@
 /* =========================================================
+   HPE Design System tokens
+   Source: https://design-system.hpe.design/design-tokens
+   ========================================================= */
+
+:root {
+    /* Brand / primary — HPE green (used for interactive & active states) */
+    --hpe-green: #01a982;          /* color.decorative.brand */
+    --hpe-green-strong: #068667;   /* color.background.primary.strong (selected/active) */
+    --hpe-green-hover: #006750;    /* primary/selected hover, color.border.selected */
+
+    /* Neutrals — midnight charcoal for headings on white */
+    --hpe-midnight: #292d3a;       /* color.background.neutral.xstrong / focus */
+    --hpe-midnight-hover: #3e4550; /* color.background.neutral.xstrong.hover */
+    --hpe-bg-back: #f7f7f7;        /* color.background.back */
+    --hpe-border-default: #b1b9be; /* color.border.default */
+
+    /* Base typeface — HPE Graphik across all pages */
+    --md-text-font: "HPE Graphik", "Graphik", "Metric", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+
+/* =========================================================
    Fonts
    ========================================================= */
+
+/* HPE Graphik — body/UI typeface. Drop the licensed woff2/woff files into
+   ./fonts/ using these names; the stack falls back gracefully until then. */
+@font-face {
+    font-family: 'HPE Graphik';
+    src: url('./fonts/HPEGraphik-Regular.woff2') format('woff2'),
+         url('./fonts/HPEGraphik-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HPE Graphik';
+    src: url('./fonts/HPEGraphik-Medium.woff2') format('woff2'),
+         url('./fonts/HPEGraphik-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HPE Graphik';
+    src: url('./fonts/HPEGraphik-Bold.woff2') format('woff2'),
+         url('./fonts/HPEGraphik-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
 
 @font-face {
     font-family: 'HPE Graphik XXCondensed';
@@ -9,6 +61,16 @@
     font-weight: bold;
     font-style: normal;
     font-display: swap;
+}
+
+/* Apply HPE Graphik site-wide (theme has font: false, so set it explicitly) */
+body,
+input,
+button,
+.md-typeset,
+.hfws-header,
+.hfws-footer {
+    font-family: var(--md-text-font);
 }
 
 
@@ -97,7 +159,7 @@
 
 /* Table header styling */
 .md-typeset table thead th {
-    background-color: #1d1f27 !important;
+    background-color: var(--hpe-midnight) !important;
     color: white !important;
     text-transform: uppercase !important;
     font-size: 0.7rem;
@@ -166,6 +228,14 @@
     font-size: clamp(18px, 2.5vw, 24px);
 }
 
+/* Headings on a white background use HPE midnight */
+[data-md-color-scheme="default"] .md-typeset h1,
+[data-md-color-scheme="default"] .md-typeset h2,
+[data-md-color-scheme="default"] .md-typeset h3,
+[data-md-color-scheme="default"] .md-typeset h4 {
+    color: var(--hpe-midnight) !important;
+}
+
 .md-typeset ul li {
     margin-bottom: .0 !important;
 }
@@ -211,7 +281,7 @@
 
 [data-md-color-scheme="default"] .md-search__input:focus {
     background-color: rgba(255, 255, 255, 0.12) !important;
-    border-color: rgba(0, 206, 158, 0.6) !important;
+    border-color: var(--hpe-green) !important;
 }
 
 [data-md-color-scheme="default"] .md-search__input::placeholder {
@@ -291,13 +361,13 @@
 [data-md-color-scheme="slate"] .md-tabs__item--active > .md-tabs__link {
     color: white !important;
     opacity: 1;
-    border-bottom-color: #7dd3fc !important;
+    border-bottom-color: var(--hpe-green) !important;
 }
 
 [data-md-color-scheme="slate"] .md-tabs__link:hover {
     color: white !important;
     opacity: 1;
-    border-bottom-color: rgba(125, 211, 252, 0.4) !important;
+    border-bottom-color: rgba(1, 169, 130, 0.5) !important;
 }
 
 
@@ -314,22 +384,22 @@
 }
 
 .md-nav__link:hover {
-    background-color: rgba(0, 115, 157, 0.06);
+    background-color: rgba(1, 169, 130, 0.08);
 }
 
 [data-md-color-scheme="slate"] .md-nav__link:hover {
-    background-color: rgba(125, 211, 252, 0.06);
+    background-color: rgba(1, 169, 130, 0.08);
 }
 
 /* Active sidebar link indicator */
 .md-nav__link--active {
     font-weight: 600 !important;
-    border-left: 3px solid #00a3e0;
+    border-left: 3px solid var(--hpe-green);
     padding-left: 0.5em !important;
 }
 
 [data-md-color-scheme="slate"] .md-nav__link--active {
-    border-left-color: #7dd3fc;
+    border-left-color: var(--hpe-green);
 }
 
 /* Section labels in sidebar */
@@ -339,6 +409,12 @@
     font-size: 0.68rem;
     letter-spacing: 0.04em;
     opacity: 0.85;
+}
+
+/* Do not repeat the hpen.png logo in the navigation drawer / subnav */
+.md-nav__button.md-logo,
+.md-nav--primary .md-nav__title .md-logo {
+    display: none !important;
 }
 
 
@@ -461,7 +537,7 @@
 .custom-button {
     display: inline-block;
     padding: 0.6em 1.2em;
-    background-color: #0f172a;
+    background-color: var(--hpe-midnight);
     color: white !important;
     border-radius: 999px;
     /* makes it pill-shaped */
@@ -484,12 +560,12 @@
 
 /* ✅ Hover effect on custom button */
 .custom-button:hover {
-    background-color: #0f172a;
+    background-color: var(--hpe-midnight-hover);
 }
 
 /* ✅ Dark mode button color (same as default here) */
 [data-md-color-scheme="slate"] .custom-button {
-    background-color: #0f172a;
+    background-color: var(--hpe-midnight);
 }
 
 
@@ -531,7 +607,7 @@ body:has(.hero-section) .md-header__topic:first-child {
     font-weight: 700;
     letter-spacing: 0.05em;
     margin: 0 0 0.5rem;
-    color: #292D3A;
+    color: var(--hpe-midnight);
 }
 
 [data-md-color-scheme="slate"] .hero-title {
@@ -541,7 +617,7 @@ body:has(.hero-section) .md-header__topic:first-child {
 .hero-subtitle {
     font-size: 1.15rem;
     font-weight: 500;
-    color: #292D3A;
+    color: var(--hpe-midnight);
     margin: 0 0 0.5rem;
 }
 
@@ -565,25 +641,25 @@ body:has(.hero-section) .md-header__topic:first-child {
     font-size: 0.9rem;
     font-weight: 600;
     color: #ffffff;
-    background-color: #00739d;
+    background-color: var(--hpe-green-strong);
     border-radius: 8px;
     text-decoration: none;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .hero-cta:hover {
-    background-color: #005a7a;
+    background-color: var(--hpe-green-hover);
     transform: translateY(-2px);
     color: #ffffff;
 }
 
 [data-md-color-scheme="slate"] .hero-cta {
-    background-color: #3db8e5;
-    color: #0f172a;
+    background-color: var(--hpe-green-strong);
+    color: #ffffff;
 }
 
 [data-md-color-scheme="slate"] .hero-cta:hover {
-    background-color: #60c8ed;
+    background-color: var(--hpe-green);
 }
 
 /* =========================================================
@@ -599,10 +675,10 @@ body:has(.hero-section) .md-header__topic:first-child {
 .latest-heading {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #292D3A;
+    color: var(--hpe-midnight);
     margin: 0 auto 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #292D3A;
+    border-bottom: 2px solid var(--hpe-midnight);
     display: block;
     text-align: center;
 }
@@ -678,13 +754,13 @@ body:has(.hero-section) .md-header__topic:first-child {
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     background-color: #ffffff;
-    color: #1d1f27;
+    color: var(--hpe-midnight);
     box-sizing: border-box;
 }
 
 .card-filter-input:focus {
-    border-color: #00739d;
-    box-shadow: 0 0 0 3px rgba(0, 115, 157, 0.15);
+    border-color: var(--hpe-green);
+    box-shadow: 0 0 0 3px rgba(1, 169, 130, 0.15);
 }
 
 [data-md-color-scheme="slate"] .card-filter-input {
@@ -694,8 +770,8 @@ body:has(.hero-section) .md-header__topic:first-child {
 }
 
 [data-md-color-scheme="slate"] .card-filter-input:focus {
-    border-color: #3db8e5;
-    box-shadow: 0 0 0 3px rgba(61, 184, 229, 0.15);
+    border-color: var(--hpe-green);
+    box-shadow: 0 0 0 3px rgba(1, 169, 130, 0.15);
 }
 
 /* ✅ Card grid layout */
@@ -734,12 +810,12 @@ body:has(.hero-section) .md-header__topic:first-child {
 .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: #00739d;
+    border-color: var(--hpe-green);
 }
 
 [data-md-color-scheme="slate"] .card:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    border-color: #3db8e5;
+    border-color: var(--hpe-green);
 }
 
 /* ✅ Card cover image */
@@ -750,6 +826,8 @@ body:has(.hero-section) .md-header__topic:first-child {
     display: block;
     margin-top: 0.5rem;
     background-color: #ffffff;
+    /* Soft charcoal drop shadow to anchor the product image (all logo.png) */
+    filter: drop-shadow(0 4px 10px rgba(41, 45, 58, 0.22));
 }
 
 [data-md-color-scheme="slate"] .card-icon {
@@ -769,7 +847,7 @@ body:has(.hero-section) .md-header__topic:first-child {
 
 /* ✅ Title */
 .card-title {
-    color: #1d1f27;
+    color: var(--hpe-midnight);
     font-size: 0.88rem;
     font-weight: 600;
     line-height: 1.35;
