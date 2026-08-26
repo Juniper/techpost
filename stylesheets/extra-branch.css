@@ -15,9 +15,17 @@
     --hpe-bg-back: #f7f7f7;        /* color.background.back */
     --hpe-border-default: #b1b9be; /* color.border.default */
 
+    /* Product imagery — soft charcoal drop shadow to anchor products on
+       neutral backgrounds (HPE brand rule). Reused by every logo.png. */
+    --hpe-product-shadow: drop-shadow(0 4px 10px rgba(41, 45, 58, 0.22));
+    --hpe-product-bg: #f7f7f7;      /* neutral soft-grey backdrop */
+
     /* Base typeface — HPE Graphik across all pages */
     --md-text-font: "HPE Graphik", "Graphik", "Metric", -apple-system, BlinkMacSystemFont,
         "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* Drive Material's own font variable so every component (nav, sidebar,
+       search, tables, footer) inherits Graphik — theme has font: false. */
+    --md-text-font-family: var(--md-text-font);
 }
 
 
@@ -123,6 +131,14 @@ button,
 .md-typeset figcaption {
     margin: 0em auto !important;
     text-align: center !important;
+}
+
+/* Product logos placed in article content (any *logo.png) get the brand
+   drop shadow on a neutral soft-grey backdrop, per HPE imagery rule. */
+.md-typeset img[src*="logo.png"] {
+    background-color: var(--hpe-product-bg);
+    filter: var(--hpe-product-shadow);
+    border-radius: 6px;
 }
 
 
@@ -258,6 +274,8 @@ button,
 
 .md-header .md-logo {
     padding: 0.3rem 0;
+    /* No site logo — hide Material's default fallback icon */
+    display: none;
 }
 
 /* Site title in header */
@@ -287,7 +305,6 @@ button,
 [data-md-color-scheme="default"] .md-search__input::placeholder {
     color: rgba(255, 255, 255, 0.45) !important;
 }
-
 /* Navigation tabs bar */
 [data-md-color-scheme="default"] .md-tabs {
     background-color: #c2410c !important;
@@ -600,6 +617,8 @@ body:has(.hero-section) .md-header__topic:first-child {
     max-width: 220px;
     height: auto;
     margin-bottom: 1.5rem;
+    /* Anchor the product image with the brand drop shadow */
+    filter: var(--hpe-product-shadow);
 }
 
 .hero-title {
@@ -827,7 +846,7 @@ body:has(.hero-section) .md-header__topic:first-child {
     margin-top: 0.5rem;
     background-color: #ffffff;
     /* Soft charcoal drop shadow to anchor the product image (all logo.png) */
-    filter: drop-shadow(0 4px 10px rgba(41, 45, 58, 0.22));
+    filter: var(--hpe-product-shadow);
 }
 
 [data-md-color-scheme="slate"] .card-icon {
