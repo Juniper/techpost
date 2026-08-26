@@ -12,14 +12,14 @@ extra:
     provider: google
     property: G-MC1QNS9JDM
 extra_css:
-- https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css
-- https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css
+- vendor/katex/katex.min.css
+- vendor/glightbox/glightbox.min.css
 - stylesheets/extra.css
 extra_javascript:
-- https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js
-- https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js
-- https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js
-- https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js
+- vendor/glightbox/glightbox.min.js
+- vendor/katex/katex.min.js
+- vendor/katex/contrib/auto-render.min.js
+- vendor/fontawesome/all.min.js
 - js/math-render.js
 - js/extra.js
 markdown_extensions:
