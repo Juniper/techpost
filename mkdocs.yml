@@ -59,7 +59,6 @@ theme:
   - toc.follow
   - navigation.top
   - navigation.tabs
-  - navigation.tabs.sticky
   - navigation.instant
   - navigation.footer
   - navigation.indexes
