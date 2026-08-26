@@ -73,7 +73,6 @@ theme:
   - content.footnote.tooltips
   font: false
   language: en
-  logo: images/hpen.png
   name: material
   palette:
   - media: '(prefers-color-scheme: light)'
