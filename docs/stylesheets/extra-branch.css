@@ -305,7 +305,6 @@ button,
 [data-md-color-scheme="default"] .md-search__input::placeholder {
     color: rgba(255, 255, 255, 0.45) !important;
 }
-
 /* Navigation tabs bar */
 [data-md-color-scheme="default"] .md-tabs {
     background-color: #c2410c !important;
