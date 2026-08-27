@@ -969,6 +969,9 @@ body:has(.hero-section) .md-header__topic:first-child {
 
     .md-header__nav .md-tabs__link {
         margin: 0;
+        padding: 0;
+        font-size: .72rem;
+        font-weight: 700;
         color: inherit;
         opacity: .8;
         transition: opacity .25s;
