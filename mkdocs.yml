@@ -59,7 +59,9 @@ theme:
   - toc.follow
   - navigation.top
   - navigation.tabs
-  - navigation.instant
+  # navigation.instant disabled: its SPA-style click interception conflicts with
+  # the HPE HFWS global link/analytics handlers and caused stray redirects to the
+  # HPE sitemap when navigating between articles via the left nav.
   - navigation.footer
   - navigation.indexes
   - search.suggest
