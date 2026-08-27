@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+function initPageEnhancements() {
     // Latest articles on home page
     var latestGrid = document.getElementById('latest-articles');
     if (latestGrid) {
@@ -59,4 +59,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialize GLightbox
     GLightbox({ selector: '.glightbox' });
-});
+}
+
+// Run on first load and after every Material instant navigation (DOMContentLoaded
+// does not fire on instant nav, which left the Home page's latest articles empty).
+if (window.document$ && typeof window.document$.subscribe === "function") {
+    window.document$.subscribe(initPageEnhancements);
+} else if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPageEnhancements);
+} else {
+    initPageEnhancements();
+}
