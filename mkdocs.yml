@@ -22,6 +22,7 @@ extra_javascript:
 - vendor/fontawesome/all.min.js
 - js/math-render.js
 - js/extra.js
+- js/hfws-instant-guard.js
 markdown_extensions:
 - attr_list
 - pymdownx.extra
@@ -59,9 +60,10 @@ theme:
   - toc.follow
   - navigation.top
   - navigation.tabs
-  # navigation.instant disabled: its SPA-style click interception conflicts with
-  # the HPE HFWS global link/analytics handlers and caused stray redirects to the
-  # HPE sitemap when navigating between articles via the left nav.
+  # navigation.instant keeps the HPE HFWS header/footer persistent across page
+  # changes (no flicker). js/hfws-instant-guard.js prevents the HFWS global click
+  # handlers from hijacking in-site links (the stray HPE site map redirects).
+  - navigation.instant
   - navigation.footer
   - navigation.indexes
   - search.suggest

@@ -44,7 +44,9 @@
 <script src="https://www.hpe.com/global/metrics/easy/basic_measurement.js"></script>"
 {% endblock %}
 
-{#- Corporate branded header above the Material header (keeps the theme intact). -#}
+{#- Corporate branded header above the Material header (keeps the theme intact).
+    Rendered as a direct child of <body>, outside `data-md-component=container`,
+    so instant navigation never replaces it (no reload/flicker of the HFWS bar). -#}
 {% block header %}
   <div id="header" class="hfws-header"><!-- HFWS inserts its header here --></div>
   {{ super() }}
@@ -54,8 +56,12 @@
     separate Material tabs bar is suppressed. -#}
 {% block tabs %}{% endblock %}
 
-{#- Corporate branded footer below the Material footer. -#}
-{% block footer %}
+{#- Corporate branded footer. It must live OUTSIDE `data-md-component=container`
+    (which instant navigation swaps on every page change), otherwise the HFWS
+    footer would be wiped after the first navigation. Rendering it in the scripts
+    block places it at the end of <body>, below the Material footer, where instant
+    navigation leaves it untouched so its injected content persists. -#}
+{% block scripts %}
   {{ super() }}
   <div id="footer" class="hfws-footer"><!-- HFWS inserts its footer here --></div>
 {% endblock %}
