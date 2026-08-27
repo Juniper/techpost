@@ -51,7 +51,7 @@ plugins:
     minify_html: true
 site_author: HPE Networking Techpost
 site_name: TECHPOST - Technical articles by HPE Networking
-site_url: https://juniper.github.io/techposts/
+site_url: https://juniper.github.io/techpost/
 theme:
   custom_dir: overrides
   favicon: images/favicon.ico
