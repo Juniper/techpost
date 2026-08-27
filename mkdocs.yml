@@ -61,9 +61,9 @@ theme:
   - navigation.top
   - navigation.tabs
   # navigation.instant keeps the HPE HFWS header/footer persistent across page
-  # changes (no flicker). js/hfws-instant-guard.js re-adds the HFWS stylesheets
-  # that instant navigation strips from <head> (which otherwise leaves the HPE
-  # header/footer unstyled after navigating).
+  # changes (no flicker). js/hfws-instant-guard.js moves the HFWS stylesheets into
+  # <body> so instant navigation's <head> reconciliation cannot strip them (which
+  # otherwise left the HPE header/footer unstyled after navigating).
   - navigation.instant
   - navigation.footer
   - navigation.indexes
