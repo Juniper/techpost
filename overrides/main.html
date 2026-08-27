@@ -50,6 +50,10 @@
   {{ super() }}
 {% endblock %}
 
+{#- Top-level nav is merged into the header (see partials/header.html), so the
+    separate Material tabs bar is suppressed. -#}
+{% block tabs %}{% endblock %}
+
 {#- Corporate branded footer below the Material footer. -#}
 {% block footer %}
   {{ super() }}
