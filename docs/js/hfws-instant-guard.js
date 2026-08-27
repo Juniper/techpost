@@ -1,51 +1,72 @@
-// Shields in-site link clicks from the HPE HFWS global click/analytics handlers.
+// Keeps the HPE HFWS header/footer styled when Material's instant navigation is on.
 //
-// With Material's `navigation.instant`, internal links are handled by a click
-// listener on `document.body`. The HFWS scripts attach their own handlers higher
-// up (document/window); as the click bubbles past them they redirect in-site
-// navigation to the HPE site map. We stop the event at the body level for
-// same-origin links so it never reaches those handlers. Because Material listens
-// on the same element, `stopPropagation()` does not affect it (only other targets
-// in the bubble path), so instant navigation keeps working.
+// The HFWS loader injects its stylesheets into <head> at runtime. On every instant
+// navigation Material rebuilds <head> to match the fetched page and removes any node
+// the page didn't ship with (everything except theme-color/color-scheme meta), which
+// strips those HFWS stylesheets and leaves the corporate header/footer unstyled.
+// We remember the HFWS stylesheets and re-add them whenever they get stripped.
 (function () {
-  if (window.__hfwsInstantGuardBound) return;
+  if (window.__hfwsCssKeeper) return;
+  window.__hfwsCssKeeper = true;
 
-  function attach() {
-    if (!document.body || window.__hfwsInstantGuardBound) return;
-    window.__hfwsInstantGuardBound = true;
+  var HFWS_CSS = /(h50007\.www5\.hpe\.com|hpe-hfws)/i;
+  var savedHrefs = [];
 
-    document.body.addEventListener(
-      "click",
-      function (ev) {
-        var link = ev.target instanceof Element ? ev.target.closest("a[href]") : null;
-        if (!link) return;
+  function remember() {
+    document.querySelectorAll('head link[rel="stylesheet"]').forEach(function (link) {
+      if (HFWS_CSS.test(link.href) && savedHrefs.indexOf(link.href) === -1) {
+        savedHrefs.push(link.href);
+      }
+    });
+  }
 
-        // Leave the HFWS header/footer's own links to HFWS.
-        if (link.closest("#header, #footer")) return;
+  function restore() {
+    if (!savedHrefs.length) return;
+    var present = {};
+    document.querySelectorAll('head link[rel="stylesheet"]').forEach(function (link) {
+      present[link.href] = true;
+    });
+    savedHrefs.forEach(function (href) {
+      if (!present[href]) {
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.appendChild(link);
+      }
+    });
+  }
 
-        // Ignore links that intentionally open elsewhere (new tab, download, ...).
-        if (link.target && link.target !== "_self") return;
-        if (link.hasAttribute("download")) return;
+  function start() {
+    remember();
 
-        var url;
-        try {
-          url = new URL(link.href, location.href);
-        } catch (e) {
-          return;
-        }
-        if (url.origin !== location.origin) return;
+    // Re-add the HFWS stylesheets the instant this navigation strips them.
+    new MutationObserver(function (mutations) {
+      var stripped = false;
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.tagName === "LINK" && node.rel === "stylesheet" && HFWS_CSS.test(node.href)) {
+            if (savedHrefs.indexOf(node.href) === -1) savedHrefs.push(node.href);
+          }
+        });
+        mutation.removedNodes.forEach(function (node) {
+          if (node.tagName === "LINK" && HFWS_CSS.test(node.href || "")) stripped = true;
+        });
+      });
+      if (stripped) restore();
+    }).observe(document.head, { childList: true });
 
-        // Same-origin, in-site link handled by Material: keep it away from the
-        // HFWS document/window handlers so it is not redirected to the site map.
-        ev.stopPropagation();
-      },
-      false
-    );
+    // Backup: the theme emits document$ after each instant navigation.
+    if (window.document$ && typeof window.document$.subscribe === "function") {
+      window.document$.subscribe(function () {
+        remember();
+        restore();
+      });
+    }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", attach);
+    document.addEventListener("DOMContentLoaded", start);
   } else {
-    attach();
+    start();
   }
 })();
