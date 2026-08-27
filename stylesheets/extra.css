@@ -937,6 +937,13 @@ body:has(.hero-section) .md-header__topic:first-child {
     display: none;
 }
 
+/* Belt-and-suspenders: the separate Material tabs bar is already suppressed in
+   overrides/main.html ({% block tabs %}). This hides it too if it ever renders.
+   Safe: the merged links live in .md-header__nav, not the .md-tabs container. */
+.md-tabs {
+    display: none !important;
+}
+
 @media screen and (min-width: 76.25em) {
     /* Push the links to the right, next to the palette toggle & search. */
     .md-header__nav {
