@@ -28,6 +28,24 @@
     --md-text-font-family: var(--md-text-font);
 }
 
+/* mkdocs.yml sets palette primary/accent to "custom" — without this, Material
+   falls back to its default indigo for any element this stylesheet doesn't
+   hardcode (e.g. active nav link, search highlight, focus rings). */
+[data-md-color-primary="custom"] {
+    --md-primary-fg-color: var(--hpe-midnight);
+    --md-primary-fg-color--light: var(--hpe-midnight-hover);
+    --md-primary-fg-color--dark: var(--hpe-midnight);
+    --md-primary-bg-color: #ffffff;
+    --md-primary-bg-color--light: #ffffff;
+}
+
+[data-md-color-accent="custom"] {
+    --md-accent-fg-color: var(--hpe-green);
+    --md-accent-fg-color--transparent: rgba(1, 169, 130, 0.1);
+    --md-accent-bg-color: #ffffff;
+    --md-accent-bg-color--light: #ffffff;
+}
+
 
 /* =========================================================
    Fonts
@@ -348,45 +366,6 @@ button,
     opacity: 1;
 }
 
-/* Dark theme (slate) header and tabs */
-[data-md-color-scheme="slate"] .md-header {
-    background-color: #c2410c !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-}
-
-[data-md-color-scheme="slate"] .md-header__inner {
-    background-color: transparent !important;
-}
-
-[data-md-color-scheme="slate"] .md-tabs {
-    background-color: #ea580c !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-[data-md-color-scheme="slate"] .md-search__input {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-radius: 6px !important;
-}
-
-[data-md-color-scheme="slate"] .md-search__input:focus {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-[data-md-color-scheme="slate"] .md-tabs__item--active > .md-tabs__link {
-    color: white !important;
-    opacity: 1;
-    border-bottom-color: var(--hpe-green) !important;
-}
-
-[data-md-color-scheme="slate"] .md-tabs__link:hover {
-    color: white !important;
-    opacity: 1;
-    border-bottom-color: rgba(1, 169, 130, 0.5) !important;
-}
-
 
 /* =========================================================
    Sidebar Navigation Polish
@@ -404,19 +383,11 @@ button,
     background-color: rgba(1, 169, 130, 0.08);
 }
 
-[data-md-color-scheme="slate"] .md-nav__link:hover {
-    background-color: rgba(1, 169, 130, 0.08);
-}
-
 /* Active sidebar link indicator */
 .md-nav__link--active {
     font-weight: 600 !important;
     border-left: 3px solid var(--hpe-green);
     padding-left: 0.5em !important;
-}
-
-[data-md-color-scheme="slate"] .md-nav__link--active {
-    border-left-color: var(--hpe-green);
 }
 
 /* Section labels in sidebar */
@@ -529,17 +500,6 @@ button,
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ✅ Footer (dark theme) */
-[data-md-color-scheme="slate"] .md-footer {
-    background-color: #c2410c !important;
-    color: white !important;
-}
-
-[data-md-color-scheme="slate"] .md-footer-meta {
-    background-color: #c2410c;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
 /* ✅ Footer links */
 .md-footer a {
     color: white !important;
@@ -578,11 +538,6 @@ button,
 /* ✅ Hover effect on custom button */
 .custom-button:hover {
     background-color: var(--hpe-midnight-hover);
-}
-
-/* ✅ Dark mode button color (same as default here) */
-[data-md-color-scheme="slate"] .custom-button {
-    background-color: var(--hpe-midnight);
 }
 
 
@@ -629,10 +584,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     color: var(--hpe-midnight);
 }
 
-[data-md-color-scheme="slate"] .hero-title {
-    color: #f0f2f5;
-}
-
 .hero-subtitle {
     font-size: 1.15rem;
     font-weight: 500;
@@ -640,18 +591,10 @@ body:has(.hero-section) .md-header__topic:first-child {
     margin: 0 0 0.5rem;
 }
 
-[data-md-color-scheme="slate"] .hero-subtitle {
-    color: #cbd5e1;
-}
-
 .hero-description {
     font-size: 0.95rem;
     color: #6b7280;
     margin: 0 0 2rem;
-}
-
-[data-md-color-scheme="slate"] .hero-description {
-    color: #94a3b8;
 }
 
 .hero-cta {
@@ -670,15 +613,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     background-color: var(--hpe-green-hover);
     transform: translateY(-2px);
     color: #ffffff;
-}
-
-[data-md-color-scheme="slate"] .hero-cta {
-    background-color: var(--hpe-green-strong);
-    color: #ffffff;
-}
-
-[data-md-color-scheme="slate"] .hero-cta:hover {
-    background-color: var(--hpe-green);
 }
 
 /* =========================================================
@@ -700,11 +634,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     border-bottom: 2px solid var(--hpe-midnight);
     display: block;
     text-align: center;
-}
-
-[data-md-color-scheme="slate"] .latest-heading {
-    color: #f0f2f5;
-    border-bottom-color: #01A982;
 }
 
 /* =========================================================
@@ -782,17 +711,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     box-shadow: 0 0 0 3px rgba(1, 169, 130, 0.15);
 }
 
-[data-md-color-scheme="slate"] .card-filter-input {
-    background-color: #1e2433;
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #f0f2f5;
-}
-
-[data-md-color-scheme="slate"] .card-filter-input:focus {
-    border-color: var(--hpe-green);
-    box-shadow: 0 0 0 3px rgba(1, 169, 130, 0.15);
-}
-
 /* ✅ Card grid layout */
 .card-grid {
     display: grid;
@@ -819,21 +737,9 @@ body:has(.hero-section) .md-header__topic:first-child {
     box-sizing: border-box;
 }
 
-/* Dark mode */
-[data-md-color-scheme="slate"] .card {
-    background-color: #1e2433;
-    border-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
 .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: var(--hpe-green);
-}
-
-[data-md-color-scheme="slate"] .card:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     border-color: var(--hpe-green);
 }
 
@@ -847,10 +753,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     background-color: #ffffff;
     /* Soft charcoal drop shadow to anchor the product image (all logo.png) */
     filter: var(--hpe-product-shadow);
-}
-
-[data-md-color-scheme="slate"] .card-icon {
-    background-color: #ffffff;
 }
 
 /* ✅ Card text area */
@@ -879,10 +781,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     overflow: hidden;
 }
 
-[data-md-color-scheme="slate"] .card-title {
-    color: #f0f2f5;
-}
-
 /* ✅ Subtitle / Author */
 .card-subtitle {
     font-size: 0.72rem;
@@ -890,10 +788,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     color: #6b7280;
     margin: 0;
     letter-spacing: 0.01em;
-}
-
-[data-md-color-scheme="slate"] .card-subtitle {
-    color: #94a3b8;
 }
 
 /* ✅ Responsive: tablets */

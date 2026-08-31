@@ -28,6 +28,25 @@
     --md-text-font-family: var(--md-text-font);
 }
 
+/* mkdocs.yml sets palette primary/accent to "custom" — without this, Material
+   falls back to its default indigo, which showed up as the active/hover link
+   color in the left-hand nav (non-brand color flagged by marketing). This
+   binds Material's own color variables to HPE tokens instead. */
+[data-md-color-primary="custom"] {
+    --md-primary-fg-color: var(--hpe-midnight);
+    --md-primary-fg-color--light: var(--hpe-midnight-hover);
+    --md-primary-fg-color--dark: var(--hpe-midnight);
+    --md-primary-bg-color: #ffffff;
+    --md-primary-bg-color--light: #ffffff;
+}
+
+[data-md-color-accent="custom"] {
+    --md-accent-fg-color: var(--hpe-green);
+    --md-accent-fg-color--transparent: rgba(1, 169, 130, 0.1);
+    --md-accent-bg-color: #ffffff;
+    --md-accent-bg-color--light: #ffffff;
+}
+
 
 /* =========================================================
    Fonts
