@@ -656,12 +656,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     color: var(--hpe-midnight);
 }
 
-.hero-wordmark-sep {
-    margin: 0 0.4em;
-    color: var(--hpe-green-strong);
-    font-weight: 400;
-}
-
 .hero-wordmark-title {
     font-family: 'HPE Graphik XXCondensed';
     font-weight: bold;
@@ -712,7 +706,7 @@ body:has(.hero-section) .md-header__topic:first-child {
 }
 
 .hero-subtitle {
-    font-size: 1.15rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: var(--hpe-midnight);
     margin: 0 0 0.5rem;
