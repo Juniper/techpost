@@ -633,12 +633,70 @@ body:has(.hero-section) .md-header__topic:first-child {
     margin-inline: auto;
 }
 
-.hero-logo {
-    max-width: 220px;
-    height: auto;
-    margin-bottom: 1.5rem;
-    /* Anchor the product image with the brand drop shadow */
-    filter: var(--hpe-product-shadow);
+/* Text-only wordmark (replaces the former mainlogo.png raster logo) */
+.hero-wordmark {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 1.75rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.hero-wordmark:hover {
+    opacity: 0.85;
+}
+
+.hero-wordmark-eyebrow {
+    font-weight: 600;
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--hpe-midnight);
+}
+
+.hero-wordmark-sep {
+    margin: 0 0.4em;
+    color: var(--hpe-green-strong);
+    font-weight: 400;
+}
+
+.hero-wordmark-title {
+    font-family: 'HPE Graphik XXCondensed';
+    font-weight: bold;
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--hpe-green-strong);
+}
+
+[data-md-color-scheme="slate"] .hero-wordmark-eyebrow {
+    color: #e2e6ee;
+}
+
+.hero-topics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 1.25rem;
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hpe-midnight);
+}
+
+.hero-topics-sep {
+    color: var(--hpe-green-strong);
+    font-weight: 400;
+}
+
+[data-md-color-scheme="slate"] .hero-topics {
+    color: #cbd5e1;
 }
 
 .hero-title {
