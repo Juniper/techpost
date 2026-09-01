@@ -278,7 +278,39 @@ button,
 /* =========================================================
    Header / Navigation / Tabs
    ========================================================= */
+/* The local Material header bar is redundant now that HFWS renders the top
+   nav (see overrides/main.html / partials/header.html); its search box is
+   relocated into the HFWS secondaryNav bar by js/hfws-search-relocate.js. */
+.md-header {
+    display: none !important;
+}
 
+:root {
+    --md-header-height: 0px;
+}
+
+/* Search box relocated into the HFWS secondaryNav bar. !important overrides
+   HFWS's own .hpehf-secondary-nav-list-item rules (loaded after this file,
+   so it otherwise wins the cascade) and Material's header-specific sizing
+   on .md-search, which both fight vertical centering here. */
+.hpehf-secondary-nav-search-item {
+    display: flex;
+    align-items: center !important;
+    margin-left: .4rem;
+}
+
+.hpehf-secondary-nav-search-item .md-search {
+    height: auto !important;
+    padding: 0 !important;
+}
+
+.hpehf-secondary-nav-search-item .md-header__button {
+    color: inherit;
+}
+
+.hpehf-secondary-nav-search-item .md-search__input {
+    color: white;
+}
 /* Header bar */
 [data-md-color-scheme="default"] .md-header {
     background-color: #ea580c !important;
