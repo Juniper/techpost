@@ -863,60 +863,8 @@ body:has(.hero-section) .md-header__topic:first-child {
 }
 
 
-/* =========================================================
-   Merged navigation — top-level nav rendered inside the header bar
-   (see overrides/partials/header.html). The separate Material tabs bar is
-   no longer rendered. On small screens the links are hidden and the
-   hamburger drawer provides navigation instead.
-   ========================================================= */
-
-.md-header__nav {
-    display: none;
-}
-
-/* Belt-and-suspenders: the separate Material tabs bar is already suppressed in
-   overrides/main.html ({% block tabs %}). This hides it too if it ever renders.
-   Safe: the merged links live in .md-header__nav, not the .md-tabs container. */
+/* Top-level nav is rendered by HFWS's secondaryNav (see overrides/main.html);
+   the local Material tabs bar stays suppressed. */
 .md-tabs {
     display: none !important;
-}
-
-@media screen and (min-width: 76.25em) {
-    /* Push the links to the right, next to the palette toggle & search. */
-    .md-header__nav {
-        display: block;
-        margin-left: auto;
-        align-self: stretch;
-    }
-
-    .md-header__nav .md-header__nav-list {
-        display: flex;
-        align-items: stretch;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .md-header__nav .md-tabs__item {
-        display: flex;
-        align-items: center;
-        height: auto;
-        padding: 0 .6rem;
-    }
-
-    .md-header__nav .md-tabs__link {
-        margin: 0;
-        padding: 0;
-        font-size: .72rem;
-        font-weight: 700;
-        color: inherit;
-        opacity: .8;
-        transition: opacity .25s;
-    }
-
-    .md-header__nav .md-tabs__link:hover,
-    .md-header__nav .md-tabs__item--active > .md-tabs__link {
-        opacity: 1;
-    }
 }

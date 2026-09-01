@@ -1,8 +1,7 @@
 {#-
   Overridden partial based on mkdocs-material 9.6.9 partials/header.html.
-  The separate `.md-tabs` bar is intentionally NOT rendered; the top-level
-  navigation items are rendered inline inside `.md-header__inner` instead,
-  right-aligned just before the palette toggle and the search box.
+  The separate `.md-tabs` bar is intentionally NOT rendered; top-level
+  navigation is instead handled by HFWS's secondaryNav (see overrides/main.html).
 -#}
 {% set class = "md-header md-header--shadow" %}
 <header class="{{ class }}" data-md-component="header">
@@ -33,15 +32,8 @@
       </div>
     </div>
 
-    {#- Top-level navigation merged into the header (replaces the `.md-tabs` bar) -#}
-    {% import "partials/tabs-item.html" as item with context %}
-    <nav class="md-header__nav" aria-label="{{ lang.t('tabs') }}">
-      <ul class="md-tabs__list md-header__nav-list">
-        {% for nav_item in nav %}
-          {{ item.render(nav_item) }}
-        {% endfor %}
-      </ul>
-    </nav>
+    {#- Top-level navigation is no longer rendered locally: HFWS renders it via
+        window.HPEHF_CFG.secondaryNav (see overrides/main.html). -#}
 
     {% if config.theme.palette %}
       {% if not config.theme.palette is mapping %}
