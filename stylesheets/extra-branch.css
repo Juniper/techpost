@@ -311,6 +311,45 @@ button,
 .hpehf-secondary-nav-search-item .md-search__input {
     color: white;
 }
+
+/* Material only reveals the results dropdown via a
+   `[data-md-toggle=search]:checked ~ .md-header ...` sibling selector, which
+   can never match now that .md-search lives outside .md-header. Drive the
+   same states off :focus-within on the relocated box instead. */
+.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__output {
+    opacity: 1 !important;
+}
+
+.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__scrollwrap {
+    max-height: 75vh !important;
+}
+
+.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__suggest {
+    opacity: 1 !important;
+}
+
+.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__form {
+    background-color: var(--md-default-bg-color) !important;
+    color: var(--md-default-fg-color) !important;
+}
+
+.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__input:valid ~ .md-search__options > .md-icon {
+    opacity: 1 !important;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+@media screen and (min-width: 60em) and (max-width: 76.234375em) {
+    .hpehf-secondary-nav-search-item .md-search:focus-within .md-search__inner {
+        width: 23.4rem !important;
+    }
+}
+
+@media screen and (min-width: 76.25em) {
+    .hpehf-secondary-nav-search-item .md-search:focus-within .md-search__inner {
+        width: 34.4rem !important;
+    }
+}
 /* Header bar */
 [data-md-color-scheme="default"] .md-header {
     background-color: #ea580c !important;
