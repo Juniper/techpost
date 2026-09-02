@@ -1,3 +1,9 @@
+---
+hide:
+  - toc
+  - navigation
+---
+
 <div class="banner-section banner-section--compact">
   <div class="banner-content">
     <p class="banner-title">All Articles</p>
