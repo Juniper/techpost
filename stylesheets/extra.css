@@ -761,65 +761,103 @@ body:has(.banner-section) .md-header__topic:first-child {
 .latest-section {
     max-width: 1400px;
     margin-inline: auto;
-    text-align: center;
 }
 
+/* Matches the reference page's h2 (font-size/weight/letter-spacing/color) */
 .latest-heading {
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 2.44rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
     color: var(--hpe-midnight);
-    margin: 0 auto 1.5rem;
+    margin: 0 0 2rem;
     display: block;
-    text-align: center;
+    text-align: left;
 }
 
 [data-md-color-scheme="slate"] .latest-heading {
-    color: #f0f2f5;
+    color: var(--hpe-midnight);
 }
 
 /* =========================================================
-   Latest Articles Grid (Home page)
+   Latest Articles Grid (Home page) — styled after the reference
+   page's "Sécurisé" cards: flat, light-gray, green gradient hover glow.
+   Fixed light styling regardless of the site's light/slate palette toggle,
+   to match the reference exactly.
    ========================================================= */
 
 .latest-grid {
     display: grid;
     text-align: left;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    max-width: 900px;
-    margin-inline: auto;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
 }
 
 .latest-grid .card {
-    font-size: 0.85rem;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+    border-radius: 0;
+    border: none;
+    background-color: #f7f7f7 !important;
+    box-shadow: none;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.latest-grid .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(160deg, rgba(0, 0, 0, 0) 70%, rgba(1, 169, 130, 0.4) 100%);
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+.latest-grid .card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.latest-grid .card:hover::before {
+    opacity: 1;
 }
 
 .latest-grid .card-icon {
-    height: 90px;
-    margin-top: 0.5rem;
+    height: 64px;
+    width: 64px;
+    flex-shrink: 0;
+    margin-top: 0;
+    object-fit: contain;
+    filter: none;
+    background-color: transparent;
 }
 
 .latest-grid .card-text {
-    padding: 0.5rem 0.6rem 0.6rem;
+    padding: 0;
+    gap: 0.3rem;
 }
 
 .latest-grid .card-title {
-    font-size: 0.72rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--hpe-midnight) !important;
+    -webkit-line-clamp: 3;
 }
 
 .latest-grid .card-subtitle {
-    font-size: 0.6rem;
-}
-
-@media (max-width: 768px) {
-    .latest-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    font-size: 0.78rem;
+    color: #6b7280 !important;
 }
 
 @media (max-width: 480px) {
-    .latest-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .latest-grid .card {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
     }
 }
 
