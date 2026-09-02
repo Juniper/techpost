@@ -70,6 +70,16 @@
     li.appendChild(trigger);
     li.appendChild(search);
     iconsList.insertBefore(li, iconsList.firstChild);
+
+    // Results now render as a full-page overlay driven by :focus-within, so
+    // clicking the dark backdrop must blur the query input to close it.
+    var overlay = search.querySelector(".md-search__overlay");
+    if (overlay) {
+      overlay.addEventListener("click", function () {
+        var active = document.activeElement;
+        if (search.contains(active)) active.blur();
+      });
+    }
     return true;
   }
 
