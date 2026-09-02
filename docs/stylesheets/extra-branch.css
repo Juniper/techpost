@@ -578,121 +578,124 @@ button,
 
 
 /* =========================================================
-   Hero Section (Landing Page)
+   Home Banner (Landing Page)
    ========================================================= */
 
-/* Hide the auto-generated page title when hero-section is present */
-.md-typeset:has(.hero-section) > h1,
-.md-content:has(.hero-section) h1:first-of-type,
-.md-typeset:has(.hero-section) h1,
-article:has(.hero-section) h1 {
+/* Hide the auto-generated page title when banner-section is present */
+.md-typeset:has(.banner-section) > h1,
+.md-content:has(.banner-section) h1:first-of-type,
+.md-typeset:has(.banner-section) h1,
+article:has(.banner-section) h1 {
     display: none !important;
 }
 
 /* On home page, always show site title in header (prevent page title takeover) */
-body:has(.hero-section) .md-header__topic:nth-child(2) {
+body:has(.banner-section) .md-header__topic:nth-child(2) {
     display: none !important;
 }
-body:has(.hero-section) .md-header__topic:first-child {
+body:has(.banner-section) .md-header__topic:first-child {
     opacity: 1 !important;
     transform: translateX(0) !important;
 }
 
-.hero-section {
-    text-align: center;
-    max-width: 800px;
-    margin-inline: auto;
-}
-
-/* Text-only wordmark (replaces the former mainlogo.png raster logo) */
-.hero-wordmark {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
-    margin-bottom: 1.75rem;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-}
-
-.hero-wordmark:hover {
-    opacity: 0.85;
-}
-
-.hero-wordmark-eyebrow {
-    font-weight: 600;
-    font-size: clamp(0.8rem, 1.3vw, 1rem);
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--hpe-midnight);
-}
-
-.hero-wordmark-title {
-    font-family: 'HPE Graphik XXCondensed';
-    font-weight: bold;
-    font-size: clamp(2.75rem, 7vw, 5rem);
-    line-height: 1;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--hpe-green-strong);
-}
-
-.hero-topics {
+/* Full-bleed dark banner (same background color as the reference HPE page,
+   independent of the site's own light/slate palette toggle) */
+.banner-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    margin-right: -50vw;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    gap: 0.4rem;
-    margin: 0 0 1.25rem;
-    font-size: clamp(0.6rem, 0.85vw, 0.72rem);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--hpe-midnight);
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: 45vh;
+    padding: 3rem 6vw;
+    background-color: #1d1f27;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.hero-topics-sep {
-    color: var(--hpe-green-strong);
-    font-weight: 400;
+.banner-content {
+    max-width: 640px;
+    flex-shrink: 0;
 }
 
-.hero-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    margin: 0 0 0.5rem;
-    color: var(--hpe-midnight);
-}
-
-.hero-subtitle {
-    font-size: 0.95rem;
+.banner-eyebrow {
+    font-size: 1.1rem;
     font-weight: 500;
-    color: var(--hpe-midnight);
-    margin: 0 0 0.5rem;
+    letter-spacing: -0.01em;
+    color: #e6e8e9;
+    margin: 0 0 1.25rem;
 }
 
-.hero-description {
-    font-size: 0.95rem;
-    color: #6b7280;
+.banner-title {
+    font-family: 'HPE Graphik XXCondensed';
+    font-weight: 700;
+    font-size: clamp(2rem, 4.2vw, 3.8rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0 0 1.5rem;
+}
+
+.banner-description {
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+    color: #e6e8e9;
     margin: 0 0 2rem;
+    max-width: 560px;
 }
 
-.hero-cta {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: var(--hpe-green-strong);
-    border-radius: 8px;
+.banner-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333333;
+    background-color: #ffffff;
+    border-radius: 9999px;
     text-decoration: none;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.hero-cta:hover {
-    background-color: var(--hpe-green-hover);
+.banner-cta:hover {
     transform: translateY(-2px);
-    color: #ffffff;
+    background-color: #f0f0f0;
+    color: #333333;
+}
+
+.banner-image {
+    max-width: 42%;
+    max-height: 70%;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .banner-section {
+        flex-direction: column;
+        min-height: auto;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .banner-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .banner-image {
+        max-width: 70%;
+        margin-top: 1.5rem;
+    }
 }
 
 /* =========================================================
@@ -710,8 +713,6 @@ body:has(.hero-section) .md-header__topic:first-child {
     font-weight: 600;
     color: var(--hpe-midnight);
     margin: 0 auto 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--hpe-midnight);
     display: block;
     text-align: center;
 }
