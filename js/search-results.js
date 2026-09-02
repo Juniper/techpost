@@ -24,6 +24,13 @@
     return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
+  // Index locations are root-relative (e.g. "articles/foo/"), so resolve them
+  // against the site root instead of the current (search-results/) page.
+  function resolveUrl(location) {
+    var base = (window.__TP_SITE_URL__ || "").replace(/\/$/, "");
+    return base + "/" + location;
+  }
+
   function highlight(text, terms) {
     var safe = escapeHtml(text);
     if (!terms.length) return safe;
@@ -96,7 +103,7 @@
       '<ul class="tp-search-results-list">' +
       results.map(function (page) {
         return '<li class="tp-search-results-item">' +
-          '<a href="' + escapeHtml(page.url) + '">' + highlight(page.title, terms) + "</a>" +
+          '<a href="' + escapeHtml(resolveUrl(page.url)) + '">' + highlight(page.title, terms) + "</a>" +
           "<p>" + highlight(excerpt(page.bestText, terms), terms) + "</p>" +
           "</li>";
       }).join("") +
