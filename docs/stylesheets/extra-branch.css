@@ -615,7 +615,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
-    min-height: 45vh;
+    min-height: 37vh;
     padding: 3rem 6vw;
     background: radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%), #1d1f27;
     box-sizing: border-box;
@@ -709,6 +709,8 @@ body:has(.banner-section) .md-header__topic:first-child {
 .latest-section {
     max-width: 1400px;
     margin-inline: auto;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
 }
 
 /* Matches the reference page's h2 (font-size/weight/letter-spacing/color) */
@@ -735,6 +737,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     text-align: left;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .latest-grid .card {
@@ -755,7 +758,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(160deg, rgba(0, 0, 0, 0) 70%, rgba(1, 169, 130, 0.4) 100%);
+    background: linear-gradient(160deg, rgba(0, 0, 0, 0) 45%, rgba(1, 169, 130, 0.5) 100%);
     opacity: 0;
     transition: opacity 0.5s linear;
 }
@@ -767,12 +770,12 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 .latest-grid .card:hover::before {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .latest-grid .card-icon {
-    height: 64px;
-    width: 64px;
+    height: 88px;
+    width: 88px;
     flex-shrink: 0;
     margin-top: 0;
     object-fit: contain;
