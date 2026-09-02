@@ -651,12 +651,16 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 /* Full-bleed dark banner (same background color as the reference HPE page,
-   independent of the site's own light/slate palette toggle) */
+   independent of the site's own light/slate palette toggle). The negative
+   top margin cancels Material's default spacing above the content
+   (.md-main__inner margin + .md-content__inner padding/before pseudo-element)
+   so the banner sits flush under the nav bar with no white gap. */
 .banner-section {
     position: relative;
     left: 50%;
     right: 50%;
     width: 100vw;
+    margin-top: -2.5rem;
     margin-left: -50vw;
     margin-right: -50vw;
     display: flex;
@@ -665,7 +669,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     gap: 2rem;
     min-height: 45vh;
     padding: 3rem 6vw;
-    background-color: #1d1f27;
+    background: radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%), #1d1f27;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -724,8 +728,8 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 .banner-image {
-    max-width: 42%;
-    max-height: 70%;
+    max-width: 60%;
+    max-height: 90%;
     height: auto;
     width: auto;
     object-fit: contain;
@@ -745,7 +749,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     }
 
     .banner-image {
-        max-width: 70%;
+        max-width: 85%;
         margin-top: 1.5rem;
     }
 }
