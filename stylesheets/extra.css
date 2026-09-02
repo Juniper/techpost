@@ -754,6 +754,33 @@ body:has(.banner-section) .md-header__topic:first-child {
     }
 }
 
+/* Half-height banner variant for secondary pages (e.g. All Articles) */
+.banner-section--compact {
+    min-height: 18vh;
+    padding: 2rem 6vw;
+}
+
+/* Heading + filter input row (All Articles page) */
+.articles-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin: 0 0 1.5rem;
+}
+
+.articles-toolbar .latest-heading {
+    margin: 0;
+}
+
+.articles-toolbar .card-filter-container {
+    max-width: 320px;
+    flex: 1 1 260px;
+    padding: 0;
+    margin: 0;
+}
+
 /* =========================================================
    Latest Section
    ========================================================= */
@@ -946,6 +973,75 @@ body:has(.banner-section) .md-header__topic:first-child {
 [data-md-color-scheme="slate"] .card:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     border-color: var(--hpe-green);
+}
+
+/* All Articles page cards — same flat design + hover glow as the home
+   page's Latest Publications cards (see .latest-grid .card) */
+.card-grid .card {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+    border-radius: 0;
+    border: none;
+    background-color: #f7f7f7 !important;
+    box-shadow: none;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.card-grid .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(160deg, rgba(0, 0, 0, 0) 45%, rgba(1, 169, 130, 0.5) 100%);
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+.card-grid .card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.card-grid .card:hover::before {
+    opacity: 1 !important;
+}
+
+.card-grid .card-icon {
+    height: 88px;
+    width: 88px;
+    flex-shrink: 0;
+    margin-top: 0;
+    object-fit: contain;
+    filter: none;
+    background-color: transparent;
+}
+
+.card-grid .card-text {
+    padding: 0;
+    gap: 0.3rem;
+}
+
+.card-grid .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--hpe-midnight) !important;
+}
+
+.card-grid .card-subtitle {
+    font-size: 0.78rem;
+    color: #6b7280 !important;
+}
+
+@media (max-width: 480px) {
+    .card-grid .card {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
 }
 
 /* ✅ Card cover image */
