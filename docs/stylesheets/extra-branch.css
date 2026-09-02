@@ -769,6 +769,7 @@ body:has(.banner-section) .md-header__topic:first-child {
 
 .latest-grid .card {
     position: relative;
+    z-index: 0;
     flex-direction: row;
     align-items: center;
     gap: 1.25rem;
@@ -900,6 +901,7 @@ body:has(.banner-section) .md-header__topic:first-child {
    page's Latest Publications cards (see .latest-grid .card) */
 .card-grid .card {
     position: relative;
+    z-index: 0;
     flex-direction: row;
     align-items: center;
     gap: 1.25rem;
