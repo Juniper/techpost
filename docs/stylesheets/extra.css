@@ -728,8 +728,8 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 .banner-image {
-    max-width: 42%;
-    max-height: 70%;
+    max-width: 60%;
+    max-height: 90%;
     height: auto;
     width: auto;
     object-fit: contain;
@@ -749,7 +749,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     }
 
     .banner-image {
-        max-width: 70%;
+        max-width: 85%;
         margin-top: 1.5rem;
     }
 }
