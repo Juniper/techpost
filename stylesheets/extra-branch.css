@@ -280,7 +280,7 @@ button,
    ========================================================= */
 /* The local Material header bar is redundant now that HFWS renders the top
    nav (see overrides/main.html / partials/header.html); its search box is
-   relocated into the HFWS secondaryNav bar by js/hfws-search-relocate.js. */
+   relocated into the HFWS main nav bar by js/hfws-header-merge.js. */
 .md-header {
     display: none !important;
 }
@@ -289,26 +289,47 @@ button,
     --md-header-height: 0px;
 }
 
-/* Search box relocated into the HFWS secondaryNav bar. !important overrides
-   HFWS's own .hpehf-secondary-nav-list-item rules (loaded after this file,
-   so it otherwise wins the cascade) and Material's header-specific sizing
-   on .md-search, which both fight vertical centering here. */
-.hpehf-secondary-nav-search-item {
-    display: flex;
-    align-items: center !important;
-    margin-left: .4rem;
+/* HPE's default global nav links, the secondaryNav bar and the default
+   "Search hpe.com" icon are replaced by js/hfws-header-merge.js with our
+   own nav links + relocated mkdocs search, merged into a single bar. */
+#hpehf-default-main-nav,
+#hpehf-console-main-nav,
+#hpehf-mobile-default-main-nav,
+#hpehf-mobile-console-main-nav,
+#hpehf-header .hpehf-icons #hpehf-search,
+#hpehf-secondary-nav {
+    display: none !important;
 }
 
-.hpehf-secondary-nav-search-item .md-search {
+/* Our injected "All Articles" dropdown, shown via CSS instead of relying on
+   HFWS's own click handlers (which are bound before our links are injected). */
+#hpehf-header .hfws-tp-has-flyout:hover > .hpehf-main-nav-flyout,
+#hpehf-header .hfws-tp-has-flyout:focus-within > .hpehf-main-nav-flyout {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Search box relocated into the HFWS icons row. !important overrides HFWS's
+   own .hpehf-nav-list-item rules (loaded after this file, so it otherwise
+   wins the cascade) and Material's header-specific sizing on .md-search,
+   which both fight vertical centering here. */
+.hfws-tp-search-item {
+    display: flex;
+    align-items: center !important;
+    margin-right: .4rem;
+}
+
+.hfws-tp-search-item .md-search {
     height: auto !important;
     padding: 0 !important;
 }
 
-.hpehf-secondary-nav-search-item .md-header__button {
+.hfws-tp-search-item .md-header__button {
     color: inherit;
 }
 
-.hpehf-secondary-nav-search-item .md-search__input {
+.hfws-tp-search-item .md-search__input {
     color: white;
 }
 
@@ -316,37 +337,37 @@ button,
    `[data-md-toggle=search]:checked ~ .md-header ...` sibling selector, which
    can never match now that .md-search lives outside .md-header. Drive the
    same states off :focus-within on the relocated box instead. */
-.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__output {
+.hfws-tp-search-item .md-search:focus-within .md-search__output {
     opacity: 1 !important;
 }
 
-.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__scrollwrap {
+.hfws-tp-search-item .md-search:focus-within .md-search__scrollwrap {
     max-height: 75vh !important;
 }
 
-.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__suggest {
+.hfws-tp-search-item .md-search:focus-within .md-search__suggest {
     opacity: 1 !important;
 }
 
-.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__form {
+.hfws-tp-search-item .md-search:focus-within .md-search__form {
     background-color: var(--md-default-bg-color) !important;
     color: var(--md-default-fg-color) !important;
 }
 
-.hpehf-secondary-nav-search-item .md-search:focus-within .md-search__input:valid ~ .md-search__options > .md-icon {
+.hfws-tp-search-item .md-search:focus-within .md-search__input:valid ~ .md-search__options > .md-icon {
     opacity: 1 !important;
     pointer-events: auto;
     transform: scale(1);
 }
 
 @media screen and (min-width: 60em) and (max-width: 76.234375em) {
-    .hpehf-secondary-nav-search-item .md-search:focus-within .md-search__inner {
+    .hfws-tp-search-item .md-search:focus-within .md-search__inner {
         width: 23.4rem !important;
     }
 }
 
 @media screen and (min-width: 76.25em) {
-    .hpehf-secondary-nav-search-item .md-search:focus-within .md-search__inner {
+    .hfws-tp-search-item .md-search:focus-within .md-search__inner {
         width: 34.4rem !important;
     }
 }
@@ -914,8 +935,8 @@ body:has(.hero-section) .md-header__topic:first-child {
 }
 
 
-/* Top-level nav is rendered by HFWS's secondaryNav (see overrides/main.html);
-   the local Material tabs bar stays suppressed. */
+/* Top-level nav is rendered by HFWS's main nav bar (see overrides/main.html
+   and js/hfws-header-merge.js); the local Material tabs bar stays suppressed. */
 .md-tabs {
     display: none !important;
 }
