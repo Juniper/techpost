@@ -71,13 +71,16 @@
     li.appendChild(search);
     iconsList.insertBefore(li, iconsList.firstChild);
 
-    // Results now render as a full-page overlay driven by :focus-within, so
-    // clicking the dark backdrop must blur the query input to close it.
-    var overlay = search.querySelector(".md-search__overlay");
-    if (overlay) {
-      overlay.addEventListener("click", function () {
-        var active = document.activeElement;
-        if (search.contains(active)) active.blur();
+    // Pressing Enter navigates to a dedicated results page (same header/footer)
+    // instead of Material's live in-place dropdown.
+    var input = search.querySelector(".md-search__input");
+    if (input && window.__TP_SEARCH_RESULTS_URL__) {
+      input.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        var query = input.value.trim();
+        if (!query) return;
+        window.location.href = window.__TP_SEARCH_RESULTS_URL__ + "?q=" + encodeURIComponent(query);
       });
     }
     return true;
