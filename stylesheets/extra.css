@@ -503,19 +503,12 @@ button,
 
 /* Active sidebar link indicator */
 .md-nav__link--active {
-    font-weight: 600 !important;
-    border-left: 3px solid var(--hpe-green);
-    padding-left: 0.5em !important;
+    font-weight: 500 !important;
 }
 
-[data-md-color-scheme="slate"] .md-nav__link--active {
-    border-left-color: var(--hpe-green);
-}
-
-/* Section labels in sidebar */
+/* Section labels in sidebar (Sentence case, not UPPERCASE) */
 .md-nav__item--nested > .md-nav__link {
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 500;
     font-size: 0.68rem;
     letter-spacing: 0.04em;
     opacity: 0.85;
