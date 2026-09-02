@@ -37,26 +37,32 @@
   <meta name="target_country" content="ww" />
   <meta name="web_section_id" content="R12412" />
 
-  {#- HFWS secondaryNav: must be defined via window.HPEHF_CFG *before* the HFWS
-      loader script runs below, so it renders our nav instead of a local one. -#}
+  {#- HFWS mainNav: must be defined via window.HPEHF_CFG *before* the HFWS
+      loader script runs below. Only the microsite title uses HFWS's own
+      config (there's no supported way to swap out its default global nav
+      links via config), so the nav links themselves and the search box are
+      merged into this single bar by js/hfws-header-merge.js instead of using
+      a separate secondaryNav bar. -#}
   {% set site_url = config.site_url | trim("/") %}
   <script>
     window.HPEHF_CFG = {
-      secondaryNav: {
-        sectionTitle: "{{ config.site_name }}",
-        navLinks: [
-          {title: "Home", href: "{{ site_url }}/", newWindow: false, dataAnalyticsRegionId: "gmenu|TECHPOST Sec Nav|Home"},
-          {title: "All Articles", href: "{{ site_url }}/articles/menu/main/", newWindow: false, dataAnalyticsRegionId: "gmenu|TECHPOST Sec Nav|All Articles",
-            navLinks: [
-              {title: "MX301 Deepdive", href: "{{ site_url }}/articles/mx301-deepdive/article/", newWindow: false, dataAnalyticsRegionId: "gmenu|TECHPOST Sec Nav|MX301 Deepdive"},
-              {title: "MX301 High-Performance FlowSpec Without Compromise", href: "{{ site_url }}/articles/mx301-high-performance-flowspec-without-compromise/article/", newWindow: false, dataAnalyticsRegionId: "gmenu|TECHPOST Sec Nav|MX301 FlowSpec"},
-              {title: "MX301 A Powerful Filtering Gateway", href: "{{ site_url }}/articles/mx301-a-powerful-filtering-gateway/article/", newWindow: false, dataAnalyticsRegionId: "gmenu|TECHPOST Sec Nav|MX301 Filtering Gateway"}
-            ]
-          },
-          {title: "About us", href: "{{ site_url }}/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|TECHPOST Sec Nav|About us"}
-        ]
+      mainNav: {
+        micrositeLogoArea: {
+          micrositeTitle: "{{ config.site_name }}"
+        }
       }
     };
+    window.__TP_NAV_LINKS__ = [
+      {title: "Home", href: "{{ site_url }}/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|Home"},
+      {title: "All Articles", href: "{{ site_url }}/articles/menu/main/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|All Articles",
+        navLinks: [
+          {title: "MX301 Deepdive", href: "{{ site_url }}/articles/mx301-deepdive/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 Deepdive"},
+          {title: "MX301 High-Performance FlowSpec Without Compromise", href: "{{ site_url }}/articles/mx301-high-performance-flowspec-without-compromise/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 FlowSpec"},
+          {title: "MX301 A Powerful Filtering Gateway", href: "{{ site_url }}/articles/mx301-a-powerful-filtering-gateway/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 Filtering Gateway"}
+        ]
+      },
+      {title: "About us", href: "{{ site_url }}/about/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|About us"}
+    ];
   </script>
 
   {#- HPE Header/Footer Web Service (HFWS): corporate branded header & footer.

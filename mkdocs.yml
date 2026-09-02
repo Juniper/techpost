@@ -23,7 +23,7 @@ extra_javascript:
 - js/math-render.js
 - js/extra.js
 - js/hfws-instant-guard.js
-- js/hfws-search-relocate.js
+- js/hfws-header-merge.js
 markdown_extensions:
 - attr_list
 - pymdownx.extra

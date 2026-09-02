@@ -1,7 +1,8 @@
 {#-
   Overridden partial based on mkdocs-material 9.6.9 partials/header.html.
   The separate `.md-tabs` bar is intentionally NOT rendered; top-level
-  navigation is instead handled by HFWS's secondaryNav (see overrides/main.html).
+  navigation is instead merged into HFWS's main nav bar (see overrides/main.html
+  and js/hfws-header-merge.js).
 -#}
 {% set class = "md-header md-header--shadow" %}
 <header class="{{ class }}" data-md-component="header">
@@ -32,8 +33,8 @@
       </div>
     </div>
 
-    {#- Top-level navigation is no longer rendered locally: HFWS renders it via
-        window.HPEHF_CFG.secondaryNav (see overrides/main.html). -#}
+    {#- Top-level navigation is no longer rendered locally: it's merged into
+        HFWS's main nav bar by js/hfws-header-merge.js (see overrides/main.html). -#}
 
     {% if config.theme.palette %}
       {% if not config.theme.palette is mapping %}
