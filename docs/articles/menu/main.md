@@ -7,6 +7,7 @@ hide:
 <div class="banner-section banner-section--compact">
   <div class="banner-content">
     <p class="banner-title">All Articles</p>
+    <p class="banner-description">Byte-Sized Elevated Techpost on HPE Networking Solutions.</p>
   </div>
 </div>
 
