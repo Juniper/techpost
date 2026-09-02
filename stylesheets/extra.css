@@ -338,13 +338,42 @@ button,
 /* Material only reveals the results dropdown via a
    `[data-md-toggle=search]:checked ~ .md-header ...` sibling selector, which
    can never match now that .md-search lives outside .md-header. Drive the
-   same states off :focus-within on the relocated box instead. */
+   same states off :focus-within on the relocated box instead. The input
+   itself stays a fixed size; results render as a full-page overlay below
+   (rather than a small dropdown frame) so it reads like a search results page. */
+.hfws-tp-search-item .md-search:focus-within .md-search__overlay {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    opacity: 1 !important;
+    background-color: rgba(0, 0, 0, .6);
+    cursor: pointer;
+    z-index: 1000;
+}
+
 .hfws-tp-search-item .md-search:focus-within .md-search__output {
     opacity: 1 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    max-width: none;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    background-color: var(--md-default-bg-color);
 }
 
 .hfws-tp-search-item .md-search:focus-within .md-search__scrollwrap {
-    max-height: 75vh !important;
+    max-height: 100vh !important;
+    width: 100%;
+    max-width: 46rem;
+    margin: 0 auto;
+    padding-top: 5rem;
 }
 
 .hfws-tp-search-item .md-search:focus-within .md-search__suggest {
@@ -360,18 +389,6 @@ button,
     opacity: 1 !important;
     pointer-events: auto;
     transform: scale(1);
-}
-
-@media screen and (min-width: 60em) and (max-width: 76.234375em) {
-    .hfws-tp-search-item .md-search:focus-within .md-search__inner {
-        width: 23.4rem !important;
-    }
-}
-
-@media screen and (min-width: 76.25em) {
-    .hfws-tp-search-item .md-search:focus-within .md-search__inner {
-        width: 34.4rem !important;
-    }
 }
 
 /* Header bar */
