@@ -78,11 +78,15 @@
     separate Material tabs bar is suppressed. -#}
 {% block tabs %}{% endblock %}
 
+{#- The Material footer (prev/next pagination, copyright, social links) is
+    replaced entirely by the HFWS corporate footer below. -#}
+{% block footer %}{% endblock %}
+
 {#- Corporate branded footer. It must live OUTSIDE `data-md-component=container`
     (which instant navigation swaps on every page change), otherwise the HFWS
     footer would be wiped after the first navigation. Rendering it in the scripts
-    block places it at the end of <body>, below the Material footer, where instant
-    navigation leaves it untouched so its injected content persists. -#}
+    block places it at the end of <body>, where instant navigation leaves it
+    untouched so its injected content persists. -#}
 {% block scripts %}
   {{ super() }}
   <div id="footer" class="hfws-footer"><!-- HFWS inserts its footer here --></div>
