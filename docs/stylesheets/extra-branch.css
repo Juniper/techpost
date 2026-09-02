@@ -301,15 +301,6 @@ button,
     display: none !important;
 }
 
-/* Our injected "All Articles" dropdown, shown via CSS instead of relying on
-   HFWS's own click handlers (which are bound before our links are injected). */
-#hpehf-header .hfws-tp-has-flyout:hover > .hpehf-main-nav-flyout,
-#hpehf-header .hfws-tp-has-flyout:focus-within > .hpehf-main-nav-flyout {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
 /* Search box relocated into the HFWS icons row. !important overrides HFWS's
    own .hpehf-nav-list-item rules (loaded after this file, so it otherwise
    wins the cascade) and Material's header-specific sizing on .md-search,
