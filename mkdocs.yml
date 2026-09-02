@@ -1,6 +1,8 @@
 copyright: This site is maintained by HPE/Juniper Networking employees. Powered by
   Material for MkDocs & Pandoc
 docs_dir: docs
+not_in_nav: |
+  search-results.md
 extra:
   generator: false
   social:
@@ -24,6 +26,7 @@ extra_javascript:
 - js/extra.js
 - js/hfws-instant-guard.js
 - js/hfws-header-merge.js
+- js/search-results.js
 markdown_extensions:
 - attr_list
 - pymdownx.extra

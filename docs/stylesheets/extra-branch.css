@@ -335,58 +335,13 @@ button,
 
 /* Material only reveals the results dropdown via a
    `[data-md-toggle=search]:checked ~ .md-header ...` sibling selector, which
-   can never match now that .md-search lives outside .md-header. Drive the
-   same states off :focus-within on the relocated box instead. The input
-   itself stays a fixed size; results render as a full-page overlay below
-   (rather than a small dropdown frame) so it reads like a search results page. */
-.hfws-tp-search-item .md-search:focus-within .md-search__overlay {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    opacity: 1 !important;
-    background-color: rgba(0, 0, 0, .6);
-    cursor: pointer;
-    z-index: 1000;
-}
-
-.hfws-tp-search-item .md-search:focus-within .md-search__output {
-    opacity: 1 !important;
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    max-width: none;
-    z-index: 1001;
-    display: flex;
-    justify-content: center;
-    background-color: var(--md-default-bg-color);
-}
-
-.hfws-tp-search-item .md-search:focus-within .md-search__scrollwrap {
-    max-height: 100vh !important;
-    width: 100%;
-    max-width: 46rem;
-    margin: 0 auto;
-    padding-top: 5rem;
-}
-
-.hfws-tp-search-item .md-search:focus-within .md-search__suggest {
-    opacity: 1 !important;
-}
-
-.hfws-tp-search-item .md-search:focus-within .md-search__form {
-    background-color: var(--md-default-bg-color) !important;
-    color: var(--md-default-fg-color) !important;
-}
-
-.hfws-tp-search-item .md-search:focus-within .md-search__input:valid ~ .md-search__options > .md-icon {
-    opacity: 1 !important;
-    pointer-events: auto;
-    transform: scale(1);
+   can never match now that .md-search lives outside .md-header. We don't use
+   it anyway: pressing Enter navigates to a dedicated results page (see
+   docs/search-results.md and js/hfws-header-merge.js) instead of showing a
+   live dropdown, so the input just stays a plain, fixed-size box. */
+.hfws-tp-search-item .md-search__output,
+.hfws-tp-search-item .md-search__suggest {
+    display: none !important;
 }
 
 /* Header bar */
@@ -957,4 +912,35 @@ body:has(.hero-section) .md-header__topic:first-child {
    and js/hfws-header-merge.js); the local Material tabs bar stays suppressed. */
 .md-tabs {
     display: none !important;
+}
+
+
+/* =========================================================
+   Search results page (docs/search-results.md)
+   ========================================================= */
+
+.tp-search-results-list {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+}
+
+.tp-search-results-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.tp-search-results-item a {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.tp-search-results-item p {
+    margin: 0.4rem 0 0;
+    color: var(--md-default-fg-color--light);
+}
+
+.tp-search-results-item mark {
+    background-color: rgba(1, 169, 130, 0.25);
+    color: inherit;
 }
