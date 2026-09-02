@@ -14,17 +14,7 @@
   function buildDesktopLink(item) {
     var li = document.createElement("li");
     li.className = "hpehf-nav-list-item";
-    var hasChildren = Array.isArray(item.navLinks) && item.navLinks.length > 0;
-    var html = '<a class="hpehf-nav-link" href="' + escapeHtml(item.href) + '" data-analytics-region-id="' + escapeHtml(item.dataAnalyticsRegionId) + '">' + escapeHtml(item.title) + "</a>";
-    if (hasChildren) {
-      li.classList.add("hfws-tp-has-flyout");
-      html += '<div class="hpehf-main-nav-flyout"><ul class="hpehf-main-nav-flyout-list">' +
-        item.navLinks.map(function (child) {
-          return '<li class="hpehf-main-nav-flyout-list-item"><a class="hpehf-main-nav-flyout-link" href="' + escapeHtml(child.href) + '" data-analytics-region-id="' + escapeHtml(child.dataAnalyticsRegionId) + '"><span class="hpehf-main-nav-flyout-link-text">' + escapeHtml(child.title) + "</span></a></li>";
-        }).join("") +
-        "</ul></div>";
-    }
-    li.innerHTML = html;
+    li.innerHTML = '<a class="hpehf-nav-link" href="' + escapeHtml(item.href) + '" data-analytics-region-id="' + escapeHtml(item.dataAnalyticsRegionId) + '">' + escapeHtml(item.title) + "</a>";
     return li;
   }
 
