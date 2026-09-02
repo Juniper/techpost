@@ -622,7 +622,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
-    min-height: 37vh;
+    min-height: 33.3vh;
     padding: 3rem 6vw;
     background: radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%), #1d1f27;
     box-sizing: border-box;
@@ -711,7 +711,7 @@ body:has(.banner-section) .md-header__topic:first-child {
 
 /* Half-height banner variant for secondary pages (e.g. All Articles) */
 .banner-section--compact {
-    min-height: 18vh;
+    min-height: 14.4vh;
     padding: 2rem 6vw;
 }
 
