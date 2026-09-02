@@ -557,23 +557,6 @@ button,
     border: none;
 }
 
-/* ✅ Footer (light theme) */
-[data-md-color-scheme="default"] .md-footer {
-    background-color: #ea580c !important;
-    color: white !important;
-}
-
-[data-md-color-scheme="default"] .md-footer-meta {
-    background-color: #ea580c;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ✅ Footer links */
-.md-footer a {
-    color: white !important;
-}
-
-
 /* =========================================================
    Buttons
    ========================================================= */

@@ -604,33 +604,6 @@ button,
     border: none;
 }
 
-/* ✅ Footer (light theme) */
-[data-md-color-scheme="default"] .md-footer {
-    background-color: #292d3a !important;
-    color: white !important;
-}
-
-[data-md-color-scheme="default"] .md-footer-meta {
-    background-color: #292d3a;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ✅ Footer (dark theme) */
-[data-md-color-scheme="slate"] .md-footer {
-    background-color: #292d3a !important;
-    color: white !important;
-}
-
-[data-md-color-scheme="slate"] .md-footer-meta {
-    background-color: #292d3a;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* ✅ Footer links */
-.md-footer a {
-    color: white !important;
-}
-
 
 /* =========================================================
    Buttons
