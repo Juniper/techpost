@@ -241,7 +241,7 @@ body:has(.banner-section) .md-content__inner {
 
 /* ✅ Adjust page grid (wider container than default MkDocs Material) */
 .md-grid {
-    max-width: 85rem;
+    max-width: 1600px;
 }
 
 
@@ -673,11 +673,10 @@ body:has(.banner-section) .md-header__topic:first-child {
     position: relative;
     left: 50%;
     right: 50%;
-    width: min(100vw, 1600px);
-    max-width: 1600px;
+    width: 100vw;
     margin-top: -2.5rem;
-    margin-left: calc(-1 * min(50vw, 800px));
-    margin-right: calc(-1 * min(50vw, 800px));
+    margin-left: -50vw;
+    margin-right: -50vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -814,7 +813,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     letter-spacing: -0.02em;
     line-height: 1.12;
     color: var(--hpe-midnight);
-    margin: 0 0 2rem;
+    margin: 0 0 3rem;
     display: block;
     text-align: left;
 }
@@ -824,10 +823,9 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 /* =========================================================
-   Latest Articles Grid (Home page) — styled after the reference
-   page's "Sécurisé" cards: flat, light-gray, green gradient hover glow.
-   Fixed light styling regardless of the site's light/slate palette toggle,
-   to match the reference exactly.
+   Latest Articles Grid (Home page) — vertical cards with a top photo,
+   category label, title and description (see .card / .card-category /
+   .card-description below; markup is cloned from the All Articles page).
    ========================================================= */
 
 .latest-grid {
@@ -838,71 +836,8 @@ body:has(.banner-section) .md-header__topic:first-child {
     margin-bottom: 2rem;
 }
 
-.latest-grid .card {
-    position: relative;
-    z-index: 0;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.25rem;
-    border-radius: 0;
-    border: none;
-    background-color: #f7f7f7 !important;
-    box-shadow: none;
-    padding: 2rem;
-    overflow: hidden;
-}
-
-.latest-grid .card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(160deg, rgba(0, 0, 0, 0) 45%, rgba(1, 169, 130, 0.5) 100%);
-    opacity: 0;
-    transition: opacity 0.5s linear;
-}
-
-.latest-grid .card:hover {
-    transform: none;
-    box-shadow: none;
-    border-color: transparent;
-}
-
-.latest-grid .card:hover::before {
-    opacity: 1 !important;
-}
-
-.latest-grid .card-icon {
-    height: 88px;
-    width: 88px;
-    flex-shrink: 0;
-    margin-top: 0;
-    object-fit: contain;
-    filter: none;
-    background-color: transparent;
-}
-
-.latest-grid .card-text {
-    padding: 0;
-    gap: 0.3rem;
-}
-
-.latest-grid .card-title {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--hpe-midnight) !important;
-    -webkit-line-clamp: 3;
-}
-
-.latest-grid .card-subtitle {
-    font-size: 0.78rem;
-    color: #6b7280 !important;
-}
-
 @media (max-width: 480px) {
     .latest-grid .card {
-        flex-direction: column;
-        align-items: flex-start;
         text-align: left;
     }
 }
@@ -981,100 +916,28 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
     border-color: var(--hpe-green);
 }
 
 [data-md-color-scheme="slate"] .card:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
     border-color: var(--hpe-green);
 }
 
-/* All Articles page cards — same flat design + hover glow as the home
-   page's Latest Publications cards (see .latest-grid .card) */
-.card-grid .card {
-    position: relative;
-    z-index: 0;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.25rem;
-    border-radius: 0;
-    border: none;
-    background-color: #f7f7f7 !important;
-    box-shadow: none;
-    padding: 2rem;
-    overflow: hidden;
-}
-
-.card-grid .card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(160deg, rgba(0, 0, 0, 0) 45%, rgba(1, 169, 130, 0.5) 100%);
-    opacity: 0;
-    transition: opacity 0.5s linear;
-}
-
-.card-grid .card:hover {
-    transform: none;
-    box-shadow: none;
-    border-color: transparent;
-}
-
-.card-grid .card:hover::before {
-    opacity: 1 !important;
-}
-
-.card-grid .card-icon {
-    height: 88px;
-    width: 88px;
-    flex-shrink: 0;
-    margin-top: 0;
-    object-fit: contain;
-    filter: none;
-    background-color: transparent;
-}
-
-.card-grid .card-text {
-    padding: 0;
-    gap: 0.3rem;
-}
-
-.card-grid .card-title {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--hpe-midnight) !important;
-}
-
-.card-grid .card-subtitle {
-    font-size: 0.78rem;
-    color: #6b7280 !important;
-}
-
-@media (max-width: 480px) {
-    .card-grid .card {
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-    }
-}
-
-/* ✅ Card cover image */
+/* ✅ Card cover image — full-bleed product photo, no logo backdrop/shadow */
 .card-icon {
     width: 100%;
-    height: 160px;
+    height: 200px;
+    margin-top: 0.75rem;
     object-fit: cover;
     display: block;
-    margin-top: 0.5rem;
-    background-color: #ffffff;
-    /* Soft charcoal drop shadow to anchor the product image (all logo.png) */
-    filter: var(--hpe-product-shadow);
+    transition: transform 0.35s ease;
 }
 
-[data-md-color-scheme="slate"] .card-icon {
-    background-color: #ffffff;
+.card:hover .card-icon {
+    transform: scale(1.04);
 }
 
 /* ✅ Card text area */
@@ -1082,18 +945,31 @@ body:has(.banner-section) .md-header__topic:first-child {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-    padding: 1rem 1.25rem 1.25rem;
+    padding: 1.25rem 1.25rem 1.5rem;
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
 }
 
+/* ✅ Category / eyebrow label */
+.card-category {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #6b7280;
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+
+[data-md-color-scheme="slate"] .card-category {
+    color: #94a3b8;
+}
+
 /* ✅ Title */
 .card-title {
     color: var(--hpe-midnight);
-    font-size: 0.88rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    line-height: 1.35;
+    line-height: 1.3;
     margin: 0;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -1105,6 +981,23 @@ body:has(.banner-section) .md-header__topic:first-child {
 
 [data-md-color-scheme="slate"] .card-title {
     color: #f0f2f5;
+}
+
+/* ✅ Description */
+.card-description {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #4b5563;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+[data-md-color-scheme="slate"] .card-description {
+    color: #b7c0cc;
 }
 
 /* ✅ Subtitle / Author */
@@ -1128,7 +1021,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     }
 
     .card-icon {
-        height: 130px;
+        height: 170px;
     }
 }
 

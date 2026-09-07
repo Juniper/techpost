@@ -1,0 +1,3 @@
+[mkdocs.plugins]
+book-enumerate = book_enumerate.book_enumerate:BookEnumeratePlugin
+caption-per-book = caption_per_book.caption_per_book:CaptionPerBookPlugin
