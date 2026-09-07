@@ -216,20 +216,22 @@ button,
    Layout & Grid
    ========================================================= */
 
-/* Only apply fixed sidebar widths on desktop screens */
+/* Only apply fixed sidebar widths on desktop screens. Fixed px (not rem) so
+   they don't balloon on ultra-wide screens where Material scales up the root
+   font-size, which was starving the article text column of width. */
 @media screen and (min-width: 76.25em) {
     .md-sidebar {
-        width: 15rem;
+        width: 240px;
     }
 
     .md-nav--primary .md-nav__list {
-        width: 14rem;
+        width: 224px;
     }
 }
 
 .md-content__inner {
-    margin-left: 6rem !important;
-    margin-right: 6rem !important;
+    margin-left: 2.5rem !important;
+    margin-right: 2.5rem !important;
 }
 
 /* Pages with no navigation/toc sidebars (index.md, articles/menu/main.md —
@@ -916,13 +918,12 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     border-color: var(--hpe-green);
 }
 
 [data-md-color-scheme="slate"] .card:hover {
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
     border-color: var(--hpe-green);
 }
 
