@@ -47,6 +47,12 @@ nav:
       - MX301 Deepdive: articles/mx301-deepdive/article.md
       - MX301 High-Performance FlowSpec Without Compromise: articles/mx301-high-performance-flowspec-without-compromise/article.md
       - MX301 A Powerful Filtering Gateway: articles/mx301-a-powerful-filtering-gateway/article.md
+      - Fast Lookup Tuple - an Innovative Filtering Feature: articles/fast-lookup-tuple-an-innovative-filtering-feature/article.md
+      - From sFlow to IMON Flow Sampling on MX10K Platforms: articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article.md
+  - Observability, Sampling, Telemetry, SNMP:
+    - OpenJTS Network Observability with Streaming Telemetry: articles/introducing-openjts-telemetry-stack/article.md
+  - Various Routing Topics:
+    - Monitoring PFE Resources on EVO Routers: articles/monitoring-pfe-resources-on-evo-routers/article.md
 - About us: about.md
 plugins:
 - caption-per-book
