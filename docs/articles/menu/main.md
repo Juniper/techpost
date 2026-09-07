@@ -82,7 +82,7 @@ hide:
     </a>
 
     <a class="card" href="../../monitoring-pfe-resources-on-evo-routers/article" data-date="2024-12-26">
-      <img src="../../monitoring-pfe-resources-on-evo-routers/images/picture1.png" class="card-icon" alt="Monitoring PFE Resources on EVO Routers">
+      <img src="../../monitoring-pfe-resources-on-evo-routers/images/logo.png" class="card-icon" alt="Monitoring PFE Resources on EVO Routers">
       <div class="card-text">
         <div class="card-category">Routing</div>
         <div class="card-title">Monitoring PFE Resources on EVO Routers</div>
