@@ -22,7 +22,7 @@ hide:
   <div class="card-grid">
 
     <a class="card" href="../../mx301-deepdive/article">
-      <img src="../../mx301-deepdive/images/picture3.jpeg" class="card-icon" alt="MX301 Deepdive">
+      <img src="../../mx301-deepdive/images/logo.jpeg" class="card-icon" alt="MX301 Deepdive">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
         <div class="card-title">MX301 Deepdive</div>
@@ -32,7 +32,7 @@ hide:
     </a>
 
     <a class="card" href="../../mx301-high-performance-flowspec-without-compromise/article">
-      <img src="../../mx301-high-performance-flowspec-without-compromise/images/picture2.png" class="card-icon" alt="MX301 High-Performance FlowSpec Without Compromise">
+      <img src="../../mx301-high-performance-flowspec-without-compromise/images/logo.png" class="card-icon" alt="MX301 High-Performance FlowSpec Without Compromise">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
         <div class="card-title">MX301 High-Performance FlowSpec Without Compromise</div>
@@ -42,7 +42,7 @@ hide:
     </a>
 
     <a class="card" href="../../mx301-a-powerful-filtering-gateway/article">
-      <img src="../../mx301-a-powerful-filtering-gateway/images/picture2.png" class="card-icon" alt="MX301 A Powerful Filtering Gateway">
+      <img src="../../mx301-a-powerful-filtering-gateway/images/logo.png" class="card-icon" alt="MX301 A Powerful Filtering Gateway">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
         <div class="card-title">MX301 A Powerful Filtering Gateway</div>
@@ -52,7 +52,7 @@ hide:
     </a>
 
     <a class="card" href="../../fast-lookup-tuple-an-innovative-filtering-feature/article">
-      <img src="../../fast-lookup-tuple-an-innovative-filtering-feature/images/picture3.png" class="card-icon" alt="Fast Lookup Tuple: an Innovative Filtering Feature">
+      <img src="../../fast-lookup-tuple-an-innovative-filtering-feature/images/logo.png" class="card-icon" alt="Fast Lookup Tuple: an Innovative Filtering Feature">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
         <div class="card-title">Fast Lookup Tuple: an Innovative Filtering Feature</div>
@@ -62,7 +62,7 @@ hide:
     </a>
 
     <a class="card" href="../../from-sflow-to-imon-sampling-on-mx10k-platforms/article">
-      <img src="../../from-sflow-to-imon-sampling-on-mx10k-platforms/images/picture3.png" class="card-icon" alt="From sFlow to IMON Flow Sampling on MX10K Platforms">
+      <img src="../../from-sflow-to-imon-sampling-on-mx10k-platforms/images/logo.png" class="card-icon" alt="From sFlow to IMON Flow Sampling on MX10K Platforms">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
         <div class="card-title">From sFlow to IMON Flow Sampling on MX10K Platforms</div>
@@ -72,7 +72,7 @@ hide:
     </a>
 
     <a class="card" href="../../introducing-openjts-telemetry-stack/article">
-      <img src="../../introducing-openjts-telemetry-stack/images/picture3.png" class="card-icon" alt="OpenJTS Network Observability with Streaming Telemetry">
+      <img src="../../introducing-openjts-telemetry-stack/images/logo.png" class="card-icon" alt="OpenJTS Network Observability with Streaming Telemetry">
       <div class="card-text">
         <div class="card-category">Observability</div>
         <div class="card-title">OpenJTS Network Observability with Streaming Telemetry</div>
