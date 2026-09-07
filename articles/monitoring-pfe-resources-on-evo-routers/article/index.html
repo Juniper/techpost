@@ -1,0 +1,406 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Techpost"><link href=https://juniper.github.io/techpost/articles/monitoring-pfe-resources-on-evo-routers/article/ rel=canonical><link href=../../introducing-openjts-telemetry-stack/article/ rel=prev><link href=../../../about/ rel=next><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Monitoring PFE Resources on EVO Routers - TECHPOST - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Monitoring PFE Resources on EVO Routers"><meta property=og:image content=https://juniper.github.io/techpost/articles/monitoring-pfe-resources-on-evo-routers/images/logo.png><meta property=og:type content=article><meta content=https://juniper.github.io/techpost/articles/monitoring-pfe-resources-on-evo-routers/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          micrositeTitle: "Techpost"
+        }
+      }
+    };
+    window.__TP_NAV_LINKS__ = [
+      {title: "Home", href: "https://juniper.github.io/techpost/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|Home"},
+      {title: "All Articles", href: "https://juniper.github.io/techpost/articles/menu/main/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|All Articles",
+        navLinks: [
+          {title: "MX301 Deepdive", href: "https://juniper.github.io/techpost/articles/mx301-deepdive/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 Deepdive"},
+          {title: "MX301 High-Performance FlowSpec Without Compromise", href: "https://juniper.github.io/techpost/articles/mx301-high-performance-flowspec-without-compromise/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 FlowSpec"},
+          {title: "MX301 A Powerful Filtering Gateway", href: "https://juniper.github.io/techpost/articles/mx301-a-powerful-filtering-gateway/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 Filtering Gateway"}
+        ]
+      },
+      {title: "About us", href: "https://juniper.github.io/techpost/about/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|About us"}
+    ];
+    window.__TP_SEARCH_INDEX_URL__ = "https://juniper.github.io/techpost/search/search_index.json";
+    window.__TP_SEARCH_RESULTS_URL__ = "https://juniper.github.io/techpost/search-results/";
+    window.__TP_SITE_URL__ = "https://juniper.github.io/techpost";
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#monitoring-pfe-resources-on-evo-routers class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class="md-header md-header--shadow" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="TECHPOST - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="TECHPOST - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> TECHPOST - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Monitoring PFE Resources on EVO Routers </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="TECHPOST - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="TECHPOST - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> TECHPOST - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2 checked> <label class=md-nav__link for=__nav_2 id=__nav_2_label tabindex> <span class=md-ellipsis> All Articles </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_2_label aria-expanded=true> <label class=md-nav__title for=__nav_2> <span class="md-nav__icon md-icon"></span> All Articles </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../menu/main/ class=md-nav__link> <span class=md-ellipsis> Select a Techpost </span> </a> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2> <label class=md-nav__link for=__nav_2_2 id=__nav_2_2_label tabindex=0> <span class=md-ellipsis> Platforms / Line Cards Deepdive </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2> <span class="md-nav__icon md-icon"></span> Platforms / Line Cards Deepdive </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2_1> <label class=md-nav__link for=__nav_2_2_1 id=__nav_2_2_1_label tabindex=0> <span class=md-ellipsis> MX Series </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_2_1_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2_1> <span class="md-nav__icon md-icon"></span> MX Series </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../mx301-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX301 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../mx301-high-performance-flowspec-without-compromise/article/ class=md-nav__link> <span class=md-ellipsis> MX301 High-Performance FlowSpec Without Compromise </span> </a> </li> <li class=md-nav__item> <a href=../../mx301-a-powerful-filtering-gateway/article/ class=md-nav__link> <span class=md-ellipsis> MX301 A Powerful Filtering Gateway </span> </a> </li> <li class=md-nav__item> <a href=../../fast-lookup-tuple-an-innovative-filtering-feature/article/ class=md-nav__link> <span class=md-ellipsis> Fast Lookup Tuple - an Innovative Filtering Feature </span> </a> </li> <li class=md-nav__item> <a href=../../from-sflow-to-imon-sampling-on-mx10k-platforms/article/ class=md-nav__link> <span class=md-ellipsis> From sFlow to IMON Flow Sampling on MX10K Platforms </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3> <label class=md-nav__link for=__nav_2_3 id=__nav_2_3_label tabindex=0> <span class=md-ellipsis> Observability, Sampling, Telemetry, SNMP </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_3_label aria-expanded=false> <label class=md-nav__title for=__nav_2_3> <span class="md-nav__icon md-icon"></span> Observability, Sampling, Telemetry, SNMP </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../introducing-openjts-telemetry-stack/article/ class=md-nav__link> <span class=md-ellipsis> OpenJTS Network Observability with Streaming Telemetry </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_4 checked> <label class=md-nav__link for=__nav_2_4 id=__nav_2_4_label tabindex=0> <span class=md-ellipsis> Various Routing Topics </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_4_label aria-expanded=true> <label class=md-nav__title for=__nav_2_4> <span class="md-nav__icon md-icon"></span> Various Routing Topics </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> Monitoring PFE Resources on EVO Routers </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> Monitoring PFE Resources on EVO Routers </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#a-word-about-dot-decimal-notation class=md-nav__link> <span class=md-ellipsis> A Word About Dot-Decimal Notation </span> </a> </li> <li class=md-nav__item> <a href=#step-by-step-process-to-address-our-use-case class=md-nav__link> <span class=md-ellipsis> Step-by-Step Process to Address Our Use Case </span> </a> <nav class=md-nav aria-label="Step-by-Step Process to Address Our Use Case"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#step-1-analyze-the-pfe-command class=md-nav__link> <span class=md-ellipsis> Step 1: Analyze the PFE Command </span> </a> </li> <li class=md-nav__item> <a href=#step-2-develop-the-on-box-python-script class=md-nav__link> <span class=md-ellipsis> Step 2: Develop the On-Box Python Script </span> </a> </li> <li class=md-nav__item> <a href=#step-3-deploy-the-python-script-on-the-router class=md-nav__link> <span class=md-ellipsis> Step 3: Deploy the Python Script on the Router </span> </a> </li> <li class=md-nav__item> <a href=#step-4-schedule-the-script-to-update-the-utility-mib-periodically class=md-nav__link> <span class=md-ellipsis> Step 4: Schedule the Script to Update the Utility MIB Periodically </span> </a> </li> <li class=md-nav__item> <a href=#step-5-troubleshoot-script-execution class=md-nav__link> <span class=md-ellipsis> Step 5: Troubleshoot Script Execution </span> </a> </li> <li class=md-nav__item> <a href=#step-6-collect-your-new-counters class=md-nav__link> <span class=md-ellipsis> Step 6: Collect Your New Counters </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#a-word-about-dot-decimal-notation class=md-nav__link> <span class=md-ellipsis> A Word About Dot-Decimal Notation </span> </a> </li> <li class=md-nav__item> <a href=#step-by-step-process-to-address-our-use-case class=md-nav__link> <span class=md-ellipsis> Step-by-Step Process to Address Our Use Case </span> </a> <nav class=md-nav aria-label="Step-by-Step Process to Address Our Use Case"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#step-1-analyze-the-pfe-command class=md-nav__link> <span class=md-ellipsis> Step 1: Analyze the PFE Command </span> </a> </li> <li class=md-nav__item> <a href=#step-2-develop-the-on-box-python-script class=md-nav__link> <span class=md-ellipsis> Step 2: Develop the On-Box Python Script </span> </a> </li> <li class=md-nav__item> <a href=#step-3-deploy-the-python-script-on-the-router class=md-nav__link> <span class=md-ellipsis> Step 3: Deploy the Python Script on the Router </span> </a> </li> <li class=md-nav__item> <a href=#step-4-schedule-the-script-to-update-the-utility-mib-periodically class=md-nav__link> <span class=md-ellipsis> Step 4: Schedule the Script to Update the Utility MIB Periodically </span> </a> </li> <li class=md-nav__item> <a href=#step-5-troubleshoot-script-execution class=md-nav__link> <span class=md-ellipsis> Step 5: Troubleshoot Script Execution </span> </a> </li> <li class=md-nav__item> <a href=#step-6-collect-your-new-counters class=md-nav__link> <span class=md-ellipsis> Step 6: Collect Your New Counters </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=monitoring-pfe-resources-on-evo-routers>Monitoring PFE Resources on EVO Routers<a class=headerlink href=#monitoring-pfe-resources-on-evo-routers title="Permanent link">¶</a></h1> <p><strong>David Roy - 12/26/2024</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/monitoring-pfe-resources-on-evo-routers.pdf style="display:inline-flex; align-items:center;" target=_blank title="Download PDF"><svg fill=#d32f2f height=32 viewbox="0 0 384 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"></path></svg></a><a href=../../../download/monitoring-pfe-resources-on-evo-routers.epub style="display:inline-flex; align-items:center;" target=_blank title="Download ePUB"><svg fill=#1565c0 height=32 viewbox="0 0 448 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"></path></svg></a><a href=mailto:techpost@hpe.com style="display:inline-flex; align-items:center;" title="Contact us"><svg fill=#616161 height=32 viewbox="0 0 512 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"></path></svg></a></span></p> <p>Explore another use case of the Utility MIB feature [1] in Junos and EVO. We previously discussed this feature in a separate Techpost [2] in the context of the SRX platform. Today, we'll focus on its application on the ACX7000 platform.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">¶</a></h2> <p>Recently, we received a request from a customer who wanted to monitor specific PFE counters on the ACX 7K platform. As you may know, Juniper platforms are designed to provide transparency, allowing customers access to the embedded "shell" of the Packet Forwarding Engines.</p> <p>The command they referred to was as follows:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span>
+<span class=normal><a href=#__codelineno-0-11>11</a></span>
+<span class=normal><a href=#__codelineno-0-12>12</a></span>
+<span class=normal><a href=#__codelineno-0-13>13</a></span>
+<span class=normal><a href=#__codelineno-0-14>14</a></span>
+<span class=normal><a href=#__codelineno-0-15>15</a></span>
+<span class=normal><a href=#__codelineno-0-16>16</a></span>
+<span class=normal><a href=#__codelineno-0-17>17</a></span>
+<span class=normal><a href=#__codelineno-0-18>18</a></span>
+<span class=normal><a href=#__codelineno-0-19>19</a></span>
+<span class=normal><a href=#__codelineno-0-20>20</a></span>
+<span class=normal><a href=#__codelineno-0-21>21</a></span>
+<span class=normal><a href=#__codelineno-0-22>22</a></span>
+<span class=normal><a href=#__codelineno-0-23>23</a></span>
+<span class=normal><a href=#__codelineno-0-24>24</a></span>
+<span class=normal><a href=#__codelineno-0-25>25</a></span>
+<span class=normal><a href=#__codelineno-0-26>26</a></span>
+<span class=normal><a href=#__codelineno-0-27>27</a></span>
+<span class=normal><a href=#__codelineno-0-28>28</a></span>
+<span class=normal><a href=#__codelineno-0-29>29</a></span>
+<span class=normal><a href=#__codelineno-0-30>30</a></span>
+<span class=normal><a href=#__codelineno-0-31>31</a></span>
+<span class=normal><a href=#__codelineno-0-32>32</a></span>
+<span class=normal><a href=#__codelineno-0-33>33</a></span>
+<span class=normal><a href=#__codelineno-0-34>34</a></span>
+<span class=normal><a href=#__codelineno-0-35>35</a></span>
+<span class=normal><a href=#__codelineno-0-36>36</a></span>
+<span class=normal><a href=#__codelineno-0-37>37</a></span>
+<span class=normal><a href=#__codelineno-0-38>38</a></span>
+<span class=normal><a href=#__codelineno-0-39>39</a></span>
+<span class=normal><a href=#__codelineno-0-40>40</a></span>
+<span class=normal><a href=#__codelineno-0-41>41</a></span>
+<span class=normal><a href=#__codelineno-0-42>42</a></span>
+<span class=normal><a href=#__codelineno-0-43>43</a></span>
+<span class=normal><a href=#__codelineno-0-44>44</a></span>
+<span class=normal><a href=#__codelineno-0-45>45</a></span>
+<span class=normal><a href=#__codelineno-0-46>46</a></span>
+<span class=normal><a href=#__codelineno-0-47>47</a></span>
+<span class=normal><a href=#__codelineno-0-48>48</a></span>
+<span class=normal><a href=#__codelineno-0-49>49</a></span>
+<span class=normal><a href=#__codelineno-0-50>50</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>droy@myacx&gt; start shell pfe network fpc0 
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>droy@myacx:pfe&gt; show evo-pfemand resource usage 
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>UNIT 0 MDB Profile: lean-edge
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>Resource        Usage           Capacity        size
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>COS_HR_ELEM     100             1024            1
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>COS_VOQ         800             131072          1
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>COS_VOQ_CNCTR   800             196608          1
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>ECMP            3               32000           30
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>EEDB_1          0               49152           0
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>EEDB_2          0               49152           0
+<a id=__codelineno-0-11 name=__codelineno-0-11></a>EEDB_3          0               65536           0
+<a id=__codelineno-0-12 name=__codelineno-0-12></a>EEDB_4          0               65536           0
+<a id=__codelineno-0-13 name=__codelineno-0-13></a>EEDB_5          0               32768           0
+<a id=__codelineno-0-14 name=__codelineno-0-14></a>EEDB_6          0               32768           0
+<a id=__codelineno-0-15 name=__codelineno-0-15></a>EEDB_7          2               32768           0
+<a id=__codelineno-0-16 name=__codelineno-0-16></a>EEDB_8          105             32768           0
+<a id=__codelineno-0-17 name=__codelineno-0-17></a>EGR_MC_GRP      0               262144          1
+<a id=__codelineno-0-18 name=__codelineno-0-18></a>EGR_VSI         8               65536           30
+<a id=__codelineno-0-19 name=__codelineno-0-19></a>ENCAP_EXT       0               1048576         1
+<a id=__codelineno-0-20 name=__codelineno-0-20></a>ESEM            0               131072          30
+<a id=__codelineno-0-21 name=__codelineno-0-21></a>EVPN_ESI_CLASS_ID0               512             1
+<a id=__codelineno-0-22 name=__codelineno-0-22></a>FAILOVER        420             6000            30
+<a id=__codelineno-0-23 name=__codelineno-0-23></a>FEC_1           8               78644           150
+<a id=__codelineno-0-24 name=__codelineno-0-24></a>FEC_2           0               78644           150
+<a id=__codelineno-0-25 name=__codelineno-0-25></a>FEC_3           9               104858          150
+<a id=__codelineno-0-26 name=__codelineno-0-26></a>GLEM            0               64000           1
+<a id=__codelineno-0-27 name=__codelineno-0-27></a>IFL_STATS       10              16000           1
+<a id=__codelineno-0-28 name=__codelineno-0-28></a>ING_MC_GRP      5               262144          1
+<a id=__codelineno-0-29 name=__codelineno-0-29></a>ING_VSI         8               43691           90
+<a id=__codelineno-0-30 name=__codelineno-0-30></a>INLIF_1         104             65536           60
+<a id=__codelineno-0-31 name=__codelineno-0-31></a>INLIF_2         0               65536           60
+<a id=__codelineno-0-32 name=__codelineno-0-32></a>ISEM_1          12              98304           30
+<a id=__codelineno-0-33 name=__codelineno-0-33></a>ISEM_2          0               131072          30
+<a id=__codelineno-0-34 name=__codelineno-0-34></a>KAPS            79              2368000         0
+<a id=__codelineno-0-35 name=__codelineno-0-35></a>LEM             2               655360          30
+<a id=__codelineno-0-36 name=__codelineno-0-36></a>LEXEM_PMF       0               49152           1
+<a id=__codelineno-0-37 name=__codelineno-0-37></a>MYMAC_TCAM      0               9               106
+<a id=__codelineno-0-38 name=__codelineno-0-38></a>NONE            0               0               0
+<a id=__codelineno-0-39 name=__codelineno-0-39></a>OAM_MEP_DB      8               24576           1
+<a id=__codelineno-0-40 name=__codelineno-0-40></a>OAM_NON_ACC_DB  0               24576           1
+<a id=__codelineno-0-41 name=__codelineno-0-41></a>TCAM_EPMF_80    24              0               1
+<a id=__codelineno-0-42 name=__codelineno-0-42></a>TCAM_EXTRN_80   0               0               1
+<a id=__codelineno-0-43 name=__codelineno-0-43></a>TCAM_IPMF1_80   972             0               1
+<a id=__codelineno-0-44 name=__codelineno-0-44></a>TCAM_IPMF2_80   128             0               1
+<a id=__codelineno-0-45 name=__codelineno-0-45></a>TCAM_IPMF3_80   6               0               1
+<a id=__codelineno-0-46 name=__codelineno-0-46></a>TCAM_PMF_ALL_EXTRN_800               0               1
+<a id=__codelineno-0-47 name=__codelineno-0-47></a>TCAM_PMF_ALL_INTRN_801130            51200           1
+<a id=__codelineno-0-48 name=__codelineno-0-48></a>TCAM_TNL_TERM   0               16000           178
+<a id=__codelineno-0-49 name=__codelineno-0-49></a>TRUNK_ID        1               255             1
+<a id=__codelineno-0-50 name=__codelineno-0-50></a>VRRP_SEXEM_1    0               196608          30
+</code></pre></div></td></tr></table></div> <p>While the traditional CLI provides extensive statistics for the control and data planes, there are situations where PFE commands---intended for deeper troubleshooting---offer valuable insights that might be worth monitoring. So, how can this be achieved?</p> <p>The most straightforward answer is to ask your Systems Engineer (SE) to file an Enhancement Request (ER) to make these statistics available through the standard CLI, and subsequently via Netconf RPC or Streaming Telemetry. Although this process can take some time, it's the proper approach to enhance the Junos and EVO observability toolkit.</p> <p>But what if you need a solution right now, without waiting for a future software release? In this case, we're dealing with statistics only accessible at the PFE level. For statistics already exposed via CLI commands (RPC) but not yet available through Streaming Telemetry, we've addressed this gap by allowing customers to develop their own Telemetry Sensors [3]. Unfortunately, that feature doesn't apply to our current use case.</p> <p>However, the Junos/EVO automation toolkit offers two alternative solutions. These one are particularly useful for monitoring and troubleshooting by integrating customized metrics into existing SNMP workflows.</p> <ol> <li><strong>SNMP Script with Proprietary OID</strong>: This method involves creating an SNMP script that uses a custom OID. The script is executed whenever the corresponding SNMP OID is queried. This approach works well for simple counters fetched via SNMP GET but isn't ideal for exposing a large number of counters (e.g., an SNMP table).</li> <li><strong>Utility MIB with event policy</strong>: This approach is quite similar but in this case an on-box script is run periodically, thanks to an event-policy and fill what we called the Juniper Utility MIB by which the root-OID is .1.3.6.1.4.1.2636.3.47.1.1.2.1. Objects stored in this MIB as dot-decimal key and supported values are today: counter64, integer, unsigned integer and string.</li> </ol> <h2 id=a-word-about-dot-decimal-notation>A Word About Dot-Decimal Notation<a class=headerlink href=#a-word-about-dot-decimal-notation title="Permanent link">¶</a></h2> <p>In SNMP Utility MIB, <strong>instance keys</strong> are encoded as dot-decimal values appended to the base OID to uniquely identify rows or entries within a table or specific metrics. This encoding follows a structured approach to ensure that the <strong>instance</strong> corresponds to meaningful keys.</p> <p>Here's a step-by-step explanation of how instances are encoded:</p> <ol> <li><strong>Base OID</strong>: The base OID defines the general MIB object (e.g., a table or metric). For Juniper Utility MIB, the root OID is .1.3.6.1.4.1.2636.3.47.1. But depending on the type of the data you want to fill in, the base OID will slightly change, i.e if you want to store counter64 values, the base OID will be: .1.3.6.1.4.1.2636.3.47.1.1.2.1.2</li> </ol> <p>The following table lists all the base OID:</p> <table> <thead> <tr> <th style="text-align: left;">MIB Object</th> <th style="text-align: left;">Base OID</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">jnxUtil</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilData</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter32Table</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter32Entry</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter32Name</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.1.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter32Value</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.1.1.2</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter32Time</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.1.1.3</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter64Table</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.2</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter64Entry</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.2.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter64Name</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.2.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter64Value</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.2.1.2</td> </tr> <tr> <td style="text-align: left;">jnxUtilCounter64Time</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.2.1.3</td> </tr> <tr> <td style="text-align: left;">jnxUtilIntegerTable</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.3</td> </tr> <tr> <td style="text-align: left;">jnxUtilIntegerEntry</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.3.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilIntegerName</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.3.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilIntegerValue</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.3.1.2</td> </tr> <tr> <td style="text-align: left;">jnxUtilIntegerTime</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.3.1.3</td> </tr> <tr> <td style="text-align: left;">jnxUtilUintTable</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.4</td> </tr> <tr> <td style="text-align: left;">jnxUtilUintEntry</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.4.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilUintName</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.4.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilUintValue</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.4.1.2</td> </tr> <tr> <td style="text-align: left;">jnxUtilUintTime</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.4.1.3</td> </tr> <tr> <td style="text-align: left;">jnxUtilStringTable</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.5</td> </tr> <tr> <td style="text-align: left;">jnxUtilStringEntry</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.5.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilStringName</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.5.1.1</td> </tr> <tr> <td style="text-align: left;">jnxUtilStringValue</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.5.1.2</td> </tr> <tr> <td style="text-align: left;">jnxUtilStringTime</td> <td style="text-align: left;">.1.3.6.1.4.1.2636.3.47.1.1.5.1.3</td> </tr> </tbody> </table> <ol> <li><strong>Instance Key Values</strong>: Each row or entry in a table may have one or more keys (e.g., indexes) that identify it. These keys can be integers, strings, or IP addresses.</li> <li>Encoding the Instance:<ul> <li><strong>Integer Keys</strong>: Encoded directly as the integer value. For example, key 5 becomes .5.</li> <li><strong>String Keys</strong>: Encoded as a length prefix followed by ASCII codes of each character. For instance, the string COS_VOQ is encoded as 67.79.83.95.86.79.81 (ASCII values of C, O, S, _, V, O, and Q).</li> <li><strong>IP Address Keys</strong>: Encoded as four dot-separated integers. For example, 192.168.1.1 becomes .192.168.1.1.</li> </ul> </li> <li><strong>Combining Base OID and Instance</strong>: The base OID is concatenated with the encoded instance to form the complete unique OID.</li> </ol> <p>For example:</p> <ul> <li>Base OID: .1.3.6.1.4.1.2636.3.47.1.1.2.1.2 (we want to store a Counter64 value -- refer to the previous table)</li> <li>Instance name: COS_VOQ</li> <li>Resulting OID: .1.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.86.79.81</li> </ul> <p>This encoding ensures that each entry or metric within the MIB hierarchy is uniquely identified, enabling accurate querying and monitoring.</p> <h2 id=step-by-step-process-to-address-our-use-case>Step-by-Step Process to Address Our Use Case<a class=headerlink href=#step-by-step-process-to-address-our-use-case title="Permanent link">¶</a></h2> <h3 id=step-1-analyze-the-pfe-command>Step 1: Analyze the PFE Command<a class=headerlink href=#step-1-analyze-the-pfe-command title="Permanent link">¶</a></h3> <p>We identified the PFE command to parse: show evo-pfemand resource usage. The detailed output has been shown above. This command generates raw data; for every "resource" there are three counters: usage, capacity, and size. Thus, for each "resource," three OIDs will be created.</p> <p>We will use the following rule to create a unique "instance" key:</p> <p><code>&lt;RESOURCE-NAME&gt;_[usage|capacity|size]</code></p> <p>For instance, the EEDB_3 resource will have three instances:</p> <ul> <li><code>EEDB_3_usage, represented in dot-decimal format as 69.69.68.66.95.51.95.117.115.97.103.101</code></li> <li><code>EEDB_3_capacity, represented as 69.69.68.66.95.51.95.99.97.112.97.99.105.116.121</code></li> <li><code>EEDB_3_size, represented as 69.69.68.66.95.51.95.115.105.122.101</code></li> </ul> <p>The instance name encoded as dot-decimal will then be concatenated with the base OID.</p> <h3 id=step-2-develop-the-on-box-python-script>Step 2: Develop the On-Box Python Script<a class=headerlink href=#step-2-develop-the-on-box-python-script title="Permanent link">¶</a></h3> <p>We chose Python 3 to write the on-box script, leveraging the PyEZ embedded library to simplify device interactions. The complete code, including detailed comments for each step, is shown below. Here's a summary of the approach:</p> <ul> <li>We used the Device and StartShell packages to open an internal RE shell on the device and execute the PFE command.</li> <li>The cprod utility was employed from the RE shell to issue the PFE command (specifically on FPC0).</li> <li>Finally, we used the request_snmp_utility_mib_set RPC to populate the Utility MIB</li> </ul> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1> 1</a></span>
+<span class=normal><a href=#__codelineno-1-2> 2</a></span>
+<span class=normal><a href=#__codelineno-1-3> 3</a></span>
+<span class=normal><a href=#__codelineno-1-4> 4</a></span>
+<span class=normal><a href=#__codelineno-1-5> 5</a></span>
+<span class=normal><a href=#__codelineno-1-6> 6</a></span>
+<span class=normal><a href=#__codelineno-1-7> 7</a></span>
+<span class=normal><a href=#__codelineno-1-8> 8</a></span>
+<span class=normal><a href=#__codelineno-1-9> 9</a></span>
+<span class=normal><a href=#__codelineno-1-10>10</a></span>
+<span class=normal><a href=#__codelineno-1-11>11</a></span>
+<span class=normal><a href=#__codelineno-1-12>12</a></span>
+<span class=normal><a href=#__codelineno-1-13>13</a></span>
+<span class=normal><a href=#__codelineno-1-14>14</a></span>
+<span class=normal><a href=#__codelineno-1-15>15</a></span>
+<span class=normal><a href=#__codelineno-1-16>16</a></span>
+<span class=normal><a href=#__codelineno-1-17>17</a></span>
+<span class=normal><a href=#__codelineno-1-18>18</a></span>
+<span class=normal><a href=#__codelineno-1-19>19</a></span>
+<span class=normal><a href=#__codelineno-1-20>20</a></span>
+<span class=normal><a href=#__codelineno-1-21>21</a></span>
+<span class=normal><a href=#__codelineno-1-22>22</a></span>
+<span class=normal><a href=#__codelineno-1-23>23</a></span>
+<span class=normal><a href=#__codelineno-1-24>24</a></span>
+<span class=normal><a href=#__codelineno-1-25>25</a></span>
+<span class=normal><a href=#__codelineno-1-26>26</a></span>
+<span class=normal><a href=#__codelineno-1-27>27</a></span>
+<span class=normal><a href=#__codelineno-1-28>28</a></span>
+<span class=normal><a href=#__codelineno-1-29>29</a></span>
+<span class=normal><a href=#__codelineno-1-30>30</a></span>
+<span class=normal><a href=#__codelineno-1-31>31</a></span>
+<span class=normal><a href=#__codelineno-1-32>32</a></span>
+<span class=normal><a href=#__codelineno-1-33>33</a></span>
+<span class=normal><a href=#__codelineno-1-34>34</a></span>
+<span class=normal><a href=#__codelineno-1-35>35</a></span>
+<span class=normal><a href=#__codelineno-1-36>36</a></span>
+<span class=normal><a href=#__codelineno-1-37>37</a></span>
+<span class=normal><a href=#__codelineno-1-38>38</a></span>
+<span class=normal><a href=#__codelineno-1-39>39</a></span>
+<span class=normal><a href=#__codelineno-1-40>40</a></span>
+<span class=normal><a href=#__codelineno-1-41>41</a></span>
+<span class=normal><a href=#__codelineno-1-42>42</a></span>
+<span class=normal><a href=#__codelineno-1-43>43</a></span>
+<span class=normal><a href=#__codelineno-1-44>44</a></span>
+<span class=normal><a href=#__codelineno-1-45>45</a></span>
+<span class=normal><a href=#__codelineno-1-46>46</a></span>
+<span class=normal><a href=#__codelineno-1-47>47</a></span>
+<span class=normal><a href=#__codelineno-1-48>48</a></span>
+<span class=normal><a href=#__codelineno-1-49>49</a></span>
+<span class=normal><a href=#__codelineno-1-50>50</a></span>
+<span class=normal><a href=#__codelineno-1-51>51</a></span>
+<span class=normal><a href=#__codelineno-1-52>52</a></span>
+<span class=normal><a href=#__codelineno-1-53>53</a></span>
+<span class=normal><a href=#__codelineno-1-54>54</a></span>
+<span class=normal><a href=#__codelineno-1-55>55</a></span>
+<span class=normal><a href=#__codelineno-1-56>56</a></span>
+<span class=normal><a href=#__codelineno-1-57>57</a></span>
+<span class=normal><a href=#__codelineno-1-58>58</a></span>
+<span class=normal><a href=#__codelineno-1-59>59</a></span>
+<span class=normal><a href=#__codelineno-1-60>60</a></span>
+<span class=normal><a href=#__codelineno-1-61>61</a></span>
+<span class=normal><a href=#__codelineno-1-62>62</a></span>
+<span class=normal><a href=#__codelineno-1-63>63</a></span>
+<span class=normal><a href=#__codelineno-1-64>64</a></span>
+<span class=normal><a href=#__codelineno-1-65>65</a></span>
+<span class=normal><a href=#__codelineno-1-66>66</a></span>
+<span class=normal><a href=#__codelineno-1-67>67</a></span>
+<span class=normal><a href=#__codelineno-1-68>68</a></span>
+<span class=normal><a href=#__codelineno-1-69>69</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>from jnpr.junos import Device 
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>from jnpr.junos.exception import * 
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>from jnpr.junos.utils.start_shell import StartShell 
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>import jcs 
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>def main(): 
+<a id=__codelineno-1-7 name=__codelineno-1-7></a>    # CREATE THE LOCAL DEVICE OBJECT AND OPEN CONNECTION 
+<a id=__codelineno-1-8 name=__codelineno-1-8></a>    dev = Device() 
+<a id=__codelineno-1-9 name=__codelineno-1-9></a>    dev.open() 
+<a id=__codelineno-1-10 name=__codelineno-1-10></a>    try: 
+<a id=__codelineno-1-11 name=__codelineno-1-11></a>        # OPEN A SHELL FROM THE RE AND ISSUE THE PFE COMMAND BY USING CPROD UTILITY 
+<a id=__codelineno-1-12 name=__codelineno-1-12></a>        with StartShell(dev) as sh: 
+<a id=__codelineno-1-13 name=__codelineno-1-13></a>            op = sh.run('cprod -A fpc0 -c "show evo-pfemand resource usage"') 
+<a id=__codelineno-1-14 name=__codelineno-1-14></a>            # RETRIEVE THE OUTPUT AND CREATE A LIST OF LINES  
+<a id=__codelineno-1-15 name=__codelineno-1-15></a>            lines = op[1].strip().split("\n") 
+<a id=__codelineno-1-16 name=__codelineno-1-16></a>
+<a id=__codelineno-1-17 name=__codelineno-1-17></a>            # REMOVE EXTRA SPACE CHARACTER AND CREATE ROWS FOR EACH LINE 
+<a id=__codelineno-1-18 name=__codelineno-1-18></a>            # SO EACH LINE BECOMES. EX:  
+<a id=__codelineno-1-19 name=__codelineno-1-19></a>            #  
+<a id=__codelineno-1-20 name=__codelineno-1-20></a>            # COS_HR_ELEM 105 1024 1 
+<a id=__codelineno-1-21 name=__codelineno-1-21></a>            # COS_VOQ 840 131072 1 
+<a id=__codelineno-1-22 name=__codelineno-1-22></a>            # COS_VOQ_CNCTR 840 196608 1 
+<a id=__codelineno-1-23 name=__codelineno-1-23></a>            # 
+<a id=__codelineno-1-24 name=__codelineno-1-24></a>            # ROW 0 IS THE RESSOURCE NAME 
+<a id=__codelineno-1-25 name=__codelineno-1-25></a>            # ROW 1 THE USAGE 
+<a id=__codelineno-1-26 name=__codelineno-1-26></a>            # ROW 2 THE CAPACITY 
+<a id=__codelineno-1-27 name=__codelineno-1-27></a>            # ROW 4 THE SIZE 
+<a id=__codelineno-1-28 name=__codelineno-1-28></a>            rows = [line.split() for line in lines[1:]] 
+<a id=__codelineno-1-29 name=__codelineno-1-29></a>
+<a id=__codelineno-1-30 name=__codelineno-1-30></a>            # INIT OUR DICTIONNARY  
+<a id=__codelineno-1-31 name=__codelineno-1-31></a>            # AND FOR EACH RESOURCE (ROW 0) WE CREATE A NESTED DICT  
+<a id=__codelineno-1-32 name=__codelineno-1-32></a>            # WITH 3 COUNTERS: USAGE, CAPACITY &amp; SIZE 
+<a id=__codelineno-1-33 name=__codelineno-1-33></a>            result = {} 
+<a id=__codelineno-1-34 name=__codelineno-1-34></a>            for row in rows: 
+<a id=__codelineno-1-35 name=__codelineno-1-35></a>                try: 
+<a id=__codelineno-1-36 name=__codelineno-1-36></a>                    resource, usage, capacity, size = row[0], row[1], row[2], row[3] 
+<a id=__codelineno-1-37 name=__codelineno-1-37></a>                    result[resource] = { 
+<a id=__codelineno-1-38 name=__codelineno-1-38></a>                        "usage": int(usage), 
+<a id=__codelineno-1-39 name=__codelineno-1-39></a>                        "capacity": int(capacity), 
+<a id=__codelineno-1-40 name=__codelineno-1-40></a>                        "size": int(size), 
+<a id=__codelineno-1-41 name=__codelineno-1-41></a>                    } 
+<a id=__codelineno-1-42 name=__codelineno-1-42></a>                except: 
+<a id=__codelineno-1-43 name=__codelineno-1-43></a>                    pass 
+<a id=__codelineno-1-44 name=__codelineno-1-44></a>
+<a id=__codelineno-1-45 name=__codelineno-1-45></a>            # LOOP THROUGH THE RESULTS TO FILL IN THE UTILITY MIB  
+<a id=__codelineno-1-46 name=__codelineno-1-46></a>            # WE USE request_snmp_utility_mib_set RPC  
+<a id=__codelineno-1-47 name=__codelineno-1-47></a>            for resource_name, metrics in result.items(): 
+<a id=__codelineno-1-48 name=__codelineno-1-48></a>                for metric, value in metrics.items(): 
+<a id=__codelineno-1-49 name=__codelineno-1-49></a>                    dev.rpc.request_snmp_utility_mib_set( 
+<a id=__codelineno-1-50 name=__codelineno-1-50></a>                        # BASE OID WILL BE .1.3.6.1.4.1.2636.3.47.1.1.2.1.2 (COUNTER64) 
+<a id=__codelineno-1-51 name=__codelineno-1-51></a>                        object_type="counter64", 
+<a id=__codelineno-1-52 name=__codelineno-1-52></a>                        # INSTANCE NAME IS &lt;RESOURCE_NAME&gt;_[usage|capacity|size] 
+<a id=__codelineno-1-53 name=__codelineno-1-53></a>                        # AND WILL BE ENCODED IN DOT-DECIMAL 
+<a id=__codelineno-1-54 name=__codelineno-1-54></a>                        instance=resource_name+"_"+metric, 
+<a id=__codelineno-1-55 name=__codelineno-1-55></a>                        # THE VALUE MUST BE PASSED AS A STRING AND WILL BE  
+<a id=__codelineno-1-56 name=__codelineno-1-56></a>                        # FURTHER ENCODED AS COUNTER64 
+<a id=__codelineno-1-57 name=__codelineno-1-57></a>                        object_value=str(value), 
+<a id=__codelineno-1-58 name=__codelineno-1-58></a>                    ) 
+<a id=__codelineno-1-59 name=__codelineno-1-59></a>
+<a id=__codelineno-1-60 name=__codelineno-1-60></a>    except Exception as err: 
+<a id=__codelineno-1-61 name=__codelineno-1-61></a>        jcs.trace("ERROR", f" Unexpected error: {str(err)}") 
+<a id=__codelineno-1-62 name=__codelineno-1-62></a>        dev.close() 
+<a id=__codelineno-1-63 name=__codelineno-1-63></a>        return 
+<a id=__codelineno-1-64 name=__codelineno-1-64></a>
+<a id=__codelineno-1-65 name=__codelineno-1-65></a>    jcs.trace("INFO", " UTILITY Script successfully run") 
+<a id=__codelineno-1-66 name=__codelineno-1-66></a>    dev.close() 
+<a id=__codelineno-1-67 name=__codelineno-1-67></a>
+<a id=__codelineno-1-68 name=__codelineno-1-68></a>if __name__ == "__main__": 
+<a id=__codelineno-1-69 name=__codelineno-1-69></a>    main() 
+</code></pre></div></td></tr></table></div> <h3 id=step-3-deploy-the-python-script-on-the-router>Step 3: Deploy the Python Script on the Router<a class=headerlink href=#step-3-deploy-the-python-script-on-the-router title="Permanent link">¶</a></h3> <p>First, you need to upload the script utility-evo.py to the following directory: /var/db/scripts/event.</p> <p>Next, grant execution permissions to the file by running the following command:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>droy@myacx&gt; file change-permission /var/db/scripts/event/utility-evo.py permission +x
+</code></pre></div></td></tr></table></div> <p>If your platform has multiple routing engines, ensure that the script is uploaded to both Routing Engines. You can either do this manually or allow the system to synchronize the scripts between both routing engines (this approach is highly recommended).</p> <p>To enable this automatic synchronization, simply commit the following configuration knob:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1>1</a></span>
+<span class=normal><a href=#__codelineno-3-2>2</a></span>
+<span class=normal><a href=#__codelineno-3-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>edit exclusive 
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>set system scripts synchronize
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>commit and-quit
+</code></pre></div></td></tr></table></div> <h3 id=step-4-schedule-the-script-to-update-the-utility-mib-periodically>Step 4: Schedule the Script to Update the Utility MIB Periodically<a class=headerlink href=#step-4-schedule-the-script-to-update-the-utility-mib-periodically title="Permanent link">¶</a></h3> <p>To ensure the script runs periodically (every 5 minutes in our case), we use an event policy. This policy monitors a generated event called five_minutes and triggers our script accordingly. With this setup, the Utility MIB will be updated every 5 minutes. The first step is to create a "periodic and generated event":</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1>1</a></span>
+<span class=normal><a href=#__codelineno-4-2>2</a></span>
+<span class=normal><a href=#__codelineno-4-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>edit exclusive
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>set event-options generate-event five_minutes time-interval 300
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>commit and-quit
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span>
+<span class=normal><a href=#__codelineno-5-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>droy@myacx&gt; file checksum sha-256 /var/db/scripts/event/utility-evo.py
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>SHA256 (/var/db/scripts/event/utility-evo.py) = dbb0eb379da921ce278c17f1e7d286d95e9f021c20fdc429090f7c6531e6dab4
+</code></pre></div></td></tr></table></div> <p>The reason for generating the SHA-256 hash is to inform the JUNOS/EVO system to execute the script only if its hash matches the specified value. This ensures that the script hasn't been modified by unauthorized users.</p> <p>Next, create a policy to monitor the event and trigger the utility-evo.py script:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span>
+<span class=normal><a href=#__codelineno-6-3>3</a></span>
+<span class=normal><a href=#__codelineno-6-4>4</a></span>
+<span class=normal><a href=#__codelineno-6-5>5</a></span>
+<span class=normal><a href=#__codelineno-6-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>edit exclusive 
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>set event-options policy evo-resource events five_minutes
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>set event-options policy evo-resource then event-script utility-evo.py
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>set event-options event-script file utility-evo.py python-script-user py-user
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>set event-options event-script file utility-evo.py checksum sha-256 dbb0eb379da921ce278c17f1e7d286d95e9f021c20fdc429090f7c6531e6dab4
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>commit and-quit
+</code></pre></div></td></tr></table></div> <h3 id=step-5-troubleshoot-script-execution>Step 5: Troubleshoot Script Execution<a class=headerlink href=#step-5-troubleshoot-script-execution title="Permanent link">¶</a></h3> <p>On the ACX7K, script execution is monitored using the EVO application's tracing toolkit. Logs and traces for our feature are handled by the cscript application. To view them, simply run the following CLI command:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1> 1</a></span>
+<span class=normal><a href=#__codelineno-7-2> 2</a></span>
+<span class=normal><a href=#__codelineno-7-3> 3</a></span>
+<span class=normal><a href=#__codelineno-7-4> 4</a></span>
+<span class=normal><a href=#__codelineno-7-5> 5</a></span>
+<span class=normal><a href=#__codelineno-7-6> 6</a></span>
+<span class=normal><a href=#__codelineno-7-7> 7</a></span>
+<span class=normal><a href=#__codelineno-7-8> 8</a></span>
+<span class=normal><a href=#__codelineno-7-9> 9</a></span>
+<span class=normal><a href=#__codelineno-7-10>10</a></span>
+<span class=normal><a href=#__codelineno-7-11>11</a></span>
+<span class=normal><a href=#__codelineno-7-12>12</a></span>
+<span class=normal><a href=#__codelineno-7-13>13</a></span>
+<span class=normal><a href=#__codelineno-7-14>14</a></span>
+<span class=normal><a href=#__codelineno-7-15>15</a></span>
+<span class=normal><a href=#__codelineno-7-16>16</a></span>
+<span class=normal><a href=#__codelineno-7-17>17</a></span>
+<span class=normal><a href=#__codelineno-7-18>18</a></span>
+<span class=normal><a href=#__codelineno-7-19>19</a></span>
+<span class=normal><a href=#__codelineno-7-20>20</a></span>
+<span class=normal><a href=#__codelineno-7-21>21</a></span>
+<span class=normal><a href=#__codelineno-7-22>22</a></span>
+<span class=normal><a href=#__codelineno-7-23>23</a></span>
+<span class=normal><a href=#__codelineno-7-24>24</a></span>
+<span class=normal><a href=#__codelineno-7-25>25</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>droy@myacx&gt; show trace application cscript
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>[...]
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>2024-12-24 10:02:18.229501236 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "event script processing begins"
+<a id=__codelineno-7-4 name=__codelineno-7-4></a>2024-12-24 10:02:18.229548005 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: /usr/libexec/ui/cscript"
+<a id=__codelineno-7-5 name=__codelineno-7-5></a>2024-12-24 10:02:18.229551132 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: -m"
+<a id=__codelineno-7-6 name=__codelineno-7-6></a>2024-12-24 10:02:18.229551984 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: event"
+<a id=__codelineno-7-7 name=__codelineno-7-7></a>2024-12-24 10:02:18.229552719 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: -p"
+<a id=__codelineno-7-8 name=__codelineno-7-8></a>2024-12-24 10:02:18.229553349 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: /"
+<a id=__codelineno-7-9 name=__codelineno-7-9></a>2024-12-24 10:02:18.229554025 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: -E"
+<a id=__codelineno-7-10 name=__codelineno-7-10></a>2024-12-24 10:02:18.229554674 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg:  user root"
+<a id=__codelineno-7-11 name=__codelineno-7-11></a>2024-12-24 10:02:18.229555337 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: -f"
+<a id=__codelineno-7-12 name=__codelineno-7-12></a>2024-12-24 10:02:18.229558576 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: utility-evo.py"
+<a id=__codelineno-7-13 name=__codelineno-7-13></a>2024-12-24 10:02:18.229559247 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: -Q3"
+<a id=__codelineno-7-14 name=__codelineno-7-14></a>2024-12-24 10:02:18.229559883 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: -2"
+<a id=__codelineno-7-15 name=__codelineno-7-15></a>2024-12-24 10:02:18.229560522 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: dbb0eb379da921ce278c17f1e7d286d95e9f021c20fdc429090f7c6531e6dab4"
+<a id=__codelineno-7-16 name=__codelineno-7-16></a>2024-12-24 10:02:18.229561264 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: -R"
+<a id=__codelineno-7-17 name=__codelineno-7-17></a>2024-12-24 10:02:18.229561936 re0:cscript:21792:TRACE_INFO CSCRIPT_ARGUMENTS_CSCRIPT_ARGUMENTS_1  msg = "arg: lab"
+<a id=__codelineno-7-18 name=__codelineno-7-18></a>2024-12-24 10:02:18.233925438 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "running event script 'utility-evo.py'"
+<a id=__codelineno-7-19 name=__codelineno-7-19></a>2024-12-24 10:02:18.233931060 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "opening event script '/var/db/scripts/event/utility-evo.py'"
+<a id=__codelineno-7-20 name=__codelineno-7-20></a>2024-12-24 10:02:18.233941997 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "reading event script 'utility-evo.py'"
+<a id=__codelineno-7-21 name=__codelineno-7-21></a>2024-12-24 10:02:19.451067345 re0:cscript:21792:TRACE_INFO 
+<a id=__codelineno-7-22 name=__codelineno-7-22></a>2024-12-24 10:02:19.795164487 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "INFO UTILITY Script successfully run"
+<a id=__codelineno-7-23 name=__codelineno-7-23></a>2024-12-24 10:02:19.863738054 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "event script execution successful for 'utility-evo.py' with return: 0"
+<a id=__codelineno-7-24 name=__codelineno-7-24></a>2024-12-24 10:02:19.863789351 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "finished event script 'utility-evo.py'"
+<a id=__codelineno-7-25 name=__codelineno-7-25></a>2024-12-24 10:02:19.863846175 re0:cscript:21792:TRACE_INFO CSCRIPT_EVENTS_CSCRIPT_EVENTS_1  msg = "event script processing ends"
+</code></pre></div></td></tr></table></div> <h3 id=step-6-collect-your-new-counters>Step 6: Collect Your New Counters<a class=headerlink href=#step-6-collect-your-new-counters title="Permanent link">¶</a></h3> <p>The final step is the most rewarding: collect and visualize your new counters. Start by using the following CLI command to view the SNMP counters directly on the box. The "ascii" option is used to convert the dot-decimal instances into more readable MIB objects.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1> 1</a></span>
+<span class=normal><a href=#__codelineno-8-2> 2</a></span>
+<span class=normal><a href=#__codelineno-8-3> 3</a></span>
+<span class=normal><a href=#__codelineno-8-4> 4</a></span>
+<span class=normal><a href=#__codelineno-8-5> 5</a></span>
+<span class=normal><a href=#__codelineno-8-6> 6</a></span>
+<span class=normal><a href=#__codelineno-8-7> 7</a></span>
+<span class=normal><a href=#__codelineno-8-8> 8</a></span>
+<span class=normal><a href=#__codelineno-8-9> 9</a></span>
+<span class=normal><a href=#__codelineno-8-10>10</a></span>
+<span class=normal><a href=#__codelineno-8-11>11</a></span>
+<span class=normal><a href=#__codelineno-8-12>12</a></span>
+<span class=normal><a href=#__codelineno-8-13>13</a></span>
+<span class=normal><a href=#__codelineno-8-14>14</a></span>
+<span class=normal><a href=#__codelineno-8-15>15</a></span>
+<span class=normal><a href=#__codelineno-8-16>16</a></span>
+<span class=normal><a href=#__codelineno-8-17>17</a></span>
+<span class=normal><a href=#__codelineno-8-18>18</a></span>
+<span class=normal><a href=#__codelineno-8-19>19</a></span>
+<span class=normal><a href=#__codelineno-8-20>20</a></span>
+<span class=normal><a href=#__codelineno-8-21>21</a></span>
+<span class=normal><a href=#__codelineno-8-22>22</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>droy@myacx&gt; show snmp mib walk jnxUtil ascii
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>
+<a id=__codelineno-8-3 name=__codelineno-8-3></a>jnxUtilCounter64Value."COS_HR_ELEM_capacity" = 1024
+<a id=__codelineno-8-4 name=__codelineno-8-4></a>jnxUtilCounter64Value."COS_HR_ELEM_size" = 1
+<a id=__codelineno-8-5 name=__codelineno-8-5></a>jnxUtilCounter64Value."COS_HR_ELEM_usage" = 100
+<a id=__codelineno-8-6 name=__codelineno-8-6></a>jnxUtilCounter64Value."COS_VOQ_CNCTR_capacity" = 196608
+<a id=__codelineno-8-7 name=__codelineno-8-7></a>jnxUtilCounter64Value."COS_VOQ_CNCTR_size" = 1
+<a id=__codelineno-8-8 name=__codelineno-8-8></a>jnxUtilCounter64Value."COS_VOQ_CNCTR_usage" = 800
+<a id=__codelineno-8-9 name=__codelineno-8-9></a>jnxUtilCounter64Value."COS_VOQ_capacity" = 131072
+<a id=__codelineno-8-10 name=__codelineno-8-10></a>jnxUtilCounter64Value."COS_VOQ_size" = 1
+<a id=__codelineno-8-11 name=__codelineno-8-11></a>jnxUtilCounter64Value."COS_VOQ_usage" = 800
+<a id=__codelineno-8-12 name=__codelineno-8-12></a>jnxUtilCounter64Value."ECMP_capacity" = 32000
+<a id=__codelineno-8-13 name=__codelineno-8-13></a>jnxUtilCounter64Value."ECMP_size" = 30
+<a id=__codelineno-8-14 name=__codelineno-8-14></a>jnxUtilCounter64Value."ECMP_usage" = 3
+<a id=__codelineno-8-15 name=__codelineno-8-15></a>jnxUtilCounter64Value."EEDB_1_capacity" = 49152
+<a id=__codelineno-8-16 name=__codelineno-8-16></a>jnxUtilCounter64Value."EEDB_1_size" = 0
+<a id=__codelineno-8-17 name=__codelineno-8-17></a>jnxUtilCounter64Value."EEDB_1_usage" = 0
+<a id=__codelineno-8-18 name=__codelineno-8-18></a>jnxUtilCounter64Value."EEDB_2_capacity" = 49152
+<a id=__codelineno-8-19 name=__codelineno-8-19></a>jnxUtilCounter64Value."EEDB_2_size" = 0
+<a id=__codelineno-8-20 name=__codelineno-8-20></a>jnxUtilCounter64Value."EEDB_2_usage" = 0
+<a id=__codelineno-8-21 name=__codelineno-8-21></a>jnxUtilCounter64Value."EEDB_3_capacity" = 65536
+<a id=__codelineno-8-22 name=__codelineno-8-22></a>jnxUtilCounter64Value."EEDB_3_size" = 0
+</code></pre></div></td></tr></table></div> <p>You can now collect those data from a remote collector. Here, we walk/ traverse the entire SNMP JnxUtil MIB:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1> 1</a></span>
+<span class=normal><a href=#__codelineno-9-2> 2</a></span>
+<span class=normal><a href=#__codelineno-9-3> 3</a></span>
+<span class=normal><a href=#__codelineno-9-4> 4</a></span>
+<span class=normal><a href=#__codelineno-9-5> 5</a></span>
+<span class=normal><a href=#__codelineno-9-6> 6</a></span>
+<span class=normal><a href=#__codelineno-9-7> 7</a></span>
+<span class=normal><a href=#__codelineno-9-8> 8</a></span>
+<span class=normal><a href=#__codelineno-9-9> 9</a></span>
+<span class=normal><a href=#__codelineno-9-10>10</a></span>
+<span class=normal><a href=#__codelineno-9-11>11</a></span>
+<span class=normal><a href=#__codelineno-9-12>12</a></span>
+<span class=normal><a href=#__codelineno-9-13>13</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>snmpwalk -v 2c -c public myAcx7k 1.3.6.1.4.1.2636.3.47.1.1.2.1
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.72.82.95.69.76.69.77.95.99.97.112.97.99.105.116.121 = Counter64: 1024
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.72.82.95.69.76.69.77.95.115.105.122.101 = Counter64: 1
+<a id=__codelineno-9-5 name=__codelineno-9-5></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.72.82.95.69.76.69.77.95.117.115.97.103.101 = Counter64: 100
+<a id=__codelineno-9-6 name=__codelineno-9-6></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.86.79.81.95.67.78.67.84.82.95.99.97.112.97.99.105.116.121 = Counter64: 196608
+<a id=__codelineno-9-7 name=__codelineno-9-7></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.86.79.81.95.67.78.67.84.82.95.115.105.122.101 = Counter64: 1
+<a id=__codelineno-9-8 name=__codelineno-9-8></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.86.79.81.95.67.78.67.84.82.95.117.115.97.103.101 = Counter64: 800
+<a id=__codelineno-9-9 name=__codelineno-9-9></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.86.79.81.95.99.97.112.97.99.105.116.121 = Counter64: 131072
+<a id=__codelineno-9-10 name=__codelineno-9-10></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.86.79.81.95.115.105.122.101 = Counter64: 1
+<a id=__codelineno-9-11 name=__codelineno-9-11></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.67.79.83.95.86.79.81.95.117.115.97.103.101 = Counter64: 800
+<a id=__codelineno-9-12 name=__codelineno-9-12></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.69.67.77.80.95.99.97.112.97.99.105.116.121 = Counter64: 32000
+<a id=__codelineno-9-13 name=__codelineno-9-13></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.69.67.77.80.95.115.105.122.101 = Counter64: 30
+</code></pre></div></td></tr></table></div> <p>You can even request only a specific counter via a GET command. For instance, let's collect the counter "EEDB_3_usage" -- From ASIC to Decimal = 69.69.68.66.95.51.95.117.115.97.103.101</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1>1</a></span>
+<span class=normal><a href=#__codelineno-10-2>2</a></span>
+<span class=normal><a href=#__codelineno-10-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>snmpget -v 2c -c public myAcx7k iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.69.69.68.66.95.51.95.117.115.97.103.101
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>
+<a id=__codelineno-10-3 name=__codelineno-10-3></a>iso.3.6.1.4.1.2636.3.47.1.1.2.1.2.69.69.68.66.95.51.95.117.115.97.103.101 = Counter64: 10
+</code></pre></div></td></tr></table></div> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">¶</a></h2> <p>In conclusion, leveraging the Utility MIB with event policies on Junos and EVO platforms offers a powerful method to monitor and troubleshoot Packet Forwarding Engine (PFE) statistics not yet exposed through standard API. While waiting for standard support through Netconf RPC or Streaming Telemetry may not be viable, the proposed solutions---such as SNMP scripts and Utility MIB updates---provide immediate alternatives. By automating the collection of resource counters and encoding them into SNMP MIB objects, users can integrate these insights into their existing workflows. This approach enables efficient monitoring and better visibility, ultimately enhancing operational control over the platform's performance.</p> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">¶</a></h2> <ul> <li>[1] <a href=https://www.juniper.net/documentation/en_US/junos/topics/task/operational/security-snmp-best-practices-utility-mib-using.html>https://www.juniper.net/documentation/en_US/junos/topics/task/operational/security-snmp-best-practices-utility-mib-using.html</a></li> <li>[2] <a href=https://juniper.github.io/techposts/using-junos-snmp-utility-mib-on-juniper-srx/article>https://juniper.github.io/techposts/using-junos-snmp-utility-mib-on-juniper-srx/article</a></li> <li>[3] <a href=https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/netconf/topics/task/sensor-junos-telemetry-interface-configuring.html>https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/netconf/topics/task/sensor-junos-telemetry-interface-configuring.html</a></li> </ul> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">¶</a></h2> <ul> <li>ACX7K -- ACX Series 7000 (a series of routers by Juniper)</li> <li>CLI -- Command-Line Interface</li> <li>cprod -- Command-line utility in Junos to execute commands on FPCs</li> <li>EVO -- Juniper EVO</li> <li>FPC -- Flexible PIC Concentrator</li> <li>jcs -- Junos Control System (trace and logging utility in Junos)</li> <li>MIB -- Management Information Base</li> <li>OID -- Object Identifier</li> <li>PFE -- Packet Forwarding Engine</li> <li>PyEZ -- Python for Junos (a Python library for interacting with Junos devices)</li> <li>RE -- Routing Engine</li> <li>RPC -- Remote Procedure Call</li> <li>SE -- Systems Engineer</li> <li>SHA -- Secure Hash Algorithm</li> <li>SNMP -- Simple Network Management Protocol</li> <li>SRX -- Juniper SRX (a series of security devices)</li> </ul> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/hfws-header-merge.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>
