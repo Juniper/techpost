@@ -681,13 +681,25 @@ body:has(.banner-section) .md-header__topic:first-child {
     margin-right: -50vw;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
     min-height: 26.64vh;
     padding: 3rem 6vw;
     background: radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%), #1d1f27;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+/* Hero banner (index.md) only — the compact All Articles banner keeps the
+   plain dark gradient above. intro-techpost.png is the full-bleed backdrop;
+   height scales fluidly with viewport width so it works at any window size. */
+.banner-section:not(.banner-section--compact) {
+    min-height: clamp(320px, 42vw, 560px);
+    background-image:
+        linear-gradient(90deg, rgba(29, 31, 39, 0.92) 0%, rgba(29, 31, 39, 0.55) 45%, rgba(29, 31, 39, 0.05) 100%),
+        radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%),
+        url('../images/intro-techpost.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .banner-content {
@@ -743,30 +755,21 @@ body:has(.banner-section) .md-header__topic:first-child {
     color: #333333;
 }
 
-.banner-image {
-    max-width: 60%;
-    max-height: 90%;
-    height: auto;
-    width: auto;
-    object-fit: contain;
-    flex-shrink: 0;
-}
-
 @media (max-width: 768px) {
     .banner-section {
-        flex-direction: column;
-        min-height: auto;
         padding: 2.5rem 1.5rem;
+    }
+
+    .banner-section:not(.banner-section--compact) {
+        background-image:
+            linear-gradient(180deg, rgba(29, 31, 39, 0.55) 0%, rgba(29, 31, 39, 0.88) 100%),
+            radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%),
+            url('../images/intro-techpost.png');
     }
 
     .banner-content {
         max-width: 100%;
         text-align: center;
-    }
-
-    .banner-image {
-        max-width: 85%;
-        margin-top: 1.5rem;
     }
 }
 
