@@ -22,7 +22,7 @@ hide:
   <div class="card-grid">
 
     <a class="card" href="../../mx301-deepdive/article">
-      <img src="../../mx301-deepdive/images/logo.jpeg" class="card-icon" alt="MX301 Deepdive">
+      <img src="../../mx301-deepdive/images/logo.png" class="card-icon" alt="MX301 Deepdive">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
         <div class="card-title">MX301 Deepdive</div>
