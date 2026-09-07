@@ -41,7 +41,8 @@ function initPageEnhancements() {
 
     const lightboxLinks = [];
 
-    document.querySelectorAll('.md-typeset img').forEach(img => {
+    // Hero banner image is not part of the article gallery, so it stays unlinked
+    document.querySelectorAll('.md-typeset img:not(.banner-image)').forEach(img => {
         // Skip if already inside a link
         if (img.parentNode.tagName.toLowerCase() === 'a') return;
 
