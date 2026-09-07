@@ -7,8 +7,12 @@ function initPageEnhancements() {
             .then(function(res) { return res.text(); })
             .then(function(html) {
                 var doc = new DOMParser().parseFromString(html, 'text/html');
-                var cards = doc.querySelectorAll('.card-grid .card');
-                var count = Math.min(5, cards.length);
+                var cards = Array.prototype.slice.call(doc.querySelectorAll('.card-grid .card'));
+                // Most recent first, using each card's data-date (falls back to DOM order if absent)
+                cards.sort(function(a, b) {
+                    return (b.getAttribute('data-date') || '').localeCompare(a.getAttribute('data-date') || '');
+                });
+                var count = Math.min(4, cards.length);
                 for (var i = 0; i < count; i++) {
                     var card = cards[i].cloneNode(true);
                     var href = card.getAttribute('href');
