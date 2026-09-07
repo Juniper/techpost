@@ -250,22 +250,23 @@ body:has(.banner-section) .md-content__inner {
 
 .md-typeset h1 {
     margin: 0 0 0.25em !important;
-    font-weight: bold !important;
+    font-weight: 500 !important;
     text-align: center !important;
-    font-family: 'HPE Graphik XXCondensed';
-    font-size: clamp(28px, 5vw, 64px);
+    font-size: 68px;
+    letter-spacing: -0.8px;
+    line-height: 74px;
     text-transform: uppercase;
 }
 
 .md-typeset h2 {
     margin: 0.2em 0 .2em !important;
-    font-weight: bold !important;
+    font-weight: 500 !important;
     font-size: clamp(22px, 3vw, 34px);
 }
 
 .md-typeset h3 {
     margin: 0.1em 0 .1em !important;
-    font-weight: bold !important;
+    font-weight: 500 !important;
     font-size: clamp(18px, 2.5vw, 24px);
 }
 
@@ -446,6 +447,12 @@ body:has(.banner-section) .md-content__inner {
     background-color: rgba(1, 169, 130, 0.08);
 }
 
+/* Table of contents hover links: #01a982 fails accessibility contrast ratios */
+.md-nav--secondary .md-nav__link:hover,
+.md-nav--secondary .md-nav__link:focus {
+    color: #006750;
+}
+
 /* Active sidebar link indicator */
 .md-nav__link--active {
     font-weight: 500 !important;
@@ -614,10 +621,11 @@ body:has(.banner-section) .md-header__topic:first-child {
     position: relative;
     left: 50%;
     right: 50%;
-    width: 100vw;
+    width: min(100vw, 1600px);
+    max-width: 1600px;
     margin-top: -2.5rem;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    margin-left: calc(-1 * min(50vw, 800px));
+    margin-right: calc(-1 * min(50vw, 800px));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -825,7 +833,7 @@ body:has(.banner-section) .md-header__topic:first-child {
 
 .latest-grid .card-title {
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--hpe-midnight) !important;
     -webkit-line-clamp: 3;
 }
@@ -957,7 +965,7 @@ body:has(.banner-section) .md-header__topic:first-child {
 
 .card-grid .card-title {
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--hpe-midnight) !important;
 }
 
@@ -1001,7 +1009,7 @@ body:has(.banner-section) .md-header__topic:first-child {
 .card-title {
     color: var(--hpe-midnight);
     font-size: 0.88rem;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.35;
     margin: 0;
     overflow-wrap: break-word;

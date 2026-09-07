@@ -76,10 +76,21 @@
     return true;
   }
 
+  // HFWS hardcodes its logo link to hpe.com; point it at Techpost home instead.
+  // Scoped to .hpehf-logo-link (header) so it never matches the footer's
+  // logo, which reuses the same #hpehf-hpe-logo id.
+  function fixLogoLink() {
+    var logo = document.querySelector("#header a.hpehf-logo-link");
+    if (!logo || !window.__TP_SITE_URL__) return false;
+    logo.href = window.__TP_SITE_URL__ + "/";
+    return true;
+  }
+
   function merge() {
     var linksDone = injectNavLinks(window.__TP_NAV_LINKS__ || []);
     var searchDone = relocateSearch();
-    if (!linksDone || !searchDone) return false;
+    var logoDone = fixLogoLink();
+    if (!linksDone || !searchDone || !logoDone) return false;
     window.__hfwsHeaderMerged = true;
     return true;
   }
