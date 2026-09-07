@@ -67,7 +67,6 @@ index_md = f"""
     <p class="banner-description">In-depth technical articles written by engineers, for engineers. Explore expert perspectives on data center, AI, routing, switching, security, wireless &amp; automation.</p>
     <a href="articles/menu/main/" class="banner-cta">View all articles</a>
   </div>
-  <img src="images/intro-techpost.png" alt="HPE Networking hardware switches, routers, and chassis" class="banner-image" />
 </div>
 {banner}
 """
