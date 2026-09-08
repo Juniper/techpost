@@ -253,11 +253,10 @@ body:has(.banner-section) .md-content__inner {
 .md-typeset h1 {
     margin: 0 0 0.25em !important;
     font-weight: 500 !important;
-    text-align: center !important;
+    text-align: left !important;
     font-size: 68px;
     letter-spacing: -0.8px;
     line-height: 74px;
-    text-transform: uppercase;
 }
 
 .md-typeset h2 {
@@ -455,9 +454,10 @@ body:has(.banner-section) .md-content__inner {
     color: #006750;
 }
 
-/* Active sidebar link indicator */
+/* Active sidebar link indicator: #01a982 (accent) fails accessibility contrast ratios */
 .md-nav__link--active {
     font-weight: 500 !important;
+    color: var(--hpe-green-hover) !important;
 }
 
 /* Section labels in sidebar (Sentence case, not UPPERCASE) */
