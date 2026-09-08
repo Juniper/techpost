@@ -200,8 +200,8 @@ jobs:
           if [ "$IS_TAG" = "true" ] && echo "$REF_NAME" | grep -qi "rebuild-all"; then
             echo "Tag '$REF_NAME' detected — forcing full rebuild of all PDFs/EPUBs/PNGs"
             REBUILD_ALL=true
-          elif echo "$COMMIT_MESSAGE" | grep -qi "\[rebuild-all\]"; then
-            echo "Commit message contains [rebuild-all] — forcing full rebuild of all PDFs/EPUBs/PNGs"
+          elif echo "$COMMIT_MESSAGE" | grep -qi "rebuild-all"; then
+            echo "Commit message contains 'rebuild-all' — forcing full rebuild of all PDFs/EPUBs/PNGs"
             REBUILD_ALL=true
           fi
 
