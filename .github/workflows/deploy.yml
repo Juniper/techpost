@@ -12,8 +12,7 @@ on:
 permissions:
   contents: write
 
-# Serialize gh-pages work so concurrent runs never reject each other's push and
-# leave a branch's portal showing stale content.
+# Serialize gh-pages work so concurrent runs never reject each other's push and leave a branch's portal showing stale content.
 concurrency:
   group: gh-pages-deploy
   cancel-in-progress: false
