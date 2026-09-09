@@ -272,6 +272,11 @@ body:has(.banner-section) .md-content__inner {
     font-size: clamp(18px, 2.5vw, 24px);
 }
 
+/* Author/date byline ("**Name - date**") directly under the article title */
+.md-typeset h1 + p strong {
+    font-weight: 500;
+}
+
 /* Headings on a white background use HPE midnight */
 [data-md-color-scheme="default"] .md-typeset h1,
 [data-md-color-scheme="default"] .md-typeset h2,
@@ -497,7 +502,7 @@ body:has(.banner-section) .md-content__inner {
 /* Table of contents hover links: #01a982 fails accessibility contrast ratios */
 .md-nav--secondary .md-nav__link:hover,
 .md-nav--secondary .md-nav__link:focus {
-    color: #006750;
+    color: #006750 !important;
 }
 
 /* Active sidebar link indicator: #01a982 (accent) fails accessibility contrast ratios */
@@ -945,8 +950,13 @@ body:has(.banner-section) .md-header__topic:first-child {
     margin: 0;
     object-fit: cover;
     display: block;
+    transition: transform 0.35s ease;
     max-width: none !important;
     filter: none !important;
+}
+
+.card:hover .card-icon {
+    transform: scale(1.04);
 }
 
 /* ✅ Card text area */
