@@ -862,13 +862,8 @@ body:has(.banner-section) .md-header__topic:first-child {
     margin: 0;
     object-fit: cover;
     display: block;
-    transition: transform 0.35s ease;
     max-width: none !important;
     filter: none !important;
-}
-
-.card:hover .card-icon {
-    transform: scale(1.04);
 }
 
 /* ✅ Card text area */
