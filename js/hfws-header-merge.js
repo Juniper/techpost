@@ -76,13 +76,14 @@
     return true;
   }
 
-  // HFWS hardcodes its logo link to hpe.com; point it at Techpost home instead.
-  // Scoped to .hpehf-logo-link (header) so it never matches the footer's
-  // logo, which reuses the same #hpehf-hpe-logo id.
+  // HFWS hardcodes both logo-area links to hpe.com. The HPE bug/icon
+  // (.hpehf-logo-link) stays pointed at hpe.com per brand convention, but the
+  // microsite-title-area link (the "Techpost" text beside it) is what users
+  // actually click to go home on this site, so that one is repointed here.
   function fixLogoLink() {
-    var logo = document.querySelector("#header a.hpehf-logo-link");
-    if (!logo || !window.__TP_SITE_URL__) return false;
-    logo.href = window.__TP_SITE_URL__ + "/";
+    var titleLink = document.querySelector("#header #hpehf-microsite-title-area");
+    if (!titleLink || !window.__TP_SITE_URL__) return false;
+    titleLink.href = window.__TP_SITE_URL__ + "/";
     return true;
   }
 
