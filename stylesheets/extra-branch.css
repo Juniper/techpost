@@ -650,10 +650,7 @@ body:has(.banner-section) .md-header__topic:first-child {
    height scales fluidly with viewport width so it works at any window size. */
 .banner-section:not(.banner-section--compact) {
     min-height: clamp(240px, 31.5vw, 420px);
-    background-image:
-        linear-gradient(90deg, rgba(29, 31, 39, 0.92) 0%, rgba(29, 31, 39, 0.55) 45%, rgba(29, 31, 39, 0.05) 100%),
-        radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%),
-        url('../images/intro-techpost.png');
+    background-image: url('../images/intro-techpost.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -718,10 +715,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     }
 
     .banner-section:not(.banner-section--compact) {
-        background-image:
-            linear-gradient(180deg, rgba(29, 31, 39, 0.55) 0%, rgba(29, 31, 39, 0.88) 100%),
-            radial-gradient(circle at 85% 50%, rgba(1, 169, 130, 0.35) 0%, rgba(29, 31, 39, 0) 45%),
-            url('../images/intro-techpost.png');
+        background-image: url('../images/intro-techpost.png');
     }
 
     .banner-content {
