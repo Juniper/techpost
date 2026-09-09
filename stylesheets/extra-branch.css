@@ -453,9 +453,12 @@ body:has(.banner-section) .md-content__inner {
     background-color: rgba(1, 169, 130, 0.08);
 }
 
-/* Table of contents hover links: #01a982 fails accessibility contrast ratios */
-.md-nav--secondary .md-nav__link:hover,
-.md-nav--secondary .md-nav__link:focus {
+/* All sidebar/TOC hover links: #01a982 (accent) fails accessibility contrast ratios.
+   Matches Material's own [for]/[href] selectors so specificity ties resolve to this rule. */
+.md-nav__link[for]:hover,
+.md-nav__link[for]:focus,
+.md-nav__link[href]:hover,
+.md-nav__link[href]:focus {
     color: #006750 !important;
 }
 
