@@ -1,6 +1,7 @@
 // Renders search results on docs/search-results.md from the mkdocs search
-// index, since Enter in the header search box navigates here (see
-// js/hfws-header-merge.js) instead of opening Material's live dropdown.
+// index. Reachable only via direct link/bookmark with a ?q= query string;
+// nothing in the UI currently links here since Material's own search
+// dropdown (in the header) is used by default.
 (function () {
   function getQuery() {
     return new URLSearchParams(window.location.search).get("q") || "";
