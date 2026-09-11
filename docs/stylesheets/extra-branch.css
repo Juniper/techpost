@@ -292,63 +292,6 @@ body:has(.banner-section) .md-content__inner {
 /* =========================================================
    Header / Navigation / Tabs
    ========================================================= */
-/* The local Material header bar is redundant now that HFWS renders the top
-   nav (see overrides/main.html / partials/header.html); its search box is
-   relocated into the HFWS main nav bar by js/hfws-header-merge.js. */
-.md-header {
-    display: none !important;
-}
-
-:root {
-    --md-header-height: 0px;
-}
-
-/* HPE's default global nav links, the secondaryNav bar and the default
-   "Search hpe.com" icon are replaced by js/hfws-header-merge.js with our
-   own nav links + relocated mkdocs search, merged into a single bar. */
-#hpehf-default-main-nav,
-#hpehf-console-main-nav,
-#hpehf-mobile-default-main-nav,
-#hpehf-mobile-console-main-nav,
-#hpehf-header .hpehf-icons #hpehf-search,
-#hpehf-secondary-nav {
-    display: none !important;
-}
-
-/* Search box relocated into the HFWS icons row. !important overrides HFWS's
-   own .hpehf-nav-list-item rules (loaded after this file, so it otherwise
-   wins the cascade) and Material's header-specific sizing on .md-search,
-   which both fight vertical centering here. */
-.hfws-tp-search-item {
-    display: flex;
-    align-items: center !important;
-    margin-right: .4rem;
-}
-
-.hfws-tp-search-item .md-search {
-    height: auto !important;
-    padding: 0 !important;
-}
-
-.hfws-tp-search-item .md-header__button {
-    color: inherit;
-}
-
-.hfws-tp-search-item .md-search__input {
-    color: white;
-}
-
-/* Material only reveals the results dropdown via a
-   `[data-md-toggle=search]:checked ~ .md-header ...` sibling selector, which
-   can never match now that .md-search lives outside .md-header. We don't use
-   it anyway: pressing Enter navigates to a dedicated results page (see
-   docs/search-results.md and js/hfws-header-merge.js) instead of showing a
-   live dropdown, so the input just stays a plain, fixed-size box. */
-.hfws-tp-search-item .md-search__output,
-.hfws-tp-search-item .md-search__suggest {
-    display: none !important;
-}
-
 /* Header bar */
 [data-md-color-scheme="default"] .md-header {
     background-color: #ea580c !important;
@@ -956,13 +899,6 @@ body:has(.banner-section) .md-header__topic:first-child {
     .card-text {
         padding: 0.85rem 1rem 1rem;
     }
-}
-
-
-/* Top-level nav is rendered by HFWS's main nav bar (see overrides/main.html
-   and js/hfws-header-merge.js); the local Material tabs bar stays suppressed. */
-.md-tabs {
-    display: none !important;
 }
 
 

@@ -38,11 +38,12 @@
   <meta name="web_section_id" content="R12412" />
 
   {#- HFWS mainNav: must be defined via window.HPEHF_CFG *before* the HFWS
-      loader script runs below. Only the microsite title uses HFWS's own
-      config (there's no supported way to swap out its default global nav
-      links via config), so the nav links themselves and the search box are
-      merged into this single bar by js/hfws-header-merge.js instead of using
-      a separate secondaryNav bar. -#}
+      loader script runs below. This is the only supported customization hook
+      HFWS documents for mainNav branding; HFWS's own global nav, secondary
+      nav and search stay untouched (no CSS hiding, no DOM injection) per the
+      HFWS compliance review. Techpost's own top-level nav is instead rendered
+      via Material's native tabs bar (see mkdocs.yml `nav:` / theme feature
+      `navigation.tabs`). -#}
   {% set site_url = config.site_url | trim("/") %}
   <script>
     window.HPEHF_CFG = {
@@ -55,19 +56,7 @@
         }
       }
     };
-    window.__TP_NAV_LINKS__ = [
-      {title: "Home", href: "{{ site_url }}/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|Home"},
-      {title: "All Articles", href: "{{ site_url }}/articles/menu/main/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|All Articles",
-        navLinks: [
-          {title: "MX301 Deepdive", href: "{{ site_url }}/articles/mx301-deepdive/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 Deepdive"},
-          {title: "MX301 High-Performance FlowSpec Without Compromise", href: "{{ site_url }}/articles/mx301-high-performance-flowspec-without-compromise/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 FlowSpec"},
-          {title: "MX301 A Powerful Filtering Gateway", href: "{{ site_url }}/articles/mx301-a-powerful-filtering-gateway/article/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|MX301 Filtering Gateway"}
-        ]
-      },
-      {title: "About us", href: "{{ site_url }}/about/", dataAnalyticsRegionId: "gmenu|TECHPOST Nav|About us"}
-    ];
     window.__TP_SEARCH_INDEX_URL__ = "{{ site_url }}/search/search_index.json";
-    window.__TP_SEARCH_RESULTS_URL__ = "{{ site_url }}/search-results/";
     window.__TP_SITE_URL__ = "{{ site_url }}";
   </script>
 
@@ -85,10 +74,6 @@
   <div id="header" class="hfws-header"><!-- HFWS inserts its header here --></div>
   {{ super() }}
 {% endblock %}
-
-{#- Top-level nav is merged into the header (see partials/header.html), so the
-    separate Material tabs bar is suppressed. -#}
-{% block tabs %}{% endblock %}
 
 {#- The Material footer (prev/next pagination, copyright, social links) is
     replaced entirely by the HFWS corporate footer below. -#}

@@ -25,7 +25,6 @@ extra_javascript:
 - js/math-render.js
 - js/extra.js
 - js/hfws-instant-guard.js
-- js/hfws-header-merge.js
 - js/search-results.js
 markdown_extensions:
 - attr_list
