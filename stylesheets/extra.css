@@ -301,6 +301,50 @@ body:has(.banner-section) .md-content__inner {
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
 
+/* This Material header row is redundant once the tabs bar is visible (HFWS
+   already shows the microsite title, and the drawer toggle auto-hides at
+   this same breakpoint); js/site-header-merge.js docks its search box into
+   the tabs bar first. */
+@media screen and (min-width: 76.234375em) {
+    .md-header {
+        display: none;
+    }
+}
+
+.md-tabs .md-grid {
+    align-items: center;
+    display: flex;
+}
+
+.md-tabs__list {
+    flex: 1 1 auto;
+}
+
+.tp-tabs-search {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    margin-left: 1rem;
+}
+
+.tp-tabs-search .md-search {
+    height: auto;
+    padding: 0;
+}
+
+.tp-tabs-search .md-search__input {
+    color: inherit;
+}
+
+/* Native dropdown suggestions can't show here: Material reveals them via a
+   `:checked ~ .md-header ...` sibling selector that no longer applies once
+   the search box lives in the tabs bar. Enter navigates to a dedicated
+   results page instead (see docs/search-results.md and site-header-merge.js). */
+.tp-tabs-search .md-search__output,
+.tp-tabs-search .md-search__suggest {
+    display: none;
+}
+
 [data-md-color-scheme="default"] .md-header__inner {
     background-color: transparent !important;
 }

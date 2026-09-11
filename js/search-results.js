@@ -1,7 +1,6 @@
 // Renders search results on docs/search-results.md from the mkdocs search
-// index. Reachable only via direct link/bookmark with a ?q= query string;
-// nothing in the UI currently links here since Material's own search
-// dropdown (in the header) is used by default.
+// index. Reached via Enter in the tabs-bar-docked search box on wide
+// viewports (see js/site-header-merge.js), or directly via a ?q= link.
 (function () {
   function getQuery() {
     return new URLSearchParams(window.location.search).get("q") || "";
