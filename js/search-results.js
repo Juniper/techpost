@@ -1,6 +1,7 @@
 // Renders search results on docs/search-results.md from the mkdocs search
-// index. Reached via Enter in the tabs-bar-docked search box on wide
-// viewports (see js/site-header-merge.js), or directly via a ?q= link.
+// index. The HFWS header search (configured via HPEHF_CFG.headerSearch)
+// submits here as a GET with ?q=<query>; this reads that param and renders
+// the matching results.
 (function () {
   function getQuery() {
     return new URLSearchParams(window.location.search).get("q") || "";

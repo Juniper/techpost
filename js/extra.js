@@ -27,20 +27,69 @@ function initPageEnhancements() {
             });
     }
 
-    // Card filter functionality
+    // Card filter: live title text plus an optional category deep-link
+    // (?category=<name>, produced by the HFWS main-nav dropdown). A parent
+    // category also matches articles tagged with any of its subcategories,
+    // using the shared taxonomy in window.__TP_CATEGORIES__.
     const filterInput = document.getElementById('card-filter');
-    if (filterInput) {
-        filterInput.addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            document.querySelectorAll('.card-grid .card').forEach(function(card) {
+    const cardGrid = document.querySelector('.card-grid');
+    if (cardGrid) {
+        const taxonomy = window.__TP_CATEGORIES__ || [];
+        const activeCategory = new URLSearchParams(window.location.search).get('category');
+
+        let accepted = null;
+        if (activeCategory) {
+            accepted = [activeCategory];
+            const parent = taxonomy.find(function (c) { return c.name === activeCategory; });
+            if (parent && parent.subcategories) {
+                Array.prototype.push.apply(accepted, parent.subcategories);
+            }
+        }
+
+        let emptyMsg = null;
+        function applyFilters() {
+            const query = (filterInput ? filterInput.value : '').toLowerCase();
+            let visible = 0;
+            document.querySelectorAll('.card-grid .card').forEach(function (card) {
                 const title = card.querySelector('.card-title');
-                if (title && title.textContent.toLowerCase().includes(query)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
+                const titleOk = !query || (title && title.textContent.toLowerCase().includes(query));
+                const catOk = !accepted || accepted.indexOf(card.getAttribute('data-category') || '') !== -1;
+                const show = titleOk && catOk;
+                card.style.display = show ? '' : 'none';
+                if (show) visible++;
             });
-        });
+            if (!emptyMsg) {
+                emptyMsg = document.createElement('p');
+                emptyMsg.className = 'card-grid-empty';
+                cardGrid.parentNode.insertBefore(emptyMsg, cardGrid.nextSibling);
+            }
+            emptyMsg.textContent = activeCategory
+                ? 'No articles in "' + activeCategory + '" yet.'
+                : 'No matching articles.';
+            emptyMsg.style.display = visible ? 'none' : '';
+        }
+
+        if (filterInput) filterInput.addEventListener('input', applyFilters);
+
+        // Reflect an active category deep-link as a removable chip.
+        if (activeCategory) {
+            const toolbar = document.querySelector('.articles-toolbar') || cardGrid.parentNode;
+            const chip = document.createElement('div');
+            chip.className = 'category-filter-chip';
+            const label = document.createElement('span');
+            label.textContent = activeCategory;
+            const clear = document.createElement('a');
+            clear.className = 'category-filter-clear';
+            clear.href = window.location.pathname;
+            clear.setAttribute('aria-label', 'Clear category filter');
+            clear.textContent = '\u00d7';
+            chip.appendChild(document.createTextNode('Category: '));
+            chip.appendChild(label);
+            chip.appendChild(clear);
+            toolbar.appendChild(chip);
+        }
+
+        applyFilters();
     }
 
     const lightboxLinks = [];
