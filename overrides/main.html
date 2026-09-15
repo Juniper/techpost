@@ -37,28 +37,72 @@
   <meta name="target_country" content="ww" />
   <meta name="web_section_id" content="R12412" />
 
-  {#- HFWS mainNav: must be defined via window.HPEHF_CFG *before* the HFWS
-      loader script runs below. This is the only supported customization hook
-      HFWS documents for mainNav branding; HFWS's own global nav, secondary
-      nav and search stay untouched (no CSS hiding, no DOM injection) per the
-      HFWS compliance review. Techpost's own top-level nav is instead rendered
-      via Material's native tabs bar (see mkdocs.yml `nav:` / theme feature
-      `navigation.tabs`). -#}
+  {#- HFWS Microsite customizations: must be defined via window.HPEHF_CFG
+      *before* the HFWS loader script runs below. This is HFWS's supported,
+      config-driven way to provide the microsite title, top navigation and
+      header search, so Techpost's nav/search live natively inside the HFWS
+      header instead of being injected or relocated via custom CSS/JS. -#}
   {% set site_url = config.site_url | trim("/") %}
   <script>
+    var tpSiteUrl = "{{ site_url }}";
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
     window.HPEHF_CFG = {
       mainNav: {
         micrositeLogoArea: {
-          micrositeTitle: "Techpost",
           logo: {
-            href: "{{ site_url }}/"
-          }
-        }
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Techpost"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
       }
     };
-    window.__TP_SEARCH_INDEX_URL__ = "{{ site_url }}/search/search_index.json";
-    window.__TP_SEARCH_RESULTS_URL__ = "{{ site_url }}/search-results/";
-    window.__TP_SITE_URL__ = "{{ site_url }}";
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
   </script>
 
   {#- HPE Header/Footer Web Service (HFWS): corporate branded header & footer.
@@ -75,6 +119,10 @@
   <div id="header" class="hfws-header"><!-- HFWS inserts its header here --></div>
   {{ super() }}
 {% endblock %}
+
+{#- HFWS now provides the top navigation via HPEHF_CFG.mainNav, so Material's
+    own tabs bar is not rendered (avoids a duplicate navigation row). -#}
+{% block tabs %}{% endblock %}
 
 {#- The Material footer (prev/next pagination, copyright, social links) is
     replaced entirely by the HFWS corporate footer below. -#}

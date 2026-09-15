@@ -21,7 +21,7 @@ hide:
 
   <div class="card-grid">
 
-    <a class="card" href="../../mx301-deepdive/article" data-date="2025-11-24">
+    <a class="card" href="../../mx301-deepdive/article" data-date="2025-11-24" data-category="MX Series">
       <img src="../../mx301-deepdive/images/logo.png" class="card-icon" alt="MX301 Deepdive">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
@@ -31,7 +31,7 @@ hide:
       </div>
     </a>
 
-    <a class="card" href="../../mx301-high-performance-flowspec-without-compromise/article" data-date="2026-01-07">
+    <a class="card" href="../../mx301-high-performance-flowspec-without-compromise/article" data-date="2026-01-07" data-category="MX Series">
       <img src="../../mx301-high-performance-flowspec-without-compromise/images/logo.png" class="card-icon" alt="MX301 High-Performance FlowSpec Without Compromise">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
@@ -41,7 +41,7 @@ hide:
       </div>
     </a>
 
-    <a class="card" href="../../mx301-a-powerful-filtering-gateway/article" data-date="2026-01-07">
+    <a class="card" href="../../mx301-a-powerful-filtering-gateway/article" data-date="2026-01-07" data-category="MX Series">
       <img src="../../mx301-a-powerful-filtering-gateway/images/logo.png" class="card-icon" alt="MX301 A Powerful Filtering Gateway">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
@@ -51,7 +51,7 @@ hide:
       </div>
     </a>
 
-    <a class="card" href="../../fast-lookup-tuple-an-innovative-filtering-feature/article" data-date="2024-09-02">
+    <a class="card" href="../../fast-lookup-tuple-an-innovative-filtering-feature/article" data-date="2024-09-02" data-category="MX Series">
       <img src="../../fast-lookup-tuple-an-innovative-filtering-feature/images/logo.png" class="card-icon" alt="Fast Lookup Tuple: an Innovative Filtering Feature">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
@@ -61,7 +61,7 @@ hide:
       </div>
     </a>
 
-    <a class="card" href="../../from-sflow-to-imon-sampling-on-mx10k-platforms/article" data-date="2024-03-01">
+    <a class="card" href="../../from-sflow-to-imon-sampling-on-mx10k-platforms/article" data-date="2024-03-01" data-category="MX Series">
       <img src="../../from-sflow-to-imon-sampling-on-mx10k-platforms/images/logo.png" class="card-icon" alt="From sFlow to IMON Flow Sampling on MX10K Platforms">
       <div class="card-text">
         <div class="card-category">MX Platform</div>
@@ -71,7 +71,7 @@ hide:
       </div>
     </a>
 
-    <a class="card" href="../../introducing-openjts-telemetry-stack/article" data-date="2024-03-26">
+    <a class="card" href="../../introducing-openjts-telemetry-stack/article" data-date="2024-03-26" data-category="Observability, Sampling, Telemetry, SNMP">
       <img src="../../introducing-openjts-telemetry-stack/images/logo.png" class="card-icon" alt="OpenJTS Network Observability with Streaming Telemetry">
       <div class="card-text">
         <div class="card-category">Observability</div>
@@ -81,7 +81,7 @@ hide:
       </div>
     </a>
 
-    <a class="card" href="../../monitoring-pfe-resources-on-evo-routers/article" data-date="2024-12-26">
+    <a class="card" href="../../monitoring-pfe-resources-on-evo-routers/article" data-date="2024-12-26" data-category="Various Routing Topics">
       <img src="../../monitoring-pfe-resources-on-evo-routers/images/logo.png" class="card-icon" alt="Monitoring PFE Resources on EVO Routers">
       <div class="card-text">
         <div class="card-category">Routing</div>
