@@ -249,7 +249,7 @@ Our testbed has 4:1 oversubscription where four clients aggregated over a single
 
 > Note: Per km of fiber adds, 10 us RTT. In addition to the physical fiber length, latency introduced by optics, FEC/framing, OEO regeneration, and EDFA also contributes to the overall path latency.
 
-## TestingandVerification
+## Testing and Verification
 
 We executed more than 4,800 tests across four stages:
 
@@ -369,24 +369,24 @@ I would like to thank Dmitry Ginzburg (Principal Developer for CoS , congestion 
 
 ## References and Further Reading
 
-- 1. Dmitry Shokarev, [Training over 50km 800GE Links with PTX Routers](https://community.arubanetworks.com/blogs/dmitry-shokarev1/2025/10/28/training-over-50km-800ge-links-with-ptx-routers), HPE Juniper Networking TechPost, October 2025.
-- 2. Toni Pasanen, [Congestion Avoidance in AI Fabric - Part II: Priority Flow Control (PFC)](https://nwktimes.blogspot.com/2025/04/congestion-avoidance-in-ai-fabric-part.html), The Network Times, April 2025.
-- 3. NVIDIA, [How To Configure DCQCN (RoCE CC) values for ConnectX-4 (Linux)](https://enterprise-support.nvidia.com/s/article/howto-configure-dcqcn--roce-cc--values-for-connectx-4--linux-x), NVIDIA Enterprise Support.
-- 4. Yibo Zhu et al., [Congestion Control for Large-Scale RDMA Deployments](https://www.microsoft.com/en-us/research/publication/congestion-control-large-scale-rdma-deployments/), ACM SIGCOMM 2015.
-- 5. Sharada Yeluri, "[Sizing Router Buffers - Small is the New Big](https://community.arubanetworks.com/blogs/sharada-yeluri/2023/02/22/sizing-router-buffers)"  2023
-- 6. Mohammad Alizadeh et al., [Data Center TCP (DCTCP)](https://www.microsoft.com/en-us/research/publication/data-center-tcp-dctcp/), ACM SIGCOMM 2010.
-- 7. Yuliang Li et al., [HPCC: High Precision Congestion Control](https://doi.org/10.1145/3341302.3342085), ACM SIGCOMM 2019.
-- 8. NVIDIA, [doRoCE.sh](https://github.com/NVIDIA/doroce-linux/blob/main/doRoCE.sh), NVIDIA doroce-linux repository.
-- 9. NVIDIA, [Adaptive Retransmission: Parameters Control](https://docs.nvidia.com/networking/display/adaptive-retransmission-parameters-control.pdf), NVIDIA Networking Documentation.
-- 10. NVIDIA, [How to Connect Distributed Data Centers Into Large AI Factories with Scale-Across Networking](https://developer.nvidia.com/blog/how-to-connect-distributed-data-centers-into-large-ai-factories-with-scale-across-networking/), NVIDIA Technical Blog, September 2025.
-- 11. NVIDIA, [Turbocharge LLM Training Across Long-Haul Data Center Networks with NVIDIA NeMo Framework](https://developer.nvidia.com/blog/turbocharge-llm-training-across-long-haul-data-center-networks-with-nvidia-nemo-framework/), NVIDIA Technical Blog, May 2025.
-- 12. B. Braden et al., [RFC 2309: Recommendations on Queue Management and Congestion Avoidance in the Internet](https://www.rfc-editor.org/rfc/rfc2309.html), RFC Editor, April 1998.
-- 13. F. Baker and G. Fairhurst, [RFC 7567: IETF Recommendations Regarding Active Queue Management](https://www.rfc-editor.org/rfc/rfc7567.html), RFC Editor, July 2015.
-- 14. Juniper Networks, [buffer-size (Schedulers)](https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/buffer-size-edit-cos.html), Junos OS Documentation.
-- 15. Juniper Networks, [RED Drop Profiles for Congestion Management](https://www.juniper.net/documentation/us/en/software/junos/cos/topics/topic-map/red-drop-profiles.html), Junos OS Documentation.
-- 16. IEEE 802.1, [802.1Qbb -- Priority-based Flow Control](https://1.ieee802.org/dcb/802-1qbb/), IEEE 802.1 Data Center Bridging.
-- 17. Nicolas Fevrier, [Introducing Express5 in PTX10K Chassis](https://community.arubanetworks.com/blogs/nicolas-fevrier/2025/08/18/introducing-express5-in-ptx10k-chassis), HPE Juniper Networking TechPost, August 2025.
-- 18. NVIDIA, [How to Enable/Disable Lossy RoCE Accelerations](https://enterprise-support.nvidia.com/s/article/How-to-Enable-Disable-Lossy-RoCE-Accelerations), NVIDIA Enterprise Support.
+- 1 Dmitry Shokarev, [Training over 50km 800GE Links with PTX Routers](https://community.arubanetworks.com/blogs/dmitry-shokarev1/2025/10/28/training-over-50km-800ge-links-with-ptx-routers), HPE Juniper Networking TechPost, October 2025.
+- 2 Toni Pasanen, [Congestion Avoidance in AI Fabric - Part II: Priority Flow Control (PFC)](https://nwktimes.blogspot.com/2025/04/congestion-avoidance-in-ai-fabric-part.html), The Network Times, April 2025.
+- 3 NVIDIA, [How To Configure DCQCN (RoCE CC) values for ConnectX-4 (Linux)](https://enterprise-support.nvidia.com/s/article/howto-configure-dcqcn--roce-cc--values-for-connectx-4--linux-x), NVIDIA Enterprise Support.
+- 4 Yibo Zhu et al., [Congestion Control for Large-Scale RDMA Deployments](https://www.microsoft.com/en-us/research/publication/congestion-control-large-scale-rdma-deployments/), ACM SIGCOMM 2015.
+- 5 Sharada Yeluri, "[Sizing Router Buffers - Small is the New Big](https://community.arubanetworks.com/blogs/sharada-yeluri/2023/02/22/sizing-router-buffers)"  2023
+- 6 Mohammad Alizadeh et al., [Data Center TCP (DCTCP)](https://www.microsoft.com/en-us/research/publication/data-center-tcp-dctcp/), ACM SIGCOMM 2010.
+- 7 Yuliang Li et al., [HPCC: High Precision Congestion Control](https://doi.org/10.1145/3341302.3342085), ACM SIGCOMM 2019.
+- 8 NVIDIA, [doRoCE.sh](https://github.com/NVIDIA/doroce-linux/blob/main/doRoCE.sh), NVIDIA doroce-linux repository.
+- 9 NVIDIA, [Adaptive Retransmission: Parameters Control](https://docs.nvidia.com/networking/display/adaptive-retransmission-parameters-control.pdf), NVIDIA Networking Documentation.
+- 10 NVIDIA, [How to Connect Distributed Data Centers Into Large AI Factories with Scale-Across Networking](https://developer.nvidia.com/blog/how-to-connect-distributed-data-centers-into-large-ai-factories-with-scale-across-networking/), NVIDIA Technical Blog, September 2025.
+- 11 NVIDIA, [Turbocharge LLM Training Across Long-Haul Data Center Networks with NVIDIA NeMo Framework](https://developer.nvidia.com/blog/turbocharge-llm-training-across-long-haul-data-center-networks-with-nvidia-nemo-framework/), NVIDIA Technical Blog, May 2025.
+- 12 B. Braden et al., [RFC 2309: Recommendations on Queue Management and Congestion Avoidance in the Internet](https://www.rfc-editor.org/rfc/rfc2309.html), RFC Editor, April 1998.
+- 13 F. Baker and G. Fairhurst, [RFC 7567: IETF Recommendations Regarding Active Queue Management](https://www.rfc-editor.org/rfc/rfc7567.html), RFC Editor, July 2015.
+- 14 Juniper Networks, [buffer-size (Schedulers)](https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/buffer-size-edit-cos.html), Junos OS Documentation.
+- 15 Juniper Networks, [RED Drop Profiles for Congestion Management](https://www.juniper.net/documentation/us/en/software/junos/cos/topics/topic-map/red-drop-profiles.html), Junos OS Documentation.
+- 16 IEEE 802.1, [802.1Qbb -- Priority-based Flow Control](https://1.ieee802.org/dcb/802-1qbb/), IEEE 802.1 Data Center Bridging.
+- 17 Nicolas Fevrier, [Introducing Express5 in PTX10K Chassis](https://community.arubanetworks.com/blogs/nicolas-fevrier/2025/08/18/introducing-express5-in-ptx10k-chassis), HPE Juniper Networking TechPost, August 2025.
+- 18 NVIDIA, [How to Enable/Disable Lossy RoCE Accelerations](https://enterprise-support.nvidia.com/s/article/How-to-Enable-Disable-Lossy-RoCE-Accelerations), NVIDIA Enterprise Support.
 
 ## Glossary
 
