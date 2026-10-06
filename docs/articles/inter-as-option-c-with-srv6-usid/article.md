@@ -46,7 +46,7 @@ Two Junos primitives close the two gaps that an IPv6-only core creates:
 
 ![The solution](images/figure4.png)
 
-The two ★ borders are the only places transport changes; the VPN label (Option C) is constant from PE1 to PE2.
+The two * borders are the only places transport changes; the VPN label (Option C) is constant from PE1 to PE2.
 
 The whole design in one line: IP -> MPLS[LU|VPN] -> IPv6+SRv6{[LU|VPN]} -> MPLS[VPN] -> IP: the VPN label is the constant; only the transport wrapper mutates, and only at the two ASBRs.
 
