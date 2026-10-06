@@ -1,0 +1,1040 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Techpost"><link href=https://juniper.github.io/articles/articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article/ rel=canonical><link href=../../seamless-mpls-ldp-with-ospf/article/ rel=prev><link href=../../bgp-rib-sharding/article/ rel=next><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Inter-domain On-demand SR-TE LSPs with BGP-LS - TECHPOST - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Inter-domain On-demand SR-TE LSPs with BGP-LS"><meta property=og:image content=https://juniper.github.io/articles/articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/images/logo.png><meta property=og:type content=article><meta content=https://juniper.github.io/articles/articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpSiteUrl = "https://juniper.github.io/articles";
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Techpost"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#inter-domain-on-demand-sr-te-lsps-with-bgp-ls class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="TECHPOST - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="TECHPOST - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> TECHPOST - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Inter-domain On-demand SR-TE LSPs with BGP-LS </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="TECHPOST - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="TECHPOST - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> TECHPOST - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2 checked> <label class=md-nav__link for=__nav_2 id=__nav_2_label tabindex> <span class=md-ellipsis> All Articles </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_2_label aria-expanded=true> <label class=md-nav__title for=__nav_2> <span class="md-nav__icon md-icon"></span> All Articles </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../menu/main/ class=md-nav__link> <span class=md-ellipsis> Select a Techpost </span> </a> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2> <label class=md-nav__link for=__nav_2_2 id=__nav_2_2_label tabindex=0> <span class=md-ellipsis> Platforms / Line Cards Deepdive </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2> <span class="md-nav__icon md-icon"></span> Platforms / Line Cards Deepdive </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2_1> <label class=md-nav__link for=__nav_2_2_1 id=__nav_2_2_1_label tabindex=0> <span class=md-ellipsis> ACX7000 Series </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_2_1_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2_1> <span class="md-nav__icon md-icon"></span> ACX7000 Series </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../acx-gen/article.md class=md-nav__link> <span class=md-ellipsis> ACX GEN </span> </a> </li> <li class=md-nav__item> <a href=../../building-the-acx7000-series-the-pfe/article/ class=md-nav__link> <span class=md-ellipsis> Building the ACX7000 Series - the PFE </span> </a> </li> <li class=md-nav__item> <a href=../../acx7100-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> ACX7100 Routers Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../acx-7020-routers-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> ACX7020 Routers Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../zr-optics-in-acx7100-32c/article/ class=md-nav__link> <span class=md-ellipsis> ZR/ZR+ Coherent Optics in ACX7100-32C </span> </a> </li> <li class=md-nav__item> <a href=../../acx7024-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> ACX7024 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../evpn-mac-vrf-validation-on-acx7000/article/ class=md-nav__link> <span class=md-ellipsis> ACX7100/ACX7509 Validation - EVPN MAC-VRF </span> </a> </li> <li class=md-nav__item> <a href=../../evpn-vpws-validation-on-acx7000/article/ class=md-nav__link> <span class=md-ellipsis> ACX7100/ACX7509 Validation - EVPN-VPWS </span> </a> </li> <li class=md-nav__item> <a href=../../l3vpn-validation-on-acx7000/article/ class=md-nav__link> <span class=md-ellipsis> ACX7100/ACX7509 Validation - L3VPN/6VPE </span> </a> </li> <li class=md-nav__item> <a href=../../acx7509-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> ACX7509 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../l2vpn-validation-on-acx7000/article/ class=md-nav__link> <span class=md-ellipsis> ACX7100/ACX7509 Validation - L2VPN </span> </a> </li> <li class=md-nav__item> <a href=../../acx7000-vpls-validation/article/ class=md-nav__link> <span class=md-ellipsis> ACX7100/ACX7509 Validation - VPLS </span> </a> </li> <li class=md-nav__item> <a href=../../acx7000-l2-mac-scale-and-learning-rate/article/ class=md-nav__link> <span class=md-ellipsis> ACX7100/ACX7509 Validation - L2MAC Learning Rate </span> </a> </li> <li class=md-nav__item> <a href=../../acx7000-erspan-and-port-mirroring/article/ class=md-nav__link> <span class=md-ellipsis> ACX7000 ERSPAN and Port Mirroring </span> </a> </li> <li class=md-nav__item> <a href=../../saving-power-on-acx7000-series/article/ class=md-nav__link> <span class=md-ellipsis> Saving Power on ACX7000 </span> </a> </li> <li class=md-nav__item> <a href=../../acx7000-hardware-profiles/article/ class=md-nav__link> <span class=md-ellipsis> ACX7000 Hardware Profiles </span> </a> </li> <li class=md-nav__item> <a href=../../everything-about-acx7000/article/ class=md-nav__link> <span class=md-ellipsis> Everything You Always Wanted to Know about ACX7000 </span> </a> </li> <li class=md-nav__item> <a href=../../introducing-the-acx7024x/article/ class=md-nav__link> <span class=md-ellipsis> Introducing the ACX7024X </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2_2> <label class=md-nav__link for=__nav_2_2_2 id=__nav_2_2_2_label tabindex=0> <span class=md-ellipsis> MX Series </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_2_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2_2> <span class="md-nav__icon md-icon"></span> MX Series </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../mx304-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX304 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../mx304-fib-install-rate/article/ class=md-nav__link> <span class=md-ellipsis> MX304 FIB Install Rate </span> </a> </li> <li class=md-nav__item> <a href=../../bng-on-mpc10e/article/ class=md-nav__link> <span class=md-ellipsis> BNG on MPC10 </span> </a> </li> <li class=md-nav__item> <a href=../../boosting-route-scale-and-performance-with-junos/article/ class=md-nav__link> <span class=md-ellipsis> Boosting Route Scale and Performance with JunOS </span> </a> </li> <li class=md-nav__item> <a href=../../operating-1tbps-firewall-scale-out-system/article/ class=md-nav__link> <span class=md-ellipsis> Operating 1Tbps MX304/SRX4600 Firewall Scale-Out System </span> </a> </li> <li class=md-nav__item> <a href=../../from-sflow-to-imon-sampling-on-mx10k-platforms/article/ class=md-nav__link> <span class=md-ellipsis> From sFlow to IMON Flow Sampling on MX10K Platforms </span> </a> </li> <li class=md-nav__item> <a href=../../junos-symmetrical-load-balancing/article/ class=md-nav__link> <span class=md-ellipsis> Junos Symmetrical Load Balancing </span> </a> </li> <li class=md-nav__item> <a href=../../map-t-with-junos/article/ class=md-nav__link> <span class=md-ellipsis> MAP-T with Junos </span> </a> </li> <li class=md-nav__item> <a href=../../fast-lookup-tuple-an-innovative-filtering-feature/article/ class=md-nav__link> <span class=md-ellipsis> Fast Lookup Tuple - an Innovative Filtering Feature </span> </a> </li> <li class=md-nav__item> <a href=../../trio-6-packet-walkthrough/article/ class=md-nav__link> <span class=md-ellipsis> Trio 6 Packet Walkthrough </span> </a> </li> <li class=md-nav__item> <a href=../../mx10000-lc4800-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX10000 LC4800 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../filter-based-forwarding-on-mx/article/ class=md-nav__link> <span class=md-ellipsis> Filter-Based Forwarding on MX </span> </a> </li> <li class=md-nav__item> <a href=../../mx10000-lc4802-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX10000 LC4802 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../packet-filtering-on-juniper-silicon/article/ class=md-nav__link> <span class=md-ellipsis> Differentiate with Filters </span> </a> </li> <li class=md-nav__item> <a href=../../mx301-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX301 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../inline-ipsec-on-mx-series/article/ class=md-nav__link> <span class=md-ellipsis> Inline IPSec on MX Series </span> </a> </li> <li class=md-nav__item> <a href=../../mx301-high-performance-flowspec-without-compromise/article/ class=md-nav__link> <span class=md-ellipsis> MX301 High-Performance FlowSpec Without Compromise </span> </a> </li> <li class=md-nav__item> <a href=../../mx301-a-powerful-filtering-gateway/article/ class=md-nav__link> <span class=md-ellipsis> MX301 A Powerful Filtering Gateway </span> </a> </li> <li class=md-nav__item> <a href=../../wan-macsec-inline-throughput-testing-on-mx-series/article/ class=md-nav__link> <span class=md-ellipsis> WAN MACsec Inline Throughput Testing on MX Series </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2_3> <label class=md-nav__link for=__nav_2_2_3 id=__nav_2_2_3_label tabindex=0> <span class=md-ellipsis> PTX Series </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_2_3_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2_3> <span class="md-nav__icon md-icon"></span> PTX Series </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../express-4-filters-foundation/article/ class=md-nav__link> <span class=md-ellipsis> Express 4 Filters - Foundation </span> </a> </li> <li class=md-nav__item> <a href=../../layer-3-solution-for-the-cdn-gateway/article/ class=md-nav__link> <span class=md-ellipsis> Layer 3 Solution for CDN Gateway </span> </a> </li> <li class=md-nav__item> <a href=../../ptx-fib-compression/article/ class=md-nav__link> <span class=md-ellipsis> PTX FIB Compression </span> </a> </li> <li class=md-nav__item> <a href=../../ptx10001-36mr-l2-circuit-scale/article/ class=md-nav__link> <span class=md-ellipsis> PTX10001-36MR L2 Circuit Scale </span> </a> </li> <li class=md-nav__item> <a href=../../ptx10001-36mr-introduction/article/ class=md-nav__link> <span class=md-ellipsis> PTX10001-36MR Introduction </span> </a> </li> <li class=md-nav__item> <a href=../../ptx10001-36mr-fib-install-rate/article/ class=md-nav__link> <span class=md-ellipsis> FIB programming speed validation - PTX10001-36MR </span> </a> </li> <li class=md-nav__item> <a href=../../ptx10001-36mr-fib-install-rate/article/ class=md-nav__link> <span class=md-ellipsis> FIB programming speed validation - PTX10001-36MR </span> </a> </li> <li class=md-nav__item> <a href=../../evpn-eline-on-ptx10k-platforms/article/ class=md-nav__link> <span class=md-ellipsis> EVPN E-Line on PTX10k platforms </span> </a> </li> <li class=md-nav__item> <a href=../../saving-energy-on-ptx-with-pfe-power-off/article/ class=md-nav__link> <span class=md-ellipsis> Saving Energy on PTX with PFE Power Off </span> </a> </li> <li class=md-nav__item> <a href=../../ptx10000-power-optimization/article/ class=md-nav__link> <span class=md-ellipsis> Features Saving Power on PTX10000 </span> </a> </li> <li class=md-nav__item> <a href=../../evpn-vxlan-oism-on-ptx-routers/article/ class=md-nav__link> <span class=md-ellipsis> Guide to the EVPN VXLAN-based OISM on PTX </span> </a> </li> <li class=md-nav__item> <a href=../../monitoring-ptx-power-environments-with-telemetry/article/ class=md-nav__link> <span class=md-ellipsis> Monitoring PTX Power and Environmentﾕs KPI through Telemetry </span> </a> </li> <li class=md-nav__item> <a href=../../express-5-overview/article/ class=md-nav__link> <span class=md-ellipsis> Express 5 Overview </span> </a> </li> <li class=md-nav__item> <a href=../../introducing-ptx10002-36qdd/article/ class=md-nav__link> <span class=md-ellipsis> PTX10002-36QDD Hardware Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../flexible-packet-processing-pipelines/article/ class=md-nav__link> <span class=md-ellipsis> Flexible pipeline </span> </a> </li> <li class=md-nav__item> <a href=../../flex-offset-filters-in-express5/article/ class=md-nav__link> <span class=md-ellipsis> Flex Offset Filters in Express5 </span> </a> </li> <li class=md-nav__item> <a href=../../fib-scale-in-express5/article/ class=md-nav__link> <span class=md-ellipsis> FIB Scale in Express5 </span> </a> </li> <li class=md-nav__item> <a href=../../srv6-in-ptx-express-5/article/ class=md-nav__link> <span class=md-ellipsis> SRv6 in PTX Express 5 </span> </a> </li> <li class=md-nav__item> <a href=../../bier-mvpn-in-ptx-express-5/article/ class=md-nav__link> <span class=md-ellipsis> BIER + MVPN in PTX Express 5 </span> </a> </li> <li class=md-nav__item> <a href=../../eantc-bier-interop-testing-on-ptx10002-36qdd/article/ class=md-nav__link> <span class=md-ellipsis> EANTC BIER InterOp Testing on PTX10002-36QDD </span> </a> </li> <li class=md-nav__item> <a href=../../fib-install-rate-in-ptx-express5/article/ class=md-nav__link> <span class=md-ellipsis> FIB Install Rate in PTX Express5 </span> </a> </li> <li class=md-nav__item> <a href=../../introducing-express5-in-ptx10k-chassis/article/ class=md-nav__link> <span class=md-ellipsis> Introducing Express5 in PTX10K Chassis </span> </a> </li> <li class=md-nav__item> <a href=../../training-over-50km-800ge-links-with-ptx-routers/article/ class=md-nav__link> <span class=md-ellipsis> Training over 50km 800GE Links with PTX Routers </span> </a> </li> <li class=md-nav__item> <a href=../../introducing-ptx12000-chassis/article/ class=md-nav__link> <span class=md-ellipsis> Introducing PTX12000 Chassis </span> </a> </li> <li class=md-nav__item> <a href=../../juniper-ptx-routers-in-front-end-network/article/ class=md-nav__link> <span class=md-ellipsis> Juniper PTX Routers in Front-End Network </span> </a> </li> <li class=md-nav__item> <a href=../../dci-edge-for-ai-front-end-clusters-part3/article/ class=md-nav__link> <span class=md-ellipsis> DCI Edge for AI Front End Clusters with Juniper PTX </span> </a> </li> <li class=md-nav__item> <a href=../../introducing-the-ptx10002-60mr/article/ class=md-nav__link> <span class=md-ellipsis> Introducing the PTX10002-60MR </span> </a> </li> <li class=md-nav__item> <a href=../../rethinking-fabric-redundancy/article/ class=md-nav__link> <span class=md-ellipsis> Fabric Design and Redundancy </span> </a> </li> <li class=md-nav__item> <a href=../../ptx12008-fabric-topology/article/ class=md-nav__link> <span class=md-ellipsis> Deepdive in the Fabric Topology </span> </a> </li> <li class=md-nav__item> <a href=../../self-healing-and-recovery-mechanisms-for-ptx12008/article/ class=md-nav__link> <span class=md-ellipsis> Self Healing and Recovery Mechanisms For PTX12008 </span> </a> </li> <li class=md-nav__item> <a href=../../navigating-the-ptx12008-lcd-module/article/ class=md-nav__link> <span class=md-ellipsis> Navigating the Front Panel Display </span> </a> </li> <li class=md-nav__item> <a href=../../ptx12008-power-distribution-and-optimization/article/ class=md-nav__link> <span class=md-ellipsis> PTX12008 Power Distribution and Optimization </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2_4> <label class=md-nav__link for=__nav_2_2_4 id=__nav_2_2_4_label tabindex=0> <span class=md-ellipsis> QFX Series </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_2_4_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2_4> <span class="md-nav__icon md-icon"></span> QFX Series </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../from-qfx5100-to-qfx5120/article/ class=md-nav__link> <span class=md-ellipsis> From QFX5100 to QFX5120 </span> </a> </li> <li class=md-nav__item> <a href=../../qfx5k-series-switches-packet-buffer-architecture/article/ class=md-nav__link> <span class=md-ellipsis> QFX5K-Series Switches Packet Buffer Architecture </span> </a> </li> <li class=md-nav__item> <a href=../../microburst-detection-and-avoidance-on-qfx5k/article/ class=md-nav__link> <span class=md-ellipsis> Microburst Detection and Avoidance on QFX5k </span> </a> </li> <li class=md-nav__item> <a href=../../industry-first-16t-liquid-cooled-sw-qfx5250-64oe-l/article/ class=md-nav__link> <span class=md-ellipsis> Industry First 1.6T Liquid Cooled Switch QFX5250-64OE-L </span> </a> </li> <li class=md-nav__item> <a href=../../control-and-data-plane-traffic-capture-on-qfx-swit/article/ class=md-nav__link> <span class=md-ellipsis> Control and Data Plane Traffic Capture on QFX Switches </span> </a> </li> <li class=md-nav__item> <a href=../../orv3-compliant-qfx-series-switches/article/ class=md-nav__link> <span class=md-ellipsis> ORv3 Compliant QFX Series Switches </span> </a> </li> <li class=md-nav__item> <a href=../../introducing-the-qfx5140/article/ class=md-nav__link> <span class=md-ellipsis> Introducing the QFX5140 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3 checked> <label class=md-nav__link for=__nav_2_3 id=__nav_2_3_label tabindex=0> <span class=md-ellipsis> Routing </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_3_label aria-expanded=true> <label class=md-nav__title for=__nav_2_3> <span class="md-nav__icon md-icon"></span> Routing </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3_1> <label class=md-nav__link for=__nav_2_3_1 id=__nav_2_3_1_label tabindex=0> <span class=md-ellipsis> SRv6 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_3_1_label aria-expanded=false> <label class=md-nav__title for=__nav_2_3_1> <span class="md-nav__icon md-icon"></span> SRv6 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../srv6-basics-locator-and-end-sids/article/ class=md-nav__link> <span class=md-ellipsis> SRv6 basic - SRv6 locator and End SIDs </span> </a> </li> <li class=md-nav__item> <a href=../../l3vpn-over-srv6/article/ class=md-nav__link> <span class=md-ellipsis> L3VPN over SRv6 </span> </a> </li> <li class=md-nav__item> <a href=../../srv6-summarization/article/ class=md-nav__link> <span class=md-ellipsis> SRv6 locator summarization </span> </a> </li> <li class=md-nav__item> <a href=../../srv6-sid-encoding-and-transposition/article/ class=md-nav__link> <span class=md-ellipsis> SRv6 SID Encoding and Transposition </span> </a> </li> <li class=md-nav__item> <a href=../../srv6-l3vpn-inter-as-option-c/article/ class=md-nav__link> <span class=md-ellipsis> SRv6 L3VPN Inter-AS Option-C </span> </a> </li> <li class=md-nav__item> <a href=../../link-slicing-with-mpls-and-srv6-underlays/article/ class=md-nav__link> <span class=md-ellipsis> Link Slicing with MPLS and SRv6 Underlays </span> </a> </li> <li class=md-nav__item> <a href=../../link-slicing-with-mpls-and-srv6-underlays-part-2/article/ class=md-nav__link> <span class=md-ellipsis> Link Slicing with MPLS and SRv6 Underlays Part 2 </span> </a> </li> <li class=md-nav__item> <a href=../../srv6-micro-sid-basics/article/ class=md-nav__link> <span class=md-ellipsis> SRv6 Micro-SID (uSID) Basics </span> </a> </li> <li class=md-nav__item> <a href=../../l3vpn-over-srv6-with-jcnr/article/ class=md-nav__link> <span class=md-ellipsis> L3VPN over SRv6 with JCNR </span> </a> </li> <li class=md-nav__item> <a href=../../srv6-static-lsps/article/ class=md-nav__link> <span class=md-ellipsis> SRv6 Explicit LSPs </span> </a> </li> <li class=md-nav__item> <a href=../../inter-as-option-c-with-srv6-usid/article/ class=md-nav__link> <span class=md-ellipsis> Stitching Two Worlds IPv4 L3VPN InterAS (Option C) over an IPv6 Only SRv6 uSID Core </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3_2> <label class=md-nav__link for=__nav_2_3_2 id=__nav_2_3_2_label tabindex=0> <span class=md-ellipsis> SR MPLS </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_3_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2_3_2> <span class="md-nav__icon md-icon"></span> SR MPLS </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../build.md class=md-nav__link> <span class=md-ellipsis> Under construction </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3_3> <label class=md-nav__link for=__nav_2_3_3 id=__nav_2_3_3_label tabindex=0> <span class=md-ellipsis> EVPN </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_3_3_label aria-expanded=false> <label class=md-nav__title for=__nav_2_3_3> <span class="md-nav__icon md-icon"></span> EVPN </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../vpls-to-evpn-vpls-seamless-migration-on-mx-routers/article/ class=md-nav__link> <span class=md-ellipsis> VPLS (LDP/BGP) to EVPN migration </span> </a> </li> <li class=md-nav__item> <a href=../../srx-evpnvxlan-t5-oipsec/article/ class=md-nav__link> <span class=md-ellipsis> SRX EVPN/VXLAN T5 oIPSEC </span> </a> </li> <li class=md-nav__item> <a href=../../evpn-on-a-stick/article/ class=md-nav__link> <span class=md-ellipsis> EVPN on the Stick </span> </a> </li> <li class=md-nav__item> <a href=../../l2-metro-ring-access-with-evpn-elan/article/ class=md-nav__link> <span class=md-ellipsis> L2 Metro Ring-Access With EVPN-ELAN </span> </a> </li> <li class=md-nav__item> <a href=../../bng-chassis-redundancy-with-dhcp-and-evpn-vpws/article/ class=md-nav__link> <span class=md-ellipsis> BNG Chassis Redundancy with DHCP Active Lease Query and EVPN VPWS </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3_4 checked> <label class=md-nav__link for=__nav_2_3_4 id=__nav_2_3_4_label tabindex=0> <span class=md-ellipsis> Various Routing Topics </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_2_3_4_label aria-expanded=true> <label class=md-nav__title for=__nav_2_3_4> <span class="md-nav__icon md-icon"></span> Various Routing Topics </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../seamless-mpls-ldp-with-ospf/article/ class=md-nav__link> <span class=md-ellipsis> Seamless MPLS LDP-Signaled with OSPF IGP Underlay </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> Inter-domain On-demand SR-TE LSPs with BGP-LS </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> Inter-domain On-demand SR-TE LSPs with BGP-LS </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#why-bgp-ls class=md-nav__link> <span class=md-ellipsis> Why BGP-LS? </span> </a> </li> <li class=md-nav__item> <a href=#sample-network-overview class=md-nav__link> <span class=md-ellipsis> Sample Network Overview </span> </a> <nav class=md-nav aria-label="Sample Network Overview"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#multi-instance-isis class=md-nav__link> <span class=md-ellipsis> Multi-Instance ISIS </span> </a> </li> <li class=md-nav__item> <a href=#traffic-engineering-database class=md-nav__link> <span class=md-ellipsis> Traffic-Engineering Database </span> </a> </li> <li class=md-nav__item> <a href=#announcing-te-information-via-bgp-ls class=md-nav__link> <span class=md-ellipsis> Announcing TE information via BGP-LS </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#creating-static-and-on-demand-sr-te-tunnels class=md-nav__link> <span class=md-ellipsis> Creating static and On-Demand SR-TE tunnels </span> </a> <nav class=md-nav aria-label="Creating static and On-Demand SR-TE tunnels"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#static-sr-te class=md-nav__link> <span class=md-ellipsis> Static SR-TE </span> </a> </li> <li class=md-nav__item> <a href=#on-demand-sr-te class=md-nav__link> <span class=md-ellipsis> On-Demand SR-TE </span> </a> </li> <li class=md-nav__item> <a href=#service-route-mapping-to-colored-sr-te class=md-nav__link> <span class=md-ellipsis> Service route mapping to colored SR-TE </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../bgp-rib-sharding/article/ class=md-nav__link> <span class=md-ellipsis> BGP RIB Sharding </span> </a> </li> <li class=md-nav__item> <a href=../../sizing-router-buffers/article/ class=md-nav__link> <span class=md-ellipsis> Sizing Router Buffers - Small is the New Big </span> </a> </li> <li class=md-nav__item> <a href=../../new-subscriber-qos-for-next-generation-broadband/article/ class=md-nav__link> <span class=md-ellipsis> New Subscriber QOS for Next Generation Broadband </span> </a> </li> <li class=md-nav__item> <a href=../../bgp-ct-interop-demo-eantc2023/article/ class=md-nav__link> <span class=md-ellipsis> BGP CT Interop Demo EANTC2023 </span> </a> </li> <li class=md-nav__item> <a href=../../bgp-flowspec-exclude-interfaces-express2-platforms/article/ class=md-nav__link> <span class=md-ellipsis> BGP FlowSpec ﾒExclude Interfacesﾓ on Express2 Platforms </span> </a> </li> <li class=md-nav__item> <a href=../../optimizing-power-consumption-in-high-end-routers/article/ class=md-nav__link> <span class=md-ellipsis> Optimizing Power Consumption in High-End Routers </span> </a> </li> <li class=md-nav__item> <a href=../../bgp-ct-use-cases/article/ class=md-nav__link> <span class=md-ellipsis> BGP CT Use-Cases </span> </a> </li> <li class=md-nav__item> <a href=../../mastering-bgp-pic-on-junos/article/ class=md-nav__link> <span class=md-ellipsis> Mastering BGP PIC on JUNOS </span> </a> </li> <li class=md-nav__item> <a href=../../bgp-link-bandwidth-with-junos/article/ class=md-nav__link> <span class=md-ellipsis> BGP Link-Bandwidth with JunOS </span> </a> </li> <li class=md-nav__item> <a href=../../scalable-bgp-route-reflector/article/ class=md-nav__link> <span class=md-ellipsis> Scalable BGP Route-Reflector </span> </a> </li> <li class=md-nav__item> <a href=../../bier-introduction-and-underlay/article/ class=md-nav__link> <span class=md-ellipsis> BIER Introduction and Underlay </span> </a> </li> <li class=md-nav__item> <a href=../../bgp-minimum-ecmp/article/ class=md-nav__link> <span class=md-ellipsis> BGP Minimum ECMP </span> </a> </li> <li class=md-nav__item> <a href=../../bier-table-lookup/article/ class=md-nav__link> <span class=md-ellipsis> BIER Table Lookup </span> </a> </li> <li class=md-nav__item> <a href=../../secure-virtual-csr-solution-with-jcnr-and-csrx/article/ class=md-nav__link> <span class=md-ellipsis> Secure Virtual Cell Site Router Solution with JCNR and cSRX </span> </a> </li> <li class=md-nav__item> <a href=../../bier-overlay/article/ class=md-nav__link> <span class=md-ellipsis> BIER Overlay </span> </a> </li> <li class=md-nav__item> <a href=../../l3vpn-to-global-rib-leaking/article/ class=md-nav__link> <span class=md-ellipsis> L3VPN to Global RIB Leaking </span> </a> </li> <li class=md-nav__item> <a href=../../navigating-the-shadows-of-dark-fiber-connectivity/article/ class=md-nav__link> <span class=md-ellipsis> Navigating the Shadows of Dark Fiber Connectivity </span> </a> </li> <li class=md-nav__item> <a href=../../monitoring-pfe-resources-on-evo-routers/article/ class=md-nav__link> <span class=md-ellipsis> Monitoring PFE Resources on EVO Routers </span> </a> </li> <li class=md-nav__item> <a href=../../sr-tactical-traffic-engineering-in-junos/article/ class=md-nav__link> <span class=md-ellipsis> SR Tactical Traffic Engineering in Junos </span> </a> </li> <li class=md-nav__item> <a href=../../bng-cups-controller-and-geographical-redundancy/article/ class=md-nav__link> <span class=md-ellipsis> BNG CUPS Controller and Geographical Redundancy </span> </a> </li> <li class=md-nav__item> <a href=../../migrating-from-ospf-ldp-to-ospf-sr-mpls/article/ class=md-nav__link> <span class=md-ellipsis> Migrating from OSPF/LDP to OSPF/SR-MPLS </span> </a> </li> <li class=md-nav__item> <a href=../../sr-te-lsps-through-a-multi-domain-network/article/ class=md-nav__link> <span class=md-ellipsis> SR-TE LSPs Through a Multi-Domain Network </span> </a> </li> <li class=md-nav__item> <a href=../../hybrid-mnha-with-ebgp/article/ class=md-nav__link> <span class=md-ellipsis> Hybrid MNHA with eBGP </span> </a> </li> <li class=md-nav__item> <a href=../../wholistic-design-approach-for-mpls-backbone-cos/article/ class=md-nav__link> <span class=md-ellipsis> Wholistic Design Approach for MPLS Backbone Class of Service </span> </a> </li> <li class=md-nav__item> <a href=../../mist-cradle-point-and-site-to-site-ipsec-tunnels/article/ class=md-nav__link> <span class=md-ellipsis> Mist Cradle Point and Site-to-Site IPSec Tunnels an SRX Perspective </span> </a> </li> <li class=md-nav__item> <a href=../../class-based-forwarding-over-rsvp-lsps-design/article/ class=md-nav__link> <span class=md-ellipsis> Class Based Forwarding over RSVP LSPs Design Consideration </span> </a> </li> <li class=md-nav__item> <a href=../../fbf-cbf-te-for-outstanding-services/article/ class=md-nav__link> <span class=md-ellipsis> FBF/CBF - Traffic-Engineering for Outstanding Services </span> </a> </li> <li class=md-nav__item> <a href=../../adaptive-resource-control-in-te-networks/article/ class=md-nav__link> <span class=md-ellipsis> Adaptive Resource Control in TE Networks </span> </a> </li> <li class=md-nav__item> <a href=../../adaptive-resource-control-with-container-lsps/article/ class=md-nav__link> <span class=md-ellipsis> Adaptive Resource Control with Container LSPs </span> </a> </li> <li class=md-nav__item> <a href=../../experience-first-networking-by-routing-active-test/article/ class=md-nav__link> <span class=md-ellipsis> Experience-First Networking By Routing Active Testing </span> </a> </li> <li class=md-nav__item> <a href=../../introduction-to-treedn/article/ class=md-nav__link> <span class=md-ellipsis> TreeDN - The Fix for Catastrophically Successful Live Streaming Events </span> </a> </li> <li class=md-nav__item> <a href=../../large-enterprises-wan-landscape-in-ai-era/article/ class=md-nav__link> <span class=md-ellipsis> Large Enterprises WAN Landscape </span> </a> </li> <li class=md-nav__item> <a href=../../optimize-your-network-with-routing-director/article/ class=md-nav__link> <span class=md-ellipsis> Optimize your Network with Routing Director </span> </a> </li> <li class=md-nav__item> <a href=../../map-e-with-junos-os/article/ class=md-nav__link> <span class=md-ellipsis> MAP-E </span> </a> </li> <li class=md-nav__item> <a href=../../mastering-local-as-default-mode/article/ class=md-nav__link> <span class=md-ellipsis> Mastering Local AS - Default mode </span> </a> </li> <li class=md-nav__item> <a href=../../mastering-local-as-alias-mode/article/ class=md-nav__link> <span class=md-ellipsis> Mastering Local AS - Alias mode </span> </a> </li> <li class=md-nav__item> <a href=../../mastering-local-as-private-mode/article/ class=md-nav__link> <span class=md-ellipsis> Mastering Local AS - Private mode </span> </a> </li> <li class=md-nav__item> <a href=../../mastering-local-as-no-prepend-global-as/article/ class=md-nav__link> <span class=md-ellipsis> Mastering Local AS - No-prepend-global-AS mode </span> </a> </li> <li class=md-nav__item> <a href=../../mastering-local-as-private-no-prepend-global-as/article/ class=md-nav__link> <span class=md-ellipsis> Mastering Local AS - Private No-prepend-global-AS mode </span> </a> </li> <li class=md-nav__item> <a href=../../jcnr-and-topology-independent-loop-free-alternates/article/ class=md-nav__link> <span class=md-ellipsis> JCNR and Topology-Independent Loop-Free Alternates (TI-LFA) </span> </a> </li> <li class=md-nav__item> <a href=../../enhancing-route-manipulation/article/ class=md-nav__link> <span class=md-ellipsis> Enhancing Route Manipulation </span> </a> </li> <li class=md-nav__item> <a href=../../state-signaling-and-the-cost-of-simplification/article/ class=md-nav__link> <span class=md-ellipsis> State, Signaling, and the Cost of Simplified Narratives </span> </a> </li> <li class=md-nav__item> <a href=../../mnha-ipsec-and-multiple-routing-instances/article/ class=md-nav__link> <span class=md-ellipsis> INET.0 – What? MNHA, IPSec and Multiple Routing Instances </span> </a> </li> <li class=md-nav__item> <a href=../../testing-bgp-roles-rfc-9234-with-the-jmcp-server/article/ class=md-nav__link> <span class=md-ellipsis> Testing BGP Roles (RFC 9234) with the JMCP Server </span> </a> </li> <li class=md-nav__item> <a href=../../secure-bgp-aspa-preventing-and-fixing-route-leak/article/ class=md-nav__link> <span class=md-ellipsis> Secure BGP with ASPA Preventing and fixing route leaks </span> </a> </li> <li class=md-nav__item> <a href=../../migrating-colored-resolution-from-inetcolor-to-ct/article/ class=md-nav__link> <span class=md-ellipsis> Migrating Colored Resolution from inetcolor to Classful Transport </span> </a> </li> <li class=md-nav__item> <a href=../../ai-driven-brownfield-migration-to-jrd/article/ class=md-nav__link> <span class=md-ellipsis> AI-Driven Brownfield Migration to Juniper Routing Director </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_4> <label class=md-nav__link for=__nav_2_4 id=__nav_2_4_label tabindex=0> <span class=md-ellipsis> Multicast Routing </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_4_label aria-expanded=false> <label class=md-nav__title for=__nav_2_4> <span class="md-nav__icon md-icon"></span> Multicast Routing </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../build.md class=md-nav__link> <span class=md-ellipsis> Under Construction </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_5> <label class=md-nav__link for=__nav_2_5 id=__nav_2_5_label tabindex=0> <span class=md-ellipsis> Scale and Convergence Tests </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_5_label aria-expanded=false> <label class=md-nav__title for=__nav_2_5> <span class="md-nav__icon md-icon"></span> Scale and Convergence Tests </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../scale-out-security-services-with-auto-fbf/article/ class=md-nav__link> <span class=md-ellipsis> Scale-Out Security Services with Auto-FBF </span> </a> </li> <li class=md-nav__item> <a href=../../mx-srx-scale-out-system-bulk-junos-config-changes/article/ class=md-nav__link> <span class=md-ellipsis> Operating MX/SRX Scale-Out System - Bulk Junos Config Changes </span> </a> </li> <li class=md-nav__item> <a href=../../long-distance-lossless-scale-across/article/ class=md-nav__link> <span class=md-ellipsis> Long-Distance Lossless Scale-Across </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_6> <label class=md-nav__link for=__nav_2_6 id=__nav_2_6_label tabindex=0> <span class=md-ellipsis> Silicon / PFE / Memories </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_6_label aria-expanded=false> <label class=md-nav__title for=__nav_2_6> <span class="md-nav__icon md-icon"></span> Silicon / PFE / Memories </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../networking-chips-vs-gpuscpus/article/ class=md-nav__link> <span class=md-ellipsis> Networking Chips vs GPUs/CPUs </span> </a> </li> <li class=md-nav__item> <a href=../../tearing-down-memory-wall/article/ class=md-nav__link> <span class=md-ellipsis> Tearing down the memory wall </span> </a> </li> <li class=md-nav__item> <a href=../../silicon-photonics-and-integrated-optics/article/ class=md-nav__link> <span class=md-ellipsis> Silicon Photonics and Integrated Optics </span> </a> </li> <li class=md-nav__item> <a href=../../longest-prefix-matching-in-networking-chips/article/ class=md-nav__link> <span class=md-ellipsis> Longest Prefix Matching in Networking Chips </span> </a> </li> <li class=md-nav__item> <a href=../../chiplets-the-inevitable-transition/article/ class=md-nav__link> <span class=md-ellipsis> Chiplet Post from Linkedin </span> </a> </li> <li class=md-nav__item> <a href=../../liquid-cooling-the-inflection-point/article/ class=md-nav__link> <span class=md-ellipsis> Liquid Cooling - The Inflection Point </span> </a> </li> <li class=md-nav__item> <a href=../../flexible-memory-in-express5/article/ class=md-nav__link> <span class=md-ellipsis> Flexible memory in Express5 </span> </a> </li> <li class=md-nav__item> <a href=../../multi-node-high-availability-basics/article/ class=md-nav__link> <span class=md-ellipsis> Multi-Node High Availability Basics </span> </a> </li> <li class=md-nav__item> <a href=../../debugging-pfe-exceptions-with-mcp/article/ class=md-nav__link> <span class=md-ellipsis> Debugging PFE exceptions on Microkernel FPCs with Natural Language and MCP </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_7> <label class=md-nav__link for=__nav_2_7 id=__nav_2_7_label tabindex=0> <span class=md-ellipsis> JVD Juniper Validated Designs </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_7_label aria-expanded=false> <label class=md-nav__title for=__nav_2_7> <span class="md-nav__icon md-icon"></span> JVD Juniper Validated Designs </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../jvd-mobile-backhaul-overview/article/ class=md-nav__link> <span class=md-ellipsis> Overview results of jvd-mbh-base </span> </a> </li> <li class=md-nav__item> <a href=../../intro-to-metro-ethernet-business-services-jvd/article/ class=md-nav__link> <span class=md-ellipsis> Introduction to Metro Ethernet Business Services Validated Design </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_8> <label class=md-nav__link for=__nav_2_8 id=__nav_2_8_label tabindex=0> <span class=md-ellipsis> Forwarding, Load Balancing, Filtering </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_8_label aria-expanded=false> <label class=md-nav__title for=__nav_2_8> <span class="md-nav__icon md-icon"></span> Forwarding, Load Balancing, Filtering </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../esi-lag-made-easier-with-ez-lag/article/ class=md-nav__link> <span class=md-ellipsis> ESI-LAG Made Easier with EZ-LAG </span> </a> </li> <li class=md-nav__item> <a href=../../srxcloudatp-multi-tenant-dns-filtering/article/ class=md-nav__link> <span class=md-ellipsis> SRX/CloudATP Multi-Tenant DNS Filtering </span> </a> </li> <li class=md-nav__item> <a href=../../open-source-monitoring-of-forwarding-exceptions/article/ class=md-nav__link> <span class=md-ellipsis> Open-Source Monitoring of Network Forwarding Exceptions - A Practical Approach </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_9> <label class=md-nav__link for=__nav_2_9 id=__nav_2_9_label tabindex=0> <span class=md-ellipsis> Technology and Features </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_9_label aria-expanded=false> <label class=md-nav__title for=__nav_2_9> <span class="md-nav__icon md-icon"></span> Technology and Features </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../service-mapping-to-colored-mpls-paths/article/ class=md-nav__link> <span class=md-ellipsis> Service Mapping to Colored MPLS Paths </span> </a> </li> <li class=md-nav__item> <a href=../../border-agnostic-architectures-with-seamless-mpls/article/ class=md-nav__link> <span class=md-ellipsis> Building Border Agnostic Architectures with Seamless MPLS </span> </a> </li> <li class=md-nav__item> <a href=../../mpls-label-anti-spoofing/article/ class=md-nav__link> <span class=md-ellipsis> MPLS Label Anti-Spoofing </span> </a> </li> <li class=md-nav__item> <a href=../../traffic-accounting-with-mx-features/article/ class=md-nav__link> <span class=md-ellipsis> Traffic Accounting with MX Features </span> </a> </li> <li class=md-nav__item> <a href=../../ip-vpn-network-apstra-freeform/article/ class=md-nav__link> <span class=md-ellipsis> IP/VPN provision and operation with Apstra Freeform </span> </a> </li> <li class=md-nav__item> <a href=../../srx-autovpn-psk-with-linux-strongswan/article/ class=md-nav__link> <span class=md-ellipsis> SRX AutoVPN / PSK with Linux strongSwan </span> </a> </li> <li class=md-nav__item> <a href=../../the-hidden-cost-of-jitter-in-aiml-training-fabrics/article/ class=md-nav__link> <span class=md-ellipsis> The Hidden Cost of Jitter in AI/ML Training Fabrics </span> </a> </li> <li class=md-nav__item> <a href=../../srx-mpls-in-flow/article/ class=md-nav__link> <span class=md-ellipsis> SRX MPLS in Flow </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_10> <label class=md-nav__link for=__nav_2_10 id=__nav_2_10_label tabindex=0> <span class=md-ellipsis> BNG </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_10_label aria-expanded=false> <label class=md-nav__title for=__nav_2_10> <span class="md-nav__icon md-icon"></span> BNG </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../juniper-bng-cups-architecture/article/ class=md-nav__link> <span class=md-ellipsis> Juniper BNG CUPS Architecture </span> </a> </li> <li class=md-nav__item> <a href=../../juniper-bng-cups-hitless-user-plane-maintenance/article/ class=md-nav__link> <span class=md-ellipsis> Juniper BNG CUPS Hitless User Plane Maintenance </span> </a> </li> <li class=md-nav__item> <a href=../../juniper-bng-cups-smart-load-balancing-with-ha/article/ class=md-nav__link> <span class=md-ellipsis> Juniper BNG CUPS Smart Load Balancing with High Availability </span> </a> </li> <li class=md-nav__item> <a href=../../juniper-bng-cups-address-pool-management/article/ class=md-nav__link> <span class=md-ellipsis> Juniper BNG CUPS Address Pool Management </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_11> <label class=md-nav__link for=__nav_2_11 id=__nav_2_11_label tabindex=0> <span class=md-ellipsis> Security </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_11_label aria-expanded=false> <label class=md-nav__title for=__nav_2_11> <span class="md-nav__icon md-icon"></span> Security </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../the-evolution-of-network-security/article/ class=md-nav__link> <span class=md-ellipsis> The Evolution of Network Security </span> </a> </li> <li class=md-nav__item> <a href=../../macsec-and-l2pt-over-non-point-to-point-networks/article/ class=md-nav__link> <span class=md-ellipsis> MACsec and L2PT over Non-Point-to-Point Networks in Junos </span> </a> </li> <li class=md-nav__item> <a href=../../com-android-ipsec-ikev2-vs-srx/article/ class=md-nav__link> <span class=md-ellipsis> com.android.ipsec IKEv2 vs SRX </span> </a> </li> <li class=md-nav__item> <a href=../../srx4700-100gbps-full-duplex-ipsec-tunnel/article/ class=md-nav__link> <span class=md-ellipsis> SRX4700 100Gbps Full Duplex IPSEC tunnel </span> </a> </li> <li class=md-nav__item> <a href=../../srx-dynamic-ip-objects-aka-feed-server/article/ class=md-nav__link> <span class=md-ellipsis> SRX Dynamic IP Objects aka Feed-server </span> </a> </li> <li class=md-nav__item> <a href=../../srx-mpls-in-flow-part-2/article/ class=md-nav__link> <span class=md-ellipsis> SRX MPLS in Flow - Part II </span> </a> </li> <li class=md-nav__item> <a href=../../securing-ipvpn-on-mx-using-inline-ipsec/article/ class=md-nav__link> <span class=md-ellipsis> Securing IPVPN Connectivity on Juniper MX Using Inline IPsec </span> </a> </li> <li class=md-nav__item> <a href=../../srx-secure-fabric-entry-point/article/ class=md-nav__link> <span class=md-ellipsis> SRX Secure Fabric Entry Point </span> </a> </li> <li class=md-nav__item> <a href=../../srx-from-chassis-cluster-to-mnha/article/ class=md-nav__link> <span class=md-ellipsis> SRX clustering. From Chassis Cluster to MultiNode High Availability </span> </a> </li> <li class=md-nav__item> <a href=../../srx-mnha-vrrp/article/ class=md-nav__link> <span class=md-ellipsis> SRX Multi-Node High Availability (MNHA) with VRRP </span> </a> </li> <li class=md-nav__item> <a href=../../from-srx-chassis-cluster-to-mnha-configurations/article/ class=md-nav__link> <span class=md-ellipsis> From SRX Chassis Cluster to MNHA Configurations side by side </span> </a> </li> <li class=md-nav__item> <a href=../../hpe-srx-sse-link/article/ class=md-nav__link> <span class=md-ellipsis> HPE SRX-SSE Link </span> </a> </li> <li class=md-nav__item> <a href=../../secure-activeactive-multivendor-fabrics-with-mnha/article/ class=md-nav__link> <span class=md-ellipsis> Secure Active/Active Multivendor Fabrics with MNHA </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_12> <label class=md-nav__link for=__nav_2_12 id=__nav_2_12_label tabindex=0> <span class=md-ellipsis> Power Topics </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_12_label aria-expanded=false> <label class=md-nav__title for=__nav_2_12> <span class="md-nav__icon md-icon"></span> Power Topics </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../automate-juniper-apstra-with-powershell/article/ class=md-nav__link> <span class=md-ellipsis> Automate Juniper Apstra with PowerShell </span> </a> </li> <li class=md-nav__item> <a href=../../juniper-routers-switches-power-observability/article/ class=md-nav__link> <span class=md-ellipsis> Power Observability </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_13> <label class=md-nav__link for=__nav_2_13 id=__nav_2_13_label tabindex=0> <span class=md-ellipsis> Observability, Sampling, Telemetry, SNMP </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_13_label aria-expanded=false> <label class=md-nav__title for=__nav_2_13> <span class="md-nav__icon md-icon"></span> Observability, Sampling, Telemetry, SNMP </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../telemetry-collector-and-dataviz-on-junos-evo/article/ class=md-nav__link> <span class=md-ellipsis> Telemetry Collector and Graphical Frontend on Junos Evolved </span> </a> </li> <li class=md-nav__item> <a href=../../sampling-evolution/article/ class=md-nav__link> <span class=md-ellipsis> Sampling Evolution </span> </a> </li> <li class=md-nav__item> <a href=../../using-junos-snmp-utility-mib-on-juniper-srx/article/ class=md-nav__link> <span class=md-ellipsis> Using Junos SNMP utility MIB on Juniper SRX </span> </a> </li> <li class=md-nav__item> <a href=../../introducing-openjts-telemetry-stack/article/ class=md-nav__link> <span class=md-ellipsis> OpenJTS Network Observability with Streaming Telemetry </span> </a> </li> <li class=md-nav__item> <a href=../../srv6-observability/article/ class=md-nav__link> <span class=md-ellipsis> IPv6 Observability </span> </a> </li> <li class=md-nav__item> <a href=../../enhancing-network-synchronization-with-ppm/article/ class=md-nav__link> <span class=md-ellipsis> Enhancing Synchronization Networks with Passive Port Monitoring (PPM) </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_14> <label class=md-nav__link for=__nav_2_14 id=__nav_2_14_label tabindex=0> <span class=md-ellipsis> Apstra </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_14_label aria-expanded=false> <label class=md-nav__title for=__nav_2_14> <span class="md-nav__icon md-icon"></span> Apstra </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../juniper-apstra-introducing-a-true-ibns/article/ class=md-nav__link> <span class=md-ellipsis> Juniper Apstra Introducing a True IBNS </span> </a> </li> <li class=md-nav__item> <a href=../../apstra-ip-fabric-reference-design/article/ class=md-nav__link> <span class=md-ellipsis> Apstra IP Fabric Reference Design </span> </a> </li> <li class=md-nav__item> <a href=../../adding-device-profiles-using-the-apstra-ui/article/ class=md-nav__link> <span class=md-ellipsis> Adding Device Profiles Using the Apstra UI </span> </a> </li> <li class=md-nav__item> <a href=../../creating-audit-trails-with-the-apstra-event-log/article/ class=md-nav__link> <span class=md-ellipsis> Creating Audit Trails with the Apstra Event Log </span> </a> </li> <li class=md-nav__item> <a href=../../apstra-configlets/article/ class=md-nav__link> <span class=md-ellipsis> Apstra Configlets </span> </a> </li> <li class=md-nav__item> <a href=../../apstra-device-replacement/article/ class=md-nav__link> <span class=md-ellipsis> Apstra Device Replacement </span> </a> </li> <li class=md-nav__item> <a href=../../using-apstra-policy-assurance/article/ class=md-nav__link> <span class=md-ellipsis> Using Apstra Policy Assurance </span> </a> </li> <li class=md-nav__item> <a href=../../introduction-to-apstra-freeform/article/ class=md-nav__link> <span class=md-ellipsis> Introduction to Apstra Freeform </span> </a> </li> <li class=md-nav__item> <a href=../../apstra-freeform-day-2-configuration/article/ class=md-nav__link> <span class=md-ellipsis> Apstra Freeform Day-2 Configuration </span> </a> </li> <li class=md-nav__item> <a href=../../config-rendering-in-juniper-apstra/article/ class=md-nav__link> <span class=md-ellipsis> Config Rendering in Juniper Apstra </span> </a> </li> <li class=md-nav__item> <a href=../../using-apstra-drain-mode/article/ class=md-nav__link> <span class=md-ellipsis> Using Apstra Drain Mode </span> </a> </li> <li class=md-nav__item> <a href=../../automating-clos-fabric-with-terraform-and-apstra/article/ class=md-nav__link> <span class=md-ellipsis> Automating 3-stage Clos fabric with Terraform and Apstra </span> </a> </li> <li class=md-nav__item> <a href=../../apstra-server-clustering/article/ class=md-nav__link> <span class=md-ellipsis> Apstra Server Clustering </span> </a> </li> <li class=md-nav__item> <a href=../../upgrading-device-operating-systems-with-apstra/article/ class=md-nav__link> <span class=md-ellipsis> Upgrading Device Operating Systems with Apstra </span> </a> </li> <li class=md-nav__item> <a href=../../day-2-generic-systems/article/ class=md-nav__link> <span class=md-ellipsis> Apstra Day 2 - Generic Systems </span> </a> </li> <li class=md-nav__item> <a href=../../apstra-flow-data/article/ class=md-nav__link> <span class=md-ellipsis> Introduction to Apstra Flow Data </span> </a> </li> <li class=md-nav__item> <a href=../../sp-style-config-apstra-freeform-for-vlan-overlap/article/ class=md-nav__link> <span class=md-ellipsis> SP-style Config in Apstra Freeform for VLAN Overlap Use-Cases </span> </a> </li> <li class=md-nav__item> <a href=../../micro-segmentation-in-dc-with-apstra-and-junos/article/ class=md-nav__link> <span class=md-ellipsis> Micro-Segmentation in DC with Apstra and Junos </span> </a> </li> <li class=md-nav__item> <a href=../../rbac-for-apstra-using-clearpass-tacacs-server/article/ class=md-nav__link> <span class=md-ellipsis> Implementing RBAC for Juniper Apstra Using ClearPass TACACS+ Server </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_15> <label class=md-nav__link for=__nav_2_15 id=__nav_2_15_label tabindex=0> <span class=md-ellipsis> Virtual Routers </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_15_label aria-expanded=false> <label class=md-nav__title for=__nav_2_15> <span class="md-nav__icon md-icon"></span> Virtual Routers </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../virtual-fabrics-vjunos-switch-and-containerlab/article/ class=md-nav__link> <span class=md-ellipsis> Building Virtual Fabrics with vJunos-switch and Containerlab </span> </a> </li> <li class=md-nav__item> <a href=../../vsrx-on-mini-pc-with-linux-kvm/article/ class=md-nav__link> <span class=md-ellipsis> vSRX on mini-PC with Linux/KVM </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_16> <label class=md-nav__link for=__nav_2_16 id=__nav_2_16_label tabindex=0> <span class=md-ellipsis> Routing Director (ex-Paragon) </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_16_label aria-expanded=false> <label class=md-nav__title for=__nav_2_16> <span class="md-nav__icon md-icon"></span> Routing Director (ex-Paragon) </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../service-orchestration-with-paragon-automation/article/ class=md-nav__link> <span class=md-ellipsis> Service Orchestration with Paragon Automation </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_17> <label class=md-nav__link for=__nav_2_17 id=__nav_2_17_label tabindex=0> <span class=md-ellipsis> AI for Networking for AI </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_17_label aria-expanded=false> <label class=md-nav__title for=__nav_2_17> <span class="md-nav__icon md-icon"></span> AI for Networking for AI </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../large-language-models-the-hardware-connection/article/ class=md-nav__link> <span class=md-ellipsis> ML Post from Linkedin </span> </a> </li> <li class=md-nav__item> <a href=../../gpu-fabrics-for-genai-workloads/article/ class=md-nav__link> <span class=md-ellipsis> GPU Fabrics for GenAI Workloads </span> </a> </li> <li class=md-nav__item> <a href=../../llm-connector-a-conversational-ai-assistant/article/ class=md-nav__link> <span class=md-ellipsis> LLM Connector - a Conversational AI Assistant for Your Network </span> </a> </li> <li class=md-nav__item> <a href=../../reimagining-network-operations-with-ai/article/ class=md-nav__link> <span class=md-ellipsis> Reimagining Network Operations with AI </span> </a> </li> <li class=md-nav__item> <a href=../../network-automation-with-ai-and-junos-mcp-server/article/ class=md-nav__link> <span class=md-ellipsis> Network Automation with AI and Junos MCP Server </span> </a> </li> <li class=md-nav__item> <a href=../../context-file-redis-and-high-performance-storage/article/ class=md-nav__link> <span class=md-ellipsis> Context-File Redis and High-Performance Storage </span> </a> </li> <li class=md-nav__item> <a href=../../context-file-basics-tokens-and-memory-management/article/ class=md-nav__link> <span class=md-ellipsis> Context-File Basics. Tokens, Data Formats, and Memory Management </span> </a> </li> <li class=md-nav__item> <a href=../../managing-junos-devices-with-context-file/article/ class=md-nav__link> <span class=md-ellipsis> Managing Junos Devices with Context-File and JMCP Server </span> </a> </li> <li class=md-nav__item> <a href=../../context-file-optimization-and-alerting-strategies/article/ class=md-nav__link> <span class=md-ellipsis> Context File Optimization and Alerting Strategies </span> </a> </li> <li class=md-nav__item> <a href=../../file-management-and-data-collection-strategies/article/ class=md-nav__link> <span class=md-ellipsis> Context Files. File Management and Data Collection Strategies </span> </a> </li> <li class=md-nav__item> <a href=../../overlay-networking-in-ai-era/article/ class=md-nav__link> <span class=md-ellipsis> Overlay Networking in AI Era </span> </a> </li> <li class=md-nav__item> <a href=../../hybrid-llm-python-architecture/article/ class=md-nav__link> <span class=md-ellipsis> MCP w/ context file part 6 </span> </a> </li> <li class=md-nav__item> <a href=../../connecting-ai-the-network-behind-every-inference/article/ class=md-nav__link> <span class=md-ellipsis> Connecting AI The Network Behind Every Inference </span> </a> </li> <li class=md-nav__item> <a href=../../next-generation-port-extender-ngpe/article/ class=md-nav__link> <span class=md-ellipsis> Next Generation Port Extender (NGPE) The Right Interface Speed on the Right Box, for the AI Era </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_18> <label class=md-nav__link for=__nav_2_18 id=__nav_2_18_label tabindex=0> <span class=md-ellipsis> Various Other Topics </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_18_label aria-expanded=false> <label class=md-nav__title for=__nav_2_18> <span class="md-nav__icon md-icon"></span> Various Other Topics </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../introducing-the-validation-series/article/ class=md-nav__link> <span class=md-ellipsis> Introduction to the Validation Series </span> </a> </li> <li class=md-nav__item> <a href=../../mx10000-lc9600-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX LC9600 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../voq-and-dnx-pipeline/article/ class=md-nav__link> <span class=md-ellipsis> Letﾕs Talk About VOQ and DNX Pipeline </span> </a> </li> <li class=md-nav__item> <a href=../../mx10000-lc480-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MX LC480 Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../mpc10e-deepdive/article/ class=md-nav__link> <span class=md-ellipsis> MPC10E Deepdive </span> </a> </li> <li class=md-nav__item> <a href=../../mobile-backhaul-services-overlay/article/ class=md-nav__link> <span class=md-ellipsis> Mobile Backhaul Services Overlay </span> </a> </li> <li class=md-nav__item> <a href=../../vjunos-deployment-on-kvm/article/ class=md-nav__link> <span class=md-ellipsis> vJunos Deployment on KVM </span> </a> </li> <li class=md-nav__item> <a href=../../deploying-vjunos-in-a-bare-metal-eve-ng-server/article/ class=md-nav__link> <span class=md-ellipsis> Deploying and Using vJunos in a Bare Metal EVE-NG server </span> </a> </li> <li class=md-nav__item> <a href=../../time-synchronization-and-class-d-clocks-support/article/ class=md-nav__link> <span class=md-ellipsis> Time Synchronization and Class D Clocks Support </span> </a> </li> <li class=md-nav__item> <a href=../../centralized-deterministic-cgnat/article/ class=md-nav__link> <span class=md-ellipsis> Centralized Deterministic CGNAT </span> </a> </li> <li class=md-nav__item> <a href=../../suspicious-control-flow-detection/article/ class=md-nav__link> <span class=md-ellipsis> Suspicious Control Flow Detection </span> </a> </li> <li class=md-nav__item> <a href=../../bier-for-sr-multicast-cheers/article/ class=md-nav__link> <span class=md-ellipsis> BIER Intro </span> </a> </li> <li class=md-nav__item> <a href=../../to-spray-or-not-to-spray/article/ class=md-nav__link> <span class=md-ellipsis> To Spray or Not to Spray </span> </a> </li> <li class=md-nav__item> <a href=../../g82751enh-advancements-in-timing-and-sync/article/ class=md-nav__link> <span class=md-ellipsis> G.8275.1.enh - Junipers Advancements in Timing and Synchronization </span> </a> </li> <li class=md-nav__item> <a href=../../detection-of-blackholes-in-networks-using-jri/article/ class=md-nav__link> <span class=md-ellipsis> Detection of Blackholes Using Juniper Resiliency Interface </span> </a> </li> <li class=md-nav__item> <a href=../../packets-lost-in-transit/article/ class=md-nav__link> <span class=md-ellipsis> Packets Lost in Transit? </span> </a> </li> <li class=md-nav__item> <a href=../../jcnr-for-equinix-metal/article/ class=md-nav__link> <span class=md-ellipsis> JCNR for Equinix Metal </span> </a> </li> <li class=md-nav__item> <a href=../../llm-inference-hw-sw-optimizations/article/ class=md-nav__link> <span class=md-ellipsis> LLM Inference - Hw-Sw Optimizations </span> </a> </li> <li class=md-nav__item> <a href=../../llm-inference-hw-sw-optimizations/article/ class=md-nav__link> <span class=md-ellipsis> LLM Inference - Hw-Sw Optimizations </span> </a> </li> <li class=md-nav__item> <a href=../../selective-dynamic-load-balancing/article/ class=md-nav__link> <span class=md-ellipsis> Selective Dynamic Load Balancing </span> </a> </li> <li class=md-nav__item> <a href=../../srx4600-cgn-configuration-breakdown/article/ class=md-nav__link> <span class=md-ellipsis> SRX4600 CGN Configuration Breakdown </span> </a> </li> <li class=md-nav__item> <a href=../../single-stage-iba-with-gan-converters/article/ class=md-nav__link> <span class=md-ellipsis> Single Stage IBA with GaN Converters </span> </a> </li> <li class=md-nav__item> <a href=../../dns64-and-nat64-on-srx-series/article/ class=md-nav__link> <span class=md-ellipsis> DNS64 and NAT64 on SRX Series </span> </a> </li> <li class=md-nav__item> <a href=../../tap-aggregation-for-network-observability/article/ class=md-nav__link> <span class=md-ellipsis> Tap Aggregation </span> </a> </li> <li class=md-nav__item> <a href=../../yams-managing-jcnr-with-model-context-protocol/article/ class=md-nav__link> <span class=md-ellipsis> YAMS - Managing JCNR with Model Context Protocol </span> </a> </li> <li class=md-nav__item> <a href=../../multi-geo-overlay-procedure/article/ class=md-nav__link> <span class=md-ellipsis> Construction of a multi-geo multi-cluster </span> </a> </li> <li class=md-nav__item> <a href=../../red-hat-and-juniper-merge-ansible-collections/article/ class=md-nav__link> <span class=md-ellipsis> Red Hat and Juniper Merge Ansible Collections </span> </a> </li> <li class=md-nav__item> <a href=../../200-articles-on-articles/article.md class=md-nav__link> <span class=md-ellipsis> 200 Articles on TechPost </span> </a> </li> <li class=md-nav__item> <a href=../../dhcp-on-mnha-back-to-basics/article/ class=md-nav__link> <span class=md-ellipsis> DHCP on MNHA Back to Basics </span> </a> </li> <li class=md-nav__item> <a href=../../250-articles-on-articles/article.md class=md-nav__link> <span class=md-ellipsis> 250 articles </span> </a> </li> <li class=md-nav__item> <a href=../../precision-timing-in-modern-data-center/article/ class=md-nav__link> <span class=md-ellipsis> Precision Timing in Modern Data Center </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#why-bgp-ls class=md-nav__link> <span class=md-ellipsis> Why BGP-LS? </span> </a> </li> <li class=md-nav__item> <a href=#sample-network-overview class=md-nav__link> <span class=md-ellipsis> Sample Network Overview </span> </a> <nav class=md-nav aria-label="Sample Network Overview"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#multi-instance-isis class=md-nav__link> <span class=md-ellipsis> Multi-Instance ISIS </span> </a> </li> <li class=md-nav__item> <a href=#traffic-engineering-database class=md-nav__link> <span class=md-ellipsis> Traffic-Engineering Database </span> </a> </li> <li class=md-nav__item> <a href=#announcing-te-information-via-bgp-ls class=md-nav__link> <span class=md-ellipsis> Announcing TE information via BGP-LS </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#creating-static-and-on-demand-sr-te-tunnels class=md-nav__link> <span class=md-ellipsis> Creating static and On-Demand SR-TE tunnels </span> </a> <nav class=md-nav aria-label="Creating static and On-Demand SR-TE tunnels"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#static-sr-te class=md-nav__link> <span class=md-ellipsis> Static SR-TE </span> </a> </li> <li class=md-nav__item> <a href=#on-demand-sr-te class=md-nav__link> <span class=md-ellipsis> On-Demand SR-TE </span> </a> </li> <li class=md-nav__item> <a href=#service-route-mapping-to-colored-sr-te class=md-nav__link> <span class=md-ellipsis> Service route mapping to colored SR-TE </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=inter-domain-on-demand-sr-te-lsps-with-bgp-ls>Inter-domain On-demand SR-TE LSPs with BGP-LS<a class=headerlink href=#inter-domain-on-demand-sr-te-lsps-with-bgp-ls title="Permanent link">¶</a></h1> <p><strong>Anton Elita - 09/16/2022</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/inter-domain-on-demand-sr-te-lsps-with-bgp-ls.pdf style="display:inline-flex; align-items:center;" target=_blank title="Download PDF"><svg fill=#d32f2f height=32 viewbox="0 0 384 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"></path></svg></a><a href=../../../download/inter-domain-on-demand-sr-te-lsps-with-bgp-ls.epub style="display:inline-flex; align-items:center;" target=_blank title="Download ePUB"><svg fill=#1565c0 height=32 viewbox="0 0 448 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"></path></svg></a><a href=mailto:techpost@hpe.com style="display:inline-flex; align-items:center;" title="Contact us"><svg fill=#616161 height=32 viewbox="0 0 512 512" width=32 xmlns=http://www.w3.org/2000/svg><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"></path></svg></a></span></p> <p>A standard-based approach to placing MPLS-based services with path constraints across multiple networks.</p> <p>Have you tried bringing up inter-domain tunnels in MPLS networks?</p> <p>Well, then you know it's not so straightforward! Especially when you require fine-grained traffic-engineering (TE), like delay-based routing or link affinities spanning beyond a single autonomous system (AS).</p> <p>While there are multiple options available, let's have a look how to use BGP-LS (Border Gateway Protocol - Link State) to distribute TE information where IGPs (Interior Gateway Protocol) cannot reach.</p> <p>Below is a sample network, and your task is to connect A from "domain 1" with B from "domain 2" in the following manner: most services between PE1 and PE2 should use regular bandwidth-based metrics (green paths), while other premium services must be provisioned over lowest delay path represented by the red metric.</p> <p><figure><img alt="Inter-domain on-demand SR-TE LSPs with BGP-LS Topology" src=../images/picture3.png><figcaption>Figure 1: Inter-domain on-demand SR-TE LSPs with BGP-LS Topology</figcaption></figure></p> <p>If this scenario has woken up your interest, let's dive into the technical details!</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">¶</a></h2> <p>Today's networks often have a rich history, and many of them were shaped out during different migrations, merges, and splits. Even in a single domain, the number of provider edge (PE) nodes can grow high. It is often the case, that a network is split into multiple domains or autonomous systems (AS). This allows easier control over IGP scale (per sub-domain), rather than trying to handle a huge domain with many thousands of nodes. IGP domains cannot grow indefinitely: from a certain size even modern IGP protocols like OSPF or ISIS might melt down. It's not only the number of nodes creating additional load on IGP, but as well various TE metrics, Segment Routing (SR) node and prefix segment identifiers (SIDs), SRLGs, link affinities, bandwidth information, Flex-Algo TLVs and others.</p> <p>With that in mind, it might be necessary to keep domains separated and hence IGP size under control. But then, how to do end-to-end traffic engineering? Usually, TE information is carried by IGP...</p> <p>There are multiple answers to this question, depending on your preference: distributed TE (head-end calculation) or centralized TE (controller-based), SR-TE or RSVP or SRv6, and other options. Let us review one less known option: use distributed inter-domain SR-TE and leverage BGP-LS to populate Traffic-Engineering Databases (TED).</p> <h2 id=why-bgp-ls>Why BGP-LS?<a class=headerlink href=#why-bgp-ls title="Permanent link">¶</a></h2> <p>Some networking people would know BGP-LS as a means for sending TE information from a network to a controller like Paragon Pathfinder. Use cases include path diversity with a global view of the network, optimal label-switched path (LSP) placement, cost-based routing, ingress- and egress peering engineering, and others.</p> <p>The same BGP-LS vehicle can however be used to extend IGP coverage across domains or autonomous systems, to build end-to-end MPLS LSPs.</p> <p>BGP scales much better compared to ISIS or OSPF. The purpose of this article is to show how to populate TED of a provider edge (PE) node with TE information from a remote network: nodes, links and prefixes, IGP and TE metrics, bandwidth, admin-groups, bandwidth priorities, min/max/avg delay, delay variation, node SIDs, SRGB, Adj SIDs. Having all that in TED allows to create constrained MPLS LSPs spanning beyond a single IGP domain.</p> <p>As a bonus, we will review how to create such LSPs in an on-demand fashion.</p> <h2 id=sample-network-overview>Sample Network Overview<a class=headerlink href=#sample-network-overview title="Permanent link">¶</a></h2> <p>As shown in the Figure 1, our sample network consists of two separate IGP domains. Apart from common route-reflector (RR) loopback IPs, area border routers (ABR) do not perform route leaking. ABRs are configured with multi-instance ISIS.</p> <p>Each of the ISIS domains uses a pair of metrics for every link:</p> <ul> <li>IGP metric, based on link bandwidth</li> <li>Delay metric, representing link latency. This can be a static entry or a dynamic measurement with TWAMP Light</li> </ul> <p>BGP-LS topology, as well as service routes, are exchanged via route reflector(s). TE information is populated into TED on every PE device in each network. To build end-to-end SR-TE tunnels, any ingress PE would search in TED for remote PE destination address, and construct label stack according to constraints configured by the user.</p> <p>Let's review these steps one by one.</p> <h3 id=multi-instance-isis>Multi-Instance ISIS<a class=headerlink href=#multi-instance-isis title="Permanent link">¶</a></h3> <p>This and further configuration examples apply to the network diagram in Figure 1.</p> <p>ABRs P1 and P4 are connected to different ISIS islands:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span>
+<span class=normal><a href=#__codelineno-0-11>11</a></span>
+<span class=normal><a href=#__codelineno-0-12>12</a></span>
+<span class=normal><a href=#__codelineno-0-13>13</a></span>
+<span class=normal><a href=#__codelineno-0-14>14</a></span>
+<span class=normal><a href=#__codelineno-0-15>15</a></span>
+<span class=normal><a href=#__codelineno-0-16>16</a></span>
+<span class=normal><a href=#__codelineno-0-17>17</a></span>
+<span class=normal><a href=#__codelineno-0-18>18</a></span>
+<span class=normal><a href=#__codelineno-0-19>19</a></span>
+<span class=normal><a href=#__codelineno-0-20>20</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>root@p1# top show protocols isis-instance 100 | display inheritance no-comments
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>interface ge-0/0/0.0 {          # to P2
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>    level 2 metric 10;                
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>    delay-metric 70;            # delay metric can be static or dynamically measured
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>    point-to-point; }
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>interface ge-0/0/1.0 {          # to P3
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>    level 2 metric 100;
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>    delay-metric 51;            # delay metric can be static or dynamically measured
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>    point-to-point; }
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>interface lo0.0;
+<a id=__codelineno-0-11 name=__codelineno-0-11></a>source-packet-routing {
+<a id=__codelineno-0-12 name=__codelineno-0-12></a>    node-segment ipv4-index 1;  # Set Node-SID Index
+<a id=__codelineno-0-13 name=__codelineno-0-13></a>}
+<a id=__codelineno-0-14 name=__codelineno-0-14></a>level 1 disable;
+<a id=__codelineno-0-15 name=__codelineno-0-15></a>level 2 wide-metrics-only;           
+<a id=__codelineno-0-16 name=__codelineno-0-16></a>traffic-engineering {
+<a id=__codelineno-0-17 name=__codelineno-0-17></a>    l3-unicast-topology;        # Required to populate TED
+<a id=__codelineno-0-18 name=__codelineno-0-18></a>    advertisement always;       # Advertise TE link information
+<a id=__codelineno-0-19 name=__codelineno-0-19></a>}
+<a id=__codelineno-0-20 name=__codelineno-0-20></a>export PS-ISIS-TO-IGP-INSTANCE-100;
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1> 1</a></span>
+<span class=normal><a href=#__codelineno-1-2> 2</a></span>
+<span class=normal><a href=#__codelineno-1-3> 3</a></span>
+<span class=normal><a href=#__codelineno-1-4> 4</a></span>
+<span class=normal><a href=#__codelineno-1-5> 5</a></span>
+<span class=normal><a href=#__codelineno-1-6> 6</a></span>
+<span class=normal><a href=#__codelineno-1-7> 7</a></span>
+<span class=normal><a href=#__codelineno-1-8> 8</a></span>
+<span class=normal><a href=#__codelineno-1-9> 9</a></span>
+<span class=normal><a href=#__codelineno-1-10>10</a></span>
+<span class=normal><a href=#__codelineno-1-11>11</a></span>
+<span class=normal><a href=#__codelineno-1-12>12</a></span>
+<span class=normal><a href=#__codelineno-1-13>13</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>root@p1# top show policy-options policy-statement PS-ISIS-TO-IGP-INSTANCE-100
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>term A {
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>    from tag 666;
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>    then reject;}                         # use tags to avoid loops!
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>term B {
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>    from {
+<a id=__codelineno-1-7 name=__codelineno-1-7></a>        protocol isis;
+<a id=__codelineno-1-8 name=__codelineno-1-8></a>        level 2;
+<a id=__codelineno-1-9 name=__codelineno-1-9></a>        route-filter 192.0.2.7/32 exact;  # IP addresses of RR
+<a id=__codelineno-1-10 name=__codelineno-1-10></a>        route-filter 192.0.2.8/32 exact;}
+<a id=__codelineno-1-11 name=__codelineno-1-11></a>    then {
+<a id=__codelineno-1-12 name=__codelineno-1-12></a>        tag 666;                          # tag leaked prefixes
+<a id=__codelineno-1-13 name=__codelineno-1-13></a>        accept; }}
+</code></pre></div></td></tr></table></div> <h3 id=traffic-engineering-database>Traffic-Engineering Database<a class=headerlink href=#traffic-engineering-database title="Permanent link">¶</a></h3> <p><em>Before continuing, make sure that all ISIS speakers have "traffic-engineering l3-unicast-topology" and "advertisement always" as per previous step.</em></p> <p>TED is used for head-end calculation of SR-TE paths. By default, TED would not have any information.</p> <p>Let's see the steps required for populating TED:</p> <p><figure><img alt="TED database operation" src=../images/picture4.png><figcaption>Figure 2: TED database operation</figcaption></figure></p> <p>Our task is to copy TE information from the IGP into TED (1), then to take (import) from TED (2) and announce via BGP-LS (3) to the other domain. In the opposite direction, we shall export from BGP-LS into TED (4), to be able to consume TE information for SR-TE locally.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span>
+<span class=normal><a href=#__codelineno-2-2>2</a></span>
+<span class=normal><a href=#__codelineno-2-3>3</a></span>
+<span class=normal><a href=#__codelineno-2-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>root@pe1# show protocols isis
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>traffic-engineering {                 # advertise TE data in ISIS, feed TED
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>    l3-unicast-topology;
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>    advertisement always; }           # configure on every node in the network
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1> 1</a></span>
+<span class=normal><a href=#__codelineno-3-2> 2</a></span>
+<span class=normal><a href=#__codelineno-3-3> 3</a></span>
+<span class=normal><a href=#__codelineno-3-4> 4</a></span>
+<span class=normal><a href=#__codelineno-3-5> 5</a></span>
+<span class=normal><a href=#__codelineno-3-6> 6</a></span>
+<span class=normal><a href=#__codelineno-3-7> 7</a></span>
+<span class=normal><a href=#__codelineno-3-8> 8</a></span>
+<span class=normal><a href=#__codelineno-3-9> 9</a></span>
+<span class=normal><a href=#__codelineno-3-10>10</a></span>
+<span class=normal><a href=#__codelineno-3-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>root@pe1# show protocols mpls
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>traffic-engineering {
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>    database {
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>        import {                     # import IGP-links into TED
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>            l3-unicast-topology {
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>                bgp-link-state; }    # send to lsdist.0
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>            policy PS-TED2ALL; }     # example: "from family traffic-engineering; then accept;"
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>        export {
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>            policy PS-TED2ALL;       
+<a id=__codelineno-3-10 name=__codelineno-3-10></a>            l3-unicast-topology;     # export into TED (e.g. from BGP-LS)
+<a id=__codelineno-3-11 name=__codelineno-3-11></a>        }}}
+</code></pre></div></td></tr></table></div> <h3 id=announcing-te-information-via-bgp-ls>Announcing TE information via BGP-LS<a class=headerlink href=#announcing-te-information-via-bgp-ls title="Permanent link">¶</a></h3> <p>Let's inspect the TED contents on PE1:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1> 1</a></span>
+<span class=normal><a href=#__codelineno-4-2> 2</a></span>
+<span class=normal><a href=#__codelineno-4-3> 3</a></span>
+<span class=normal><a href=#__codelineno-4-4> 4</a></span>
+<span class=normal><a href=#__codelineno-4-5> 5</a></span>
+<span class=normal><a href=#__codelineno-4-6> 6</a></span>
+<span class=normal><a href=#__codelineno-4-7> 7</a></span>
+<span class=normal><a href=#__codelineno-4-8> 8</a></span>
+<span class=normal><a href=#__codelineno-4-9> 9</a></span>
+<span class=normal><a href=#__codelineno-4-10>10</a></span>
+<span class=normal><a href=#__codelineno-4-11>11</a></span>
+<span class=normal><a href=#__codelineno-4-12>12</a></span>
+<span class=normal><a href=#__codelineno-4-13>13</a></span>
+<span class=normal><a href=#__codelineno-4-14>14</a></span>
+<span class=normal><a href=#__codelineno-4-15>15</a></span>
+<span class=normal><a href=#__codelineno-4-16>16</a></span>
+<span class=normal><a href=#__codelineno-4-17>17</a></span>
+<span class=normal><a href=#__codelineno-4-18>18</a></span>
+<span class=normal><a href=#__codelineno-4-19>19</a></span>
+<span class=normal><a href=#__codelineno-4-20>20</a></span>
+<span class=normal><a href=#__codelineno-4-21>21</a></span>
+<span class=normal><a href=#__codelineno-4-22>22</a></span>
+<span class=normal><a href=#__codelineno-4-23>23</a></span>
+<span class=normal><a href=#__codelineno-4-24>24</a></span>
+<span class=normal><a href=#__codelineno-4-25>25</a></span>
+<span class=normal><a href=#__codelineno-4-26>26</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>root@pe1# run show ted database topology-type l3-unicast
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>TED database: 4 ISIS nodes 4 INET nodes 0 INET6 nodes
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-4-4 name=__codelineno-4-4></a>p1.00(192.0.2.1)                Rtr      69     3      3 IS-IS(2)
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>    To: pe1.00(192.0.2.5), Local: 10.0.15.1, Remote: 10.0.15.2
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>      Local interface index: 360, Remote interface index: 360
+<a id=__codelineno-4-7 name=__codelineno-4-7></a>    To: RR.00(203.0.113.10), Local: 10.0.17.1, Remote: 10.0.17.2
+<a id=__codelineno-4-8 name=__codelineno-4-8></a>      Local interface index: 361, Remote interface index: 357
+<a id=__codelineno-4-9 name=__codelineno-4-9></a>    To: p4.00(192.0.2.4), Local: 10.0.14.1, Remote: 10.0.14.2
+<a id=__codelineno-4-10 name=__codelineno-4-10></a>      Local interface index: 359, Remote interface index: 357
+<a id=__codelineno-4-11 name=__codelineno-4-11></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-4-12 name=__codelineno-4-12></a>pe1.00(192.0.2.5)               Rtr      32     2      2 IS-IS(2)
+<a id=__codelineno-4-13 name=__codelineno-4-13></a>    To: p1.00(192.0.2.1), Local: 10.0.15.2, Remote: 10.0.15.1
+<a id=__codelineno-4-14 name=__codelineno-4-14></a>      Local interface index: 360, Remote interface index: 360
+<a id=__codelineno-4-15 name=__codelineno-4-15></a>    To: p4.00(192.0.2.4), Local: 10.0.45.2, Remote: 10.0.45.1
+<a id=__codelineno-4-16 name=__codelineno-4-16></a>      Local interface index: 361, Remote interface index: 358
+<a id=__codelineno-4-17 name=__codelineno-4-17></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-4-18 name=__codelineno-4-18></a>p4.00(192.0.2.4)                Rtr     118     2      2 IS-IS(2)
+<a id=__codelineno-4-19 name=__codelineno-4-19></a>    To: pe1.00(192.0.2.5), Local: 10.0.45.1, Remote: 10.0.45.2
+<a id=__codelineno-4-20 name=__codelineno-4-20></a>      Local interface index: 358, Remote interface index: 361
+<a id=__codelineno-4-21 name=__codelineno-4-21></a>    To: p1.00(192.0.2.1), Local: 10.0.14.2, Remote: 10.0.14.1
+<a id=__codelineno-4-22 name=__codelineno-4-22></a>      Local interface index: 357, Remote interface index: 359
+<a id=__codelineno-4-23 name=__codelineno-4-23></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-4-24 name=__codelineno-4-24></a>RR.00(203.0.113.10)               Rtr      69     1      1 IS-IS(2)
+<a id=__codelineno-4-25 name=__codelineno-4-25></a>    To: p1.00(192.0.2.1), Local: 10.0.17.2, Remote: 10.0.17.1
+<a id=__codelineno-4-26 name=__codelineno-4-26></a>      Local interface index: 357, Remote interface index: 361
+</code></pre></div></td></tr></table></div> <p>Only four nodes, and that is expected. Remember, we have two separate domains with no re-distribution -- and this domain is comprising exactly 4 nodes.</p> <p>Let's roll up our sleeves and get BGP-LS to transport the missing TE information!</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span>
+<span class=normal><a href=#__codelineno-5-2>2</a></span>
+<span class=normal><a href=#__codelineno-5-3>3</a></span>
+<span class=normal><a href=#__codelineno-5-4>4</a></span>
+<span class=normal><a href=#__codelineno-5-5>5</a></span>
+<span class=normal><a href=#__codelineno-5-6>6</a></span>
+<span class=normal><a href=#__codelineno-5-7>7</a></span>
+<span class=normal><a href=#__codelineno-5-8>8</a></span>
+<span class=normal><a href=#__codelineno-5-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>root@pe1# show groups GR-BGP-LS-46255 protocols bgp group GR-BGP-LS
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>local-address 192.0.2.5;
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>family traffic-engineering {
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>    unicast;
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>}
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>export PS-TED2BGP;
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>peer-as 100;
+<a id=__codelineno-5-8 name=__codelineno-5-8></a>local-as 100;
+<a id=__codelineno-5-9 name=__codelineno-5-9></a>neighbor 192.0.2.8;
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span>
+<span class=normal><a href=#__codelineno-6-3>3</a></span>
+<span class=normal><a href=#__codelineno-6-4>4</a></span>
+<span class=normal><a href=#__codelineno-6-5>5</a></span>
+<span class=normal><a href=#__codelineno-6-6>6</a></span>
+<span class=normal><a href=#__codelineno-6-7>7</a></span>
+<span class=normal><a href=#__codelineno-6-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>root@pe1# show groups GR-BGP-LS-46255 policy-options policy-statement PS-TED2BGP
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>term A {
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>    from {
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>        family traffic-engineering;
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>        protocol isis;
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>    }
+<a id=__codelineno-6-7 name=__codelineno-6-7></a>    then accept;
+<a id=__codelineno-6-8 name=__codelineno-6-8></a>}
+</code></pre></div></td></tr></table></div> <p><em>(Configuration of the RR is skipped for brevity).</em></p> <p>Junos has different layers of credibility for SR-TE paths. If we need to use combined TE information from different sources like labeled ISIS and BGP, we need to activate this knob:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
+<span class=normal><a href=#__codelineno-7-2>2</a></span>
+<span class=normal><a href=#__codelineno-7-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>root@pe1# set protocols mpls cross-credibility-cspf?
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>Possible completions:
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>  cross-credibility-cspf  Compute paths across multi-protocol links and nodes
+</code></pre></div></td></tr></table></div> <p>Now we can verify the state of BGP-LS and the new TED contents:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1> 1</a></span>
+<span class=normal><a href=#__codelineno-8-2> 2</a></span>
+<span class=normal><a href=#__codelineno-8-3> 3</a></span>
+<span class=normal><a href=#__codelineno-8-4> 4</a></span>
+<span class=normal><a href=#__codelineno-8-5> 5</a></span>
+<span class=normal><a href=#__codelineno-8-6> 6</a></span>
+<span class=normal><a href=#__codelineno-8-7> 7</a></span>
+<span class=normal><a href=#__codelineno-8-8> 8</a></span>
+<span class=normal><a href=#__codelineno-8-9> 9</a></span>
+<span class=normal><a href=#__codelineno-8-10>10</a></span>
+<span class=normal><a href=#__codelineno-8-11>11</a></span>
+<span class=normal><a href=#__codelineno-8-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>root@pe1&gt; show bgp summary group GR-BGP-LS
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>Threading mode: BGP I/O
+<a id=__codelineno-8-3 name=__codelineno-8-3></a>Default eBGP mode: advertise - accept, receive - accept
+<a id=__codelineno-8-4 name=__codelineno-8-4></a>Groups: 2 Peers: 2 Down peers: 0
+<a id=__codelineno-8-5 name=__codelineno-8-5></a>Table          Tot Paths  Act Paths Suppressed    History Damp State    Pending
+<a id=__codelineno-8-6 name=__codelineno-8-6></a>lsdist.0
+<a id=__codelineno-8-7 name=__codelineno-8-7></a>                      34         34          0          0          0          0
+<a id=__codelineno-8-8 name=__codelineno-8-8></a>bgp.l3vpn.0
+<a id=__codelineno-8-9 name=__codelineno-8-9></a>                       2          2          0          0          0          0
+<a id=__codelineno-8-10 name=__codelineno-8-10></a>Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
+<a id=__codelineno-8-11 name=__codelineno-8-11></a>192.0.2.8                 100       2251       2261       0       0    16:51:46 Establ
+<a id=__codelineno-8-12 name=__codelineno-8-12></a>  lsdist.0: 34/34/34/0
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1> 1</a></span>
+<span class=normal><a href=#__codelineno-9-2> 2</a></span>
+<span class=normal><a href=#__codelineno-9-3> 3</a></span>
+<span class=normal><a href=#__codelineno-9-4> 4</a></span>
+<span class=normal><a href=#__codelineno-9-5> 5</a></span>
+<span class=normal><a href=#__codelineno-9-6> 6</a></span>
+<span class=normal><a href=#__codelineno-9-7> 7</a></span>
+<span class=normal><a href=#__codelineno-9-8> 8</a></span>
+<span class=normal><a href=#__codelineno-9-9> 9</a></span>
+<span class=normal><a href=#__codelineno-9-10>10</a></span>
+<span class=normal><a href=#__codelineno-9-11>11</a></span>
+<span class=normal><a href=#__codelineno-9-12>12</a></span>
+<span class=normal><a href=#__codelineno-9-13>13</a></span>
+<span class=normal><a href=#__codelineno-9-14>14</a></span>
+<span class=normal><a href=#__codelineno-9-15>15</a></span>
+<span class=normal><a href=#__codelineno-9-16>16</a></span>
+<span class=normal><a href=#__codelineno-9-17>17</a></span>
+<span class=normal><a href=#__codelineno-9-18>18</a></span>
+<span class=normal><a href=#__codelineno-9-19>19</a></span>
+<span class=normal><a href=#__codelineno-9-20>20</a></span>
+<span class=normal><a href=#__codelineno-9-21>21</a></span>
+<span class=normal><a href=#__codelineno-9-22>22</a></span>
+<span class=normal><a href=#__codelineno-9-23>23</a></span>
+<span class=normal><a href=#__codelineno-9-24>24</a></span>
+<span class=normal><a href=#__codelineno-9-25>25</a></span>
+<span class=normal><a href=#__codelineno-9-26>26</a></span>
+<span class=normal><a href=#__codelineno-9-27>27</a></span>
+<span class=normal><a href=#__codelineno-9-28>28</a></span>
+<span class=normal><a href=#__codelineno-9-29>29</a></span>
+<span class=normal><a href=#__codelineno-9-30>30</a></span>
+<span class=normal><a href=#__codelineno-9-31>31</a></span>
+<span class=normal><a href=#__codelineno-9-32>32</a></span>
+<span class=normal><a href=#__codelineno-9-33>33</a></span>
+<span class=normal><a href=#__codelineno-9-34>34</a></span>
+<span class=normal><a href=#__codelineno-9-35>35</a></span>
+<span class=normal><a href=#__codelineno-9-36>36</a></span>
+<span class=normal><a href=#__codelineno-9-37>37</a></span>
+<span class=normal><a href=#__codelineno-9-38>38</a></span>
+<span class=normal><a href=#__codelineno-9-39>39</a></span>
+<span class=normal><a href=#__codelineno-9-40>40</a></span>
+<span class=normal><a href=#__codelineno-9-41>41</a></span>
+<span class=normal><a href=#__codelineno-9-42>42</a></span>
+<span class=normal><a href=#__codelineno-9-43>43</a></span>
+<span class=normal><a href=#__codelineno-9-44>44</a></span>
+<span class=normal><a href=#__codelineno-9-45>45</a></span>
+<span class=normal><a href=#__codelineno-9-46>46</a></span>
+<span class=normal><a href=#__codelineno-9-47>47</a></span>
+<span class=normal><a href=#__codelineno-9-48>48</a></span>
+<span class=normal><a href=#__codelineno-9-49>49</a></span>
+<span class=normal><a href=#__codelineno-9-50>50</a></span>
+<span class=normal><a href=#__codelineno-9-51>51</a></span>
+<span class=normal><a href=#__codelineno-9-52>52</a></span>
+<span class=normal><a href=#__codelineno-9-53>53</a></span>
+<span class=normal><a href=#__codelineno-9-54>54</a></span>
+<span class=normal><a href=#__codelineno-9-55>55</a></span>
+<span class=normal><a href=#__codelineno-9-56>56</a></span>
+<span class=normal><a href=#__codelineno-9-57>57</a></span>
+<span class=normal><a href=#__codelineno-9-58>58</a></span>
+<span class=normal><a href=#__codelineno-9-59>59</a></span>
+<span class=normal><a href=#__codelineno-9-60>60</a></span>
+<span class=normal><a href=#__codelineno-9-61>61</a></span>
+<span class=normal><a href=#__codelineno-9-62>62</a></span>
+<span class=normal><a href=#__codelineno-9-63>63</a></span>
+<span class=normal><a href=#__codelineno-9-64>64</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>root@pe1&gt; show ted database topology-type l3-unicast
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>TED database: 7 ISIS nodes 7 INET nodes 0 INET6 nodes
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>p1.00(192.0.2.1)                Rtr     148     5      5 Exported ISIS-L2(2)
+<a id=__codelineno-9-5 name=__codelineno-9-5></a>    To: 1280.5402.3195.00(192.0.2.2), Local: 10.0.12.1, Remote: 10.0.12.2
+<a id=__codelineno-9-6 name=__codelineno-9-6></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-7 name=__codelineno-9-7></a>    To: 1280.5402.2202.00(192.0.2.3), Local: 10.0.13.1, Remote: 10.0.13.2
+<a id=__codelineno-9-8 name=__codelineno-9-8></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-9 name=__codelineno-9-9></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-10 name=__codelineno-9-10></a>                                                       IS-IS(2)
+<a id=__codelineno-9-11 name=__codelineno-9-11></a>    To: pe1.00(192.0.2.5), Local: 10.0.15.1, Remote: 10.0.15.2
+<a id=__codelineno-9-12 name=__codelineno-9-12></a>      Local interface index: 360, Remote interface index: 360
+<a id=__codelineno-9-13 name=__codelineno-9-13></a>    To: RR.00(203.0.113.10), Local: 10.0.17.1, Remote: 10.0.17.2
+<a id=__codelineno-9-14 name=__codelineno-9-14></a>      Local interface index: 361, Remote interface index: 357
+<a id=__codelineno-9-15 name=__codelineno-9-15></a>    To: p4.00(192.0.2.4), Local: 10.0.14.1, Remote: 10.0.14.2
+<a id=__codelineno-9-16 name=__codelineno-9-16></a>      Local interface index: 359, Remote interface index: 357
+<a id=__codelineno-9-17 name=__codelineno-9-17></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-18 name=__codelineno-9-18></a>1280.5400.5234.00(192.0.2.6)    Rtr   60738     2      2 Exported ISIS-L2(2)
+<a id=__codelineno-9-19 name=__codelineno-9-19></a>    To: 1280.5402.3195.00(192.0.2.2), Local: 10.0.26.2, Remote: 10.0.26.1
+<a id=__codelineno-9-20 name=__codelineno-9-20></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-21 name=__codelineno-9-21></a>    To: 1280.5402.2202.00(192.0.2.3), Local: 10.0.36.2, Remote: 10.0.36.1
+<a id=__codelineno-9-22 name=__codelineno-9-22></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-23 name=__codelineno-9-23></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-24 name=__codelineno-9-24></a>1280.5402.2202.00(192.0.2.3)    Rtr   60738     4      4 Exported ISIS-L2(2)
+<a id=__codelineno-9-25 name=__codelineno-9-25></a>    To: p1.00(192.0.2.1), Local: 10.0.13.2, Remote: 10.0.13.1
+<a id=__codelineno-9-26 name=__codelineno-9-26></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-27 name=__codelineno-9-27></a>    To: p4.00(192.0.2.4), Local: 10.0.34.1, Remote: 10.0.34.2
+<a id=__codelineno-9-28 name=__codelineno-9-28></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-29 name=__codelineno-9-29></a>    To: 1280.5402.3195.00(192.0.2.2), Local: 10.0.23.2, Remote: 10.0.23.1
+<a id=__codelineno-9-30 name=__codelineno-9-30></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-31 name=__codelineno-9-31></a>    To: 1280.5400.5234.00(192.0.2.6), Local: 10.0.36.1, Remote: 10.0.36.2
+<a id=__codelineno-9-32 name=__codelineno-9-32></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-33 name=__codelineno-9-33></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-34 name=__codelineno-9-34></a>1280.5402.3195.00(192.0.2.2)    Rtr   60738     4      4 Exported ISIS-L2(2)
+<a id=__codelineno-9-35 name=__codelineno-9-35></a>    To: p1.00(192.0.2.1), Local: 10.0.12.2, Remote: 10.0.12.1
+<a id=__codelineno-9-36 name=__codelineno-9-36></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-37 name=__codelineno-9-37></a>    To: p4.00(192.0.2.4), Local: 10.0.24.1, Remote: 10.0.24.2
+<a id=__codelineno-9-38 name=__codelineno-9-38></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-39 name=__codelineno-9-39></a>    To: 1280.5402.2202.00(192.0.2.3), Local: 10.0.23.1, Remote: 10.0.23.2
+<a id=__codelineno-9-40 name=__codelineno-9-40></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-41 name=__codelineno-9-41></a>    To: 1280.5400.5234.00(192.0.2.6), Local: 10.0.26.1, Remote: 10.0.26.2
+<a id=__codelineno-9-42 name=__codelineno-9-42></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-43 name=__codelineno-9-43></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-44 name=__codelineno-9-44></a>pe1.00(192.0.2.5)               Rtr     609     2      2 IS-IS(2)
+<a id=__codelineno-9-45 name=__codelineno-9-45></a>    To: p1.00(192.0.2.1), Local: 10.0.15.2, Remote: 10.0.15.1
+<a id=__codelineno-9-46 name=__codelineno-9-46></a>      Local interface index: 360, Remote interface index: 360
+<a id=__codelineno-9-47 name=__codelineno-9-47></a>    To: p4.00(192.0.2.4), Local: 10.0.45.2, Remote: 10.0.45.1
+<a id=__codelineno-9-48 name=__codelineno-9-48></a>      Local interface index: 361, Remote interface index: 358
+<a id=__codelineno-9-49 name=__codelineno-9-49></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-50 name=__codelineno-9-50></a>p4.00(192.0.2.4)                Rtr      78     4      4 Exported ISIS-L2(2)
+<a id=__codelineno-9-51 name=__codelineno-9-51></a>    To: 1280.5402.3195.00(192.0.2.2), Local: 10.0.24.2, Remote: 10.0.24.1
+<a id=__codelineno-9-52 name=__codelineno-9-52></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-53 name=__codelineno-9-53></a>    To: 1280.5402.2202.00(192.0.2.3), Local: 10.0.34.2, Remote: 10.0.34.1
+<a id=__codelineno-9-54 name=__codelineno-9-54></a>      Local interface index: 0, Remote interface index: 0
+<a id=__codelineno-9-55 name=__codelineno-9-55></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-56 name=__codelineno-9-56></a>                                                       IS-IS(2)
+<a id=__codelineno-9-57 name=__codelineno-9-57></a>    To: pe1.00(192.0.2.5), Local: 10.0.45.1, Remote: 10.0.45.2
+<a id=__codelineno-9-58 name=__codelineno-9-58></a>      Local interface index: 358, Remote interface index: 361
+<a id=__codelineno-9-59 name=__codelineno-9-59></a>    To: p1.00(192.0.2.1), Local: 10.0.14.2, Remote: 10.0.14.1
+<a id=__codelineno-9-60 name=__codelineno-9-60></a>      Local interface index: 357, Remote interface index: 359
+<a id=__codelineno-9-61 name=__codelineno-9-61></a>ID                            Type Age(s) LnkIn LnkOut Protocol
+<a id=__codelineno-9-62 name=__codelineno-9-62></a>RR.00(203.0.113.10)               Rtr     475     1      1 IS-IS(2)
+<a id=__codelineno-9-63 name=__codelineno-9-63></a>    To: p1.00(192.0.2.1), Local: 10.0.17.2, Remote: 10.0.17.1
+<a id=__codelineno-9-64 name=__codelineno-9-64></a>      Local interface index: 357, Remote interface index: 361
+</code></pre></div></td></tr></table></div> <p>Node 1280.5400.5234.00 (ISO address) with Loopback IP 192.0.2.6 is PE2, and it's now available in our own TED! Traffic-engineering attributes of each remote link are there too, including different sets of metrics:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1> 1</a></span>
+<span class=normal><a href=#__codelineno-10-2> 2</a></span>
+<span class=normal><a href=#__codelineno-10-3> 3</a></span>
+<span class=normal><a href=#__codelineno-10-4> 4</a></span>
+<span class=normal><a href=#__codelineno-10-5> 5</a></span>
+<span class=normal><a href=#__codelineno-10-6> 6</a></span>
+<span class=normal><a href=#__codelineno-10-7> 7</a></span>
+<span class=normal><a href=#__codelineno-10-8> 8</a></span>
+<span class=normal><a href=#__codelineno-10-9> 9</a></span>
+<span class=normal><a href=#__codelineno-10-10>10</a></span>
+<span class=normal><a href=#__codelineno-10-11>11</a></span>
+<span class=normal><a href=#__codelineno-10-12>12</a></span>
+<span class=normal><a href=#__codelineno-10-13>13</a></span>
+<span class=normal><a href=#__codelineno-10-14>14</a></span>
+<span class=normal><a href=#__codelineno-10-15>15</a></span>
+<span class=normal><a href=#__codelineno-10-16>16</a></span>
+<span class=normal><a href=#__codelineno-10-17>17</a></span>
+<span class=normal><a href=#__codelineno-10-18>18</a></span>
+<span class=normal><a href=#__codelineno-10-19>19</a></span>
+<span class=normal><a href=#__codelineno-10-20>20</a></span>
+<span class=normal><a href=#__codelineno-10-21>21</a></span>
+<span class=normal><a href=#__codelineno-10-22>22</a></span>
+<span class=normal><a href=#__codelineno-10-23>23</a></span>
+<span class=normal><a href=#__codelineno-10-24>24</a></span>
+<span class=normal><a href=#__codelineno-10-25>25</a></span>
+<span class=normal><a href=#__codelineno-10-26>26</a></span>
+<span class=normal><a href=#__codelineno-10-27>27</a></span>
+<span class=normal><a href=#__codelineno-10-28>28</a></span>
+<span class=normal><a href=#__codelineno-10-29>29</a></span>
+<span class=normal><a href=#__codelineno-10-30>30</a></span>
+<span class=normal><a href=#__codelineno-10-31>31</a></span>
+<span class=normal><a href=#__codelineno-10-32>32</a></span>
+<span class=normal><a href=#__codelineno-10-33>33</a></span>
+<span class=normal><a href=#__codelineno-10-34>34</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>root@pe1&gt; show route table lsdist.0 te-link-local-ip 10.0.26.1 detail
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>
+<a id=__codelineno-10-3 name=__codelineno-10-3></a>lsdist.0: 83 destinations, 83 routes (83 active, 0 holddown, 0 hidden)
+<a id=__codelineno-10-4 name=__codelineno-10-4></a>LINK { Local { AS:100 BGP-LS ID:680501 ISO:1280.5402.3195.00 }.{ IPv4:10.0.26.1 } Remote { AS:100 BGP-LS ID:680501 ISO:1280.5400.5234.00 }.{ IPv4:10.0.26.2 } ISIS-L2:0 }/1216 (1 entry, 1 announced)
+<a id=__codelineno-10-5 name=__codelineno-10-5></a>        *BGP    Preference: 170/-101
+<a id=__codelineno-10-6 name=__codelineno-10-6></a>                Next hop type: Indirect, Next hop index: 0
+<a id=__codelineno-10-7 name=__codelineno-10-7></a>                Address: 0x76b73e8
+<a id=__codelineno-10-8 name=__codelineno-10-8></a>                Next-hop reference count: 34
+<a id=__codelineno-10-9 name=__codelineno-10-9></a>                Source: 192.0.2.8
+<a id=__codelineno-10-10 name=__codelineno-10-10></a>                Protocol next hop: 192.0.2.8
+<a id=__codelineno-10-11 name=__codelineno-10-11></a>                Indirect next hop: 0x2 no-forward INH Session ID: 0
+<a id=__codelineno-10-12 name=__codelineno-10-12></a>                State: &lt;Active Int Ext&gt;
+<a id=__codelineno-10-13 name=__codelineno-10-13></a>                Local AS:   100 Peer AS:   100
+<a id=__codelineno-10-14 name=__codelineno-10-14></a>                Age: 17:05:55   Metric2: 20
+<a id=__codelineno-10-15 name=__codelineno-10-15></a>                Validation State: unverified
+<a id=__codelineno-10-16 name=__codelineno-10-16></a>                ORR Generation-ID: 0
+<a id=__codelineno-10-17 name=__codelineno-10-17></a>                Task: BGP_100.192.0.2.8
+<a id=__codelineno-10-18 name=__codelineno-10-18></a>                Announcement bits (1): 0-TED Export
+<a id=__codelineno-10-19 name=__codelineno-10-19></a>                AS path: I  (Originator)
+<a id=__codelineno-10-20 name=__codelineno-10-20></a>                Cluster list:  192.0.2.8
+<a id=__codelineno-10-21 name=__codelineno-10-21></a>                Originator ID: 192.0.2.6
+<a id=__codelineno-10-22 name=__codelineno-10-22></a>                Accepted
+<a id=__codelineno-10-23 name=__codelineno-10-23></a>                Color: 0
+<a id=__codelineno-10-24 name=__codelineno-10-24></a>                Maximum bandwidth: 1000Mbps
+<a id=__codelineno-10-25 name=__codelineno-10-25></a>                Metric: 10
+<a id=__codelineno-10-26 name=__codelineno-10-26></a>                TE Metric: 10
+<a id=__codelineno-10-27 name=__codelineno-10-27></a>                Average delay: 50               
+<a id=__codelineno-10-28 name=__codelineno-10-28></a>                Minimum delay: 50
+<a id=__codelineno-10-29 name=__codelineno-10-29></a>                Maximum delay: 50
+<a id=__codelineno-10-30 name=__codelineno-10-30></a>                Delay variation: 0
+<a id=__codelineno-10-31 name=__codelineno-10-31></a>                Label: 17, Flags: 0x30, Weight: 0
+<a id=__codelineno-10-32 name=__codelineno-10-32></a>                Localpref: 100
+<a id=__codelineno-10-33 name=__codelineno-10-33></a>                Router ID: 203.0.113.10
+<a id=__codelineno-10-34 name=__codelineno-10-34></a>                Thread: junos-main
+</code></pre></div></td></tr></table></div> <p>Remember that 192.0.2.6 is not and will not be available in ISIS, improving network scale:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1>1</a></span>
+<span class=normal><a href=#__codelineno-11-2>2</a></span>
+<span class=normal><a href=#__codelineno-11-3>3</a></span>
+<span class=normal><a href=#__codelineno-11-4>4</a></span>
+<span class=normal><a href=#__codelineno-11-5>5</a></span>
+<span class=normal><a href=#__codelineno-11-6>6</a></span>
+<span class=normal><a href=#__codelineno-11-7>7</a></span>
+<span class=normal><a href=#__codelineno-11-8>8</a></span>
+<span class=normal><a href=#__codelineno-11-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>root@pe1&gt; show isis route 1/8
+<a id=__codelineno-11-2 name=__codelineno-11-2></a> IS-IS routing table             Current version: L1: 0 L2: 87
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>IPv4/IPv6 Routes
+<a id=__codelineno-11-4 name=__codelineno-11-4></a>----------------
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>Prefix             L Version   Metric Type Interface       NH   Via                 Backup Score
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>192.0.2.1/32         2      87       10 int  ge-0/0/0.0      IPV4 p1
+<a id=__codelineno-11-7 name=__codelineno-11-7></a>192.0.2.4/32         2      87       10 int  ge-0/0/1.0      IPV4 p4
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>192.0.2.7/32         2      87       20 int  ge-0/0/0.0      IPV4 p1
+<a id=__codelineno-11-9 name=__codelineno-11-9></a>192.0.2.8/32         2      87       20 int  ge-0/0/0.0      IPV4 p1
+</code></pre></div></td></tr></table></div> <h2 id=creating-static-and-on-demand-sr-te-tunnels>Creating static and On-Demand SR-TE tunnels<a class=headerlink href=#creating-static-and-on-demand-sr-te-tunnels title="Permanent link">¶</a></h2> <p>Information from TED can now be used for on-box SR-TE path calculation. We will review two ways to build tunnels:</p> <ul> <li>Static SR-TE</li> <li>On-Demand SR-TE</li> </ul> <h3 id=static-sr-te>Static SR-TE<a class=headerlink href=#static-sr-te title="Permanent link">¶</a></h3> <p>This approach does not scale from the operational perspective. Imagine a network with a hundred of nodes: managing even a partial mesh of SR-TE tunnels might easily turn into a nightmare.</p> <p>Still, it is sometimes faster to just create a static SR-TE definition in Junos, and place user traffic on top of it, or create a shortcut for other types of traffic -- such as LDP or labeled ISIS.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1> 1</a></span>
+<span class=normal><a href=#__codelineno-12-2> 2</a></span>
+<span class=normal><a href=#__codelineno-12-3> 3</a></span>
+<span class=normal><a href=#__codelineno-12-4> 4</a></span>
+<span class=normal><a href=#__codelineno-12-5> 5</a></span>
+<span class=normal><a href=#__codelineno-12-6> 6</a></span>
+<span class=normal><a href=#__codelineno-12-7> 7</a></span>
+<span class=normal><a href=#__codelineno-12-8> 8</a></span>
+<span class=normal><a href=#__codelineno-12-9> 9</a></span>
+<span class=normal><a href=#__codelineno-12-10>10</a></span>
+<span class=normal><a href=#__codelineno-12-11>11</a></span>
+<span class=normal><a href=#__codelineno-12-12>12</a></span>
+<span class=normal><a href=#__codelineno-12-13>13</a></span>
+<span class=normal><a href=#__codelineno-12-14>14</a></span>
+<span class=normal><a href=#__codelineno-12-15>15</a></span>
+<span class=normal><a href=#__codelineno-12-16>16</a></span>
+<span class=normal><a href=#__codelineno-12-17>17</a></span>
+<span class=normal><a href=#__codelineno-12-18>18</a></span>
+<span class=normal><a href=#__codelineno-12-19>19</a></span>
+<span class=normal><a href=#__codelineno-12-20>20</a></span>
+<span class=normal><a href=#__codelineno-12-21>21</a></span>
+<span class=normal><a href=#__codelineno-12-22>22</a></span>
+<span class=normal><a href=#__codelineno-12-23>23</a></span>
+<span class=normal><a href=#__codelineno-12-24>24</a></span>
+<span class=normal><a href=#__codelineno-12-25>25</a></span>
+<span class=normal><a href=#__codelineno-12-26>26</a></span>
+<span class=normal><a href=#__codelineno-12-27>27</a></span>
+<span class=normal><a href=#__codelineno-12-28>28</a></span>
+<span class=normal><a href=#__codelineno-12-29>29</a></span>
+<span class=normal><a href=#__codelineno-12-30>30</a></span>
+<span class=normal><a href=#__codelineno-12-31>31</a></span>
+<span class=normal><a href=#__codelineno-12-32>32</a></span>
+<span class=normal><a href=#__codelineno-12-33>33</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>root@pe1# show protocols source-packet-routing
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>compute-profile no-compress-delay {
+<a id=__codelineno-12-3 name=__codelineno-12-3></a>    no-label-stack-compression;
+<a id=__codelineno-12-4 name=__codelineno-12-4></a>    metric-type {
+<a id=__codelineno-12-5 name=__codelineno-12-5></a>        delay;
+<a id=__codelineno-12-6 name=__codelineno-12-6></a>    }
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>}
+<a id=__codelineno-12-8 name=__codelineno-12-8></a>compute-profile CP-NO-COMPRESS-IGP {
+<a id=__codelineno-12-9 name=__codelineno-12-9></a>    no-label-stack-compression;
+<a id=__codelineno-12-10 name=__codelineno-12-10></a>    metric-type {
+<a id=__codelineno-12-11 name=__codelineno-12-11></a>        igp;
+<a id=__codelineno-12-12 name=__codelineno-12-12></a>    }
+<a id=__codelineno-12-13 name=__codelineno-12-13></a>}
+<a id=__codelineno-12-14 name=__codelineno-12-14></a>source-routing-path SP-TO-PE2 {
+<a id=__codelineno-12-15 name=__codelineno-12-15></a>    to 192.0.2.6;
+<a id=__codelineno-12-16 name=__codelineno-12-16></a>    primary {
+<a id=__codelineno-12-17 name=__codelineno-12-17></a>        SP-P1 {
+<a id=__codelineno-12-18 name=__codelineno-12-18></a>            compute {
+<a id=__codelineno-12-19 name=__codelineno-12-19></a>                CP-NO-COMPRESS-IGP;
+<a id=__codelineno-12-20 name=__codelineno-12-20></a>            }
+<a id=__codelineno-12-21 name=__codelineno-12-21></a>        }
+<a id=__codelineno-12-22 name=__codelineno-12-22></a>    }
+<a id=__codelineno-12-23 name=__codelineno-12-23></a>}
+<a id=__codelineno-12-24 name=__codelineno-12-24></a>source-routing-path SP-TO-PE2-DELAY {
+<a id=__codelineno-12-25 name=__codelineno-12-25></a>    to 192.0.2.6;
+<a id=__codelineno-12-26 name=__codelineno-12-26></a>    primary {
+<a id=__codelineno-12-27 name=__codelineno-12-27></a>        SP-P2 {
+<a id=__codelineno-12-28 name=__codelineno-12-28></a>            compute {
+<a id=__codelineno-12-29 name=__codelineno-12-29></a>                no-compress-delay;
+<a id=__codelineno-12-30 name=__codelineno-12-30></a>            }
+<a id=__codelineno-12-31 name=__codelineno-12-31></a>        }
+<a id=__codelineno-12-32 name=__codelineno-12-32></a>    }
+<a id=__codelineno-12-33 name=__codelineno-12-33></a>}
+</code></pre></div></td></tr></table></div> <p>One compute profile uses delay metric, while the other -- IGP metric. Both tunnels use Adj-SIDs when calculating the path (configured via no-label-stack-compression). Current versions of Junos require this setting for calculating paths across inter-domain boundary. Both tunnels are uncolored and do not have any other constraints.</p> <p>The IGP-based tunnel creates two equal-cost multipath (ECMP) paths over P1-P2 and P4-P4:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1> 1</a></span>
+<span class=normal><a href=#__codelineno-13-2> 2</a></span>
+<span class=normal><a href=#__codelineno-13-3> 3</a></span>
+<span class=normal><a href=#__codelineno-13-4> 4</a></span>
+<span class=normal><a href=#__codelineno-13-5> 5</a></span>
+<span class=normal><a href=#__codelineno-13-6> 6</a></span>
+<span class=normal><a href=#__codelineno-13-7> 7</a></span>
+<span class=normal><a href=#__codelineno-13-8> 8</a></span>
+<span class=normal><a href=#__codelineno-13-9> 9</a></span>
+<span class=normal><a href=#__codelineno-13-10>10</a></span>
+<span class=normal><a href=#__codelineno-13-11>11</a></span>
+<span class=normal><a href=#__codelineno-13-12>12</a></span>
+<span class=normal><a href=#__codelineno-13-13>13</a></span>
+<span class=normal><a href=#__codelineno-13-14>14</a></span>
+<span class=normal><a href=#__codelineno-13-15>15</a></span>
+<span class=normal><a href=#__codelineno-13-16>16</a></span>
+<span class=normal><a href=#__codelineno-13-17>17</a></span>
+<span class=normal><a href=#__codelineno-13-18>18</a></span>
+<span class=normal><a href=#__codelineno-13-19>19</a></span>
+<span class=normal><a href=#__codelineno-13-20>20</a></span>
+<span class=normal><a href=#__codelineno-13-21>21</a></span>
+<span class=normal><a href=#__codelineno-13-22>22</a></span>
+<span class=normal><a href=#__codelineno-13-23>23</a></span>
+<span class=normal><a href=#__codelineno-13-24>24</a></span>
+<span class=normal><a href=#__codelineno-13-25>25</a></span>
+<span class=normal><a href=#__codelineno-13-26>26</a></span>
+<span class=normal><a href=#__codelineno-13-27>27</a></span>
+<span class=normal><a href=#__codelineno-13-28>28</a></span>
+<span class=normal><a href=#__codelineno-13-29>29</a></span>
+<span class=normal><a href=#__codelineno-13-30>30</a></span>
+<span class=normal><a href=#__codelineno-13-31>31</a></span>
+<span class=normal><a href=#__codelineno-13-32>32</a></span>
+<span class=normal><a href=#__codelineno-13-33>33</a></span>
+<span class=normal><a href=#__codelineno-13-34>34</a></span>
+<span class=normal><a href=#__codelineno-13-35>35</a></span>
+<span class=normal><a href=#__codelineno-13-36>36</a></span>
+<span class=normal><a href=#__codelineno-13-37>37</a></span>
+<span class=normal><a href=#__codelineno-13-38>38</a></span>
+<span class=normal><a href=#__codelineno-13-39>39</a></span>
+<span class=normal><a href=#__codelineno-13-40>40</a></span>
+<span class=normal><a href=#__codelineno-13-41>41</a></span>
+<span class=normal><a href=#__codelineno-13-42>42</a></span>
+<span class=normal><a href=#__codelineno-13-43>43</a></span>
+<span class=normal><a href=#__codelineno-13-44>44</a></span>
+<span class=normal><a href=#__codelineno-13-45>45</a></span>
+<span class=normal><a href=#__codelineno-13-46>46</a></span>
+<span class=normal><a href=#__codelineno-13-47>47</a></span>
+<span class=normal><a href=#__codelineno-13-48>48</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a>root@pe1# run show spring-traffic-engineering lsp detail name SP-TO-PE2
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>Name: SP-TO-PE2
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>  Tunnel-source: Static configuration
+<a id=__codelineno-13-4 name=__codelineno-13-4></a>  Tunnel Forward Type: SRMPLS
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>  To: 192.0.2.6
+<a id=__codelineno-13-6 name=__codelineno-13-6></a>  State: Up
+<a id=__codelineno-13-7 name=__codelineno-13-7></a>    Path: SP-P1
+<a id=__codelineno-13-8 name=__codelineno-13-8></a>    Path Status: NA
+<a id=__codelineno-13-9 name=__codelineno-13-9></a>    Outgoing interface: NA
+<a id=__codelineno-13-10 name=__codelineno-13-10></a>    Auto-translate status: Disabled Auto-translate result: N/A
+<a id=__codelineno-13-11 name=__codelineno-13-11></a>    Compute Status:Enabled , Compute Result:success , Compute-Profile Name:CP-NO-COMPRESS-IGP
+<a id=__codelineno-13-12 name=__codelineno-13-12></a>    Total number of computed paths: 2
+<a id=__codelineno-13-13 name=__codelineno-13-13></a>    Computed-path-index: 1
+<a id=__codelineno-13-14 name=__codelineno-13-14></a>      BFD status: N/A BFD name: N/A
+<a id=__codelineno-13-15 name=__codelineno-13-15></a>      TE metric: 30, IGP metric: 30
+<a id=__codelineno-13-16 name=__codelineno-13-16></a>      Delay metrics: Min: 621, Max: 621, Avg: 621
+<a id=__codelineno-13-17 name=__codelineno-13-17></a>      Metric optimized by type: IGP
+<a id=__codelineno-13-18 name=__codelineno-13-18></a>      computed segments count: 3
+<a id=__codelineno-13-19 name=__codelineno-13-19></a>        computed segment : 1 (computed-adjacency-segment):
+<a id=__codelineno-13-20 name=__codelineno-13-20></a>          label: 18
+<a id=__codelineno-13-21 name=__codelineno-13-21></a>          source router-id: 192.0.2.5, destination router-id: 192.0.2.1
+<a id=__codelineno-13-22 name=__codelineno-13-22></a>          source interface-address: 10.0.15.2, destination interface-address: 10.0.15.1
+<a id=__codelineno-13-23 name=__codelineno-13-23></a>        computed segment : 2 (computed-adjacency-segment):
+<a id=__codelineno-13-24 name=__codelineno-13-24></a>          label: 4115
+<a id=__codelineno-13-25 name=__codelineno-13-25></a>          source router-id: 192.0.2.1, destination router-id: 192.0.2.2
+<a id=__codelineno-13-26 name=__codelineno-13-26></a>          source interface-address: 10.0.12.1, destination interface-address: 10.0.12.2
+<a id=__codelineno-13-27 name=__codelineno-13-27></a>        computed segment : 3 (computed-adjacency-segment):
+<a id=__codelineno-13-28 name=__codelineno-13-28></a>          label: 17
+<a id=__codelineno-13-29 name=__codelineno-13-29></a>          source router-id: 192.0.2.2, destination router-id: 192.0.2.6
+<a id=__codelineno-13-30 name=__codelineno-13-30></a>          source interface-address: 10.0.26.1, destination interface-address: 10.0.26.2
+<a id=__codelineno-13-31 name=__codelineno-13-31></a>    Computed-path-index: 2
+<a id=__codelineno-13-32 name=__codelineno-13-32></a>      BFD status: N/A BFD name: N/A
+<a id=__codelineno-13-33 name=__codelineno-13-33></a>      TE metric: 30, IGP metric: 30
+<a id=__codelineno-13-34 name=__codelineno-13-34></a>      Delay metrics: Min: 621, Max: 621, Avg: 621
+<a id=__codelineno-13-35 name=__codelineno-13-35></a>      Metric optimized by type: IGP
+<a id=__codelineno-13-36 name=__codelineno-13-36></a>      computed segments count: 3
+<a id=__codelineno-13-37 name=__codelineno-13-37></a>        computed segment : 1 (computed-adjacency-segment):
+<a id=__codelineno-13-38 name=__codelineno-13-38></a>          label: 19
+<a id=__codelineno-13-39 name=__codelineno-13-39></a>          source router-id: 192.0.2.5, destination router-id: 192.0.2.4
+<a id=__codelineno-13-40 name=__codelineno-13-40></a>          source interface-address: 10.0.45.2, destination interface-address: 10.0.45.1
+<a id=__codelineno-13-41 name=__codelineno-13-41></a>        computed segment : 2 (computed-adjacency-segment):
+<a id=__codelineno-13-42 name=__codelineno-13-42></a>          label: 4115
+<a id=__codelineno-13-43 name=__codelineno-13-43></a>          source router-id: 192.0.2.4, destination router-id: 192.0.2.3
+<a id=__codelineno-13-44 name=__codelineno-13-44></a>          source interface-address: 10.0.34.2, destination interface-address: 10.0.34.1
+<a id=__codelineno-13-45 name=__codelineno-13-45></a>        computed segment : 3 (computed-adjacency-segment):
+<a id=__codelineno-13-46 name=__codelineno-13-46></a>          label: 17
+<a id=__codelineno-13-47 name=__codelineno-13-47></a>          source router-id: 192.0.2.3, destination router-id: 192.0.2.6
+<a id=__codelineno-13-48 name=__codelineno-13-48></a>          source interface-address: 10.0.36.1, destination interface-address: 10.0.36.2
+</code></pre></div></td></tr></table></div> <p>The delay-based SR-TE will take the path with lowest delay, over P4-P1-P3:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1> 1</a></span>
+<span class=normal><a href=#__codelineno-14-2> 2</a></span>
+<span class=normal><a href=#__codelineno-14-3> 3</a></span>
+<span class=normal><a href=#__codelineno-14-4> 4</a></span>
+<span class=normal><a href=#__codelineno-14-5> 5</a></span>
+<span class=normal><a href=#__codelineno-14-6> 6</a></span>
+<span class=normal><a href=#__codelineno-14-7> 7</a></span>
+<span class=normal><a href=#__codelineno-14-8> 8</a></span>
+<span class=normal><a href=#__codelineno-14-9> 9</a></span>
+<span class=normal><a href=#__codelineno-14-10>10</a></span>
+<span class=normal><a href=#__codelineno-14-11>11</a></span>
+<span class=normal><a href=#__codelineno-14-12>12</a></span>
+<span class=normal><a href=#__codelineno-14-13>13</a></span>
+<span class=normal><a href=#__codelineno-14-14>14</a></span>
+<span class=normal><a href=#__codelineno-14-15>15</a></span>
+<span class=normal><a href=#__codelineno-14-16>16</a></span>
+<span class=normal><a href=#__codelineno-14-17>17</a></span>
+<span class=normal><a href=#__codelineno-14-18>18</a></span>
+<span class=normal><a href=#__codelineno-14-19>19</a></span>
+<span class=normal><a href=#__codelineno-14-20>20</a></span>
+<span class=normal><a href=#__codelineno-14-21>21</a></span>
+<span class=normal><a href=#__codelineno-14-22>22</a></span>
+<span class=normal><a href=#__codelineno-14-23>23</a></span>
+<span class=normal><a href=#__codelineno-14-24>24</a></span>
+<span class=normal><a href=#__codelineno-14-25>25</a></span>
+<span class=normal><a href=#__codelineno-14-26>26</a></span>
+<span class=normal><a href=#__codelineno-14-27>27</a></span>
+<span class=normal><a href=#__codelineno-14-28>28</a></span>
+<span class=normal><a href=#__codelineno-14-29>29</a></span>
+<span class=normal><a href=#__codelineno-14-30>30</a></span>
+<span class=normal><a href=#__codelineno-14-31>31</a></span>
+<span class=normal><a href=#__codelineno-14-32>32</a></span>
+<span class=normal><a href=#__codelineno-14-33>33</a></span>
+<span class=normal><a href=#__codelineno-14-34>34</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a>root@pe1# run show spring-traffic-engineering lsp detail name SP-TO-PE2-DELAY
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>Name: SP-TO-PE2-DELAY
+<a id=__codelineno-14-3 name=__codelineno-14-3></a>  Tunnel-source: Static configuration
+<a id=__codelineno-14-4 name=__codelineno-14-4></a>  Tunnel Forward Type: SRMPLS
+<a id=__codelineno-14-5 name=__codelineno-14-5></a>  To: 192.0.2.6
+<a id=__codelineno-14-6 name=__codelineno-14-6></a>  State: Up
+<a id=__codelineno-14-7 name=__codelineno-14-7></a>    Path: SP-P2
+<a id=__codelineno-14-8 name=__codelineno-14-8></a>    Path Status: NA
+<a id=__codelineno-14-9 name=__codelineno-14-9></a>    Outgoing interface: NA
+<a id=__codelineno-14-10 name=__codelineno-14-10></a>    Auto-translate status: Disabled Auto-translate result: N/A
+<a id=__codelineno-14-11 name=__codelineno-14-11></a>    Compute Status:Enabled , Compute Result:success , Compute-Profile Name:no-compress-delay
+<a id=__codelineno-14-12 name=__codelineno-14-12></a>    Total number of computed paths: 1
+<a id=__codelineno-14-13 name=__codelineno-14-13></a>    Computed-path-index: 1
+<a id=__codelineno-14-14 name=__codelineno-14-14></a>      BFD status: N/A BFD name: N/A
+<a id=__codelineno-14-15 name=__codelineno-14-15></a>      TE metric: 125, IGP metric: 125
+<a id=__codelineno-14-16 name=__codelineno-14-16></a>      Delay metrics: Min: 163, Max: 163, Avg: 163
+<a id=__codelineno-14-17 name=__codelineno-14-17></a>      Metric optimized by type: Minimum-Delay
+<a id=__codelineno-14-18 name=__codelineno-14-18></a>      computed segments count: 4
+<a id=__codelineno-14-19 name=__codelineno-14-19></a>        computed segment : 1 (computed-adjacency-segment):
+<a id=__codelineno-14-20 name=__codelineno-14-20></a>          label: 19
+<a id=__codelineno-14-21 name=__codelineno-14-21></a>          source router-id: 192.0.2.5, destination router-id: 192.0.2.4
+<a id=__codelineno-14-22 name=__codelineno-14-22></a>          source interface-address: 10.0.45.2, destination interface-address: 10.0.45.1
+<a id=__codelineno-14-23 name=__codelineno-14-23></a>        computed segment : 2 (computed-adjacency-segment):
+<a id=__codelineno-14-24 name=__codelineno-14-24></a>          label: 4112
+<a id=__codelineno-14-25 name=__codelineno-14-25></a>          source router-id: 192.0.2.4, destination router-id: 192.0.2.1
+<a id=__codelineno-14-26 name=__codelineno-14-26></a>          source interface-address: 10.0.14.2, destination interface-address: 10.0.14.1
+<a id=__codelineno-14-27 name=__codelineno-14-27></a>        computed segment : 3 (computed-adjacency-segment):
+<a id=__codelineno-14-28 name=__codelineno-14-28></a>          label: 4112
+<a id=__codelineno-14-29 name=__codelineno-14-29></a>          source router-id: 192.0.2.1, destination router-id: 192.0.2.3
+<a id=__codelineno-14-30 name=__codelineno-14-30></a>          source interface-address: 10.0.13.1, destination interface-address: 10.0.13.2
+<a id=__codelineno-14-31 name=__codelineno-14-31></a>        computed segment : 4 (computed-adjacency-segment):
+<a id=__codelineno-14-32 name=__codelineno-14-32></a>          label: 17
+<a id=__codelineno-14-33 name=__codelineno-14-33></a>          source router-id: 192.0.2.3, destination router-id: 192.0.2.6
+<a id=__codelineno-14-34 name=__codelineno-14-34></a>          source interface-address: 10.0.36.1, destination interface-address: 10.0.36.2 
+</code></pre></div></td></tr></table></div> <h3 id=on-demand-sr-te>On-Demand SR-TE<a class=headerlink href=#on-demand-sr-te title="Permanent link">¶</a></h3> <p>Where the number of PEs is high, provisioning SR-TE does not scale due to high configuration overhead. To address this, on-demand (ODN) SR-TE can be leveraged: ingress PE will trigger SR-TE creation only when a remote PE sends some service routes via BGP. As with static configuration, pre-configured templates with TE constraints can be used -- including tunnel colors.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1> 1</a></span>
+<span class=normal><a href=#__codelineno-15-2> 2</a></span>
+<span class=normal><a href=#__codelineno-15-3> 3</a></span>
+<span class=normal><a href=#__codelineno-15-4> 4</a></span>
+<span class=normal><a href=#__codelineno-15-5> 5</a></span>
+<span class=normal><a href=#__codelineno-15-6> 6</a></span>
+<span class=normal><a href=#__codelineno-15-7> 7</a></span>
+<span class=normal><a href=#__codelineno-15-8> 8</a></span>
+<span class=normal><a href=#__codelineno-15-9> 9</a></span>
+<span class=normal><a href=#__codelineno-15-10>10</a></span>
+<span class=normal><a href=#__codelineno-15-11>11</a></span>
+<span class=normal><a href=#__codelineno-15-12>12</a></span>
+<span class=normal><a href=#__codelineno-15-13>13</a></span>
+<span class=normal><a href=#__codelineno-15-14>14</a></span>
+<span class=normal><a href=#__codelineno-15-15>15</a></span>
+<span class=normal><a href=#__codelineno-15-16>16</a></span>
+<span class=normal><a href=#__codelineno-15-17>17</a></span>
+<span class=normal><a href=#__codelineno-15-18>18</a></span>
+<span class=normal><a href=#__codelineno-15-19>19</a></span>
+<span class=normal><a href=#__codelineno-15-20>20</a></span>
+<span class=normal><a href=#__codelineno-15-21>21</a></span>
+<span class=normal><a href=#__codelineno-15-22>22</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a>root@pe1# show routing-options
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>resolution {
+<a id=__codelineno-15-3 name=__codelineno-15-3></a>    rib bgp.l3vpn.0 {
+<a id=__codelineno-15-4 name=__codelineno-15-4></a>        inetcolor-import PS-MPATH;           # Junos needs this for ECMP, when resolution-maps are used
+<a id=__codelineno-15-5 name=__codelineno-15-5></a>    }
+<a id=__codelineno-15-6 name=__codelineno-15-6></a>}
+<a id=__codelineno-15-7 name=__codelineno-15-7></a>dynamic-tunnels {                            # Dynamic-Tunnels
+<a id=__codelineno-15-8 name=__codelineno-15-8></a>    on-demand-tunnnels {
+<a id=__codelineno-15-9 name=__codelineno-15-9></a>        spring-te {
+<a id=__codelineno-15-10 name=__codelineno-15-10></a>            source-routing-path-template {   # Two templates with differing colors
+<a id=__codelineno-15-11 name=__codelineno-15-11></a>                SP-ODN-DELAY color 12;
+<a id=__codelineno-15-12 name=__codelineno-15-12></a>                SP-ODN-IGP color 11;
+<a id=__codelineno-15-13 name=__codelineno-15-13></a>            }
+<a id=__codelineno-15-14 name=__codelineno-15-14></a>            destination-networks {           # Reduce ODN only to this Loopback IPs
+<a id=__codelineno-15-15 name=__codelineno-15-15></a>                192.0.2.0/8;
+<a id=__codelineno-15-16 name=__codelineno-15-16></a>            }
+<a id=__codelineno-15-17 name=__codelineno-15-17></a>        }
+<a id=__codelineno-15-18 name=__codelineno-15-18></a>    }
+<a id=__codelineno-15-19 name=__codelineno-15-19></a>}
+<a id=__codelineno-15-20 name=__codelineno-15-20></a>forwarding-table {                           # allow ECMP in forwarding too
+<a id=__codelineno-15-21 name=__codelineno-15-21></a>    export PS-LB;
+<a id=__codelineno-15-22 name=__codelineno-15-22></a>}
+</code></pre></div></td></tr></table></div> <p>Simple templates for on-demand automatic SR-TE, they just refer to already defined compute profiles:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-16-1> 1</a></span>
+<span class=normal><a href=#__codelineno-16-2> 2</a></span>
+<span class=normal><a href=#__codelineno-16-3> 3</a></span>
+<span class=normal><a href=#__codelineno-16-4> 4</a></span>
+<span class=normal><a href=#__codelineno-16-5> 5</a></span>
+<span class=normal><a href=#__codelineno-16-6> 6</a></span>
+<span class=normal><a href=#__codelineno-16-7> 7</a></span>
+<span class=normal><a href=#__codelineno-16-8> 8</a></span>
+<span class=normal><a href=#__codelineno-16-9> 9</a></span>
+<span class=normal><a href=#__codelineno-16-10>10</a></span>
+<span class=normal><a href=#__codelineno-16-11>11</a></span>
+<span class=normal><a href=#__codelineno-16-12>12</a></span>
+<span class=normal><a href=#__codelineno-16-13>13</a></span>
+<span class=normal><a href=#__codelineno-16-14>14</a></span>
+<span class=normal><a href=#__codelineno-16-15>15</a></span>
+<span class=normal><a href=#__codelineno-16-16>16</a></span>
+<span class=normal><a href=#__codelineno-16-17>17</a></span>
+<span class=normal><a href=#__codelineno-16-18>18</a></span>
+<span class=normal><a href=#__codelineno-16-19>19</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-16-1 name=__codelineno-16-1></a>root@pe1# show protocols source-packet-routing
+<a id=__codelineno-16-2 name=__codelineno-16-2></a>source-routing-path-template SP-ODN-DELAY {
+<a id=__codelineno-16-3 name=__codelineno-16-3></a>    primary {
+<a id=__codelineno-16-4 name=__codelineno-16-4></a>        dynamic-delay {
+<a id=__codelineno-16-5 name=__codelineno-16-5></a>            compute {
+<a id=__codelineno-16-6 name=__codelineno-16-6></a>                no-compress-delay;
+<a id=__codelineno-16-7 name=__codelineno-16-7></a>            }
+<a id=__codelineno-16-8 name=__codelineno-16-8></a>        }
+<a id=__codelineno-16-9 name=__codelineno-16-9></a>    }
+<a id=__codelineno-16-10 name=__codelineno-16-10></a>}
+<a id=__codelineno-16-11 name=__codelineno-16-11></a>source-routing-path-template SP-ODN-IGP {
+<a id=__codelineno-16-12 name=__codelineno-16-12></a>    primary {
+<a id=__codelineno-16-13 name=__codelineno-16-13></a>        dynamic-igp {
+<a id=__codelineno-16-14 name=__codelineno-16-14></a>            compute {
+<a id=__codelineno-16-15 name=__codelineno-16-15></a>                CP-NO-COMPRESS-IGP;
+<a id=__codelineno-16-16 name=__codelineno-16-16></a>            }
+<a id=__codelineno-16-17 name=__codelineno-16-17></a>        }
+<a id=__codelineno-16-18 name=__codelineno-16-18></a>    }
+<a id=__codelineno-16-19 name=__codelineno-16-19></a>}
+</code></pre></div></td></tr></table></div> <p>The two policies are defined like this:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-17-1>1</a></span>
+<span class=normal><a href=#__codelineno-17-2>2</a></span>
+<span class=normal><a href=#__codelineno-17-3>3</a></span>
+<span class=normal><a href=#__codelineno-17-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-17-1 name=__codelineno-17-1></a>root@pe1# show policy-options policy-statement PS-LB
+<a id=__codelineno-17-2 name=__codelineno-17-2></a>then {
+<a id=__codelineno-17-3 name=__codelineno-17-3></a>    load-balance per-flow;
+<a id=__codelineno-17-4 name=__codelineno-17-4></a>}
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-18-1>1</a></span>
+<span class=normal><a href=#__codelineno-18-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-18-1 name=__codelineno-18-1></a>root@pe1# show policy-options policy-statement PS-MPATH
+<a id=__codelineno-18-2 name=__codelineno-18-2></a>then multipath-resolve;
+</code></pre></div></td></tr></table></div> <p>As soon as a BGP peer sends service routes with matching colors, ODN SR-TE creation is triggered:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-19-1> 1</a></span>
+<span class=normal><a href=#__codelineno-19-2> 2</a></span>
+<span class=normal><a href=#__codelineno-19-3> 3</a></span>
+<span class=normal><a href=#__codelineno-19-4> 4</a></span>
+<span class=normal><a href=#__codelineno-19-5> 5</a></span>
+<span class=normal><a href=#__codelineno-19-6> 6</a></span>
+<span class=normal><a href=#__codelineno-19-7> 7</a></span>
+<span class=normal><a href=#__codelineno-19-8> 8</a></span>
+<span class=normal><a href=#__codelineno-19-9> 9</a></span>
+<span class=normal><a href=#__codelineno-19-10>10</a></span>
+<span class=normal><a href=#__codelineno-19-11>11</a></span>
+<span class=normal><a href=#__codelineno-19-12>12</a></span>
+<span class=normal><a href=#__codelineno-19-13>13</a></span>
+<span class=normal><a href=#__codelineno-19-14>14</a></span>
+<span class=normal><a href=#__codelineno-19-15>15</a></span>
+<span class=normal><a href=#__codelineno-19-16>16</a></span>
+<span class=normal><a href=#__codelineno-19-17>17</a></span>
+<span class=normal><a href=#__codelineno-19-18>18</a></span>
+<span class=normal><a href=#__codelineno-19-19>19</a></span>
+<span class=normal><a href=#__codelineno-19-20>20</a></span>
+<span class=normal><a href=#__codelineno-19-21>21</a></span>
+<span class=normal><a href=#__codelineno-19-22>22</a></span>
+<span class=normal><a href=#__codelineno-19-23>23</a></span>
+<span class=normal><a href=#__codelineno-19-24>24</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-19-1 name=__codelineno-19-1></a>root@pe1# run show route receive-protocol bgp 192.0.2.7 detail table bgp.l3vpn.0
+<a id=__codelineno-19-2 name=__codelineno-19-2></a>
+<a id=__codelineno-19-3 name=__codelineno-19-3></a>bgp.l3vpn.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+<a id=__codelineno-19-4 name=__codelineno-19-4></a>* 192.0.2.6:8:13.0.6.0/24 (1 entry, 0 announced)
+<a id=__codelineno-19-5 name=__codelineno-19-5></a>     Import Accepted
+<a id=__codelineno-19-6 name=__codelineno-19-6></a>     Route Distinguisher: 192.0.2.6:8
+<a id=__codelineno-19-7 name=__codelineno-19-7></a>     VPN Label: 16
+<a id=__codelineno-19-8 name=__codelineno-19-8></a>     Nexthop: 192.0.2.6
+<a id=__codelineno-19-9 name=__codelineno-19-9></a>     Localpref: 100
+<a id=__codelineno-19-10 name=__codelineno-19-10></a>     AS path: I  (Originator)
+<a id=__codelineno-19-11 name=__codelineno-19-11></a>     Cluster list:  192.0.2.7
+<a id=__codelineno-19-12 name=__codelineno-19-12></a>     Originator ID: 192.0.2.6
+<a id=__codelineno-19-13 name=__codelineno-19-13></a>     Communities: target:100:1 color:0:12
+<a id=__codelineno-19-14 name=__codelineno-19-14></a>
+<a id=__codelineno-19-15 name=__codelineno-19-15></a>* 192.0.2.6:9:13.1.6.0/24 (1 entry, 0 announced)
+<a id=__codelineno-19-16 name=__codelineno-19-16></a>     Import Accepted
+<a id=__codelineno-19-17 name=__codelineno-19-17></a>     Route Distinguisher: 192.0.2.6:9
+<a id=__codelineno-19-18 name=__codelineno-19-18></a>     VPN Label: 17
+<a id=__codelineno-19-19 name=__codelineno-19-19></a>     Nexthop: 192.0.2.6
+<a id=__codelineno-19-20 name=__codelineno-19-20></a>     Localpref: 100
+<a id=__codelineno-19-21 name=__codelineno-19-21></a>     AS path: I  (Originator)
+<a id=__codelineno-19-22 name=__codelineno-19-22></a>     Cluster list:  192.0.2.7
+<a id=__codelineno-19-23 name=__codelineno-19-23></a>     Originator ID: 192.0.2.6
+<a id=__codelineno-19-24 name=__codelineno-19-24></a>     Communities: target:100:2 color:0:11
+</code></pre></div></td></tr></table></div> <p>(we skip complete BGP configuration and service route mapping policies for brevity)</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-20-1>1</a></span>
+<span class=normal><a href=#__codelineno-20-2>2</a></span>
+<span class=normal><a href=#__codelineno-20-3>3</a></span>
+<span class=normal><a href=#__codelineno-20-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-20-1 name=__codelineno-20-1></a>root@pe1# run show spring-traffic-engineering lsp
+<a id=__codelineno-20-2 name=__codelineno-20-2></a>To              State     LSPname
+<a id=__codelineno-20-3 name=__codelineno-20-3></a>192.0.2.6-11&lt;c&gt;   Up        192.0.2.6:b:dt-srte-on-demand-tunnnels
+<a id=__codelineno-20-4 name=__codelineno-20-4></a>192.0.2.6-12&lt;c&gt;   Up        192.0.2.6:c:dt-srte-on-demand-tunnnels
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-21-1> 1</a></span>
+<span class=normal><a href=#__codelineno-21-2> 2</a></span>
+<span class=normal><a href=#__codelineno-21-3> 3</a></span>
+<span class=normal><a href=#__codelineno-21-4> 4</a></span>
+<span class=normal><a href=#__codelineno-21-5> 5</a></span>
+<span class=normal><a href=#__codelineno-21-6> 6</a></span>
+<span class=normal><a href=#__codelineno-21-7> 7</a></span>
+<span class=normal><a href=#__codelineno-21-8> 8</a></span>
+<span class=normal><a href=#__codelineno-21-9> 9</a></span>
+<span class=normal><a href=#__codelineno-21-10>10</a></span>
+<span class=normal><a href=#__codelineno-21-11>11</a></span>
+<span class=normal><a href=#__codelineno-21-12>12</a></span>
+<span class=normal><a href=#__codelineno-21-13>13</a></span>
+<span class=normal><a href=#__codelineno-21-14>14</a></span>
+<span class=normal><a href=#__codelineno-21-15>15</a></span>
+<span class=normal><a href=#__codelineno-21-16>16</a></span>
+<span class=normal><a href=#__codelineno-21-17>17</a></span>
+<span class=normal><a href=#__codelineno-21-18>18</a></span>
+<span class=normal><a href=#__codelineno-21-19>19</a></span>
+<span class=normal><a href=#__codelineno-21-20>20</a></span>
+<span class=normal><a href=#__codelineno-21-21>21</a></span>
+<span class=normal><a href=#__codelineno-21-22>22</a></span>
+<span class=normal><a href=#__codelineno-21-23>23</a></span>
+<span class=normal><a href=#__codelineno-21-24>24</a></span>
+<span class=normal><a href=#__codelineno-21-25>25</a></span>
+<span class=normal><a href=#__codelineno-21-26>26</a></span>
+<span class=normal><a href=#__codelineno-21-27>27</a></span>
+<span class=normal><a href=#__codelineno-21-28>28</a></span>
+<span class=normal><a href=#__codelineno-21-29>29</a></span>
+<span class=normal><a href=#__codelineno-21-30>30</a></span>
+<span class=normal><a href=#__codelineno-21-31>31</a></span>
+<span class=normal><a href=#__codelineno-21-32>32</a></span>
+<span class=normal><a href=#__codelineno-21-33>33</a></span>
+<span class=normal><a href=#__codelineno-21-34>34</a></span>
+<span class=normal><a href=#__codelineno-21-35>35</a></span>
+<span class=normal><a href=#__codelineno-21-36>36</a></span>
+<span class=normal><a href=#__codelineno-21-37>37</a></span>
+<span class=normal><a href=#__codelineno-21-38>38</a></span>
+<span class=normal><a href=#__codelineno-21-39>39</a></span>
+<span class=normal><a href=#__codelineno-21-40>40</a></span>
+<span class=normal><a href=#__codelineno-21-41>41</a></span>
+<span class=normal><a href=#__codelineno-21-42>42</a></span>
+<span class=normal><a href=#__codelineno-21-43>43</a></span>
+<span class=normal><a href=#__codelineno-21-44>44</a></span>
+<span class=normal><a href=#__codelineno-21-45>45</a></span>
+<span class=normal><a href=#__codelineno-21-46>46</a></span>
+<span class=normal><a href=#__codelineno-21-47>47</a></span>
+<span class=normal><a href=#__codelineno-21-48>48</a></span>
+<span class=normal><a href=#__codelineno-21-49>49</a></span>
+<span class=normal><a href=#__codelineno-21-50>50</a></span>
+<span class=normal><a href=#__codelineno-21-51>51</a></span>
+<span class=normal><a href=#__codelineno-21-52>52</a></span>
+<span class=normal><a href=#__codelineno-21-53>53</a></span>
+<span class=normal><a href=#__codelineno-21-54>54</a></span>
+<span class=normal><a href=#__codelineno-21-55>55</a></span>
+<span class=normal><a href=#__codelineno-21-56>56</a></span>
+<span class=normal><a href=#__codelineno-21-57>57</a></span>
+<span class=normal><a href=#__codelineno-21-58>58</a></span>
+<span class=normal><a href=#__codelineno-21-59>59</a></span>
+<span class=normal><a href=#__codelineno-21-60>60</a></span>
+<span class=normal><a href=#__codelineno-21-61>61</a></span>
+<span class=normal><a href=#__codelineno-21-62>62</a></span>
+<span class=normal><a href=#__codelineno-21-63>63</a></span>
+<span class=normal><a href=#__codelineno-21-64>64</a></span>
+<span class=normal><a href=#__codelineno-21-65>65</a></span>
+<span class=normal><a href=#__codelineno-21-66>66</a></span>
+<span class=normal><a href=#__codelineno-21-67>67</a></span>
+<span class=normal><a href=#__codelineno-21-68>68</a></span>
+<span class=normal><a href=#__codelineno-21-69>69</a></span>
+<span class=normal><a href=#__codelineno-21-70>70</a></span>
+<span class=normal><a href=#__codelineno-21-71>71</a></span>
+<span class=normal><a href=#__codelineno-21-72>72</a></span>
+<span class=normal><a href=#__codelineno-21-73>73</a></span>
+<span class=normal><a href=#__codelineno-21-74>74</a></span>
+<span class=normal><a href=#__codelineno-21-75>75</a></span>
+<span class=normal><a href=#__codelineno-21-76>76</a></span>
+<span class=normal><a href=#__codelineno-21-77>77</a></span>
+<span class=normal><a href=#__codelineno-21-78>78</a></span>
+<span class=normal><a href=#__codelineno-21-79>79</a></span>
+<span class=normal><a href=#__codelineno-21-80>80</a></span>
+<span class=normal><a href=#__codelineno-21-81>81</a></span>
+<span class=normal><a href=#__codelineno-21-82>82</a></span>
+<span class=normal><a href=#__codelineno-21-83>83</a></span>
+<span class=normal><a href=#__codelineno-21-84>84</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-21-1 name=__codelineno-21-1></a>root@pe1# run show spring-traffic-engineering lsp detail
+<a id=__codelineno-21-2 name=__codelineno-21-2></a>Name: 192.0.2.6:b:dt-srte-on-demand-tunnnels
+<a id=__codelineno-21-3 name=__codelineno-21-3></a>  Tunnel-source: Dynamic Tunnel Module(DTM)
+<a id=__codelineno-21-4 name=__codelineno-21-4></a>  Tunnel Forward Type: SRMPLS
+<a id=__codelineno-21-5 name=__codelineno-21-5></a>  Tunnel-template: SP-ODN-IGP
+<a id=__codelineno-21-6 name=__codelineno-21-6></a>  To: 192.0.2.6-11&lt;c&gt;
+<a id=__codelineno-21-7 name=__codelineno-21-7></a>  State: Up
+<a id=__codelineno-21-8 name=__codelineno-21-8></a>    Path: SP-P1
+<a id=__codelineno-21-9 name=__codelineno-21-9></a>    Path Status: NA
+<a id=__codelineno-21-10 name=__codelineno-21-10></a>    Outgoing interface: NA
+<a id=__codelineno-21-11 name=__codelineno-21-11></a>    Auto-translate status: Disabled Auto-translate result: N/A
+<a id=__codelineno-21-12 name=__codelineno-21-12></a>    Compute Status:Enabled , Compute Result:success , Compute-Profile Name:CP-NO-COMPRESS-IGP
+<a id=__codelineno-21-13 name=__codelineno-21-13></a>    Total number of computed paths: 2
+<a id=__codelineno-21-14 name=__codelineno-21-14></a>    Computed-path-index: 1
+<a id=__codelineno-21-15 name=__codelineno-21-15></a>      BFD status: N/A BFD name: N/A
+<a id=__codelineno-21-16 name=__codelineno-21-16></a>      TE metric: 30, IGP metric: 30
+<a id=__codelineno-21-17 name=__codelineno-21-17></a>      Delay metrics: Min: 621, Max: 621, Avg: 621
+<a id=__codelineno-21-18 name=__codelineno-21-18></a>      Metric optimized by type: IGP
+<a id=__codelineno-21-19 name=__codelineno-21-19></a>      computed segments count: 3
+<a id=__codelineno-21-20 name=__codelineno-21-20></a>        computed segment : 1 (computed-adjacency-segment):
+<a id=__codelineno-21-21 name=__codelineno-21-21></a>          label: 18
+<a id=__codelineno-21-22 name=__codelineno-21-22></a>          source router-id: 192.0.2.5, destination router-id: 192.0.2.1
+<a id=__codelineno-21-23 name=__codelineno-21-23></a>          source interface-address: 10.0.15.2, destination interface-address: 10.0.15.1
+<a id=__codelineno-21-24 name=__codelineno-21-24></a>        computed segment : 2 (computed-adjacency-segment):
+<a id=__codelineno-21-25 name=__codelineno-21-25></a>          label: 4115
+<a id=__codelineno-21-26 name=__codelineno-21-26></a>          source router-id: 192.0.2.1, destination router-id: 192.0.2.2
+<a id=__codelineno-21-27 name=__codelineno-21-27></a>          source interface-address: 10.0.12.1, destination interface-address: 10.0.12.2
+<a id=__codelineno-21-28 name=__codelineno-21-28></a>        computed segment : 3 (computed-adjacency-segment):
+<a id=__codelineno-21-29 name=__codelineno-21-29></a>          label: 17
+<a id=__codelineno-21-30 name=__codelineno-21-30></a>          source router-id: 192.0.2.2, destination router-id: 192.0.2.6
+<a id=__codelineno-21-31 name=__codelineno-21-31></a>          source interface-address: 10.0.26.1, destination interface-address: 10.0.26.2
+<a id=__codelineno-21-32 name=__codelineno-21-32></a>    Computed-path-index: 2
+<a id=__codelineno-21-33 name=__codelineno-21-33></a>      BFD status: N/A BFD name: N/A
+<a id=__codelineno-21-34 name=__codelineno-21-34></a>      TE metric: 30, IGP metric: 30
+<a id=__codelineno-21-35 name=__codelineno-21-35></a>      Delay metrics: Min: 621, Max: 621, Avg: 621
+<a id=__codelineno-21-36 name=__codelineno-21-36></a>      Metric optimized by type: IGP
+<a id=__codelineno-21-37 name=__codelineno-21-37></a>      computed segments count: 3
+<a id=__codelineno-21-38 name=__codelineno-21-38></a>        computed segment : 1 (computed-adjacency-segment):
+<a id=__codelineno-21-39 name=__codelineno-21-39></a>          label: 19
+<a id=__codelineno-21-40 name=__codelineno-21-40></a>          source router-id: 192.0.2.5, destination router-id: 192.0.2.4
+<a id=__codelineno-21-41 name=__codelineno-21-41></a>          source interface-address: 10.0.45.2, destination interface-address: 10.0.45.1
+<a id=__codelineno-21-42 name=__codelineno-21-42></a>        computed segment : 2 (computed-adjacency-segment):
+<a id=__codelineno-21-43 name=__codelineno-21-43></a>          label: 4115
+<a id=__codelineno-21-44 name=__codelineno-21-44></a>          source router-id: 192.0.2.4, destination router-id: 192.0.2.3
+<a id=__codelineno-21-45 name=__codelineno-21-45></a>          source interface-address: 10.0.34.2, destination interface-address: 10.0.34.1
+<a id=__codelineno-21-46 name=__codelineno-21-46></a>        computed segment : 3 (computed-adjacency-segment):
+<a id=__codelineno-21-47 name=__codelineno-21-47></a>          label: 17
+<a id=__codelineno-21-48 name=__codelineno-21-48></a>          source router-id: 192.0.2.3, destination router-id: 192.0.2.6
+<a id=__codelineno-21-49 name=__codelineno-21-49></a>          source interface-address: 10.0.36.1, destination interface-address: 10.0.36.2
+<a id=__codelineno-21-50 name=__codelineno-21-50></a>
+<a id=__codelineno-21-51 name=__codelineno-21-51></a>Name: 192.0.2.6:c:dt-srte-on-demand-tunnnels
+<a id=__codelineno-21-52 name=__codelineno-21-52></a>  Tunnel-source: Dynamic Tunnel Module(DTM)
+<a id=__codelineno-21-53 name=__codelineno-21-53></a>  Tunnel Forward Type: SRMPLS
+<a id=__codelineno-21-54 name=__codelineno-21-54></a>  Tunnel-template: SP-ODN-DELAY
+<a id=__codelineno-21-55 name=__codelineno-21-55></a>  To: 192.0.2.6-12&lt;c&gt;
+<a id=__codelineno-21-56 name=__codelineno-21-56></a>  State: Up
+<a id=__codelineno-21-57 name=__codelineno-21-57></a>    Path: SP-P1
+<a id=__codelineno-21-58 name=__codelineno-21-58></a>    Path Status: NA
+<a id=__codelineno-21-59 name=__codelineno-21-59></a>    Outgoing interface: NA
+<a id=__codelineno-21-60 name=__codelineno-21-60></a>    Auto-translate status: Disabled Auto-translate result: N/A
+<a id=__codelineno-21-61 name=__codelineno-21-61></a>    Compute Status:Enabled , Compute Result:success , Compute-Profile Name:no-compress-delay
+<a id=__codelineno-21-62 name=__codelineno-21-62></a>    Total number of computed paths: 1
+<a id=__codelineno-21-63 name=__codelineno-21-63></a>    Computed-path-index: 1
+<a id=__codelineno-21-64 name=__codelineno-21-64></a>      BFD status: N/A BFD name: N/A
+<a id=__codelineno-21-65 name=__codelineno-21-65></a>      TE metric: 125, IGP metric: 125
+<a id=__codelineno-21-66 name=__codelineno-21-66></a>      Delay metrics: Min: 163, Max: 163, Avg: 163
+<a id=__codelineno-21-67 name=__codelineno-21-67></a>      Metric optimized by type: Minimum-Delay
+<a id=__codelineno-21-68 name=__codelineno-21-68></a>      computed segments count: 4
+<a id=__codelineno-21-69 name=__codelineno-21-69></a>        computed segment : 1 (computed-adjacency-segment):
+<a id=__codelineno-21-70 name=__codelineno-21-70></a>          label: 19
+<a id=__codelineno-21-71 name=__codelineno-21-71></a>          source router-id: 192.0.2.5, destination router-id: 192.0.2.4
+<a id=__codelineno-21-72 name=__codelineno-21-72></a>          source interface-address: 10.0.45.2, destination interface-address: 10.0.45.1
+<a id=__codelineno-21-73 name=__codelineno-21-73></a>        computed segment : 2 (computed-adjacency-segment):
+<a id=__codelineno-21-74 name=__codelineno-21-74></a>          label: 4112
+<a id=__codelineno-21-75 name=__codelineno-21-75></a>          source router-id: 192.0.2.4, destination router-id: 192.0.2.1
+<a id=__codelineno-21-76 name=__codelineno-21-76></a>          source interface-address: 10.0.14.2, destination interface-address: 10.0.14.1
+<a id=__codelineno-21-77 name=__codelineno-21-77></a>        computed segment : 3 (computed-adjacency-segment):
+<a id=__codelineno-21-78 name=__codelineno-21-78></a>          label: 4112
+<a id=__codelineno-21-79 name=__codelineno-21-79></a>          source router-id: 192.0.2.1, destination router-id: 192.0.2.3
+<a id=__codelineno-21-80 name=__codelineno-21-80></a>          source interface-address: 10.0.13.1, destination interface-address: 10.0.13.2
+<a id=__codelineno-21-81 name=__codelineno-21-81></a>        computed segment : 4 (computed-adjacency-segment):
+<a id=__codelineno-21-82 name=__codelineno-21-82></a>          label: 17
+<a id=__codelineno-21-83 name=__codelineno-21-83></a>          source router-id: 192.0.2.3, destination router-id: 192.0.2.6
+<a id=__codelineno-21-84 name=__codelineno-21-84></a>          source interface-address: 10.0.36.1, destination interface-address: 10.0.36.2
+</code></pre></div></td></tr></table></div> <p>Here we again see ECMP for the IGP-based routing, and a single best path for delay-based service.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-22-1> 1</a></span>
+<span class=normal><a href=#__codelineno-22-2> 2</a></span>
+<span class=normal><a href=#__codelineno-22-3> 3</a></span>
+<span class=normal><a href=#__codelineno-22-4> 4</a></span>
+<span class=normal><a href=#__codelineno-22-5> 5</a></span>
+<span class=normal><a href=#__codelineno-22-6> 6</a></span>
+<span class=normal><a href=#__codelineno-22-7> 7</a></span>
+<span class=normal><a href=#__codelineno-22-8> 8</a></span>
+<span class=normal><a href=#__codelineno-22-9> 9</a></span>
+<span class=normal><a href=#__codelineno-22-10>10</a></span>
+<span class=normal><a href=#__codelineno-22-11>11</a></span>
+<span class=normal><a href=#__codelineno-22-12>12</a></span>
+<span class=normal><a href=#__codelineno-22-13>13</a></span>
+<span class=normal><a href=#__codelineno-22-14>14</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-22-1 name=__codelineno-22-1></a>root@pe1# run show route 13/8 table bgp.l3vpn.0
+<a id=__codelineno-22-2 name=__codelineno-22-2></a>
+<a id=__codelineno-22-3 name=__codelineno-22-3></a>bgp.l3vpn.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+<a id=__codelineno-22-4 name=__codelineno-22-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-22-5 name=__codelineno-22-5></a>
+<a id=__codelineno-22-6 name=__codelineno-22-6></a>192.0.2.6:8:13.0.6.0/24
+<a id=__codelineno-22-7 name=__codelineno-22-7></a>                   *[BGP/170] 00:22:04, localpref 100, from 192.0.2.7
+<a id=__codelineno-22-8 name=__codelineno-22-8></a>                      AS path: I, validation-state: unverified
+<a id=__codelineno-22-9 name=__codelineno-22-9></a>                    &gt;  to 10.0.45.1 via ge-0/0/1.0, Push 16, Push 17, Push 4112, Push 4112(top)
+<a id=__codelineno-22-10 name=__codelineno-22-10></a>192.0.2.6:9:13.1.6.0/24
+<a id=__codelineno-22-11 name=__codelineno-22-11></a>                   *[BGP/170] 00:22:04, localpref 100, from 192.0.2.7
+<a id=__codelineno-22-12 name=__codelineno-22-12></a>                      AS path: I, validation-state: unverified
+<a id=__codelineno-22-13 name=__codelineno-22-13></a>                    &gt;  to 10.0.15.1 via ge-0/0/0.0, Push 17, Push 17, Push 4115(top)
+<a id=__codelineno-22-14 name=__codelineno-22-14></a>                       to 10.0.45.1 via ge-0/0/1.0, Push 17, Push 17, Push 4115(top)
+</code></pre></div></td></tr></table></div> <h3 id=service-route-mapping-to-colored-sr-te>Service route mapping to colored SR-TE<a class=headerlink href=#service-route-mapping-to-colored-sr-te title="Permanent link">¶</a></h3> <p>Modern networks carry many types of services. Some of them existed much before segment-routing was specified. How to map such different service types to specific SR-TE tunnels? The answer to this question would require a new TechPost -- stay tuned!</p> <p>In a few words, there are two major approaches in Junos:</p> <ul> <li>via <a href=https://www.juniper.net/documentation/en_US/junos/topics/concept/color-based-mapping-of-vpn-services-overview.html>resolution maps</a></li> <li>via <a href=https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/ref/statement/use-transport-class-edit-routing-options-flex-algorithm.html>transport-classes</a></li> </ul> <p>With older resolution-maps, it is required to apply them in BGP import policy - otherwise service mapping to transports will not take place. One additional requirement is to apply "resolution rib" policy like PS-MPATH described earlier - otherwise, ECMP might not work properly.</p> <p>Transport-classes (TC) are a more modern way of service mapping (introduced in Junos 21.2R1) and have a larger service type coverage compared to resolution-maps. TC requires neither "resolution-map", nor special ECMP policy applied on RIBs, but only <code>set routing-options resolution preserve-nexthop-hierarchy</code></p> <p>More details can be found in this follow-up article: <a href=https://juniper.github.io/techposts/service-mapping-to-colored-mpls-paths/article>Service Mapping to Colored MPLS Paths</a></p> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">¶</a></h2> <ul> <li><a href=https://datatracker.ietf.org/doc/html/rfc7752>RFC7752</a> North-Bound Distribution of Link-State and Traffic Engineering (TE) Information Using BGP</li> <li><a href=https://datatracker.ietf.org/doc/html/rfc9085>RFC9085</a> Border Gateway Protocol - Link State (BGP-LS) Extensions for Segment Routing</li> <li><a href=https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/ref/statement/use-transport-class-edit-routing-options-flex-algorithm.html>Transport-Classes</a></li> <li><a href=https://www.juniper.net/documentation/en_US/junos/topics/concept/color-based-mapping-of-vpn-services-overview.html>Resolution Maps</a></li> </ul> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">¶</a></h2> <ul> <li>ABR Area Border Router</li> <li>BGP Border Gateway Protocol</li> <li>BGP-LS BGP Link State</li> <li>ECMP Equal-Cost Multipath</li> <li>IGP Interior Gateway Protocol</li> <li>LSP Label-switched path</li> <li>MPLS Multiprotocol Label Switching</li> <li>PE Provider Edge</li> <li>RR Route-Reflector</li> <li>SR Segment Routing</li> <li>TC Transport Class</li> <li>TLV Type-Length Value</li> </ul> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>
