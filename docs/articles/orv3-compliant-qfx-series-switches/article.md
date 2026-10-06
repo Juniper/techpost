@@ -2,7 +2,7 @@
 
 **Ridha Hamidi - 08/06/2026**
 
-HPE–Juniper Networks QFX Series switch platforms support ORv3-compliant data center deployments, aligning with Open Compute Project (OCP) Open Rack Version 3 (ORv3) specifications. Compliance is achieved through mechanical and electrical adaptations to the QFX platform, enabling integration into ORv3 rack infrastructure.
+HPE--Juniper Networks QFX Series switch platforms support ORv3-compliant data center deployments, aligning with Open Compute Project (OCP) Open Rack Version 3 (ORv3) specifications. Compliance is achieved through mechanical and electrical adaptations to the QFX platform, enabling integration into ORv3 rack infrastructure.
 
 ## Introduction
 
@@ -40,7 +40,7 @@ The two options share a consistent set of foundational requirements, including:
 - Integrated 48V-class busbar for power distribution
 - Tool-less serviceability requirements for IT equipment
 - Defined grounding mechanisms and safety features
-- Environmental operating range between 10°C and 60°C
+- Environmental operating range between 10degC and 60degC
 - Structural validation through standardized mechanical tests
 - These requirements ensure compatibility across different vendors and deployment scenarios.
 
@@ -53,19 +53,19 @@ The two options share a consistent set of foundational requirements, including:
 | IT Equipment Width | 21.2 in | 24.0 in |
 | IT Equipment Depth | 31.6 in | 23.2 in |
 | Nominal Voltage | 51 VDC | 54 VDC |
-| Voltage Range | 46–52 VDC | 52–56 VDC |
+| Voltage Range | 46--52 VDC | 52--56 VDC |
 
 ### Meta Open Rack Frame V3 Specification
 
 The Meta Open Rack Frame V3 Specification extends the ORv3 Base Specification by defining a concrete implementation of Option 1 and introducing additional requirements to improve deployment consistency.
 
 Key Enhancements Include:
-• Defined external rack dimensions
-• Maximum load capacity of 1400 kg
-• Enhanced mechanical testing and validation requirements
-• Support for blind-mate liquid cooling
-• Extended OpenU configurations for increased flexibility
-• Defined grounding path implementation
+- Defined external rack dimensions
+- Maximum load capacity of 1400 kg
+- Enhanced mechanical testing and validation requirements
+- Support for blind-mate liquid cooling
+- Extended OpenU configurations for increased flexibility
+- Defined grounding path implementation
 
 These enhancements enable more predictable deployment models, particularly in hyperscale environments.
 
@@ -125,7 +125,7 @@ The HPE-Juniper QFX-Series ORv3-compliant portfolio includes these QFX platforms
 
 **Notes**:
 
-- Older QFX platforms, like QFX5120-48T, QFX5130, QFX5220, and QFX5230, require tray height adjustments due to the HSM integration, so 1RU switches fit in 2OU ORv3 trays and 2RU switches fit in 3OU trays. However, newer models, like QFX5140, QFX5241, and QFX5250 do not require such adjustments because they’re designed from the ground up to be ORv3-compliant, so 1RU switches fit in 1OU ORv3 trays, 2RU switches fit in 2OU trays, and 3RU switches fit in 3OU trays.
+- Older QFX platforms, like QFX5120-48T, QFX5130, QFX5220, and QFX5230, require tray height adjustments due to the HSM integration, so 1RU switches fit in 2OU ORv3 trays and 2RU switches fit in 3OU trays. However, newer models, like QFX5140, QFX5241, and QFX5250 do not require such adjustments because they're designed from the ground up to be ORv3-compliant, so 1RU switches fit in 1OU ORv3 trays, 2RU switches fit in 2OU trays, and 3RU switches fit in 3OU trays.
 - QFX5250-64OE-L is a native ORv3 liquid-cooled switch, so it does not require an ORv3 tray.
 
 The design diagrams of these switches are provided below:
@@ -134,7 +134,7 @@ The design diagrams of these switches are provided below:
 
 ![Design Diagrams for QFX523064CDDAFO-T3](images/figure8.png)
 
-Newer HPE–Juniper QFX platforms are designed with native ORv3 compliance, and the same applies to all future QFX switches.
+Newer HPE--Juniper QFX platforms are designed with native ORv3 compliance, and the same applies to all future QFX switches.
 
 Design Improvements Include:
 
@@ -156,7 +156,7 @@ Additionally, a liquid-cooled QFX switch platform has been released that is nati
 
 ## Conclusions
 
-Open Rack Version 3 (ORv3) defines a standardized, scalable rack architecture for modern data center environments. HPE–Juniper Networks ORv3-compliant QFX Series switch platforms enable deployment within OCP-compliant rack infrastructure and adhere to ORv3 mechanical and electrical specifications, including busbar power interfacing, tool-less serviceability, and dimensional constraints. These platforms also provide a migration path from retrofit-based (adapter tray) solutions to natively engineered ORv3 designs, supporting evolving data center requirements while maintaining alignment with open industry standards.
+Open Rack Version 3 (ORv3) defines a standardized, scalable rack architecture for modern data center environments. HPE--Juniper Networks ORv3-compliant QFX Series switch platforms enable deployment within OCP-compliant rack infrastructure and adhere to ORv3 mechanical and electrical specifications, including busbar power interfacing, tool-less serviceability, and dimensional constraints. These platforms also provide a migration path from retrofit-based (adapter tray) solutions to natively engineered ORv3 designs, supporting evolving data center requirements while maintaining alignment with open industry standards.
 
 ## Useful Links
 

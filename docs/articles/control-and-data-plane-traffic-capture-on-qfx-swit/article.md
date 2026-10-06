@@ -50,25 +50,25 @@ The available options for this command are listed in the output below.
 {master:0}
 root@qfx5120> monitor traffic interface em0 ?
 Possible completions:
-  <[Enter]>            Execute this command
-  absolute-sequence    Display absolute TCP sequence numbers
-  brief                Display brief output
-  count                Number of packets to receive (0..1000000 packets)
-  detail               Display detailed output
-  extensive            Display extensive output
-  layer2-headers       Display link-level header on each dump line
-  matching             Expression for headers of receive packets to match
-  no-domain-names      Don't display domain portion of hostnames
-  no-promiscuous       Don't put interface into promiscuous mode
-  no-resolve           Don't attempt to print addresses symbolically
-  no-timestamp         Don't print timestamp on each dump line
-  print-ascii          Display packets in ASCII when displaying in hexadecimal format
-  print-hex            Display packets in hexadecimal format
-  read-file            Read packets from a given file
-  resolve-timeout      Period of time to wait for each name resolution (1..4294967295 seconds)
-  size                 Amount of each packet to receive (bytes)
-  write-file           Write packets to specified file
-  |                    Pipe through a command
+  <[Enter]>            Execute this command
+  absolute-sequence    Display absolute TCP sequence numbers
+  brief                Display brief output
+  count                Number of packets to receive (0..1000000 packets)
+  detail               Display detailed output
+  extensive            Display extensive output
+  layer2-headers       Display link-level header on each dump line
+  matching             Expression for headers of receive packets to match
+  no-domain-names      Don't display domain portion of hostnames
+  no-promiscuous       Don't put interface into promiscuous mode
+  no-resolve           Don't attempt to print addresses symbolically
+  no-timestamp         Don't print timestamp on each dump line
+  print-ascii          Display packets in ASCII when displaying in hexadecimal format
+  print-hex            Display packets in hexadecimal format
+  read-file            Read packets from a given file
+  resolve-timeout      Period of time to wait for each name resolution (1..4294967295 seconds)
+  size                 Amount of each packet to receive (bytes)
+  write-file           Write packets to specified file
+  |                    Pipe through a command
 {master:0}
 ```
 
@@ -99,9 +99,9 @@ Reverse lookup for 10.92.71.52 failed (check DNS reachability).
 Other reverse lookup failures will not be reported.
 Use <no-resolve> to avoid reverse lookups on IP addresses.
 
-12:25:19.195646  In arp who-has 10.92.71.52 tell sfo-vlan140.englab.juniper.net
-12:25:19.241517  In IP sfo-vlan140.englab.juniper.net > vrrp.mcast.net: VRRPv2-advertisement 20: vrid=11 prio=110 authtype=none intvl=1
-12:25:19.775473  In arp who-has sflab-vlan140-dhcp-9.englab.juniper.net tell sfo-vlan140.englab.juniper.net
+12:25:19.195646  In arp who-has 10.92.71.52 tell sfo-vlan140.englab.juniper.net
+12:25:19.241517  In IP sfo-vlan140.englab.juniper.net > vrrp.mcast.net: VRRPv2-advertisement 20: vrid=11 prio=110 authtype=none intvl=1
+12:25:19.775473  In arp who-has sflab-vlan140-dhcp-9.englab.juniper.net tell sfo-vlan140.englab.juniper.net
 
 <snip>
 
@@ -142,7 +142,7 @@ The alternate procedure we describe in this section is an attempt to address the
 
 The framework described above requires network devices to be pre-configured to securely stream DDoS-protection statistics to collectors in a publisher-subscriber model.
 
-The first important building block of this framework is the DDOS attack component. The algorithm uses the underlying Broadcom’s pre-configured ASIC queue thresholds that define DDOS attacks. The software monitors these thresholds and reports the violating flows to upper layers that can act on them.
+The first important building block of this framework is the DDOS attack component. The algorithm uses the underlying Broadcom's pre-configured ASIC queue thresholds that define DDOS attacks. The software monitors these thresholds and reports the violating flows to upper layers that can act on them.
 
 In our case, the action is to capture packets for a period of time (default is 5 seconds with a maximum of 5,000 packets) and send them to the collector via a pre-defined sensor under the HPE-Juniper native data model.
 
@@ -157,47 +157,47 @@ The output below shows the list of queues and their respective thresholds
 root@qfx5120> request pfe execute target fpc0 command "show halp-pkt asic-queue"
 SENT: Ukern command: show halp-pkt asic-queue
 ------ --------- -------- -------- ------------------------------
- CMICQ  Channel   bwidth    burst     Qlen           Proto(s)
+ CMICQ  Channel   bwidth    burst     Qlen           Proto(s)
 ------ ---------- -------- -------- --------- ------------------------------
-     0        3      500       10      200             uncls
-     4        1     4000      200      200          vchassis-unclassified
-     5        3      500      200      200           overlay-arp
-     6        3      500      200      200           overlay-ndpv6
-     7        3      500      200      200             vxlan
-     8        3     1500      200      200           localnh
-     9        3     1000      200      200         vcipc-udp
-    10        3     2000      200      200     sample-source
-    11        3     2000      200      200       sample-dest
-    12        3       50       10      200        l3mtu-fail,ttl,ip-opt
-    14        3      100       10      200        garp-reply
-    15        3      500       10      200           fw-host
-    16        3      500      200      200             ndpv6
-    17        3     1000      200      200          dhcpv4v6
-    19        3     1500      200      200     ipmc-reserved
-    20        3      300      200      200           resolve
-    21        3      100       10      200       l3dest-miss
-    22        3      100       10      200          redirect
-    23        3      300      200      200            l3nhop
-    24        3      100       10      200   l3mc-sgvhit-icl
-    25        3       50       10      200   martian-address
-    26        3     1000      200      200              l2pt
-    27        3       50       10      200         urpf-fail
-    28        3     1000      300      300      ipmcast-miss
-    29        2      300       10      200   nonucast-switch
-    30        2     3000      200      200              rsvp,ldp,bgp
-    31        2     3000      200      200      unknown-l2mc,rip,ospf
-    32        2     1000      200      200      fip-snooping,--non-exist--
-    33        2     1000      200      200              igmp
-    34        2      500      200      200               arp
-    35        2     1500      200      200          pim-data
-    36        2     1500      200      200        ospf-hello
-    37        2     1500      200      200          pim-ctrl
-    38        2     2000      200      200              isis
-    39        1      250      200      200              lacp
-    40        1     1200      200      200               bfd
-    41        1      100       10      200               ntp
-    42        1      500      200      200          vchassis-aggregate
-    43        1     1000      200      200               stp,pvstp,lldp
+     0        3      500       10      200             uncls
+     4        1     4000      200      200          vchassis-unclassified
+     5        3      500      200      200           overlay-arp
+     6        3      500      200      200           overlay-ndpv6
+     7        3      500      200      200             vxlan
+     8        3     1500      200      200           localnh
+     9        3     1000      200      200         vcipc-udp
+    10        3     2000      200      200     sample-source
+    11        3     2000      200      200       sample-dest
+    12        3       50       10      200        l3mtu-fail,ttl,ip-opt
+    14        3      100       10      200        garp-reply
+    15        3      500       10      200           fw-host
+    16        3      500      200      200             ndpv6
+    17        3     1000      200      200          dhcpv4v6
+    19        3     1500      200      200     ipmc-reserved
+    20        3      300      200      200           resolve
+    21        3      100       10      200       l3dest-miss
+    22        3      100       10      200          redirect
+    23        3      300      200      200            l3nhop
+    24        3      100       10      200   l3mc-sgvhit-icl
+    25        3       50       10      200   martian-address
+    26        3     1000      200      200              l2pt
+    27        3       50       10      200         urpf-fail
+    28        3     1000      300      300      ipmcast-miss
+    29        2      300       10      200   nonucast-switch
+    30        2     3000      200      200              rsvp,ldp,bgp
+    31        2     3000      200      200      unknown-l2mc,rip,ospf
+    32        2     1000      200      200      fip-snooping,--non-exist--
+    33        2     1000      200      200              igmp
+    34        2      500      200      200               arp
+    35        2     1500      200      200          pim-data
+    36        2     1500      200      200        ospf-hello
+    37        2     1500      200      200          pim-ctrl
+    38        2     2000      200      200              isis
+    39        1      250      200      200              lacp
+    40        1     1200      200      200               bfd
+    41        1      100       10      200               ntp
+    42        1      500      200      200          vchassis-aggregate
+    43        1     1000      200      200               stp,pvstp,lldp
 {master:0}
 root@qfx5120>
 ```
@@ -206,7 +206,7 @@ For demonstration purposes, we simulated a DDoS attack by sending an excessive n
 
 The second important building block of this framework is the telemetry component.
 
-Establishing a secure SSL connection between the network device and the collector involves multiple steps and is out of the scope. For lab purposes, and to keep this paper focused on the topic of packet capture, we will use the following configuration with an insecure clear-text connection.
+Establishing a secure SSL connection between the network device and the collector involves multiple steps and is out of the scope. For lab purposes, and to keep this paper focused on the topic of packet capture, we will use the following configuration with an insecure clear-text connection.
 
 Do not use such an insecure connection in production environments.
 
@@ -222,7 +222,7 @@ We also need to enter the following operational commands to trigger logging in t
 ```
 {master:0}
 root@qfx5120> request pfe execute target fpc0 command "show ukern_trace handles" | grep BRCM_PKT
-17     BRCM_PKT         none       Off    On     1048576      3     -
+17     BRCM_PKT         none       Off    On     1048576      3     -
 
 {master:0}
 root@qfx5120>
@@ -260,18 +260,18 @@ The highlighted lines show that the connection is established successfully from 
 root@qfx5120> show agent sensors
 <snip>
 Sensor Information :
-    Name                                    : sensor_1005
-    Resource                                : /junos/system/linecard/packet-capture/
-    Version                                 : 1.0
-    Sensor-id                               : 539528118
-    Subscription-ID                         : 1005
-    Parent-Sensor-Name                      : Not applicable
-    Component(s)                            : PFE
-    Profile Information :
-        Name                                : export_1005
-        Reporting-interval                  : 30
-        Payload-size                        : 5000
-        Format                              : JSON
+    Name                                    : sensor_1005
+    Resource                                : /junos/system/linecard/packet-capture/
+    Version                                 : 1.0
+    Sensor-id                               : 539528118
+    Subscription-ID                         : 1005
+    Parent-Sensor-Name                      : Not applicable
+    Component(s)                            : PFE
+    Profile Information :
+        Name                                : export_1005
+        Reporting-interval                  : 30
+        Payload-size                        : 5000
+        Format                              : JSON
 {master:0}
 root@qfx5120>
 ```
@@ -279,8 +279,8 @@ root@qfx5120>
 ```
 {master:0}
 root@qfx5120> show system connections | match 57400
-tcp4       0      0  10.92.71.182.57400                            10.92.71.98.37792                             ESTABLISHED
-tcp46      0      0  *.57400                                       *.*                                           LISTEN
+tcp4       0      0  10.92.71.182.57400                            10.92.71.98.37792                             ESTABLISHED
+tcp46      0      0  *.57400                                       *.*                                           LISTEN
 
 {master:0}
 root@qfx5120>
@@ -289,15 +289,15 @@ root@qfx5120>
 ```
 {master:0}
 root@qfx5120> show extension-service request-response clients
-Client ID              Socket Address                     Client Type   Client
-Login Time (UTC)   Channel Count
-mgd-api                unix::35                           gRPC          No Login Time                     0
+Client ID              Socket Address                     Client Type   Client
+Login Time (UTC)   Channel Count
+mgd-api                unix::35                           gRPC          No Login Time                     0
 
-unix::40               unix::40                           gRPC          No Login Time                     1
+unix::40               unix::40                           gRPC          No Login Time                     1
 
-unix::41               unix::41                           gRPC          No Login Time                     1
+unix::41               unix::41                           gRPC          No Login Time                     1
 
-ipv6:::ffff:10.92.71.98:59102 ipv6:::ffff:10.92.71.98:59102 gRPC        Mon Jun 29 01:42:55 2026          1
+ipv6:::ffff:10.92.71.98:59102 ipv6:::ffff:10.92.71.98:59102 gRPC        Mon Jun 29 01:42:55 2026          1
 
 {master:0}
 root@qfx5120>
@@ -307,39 +307,39 @@ root@qfx5120>
 {master:0}
 root@qfx5120> show extension-service request-response clients detail
 Channel information:
-  Client ID: mgd-api
-  Socket Address: unix::35
-  Client Type: gRPC
-  Channel Count: 0
-  Client Login Time (UTC): No Login Time
+  Client ID: mgd-api
+  Socket Address: unix::35
+  Client Type: gRPC
+  Channel Count: 0
+  Client Login Time (UTC): No Login Time
   Client ID: unix::40
-  Socket Address: unix::40
-  Client Type: gRPC
-  Channel Count: 1
-  Client Login Time (UTC): No Login Time
-    Channel target: unix:/var/run/japi_na-grpcd
-    Channel status: GRPC_CHANNEL_READY
-    User name: No User
+  Socket Address: unix::40
+  Client Type: gRPC
+  Channel Count: 1
+  Client Login Time (UTC): No Login Time
+    Channel target: unix:/var/run/japi_na-grpcd
+    Channel status: GRPC_CHANNEL_READY
+    User name: No User
 
 Channel information:
-  Client ID: unix::41
-  Socket Address: unix::41
-  Client Type: gRPC
-  Channel Count: 1
-  Client Login Time (UTC): No Login Time
-    Channel target: unix:/var/run/japi_na-grpcd
-    Channel status: GRPC_CHANNEL_READY
-    User name: No User
+  Client ID: unix::41
+  Socket Address: unix::41
+  Client Type: gRPC
+  Channel Count: 1
+  Client Login Time (UTC): No Login Time
+    Channel target: unix:/var/run/japi_na-grpcd
+    Channel status: GRPC_CHANNEL_READY
+    User name: No User
 
 Channel information:
-  Client ID: ipv6:::ffff:10.92.71.98:59102
-  Socket Address: ipv6:::ffff:10.92.71.98:59102
-  Client Type: gRPC
-  Channel Count: 1
-  Client Login Time (UTC): Mon Jun 29 01:42:55 2026
-    Channel target: unix:/var/run/japi_na-grpcd
-    Channel status: GRPC_CHANNEL_READY
-    User name: root
+  Client ID: ipv6:::ffff:10.92.71.98:59102
+  Socket Address: ipv6:::ffff:10.92.71.98:59102
+  Client Type: gRPC
+  Channel Count: 1
+  Client Login Time (UTC): Mon Jun 29 01:42:55 2026
+    Channel target: unix:/var/run/japi_na-grpcd
+    Channel status: GRPC_CHANNEL_READY
+    User name: root
 {master:0}
 root@qfx5120>
 ```
@@ -348,13 +348,13 @@ root@qfx5120>
 {master:0}
 root@qfx5120> show extension-service request-response servers
 gRPC server information:
-  Max connections: 8, Skip-authentication: Enabled
+  Max connections: 8, Skip-authentication: Enabled
 
   Address: 0.0.0.0, Port: 57400
-  Status: Up, Type: Clear-text
+  Status: Up, Type: Clear-text
 
   Address: unix:/var/run/japi_jsd
-  Status: Up, Type: Clear-text
+  Status: Up, Type: Clear-text
 
 {master:0}
 root@qfx5120>
@@ -365,23 +365,23 @@ root@qfx5120>
 root@qfx5120> show ephemeral-configuration instance junos-analytics
 ## Last changed: 2026-06-29 01:42:57 UTC
 services {
-    analytics {
+    analytics {
 <snip>
-        export-profile export_1011 {
-            format json-gnmi; ## Warning: 'format' is deprecated
-            transport grpc; ## Warning: 'transport' is deprecated
-        }
+        export-profile export_1011 {
+            format json-gnmi; ## Warning: 'format' is deprecated
+            transport grpc; ## Warning: 'transport' is deprecated
+        }
 <snip>
-        sensor sensor_1011 {
-            export-name export_1011;
-            resource /junos/system/linecard/packet-capture/;
-            subscription-id 1011;
-            reporting-rate 30;
-            end-of-sync-identifiers 8;
-            target-defined;
-            life-time long-lived;
-        }
-    }
+        sensor sensor_1011 {
+            export-name export_1011;
+            resource /junos/system/linecard/packet-capture/;
+            subscription-id 1011;
+            reporting-rate 30;
+            end-of-sync-identifiers 8;
+            target-defined;
+            life-time long-lived;
+        }
+    }
 }
 
 {master:0}
@@ -390,13 +390,13 @@ root@qfx5120>
 
 Now that we verified that the setup is configured properly and is operationally ready, we can start testing if it handles a DDOS attack properly by capturing the appropriate packets and sending them to the collector.
 
-First, let’s verify that no DDOS attack is present before starting the simulation:
+First, let's verify that no DDOS attack is present before starting the simulation:
 
 ```
 {master:0}
 root@qfx5120> show ddos-protection protocols violations
 Packet types: 47, Currently violated: 0
- 
+ 
 {master:0}
 root@qfx5120>
 
@@ -407,18 +407,18 @@ root@qfx5120>
 root@qfx5120> show ddos-protection protocols statistics terse
 Packet types: 47, Received traffic: 4, Currently violated: 0
 
-Protocol    Packet      Received        Dropped        Rate     Violation State
-group       type        (packets)       (packets)      (pps)    counts
-stp         aggregate   58              0              1        0         ok
-lldp        aggregate   58              0              1        0         ok
-arp         aggregate   1               0              0        0         ok
-pvstp       aggregate   58              0              1        0         ok
+Protocol    Packet      Received        Dropped        Rate     Violation State
+group       type        (packets)       (packets)      (pps)    counts
+stp         aggregate   58              0              1        0         ok
+lldp        aggregate   58              0              1        0         ok
+arp         aggregate   1               0              0        0         ok
+pvstp       aggregate   58              0              1        0         ok
 
 {master:0}
 root@qfx5120>
 ```
 
-Given that we’re using a lab environment as a POC, we do not have a real telemetry collector. Instead, we will capture specific packets on the server acting as collector and process them manually.
+Given that we're using a lab environment as a POC, we do not have a real telemetry collector. Instead, we will capture specific packets on the server acting as collector and process them manually.
 To that end, we can capture the relevant telemetry packets on the collector by using the following tcpdump command and writing the captured packets into a file.
 
 ```
@@ -432,10 +432,10 @@ We now start the simulated ARP DDOS attack on the traffic generator and verify i
 {master:0}
 root@qfx5120> show ddos-protection protocols violations
 Packet types: 47, Currently violated: 1
-Protocol    Packet      Bandwidth  Arrival   Peak      Policer bandwidth
-group       type        (pps)      rate(pps) rate(pps) violation detected at
-arp         aggregate   500        999       1000      2026-06-29 02:49:11 UTC
-  Detected on: FPC-0
+Protocol    Packet      Bandwidth  Arrival   Peak      Policer bandwidth
+group       type        (pps)      rate(pps) rate(pps) violation detected at
+arp         aggregate   500        999       1000      2026-06-29 02:49:11 UTC
+  Detected on: FPC-0
 {master:0}
 root@qfx5120>
 ```
@@ -444,12 +444,12 @@ root@qfx5120>
 {master:0}
 root@qfx5120> show ddos-protection protocols statistics terse
 Packet types: 47, Received traffic: 4, Currently violated: 1
-Protocol    Packet      Received        Dropped        Rate     Violation State
-group       type        (packets)       (packets)      (pps)    counts
-stp         aggregate   1637            0              2        0         ok
-lldp        aggregate   1637            0              2        0         ok
-arp         aggregate   49035           19715          1001     1         viol
-pvstp       aggregate   1637            0              2        0         ok
+Protocol    Packet      Received        Dropped        Rate     Violation State
+group       type        (packets)       (packets)      (pps)    counts
+stp         aggregate   1637            0              2        0         ok
+lldp        aggregate   1637            0              2        0         ok
+arp         aggregate   49035           19715          1001     1         viol
+pvstp       aggregate   1637            0              2        0         ok
 {master:0}
 root@qfx5120>
 ```
@@ -469,70 +469,70 @@ import re
 import sys
 
 def extract_embedded_packets(input_pcap, output_pcap):
-    """
-    Read a PCAP file, search payloads for ASCII hex-encoded Ethernet frames,
-    reconstruct packets, and write them into a new PCAP file.
-    """
-    # Match long sequences of hex bytes:
-    # Example:
-    # ff ff ff ff ff ff 64 c3 d6 60 76 00 08 00 ...
-    hex_pattern = re.compile(
-        rb'((?:[0-9a-fA-F]{2}[\s:.-]?){20,})'
-    )
+    """
+    Read a PCAP file, search payloads for ASCII hex-encoded Ethernet frames,
+    reconstruct packets, and write them into a new PCAP file.
+    """
+    # Match long sequences of hex bytes:
+    # Example:
+    # ff ff ff ff ff ff 64 c3 d6 60 76 00 08 00 ...
+    hex_pattern = re.compile(
+        rb'((?:[0-9a-fA-F]{2}[\s:.-]?){20,})'
+    )
 
-    packets = rdpcap(input_pcap)
-    extracted_packets = []
+    packets = rdpcap(input_pcap)
+    extracted_packets = []
 
-    for pkt in packets:
-        raw_data = bytes(pkt)
-        matches = hex_pattern.findall(raw_data)
-        for match in matches:
-            try:
-                # Decode ASCII bytes
-                hex_string = match.decode("ascii", errors="ignore")
+    for pkt in packets:
+        raw_data = bytes(pkt)
+        matches = hex_pattern.findall(raw_data)
+        for match in matches:
+            try:
+                # Decode ASCII bytes
+                hex_string = match.decode("ascii", errors="ignore")
 
-                # Remove separators/spaces
-                cleaned = re.sub(r'[^0-9a-fA-F]', '', hex_string)
+                # Remove separators/spaces
+                cleaned = re.sub(r'[^0-9a-fA-F]', '', hex_string)
 
-                # Must be even-length hex
-                if len(cleaned) % 2 != 0:
-                    continue
+                # Must be even-length hex
+                if len(cleaned) % 2 != 0:
+                    continue
 
-                packet_bytes = bytes.fromhex(cleaned)
+                packet_bytes = bytes.fromhex(cleaned)
 
-                # Minimum Ethernet frame header
-                if len(packet_bytes) < 14:
-                    continue
+                # Minimum Ethernet frame header
+                if len(packet_bytes) < 14:
+                    continue
 
-                # Create Ethernet packet
-                ether_pkt = Ether(packet_bytes)
+                # Create Ethernet packet
+                ether_pkt = Ether(packet_bytes)
 
-                extracted_packets.append(ether_pkt)
+                extracted_packets.append(ether_pkt)
 
-            except Exception as e:
-                print(f"Skipping invalid match: {e}")
+            except Exception as e:
+                print(f"Skipping invalid match: {e}")
 
-    if not extracted_packets:
-        print("No embedded packets found.")
-        return
+    if not extracted_packets:
+        print("No embedded packets found.")
+        return
 
-    wrpcap(output_pcap, extracted_packets)
+    wrpcap(output_pcap, extracted_packets)
 
-    print(f"Extracted {len(extracted_packets)} packets")
-    print(f"New PCAP written to: {output_pcap}")
+    print(f"Extracted {len(extracted_packets)} packets")
+    print(f"New PCAP written to: {output_pcap}")
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage:")
-        print(f"  {sys.argv[0]} <input.pcap> <output.pcap>")
-        sys.exit(1)
+    if len(sys.argv) != 3:
+        print("Usage:")
+        print(f"  {sys.argv[0]} <input.pcap> <output.pcap>")
+        sys.exit(1)
 
-    input_pcap = sys.argv[1]
-    output_pcap = sys.argv[2]
-    extract_embedded_packets(input_pcap, output_pcap)
+    input_pcap = sys.argv[1]
+    output_pcap = sys.argv[2]
+    extract_embedded_packets(input_pcap, output_pcap)
 
 if __name__ == "__main__":
-    main()
+    main()
 
 root@server:~#
 ```
@@ -543,7 +543,7 @@ We used the above script to convert the captured file from ProtoBuf to pcap, as 
 root@server:~# python3 protobuf-to-pcap.py My_DDOS_Packet_Capture My_DDOS_Packet_Capture.pcap
 Extracted 2549 packets
 New PCAP written to: My_DDOS_Packet_Capture.pcap
-root@server:~# 
+root@server:~# 
 ```
 
 Then we analyzed the pcap file with tcpdump
@@ -568,7 +568,7 @@ Supported QFX Models: QFX5130-32CD, QFX5130E-32CD, QFX5130-48C, QFX5700, QFX5230
 
 Software Release: Junos: 23.4X100-D40-EVO onward
 
-A recurring troubleshooting scenario involves statistical discrepancies on point-to-point links between directly connected routers or switches. Specifically, the transmitted packet counter reported on one device may not match the received packet counter reported on its peer — for the same packet flow, across the same physical link. The counters on either side of the link appear to tell contradictory stories about the same traffic, which can obscure the true source of packet loss and complicate fault isolation. The packet capture feature described in this section records a configurable number of host-bound packets per physical interface and exports them to an external collector using the Junos Telemetry Interface (JTI). This capability provides engineers with direct visibility into ingress traffic at the interface level, enabling efficient root-cause analysis of network and performance issues without the need for external capture infrastructure.
+A recurring troubleshooting scenario involves statistical discrepancies on point-to-point links between directly connected routers or switches. Specifically, the transmitted packet counter reported on one device may not match the received packet counter reported on its peer --- for the same packet flow, across the same physical link. The counters on either side of the link appear to tell contradictory stories about the same traffic, which can obscure the true source of packet loss and complicate fault isolation. The packet capture feature described in this section records a configurable number of host-bound packets per physical interface and exports them to an external collector using the Junos Telemetry Interface (JTI). This capability provides engineers with direct visibility into ingress traffic at the interface level, enabling efficient root-cause analysis of network and performance issues without the need for external capture infrastructure.
 
 Upon each interface transition from the DOWN state to the UP state, the device automatically captures the first 50 ingress packets received on that interface. Captured data is encoded in Google Protocol Buffer (GPB) format and streamed to the configured collector over gRPC with SSL encryption, ensuring both efficiency and transport-layer security.
 
@@ -578,7 +578,7 @@ To illustrate how this feature works, we will use the following POC setup
 
 ![Interface](images/figure5.png)
 
-As described in the previous section, which also uses a ProtoBuf Collector, it’s it is important to make sure that this building block is configured and ready for secure or insecure collection of telemetry records.
+As described in the previous section, which also uses a ProtoBuf Collector, it's it is important to make sure that this building block is configured and ready for secure or insecure collection of telemetry records.
 
 Please follow the same instructions for configuration and verification as described in the previous section.
 
@@ -644,11 +644,11 @@ usage: start_pcap.py [-h] [-n NUM_PACKETS] [-m MAX_RUN_TIME]
 Specifications.
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -n NUM_PACKETS, --num_packets NUM_PACKETS
-                        Maximum packets to captured(1000)
-  -m MAX_RUN_TIME, --max_run_time MAX_RUN_TIME
-                        Maximum run time in seconds(2..60)
+  -h, --help            show this help message and exit
+  -n NUM_PACKETS, --num_packets NUM_PACKETS
+                        Maximum packets to captured(1000)
+  -m MAX_RUN_TIME, --max_run_time MAX_RUN_TIME
+                        Maximum run time in seconds(2..60)
 [vrf:none] root@qfx5130:~#
 ```
 
@@ -666,7 +666,7 @@ You should find a .pcap file under /var/tmp/pcap. The file name is generated aut
 ```
 root@qfx5130> file list /var/tmp/pcap/ detail | grep pcap
 /var/tmp/pcap/:
--rw-r--r--  1 root  root        1204 Jul 4  13:19 et_0_0_0_20260704_131935.pcap
+-rw-r--r--  1 root  root        1204 Jul 4  13:19 et_0_0_0_20260704_131935.pcap
 
 root@qfx5130>
 ```
@@ -699,7 +699,7 @@ This packet capture feature is based on the implementation described in the figu
 
 ![Steps of Packet Capture on QFX running Junos OS](images/figure7.png)
 
-QFX platforms running Junos OS have the capability of on-box transit packet capturing from the operational mode, so there’s no need to change the QFX configuration to use this capability.
+QFX platforms running Junos OS have the capability of on-box transit packet capturing from the operational mode, so there's no need to change the QFX configuration to use this capability.
 
 This capability enables packet capturing on the ingress or egress ports of a QFX and supports filtering based on one or more packet header fields, depending on hardware capabilities. With this feature, operators can inspect live packet streams entering or leaving a device by executing a single CLI command, without relying on external capture infrastructure.
 
@@ -754,7 +754,7 @@ Reverse lookup for 192.168.100.1 failed (check DNS reachability).
 Other reverse lookup failures will not be reported.
 Use <no-resolve> to avoid reverse lookups on IP addresses.
 
-15:53:12.648946  In IP truncated-ip - 28 bytes missing! 192.168.100.1 > 192.168.100.13: ICMP echo request, id 59105, seq 14005, length 64
+15:53:12.648946  In IP truncated-ip - 28 bytes missing! 192.168.100.1 > 192.168.100.13: ICMP echo request, id 59105, seq 14005, length 64
 
 {master:0}
 root@qfx5120>
@@ -783,7 +783,7 @@ verbose output suppressed, use <detail> or <extensive> for full protocol decode
 Address resolution is OFF.
 Listening on et-0/0/50, capture size 96 bytes
 
-22:05:06.958404  In IP truncated-ip - 28 bytes missing! 192.168.100.13 > 192.168.100.1: ICMP echo reply, id 59105, seq 33779, length 64
+22:05:06.958404  In IP truncated-ip - 28 bytes missing! 192.168.100.13 > 192.168.100.1: ICMP echo reply, id 59105, seq 33779, length 64
 
 {master:0}
 root@qfx5120>

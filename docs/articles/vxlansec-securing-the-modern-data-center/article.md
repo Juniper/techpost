@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Modern data center networks are increasingly built around overlay technologies that enable scalability, workload mobility, and efficient network segmentation. VXLAN has become a widely adopted solution for extending Layer 2 connectivity across Layer 3 infrastructures, serving as a foundational technology in many EVPN-based data center deployments.
+Modern data center networks are increasingly built around overlay technologies that enable scalability, workload mobility, and efficient network segmentation. VXLAN has become a widely adopted solution for extending Layer 2 connectivity across Layer 3 infrastructures, serving as a foundational technology in many EVPN-based data center deployments.
 
 As organizations continue to expand cloud and distributed networking environments, ensuring secure communication across these overlay networks has become an important design consideration.
 
@@ -56,19 +56,19 @@ Business continuity depends on applications and services remaining available, se
 
 ### Standard VXLAN Packet
 
-In a standard VXLAN deployment, the original Ethernet frame is encapsulated for transport across the IP network. The resulting packet includes an outer MAC header, outer IP header, UDP header, and VXLAN header, followed by the original frame's inner MAC header and payload. This structure enables Layer 2 communication over a Layer 3 network, since intermediate devices forward traffic based on the outer headers alone. The payload itself, however, is never encrypted — it travels in plain form regardless of how it is wrapped.
+In a standard VXLAN deployment, the original Ethernet frame is encapsulated for transport across the IP network. The resulting packet includes an outer MAC header, outer IP header, UDP header, and VXLAN header, followed by the original frame's inner MAC header and payload. This structure enables Layer 2 communication over a Layer 3 network, since intermediate devices forward traffic based on the outer headers alone. The payload itself, however, is never encrypted --- it travels in plain form regardless of how it is wrapped.
 
 ![Standard VXLAN Packet](images/figure3.png)
 
 ### VXLANsec Packet
 
-VXLANsec leaves the outer MAC, IP, UDP, and VXLAN headers untouched, so existing Layer 3 infrastructure continues forwarding traffic exactly as before — no changes required. What changes is what happens after encapsulation: a MACsec header is inserted, the payload is encrypted, and an Integrity Check Value (ICV) is appended so any tampering in transit can be detected.
+VXLANsec leaves the outer MAC, IP, UDP, and VXLAN headers untouched, so existing Layer 3 infrastructure continues forwarding traffic exactly as before --- no changes required. What changes is what happens after encapsulation: a MACsec header is inserted, the payload is encrypted, and an Integrity Check Value (ICV) is appended so any tampering in transit can be detected.
 
 ![VXLANsec Packet](images/figure4.png)
 
 ### Comparison
 
-The core difference comes down to this: standard VXLAN only wraps traffic for delivery, while VXLANsec also encrypts it and verifies its integrity. Because the forwarding headers stay untouched, the network routes packets exactly as it always has — the protection applies only to the payload moving between VTEPs. This lets organizations secure overlay traffic without altering how the underlying transport network behaves.
+The core difference comes down to this: standard VXLAN only wraps traffic for delivery, while VXLANsec also encrypts it and verifies its integrity. Because the forwarding headers stay untouched, the network routes packets exactly as it always has --- the protection applies only to the payload moving between VTEPs. This lets organizations secure overlay traffic without altering how the underlying transport network behaves.
 
 ## VXLANsec Configuration Overview
 
@@ -154,7 +154,7 @@ The validation was performed for both intra-data-center and inter-data-center co
 
 ![Packet Capture without VXLAN-Sec Enabled](images/figure6.png)
 
-The packet capture included in Fig 4 is with VXLANsec disabled. A ping was sent between the hosts using the payload pattern "demo unencrypted”. There are a few things to notice in this capture. First, the protocol is clearly visible as ICMP, which means anyone capturing the traffic can easily identify the type of traffic being exchanged between the VTEPs.
+The packet capture included in Fig 4 is with VXLANsec disabled. A ping was sent between the hosts using the payload pattern "demo unencrypted". There are a few things to notice in this capture. First, the protocol is clearly visible as ICMP, which means anyone capturing the traffic can easily identify the type of traffic being exchanged between the VTEPs.
 
 Second, the packet contains the standard VXLAN encapsulation headers used to transport the traffic across the network, and the payload is not encrypted.
 
@@ -232,7 +232,7 @@ By applying encryption at the overlay level instead of on a hop-by-hop basis thr
 - VNI : VXLAN Network Identifier
 - VTEP : VXLAN Tunnel Endpoint
 - VXLAN : Virtual eXtensible LAN
-- VXLAN : Sec–VXLAN Security
+- VXLAN : Sec--VXLAN Security
 - XPN : Extended Packet Number
 
 ## Acknowledgements

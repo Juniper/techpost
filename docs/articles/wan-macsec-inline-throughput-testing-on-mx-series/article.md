@@ -131,88 +131,88 @@ The WAN-MACSec bandwidth license on an MX304 is based on the total bandwidth of 
 
 ```
 security {
-  macsec {
-    connectivity-association MTS_MACSEC_TECH_SUPPORT {
-      cipher-suite gcm-aes-xpn-256;
-      security-mode static-cak;
-      mka {
-        sak-rekey-interval 300;
-        eapol-ether-type-profile EAPOL_ETH_PROFILE_TECH_SUP_3;
-      }
-      offset 50;
-      include-sci;
-      pre-shared-key {
-        ckn ab12cd34ef56;
-        cak "<REDACTED>"; ## SECRET-DATA
-      }
-      fallback-key {
-        ckn a1b2c3d4e5f6;
-        cak "<REDACTED>"; ## SECRET-DATA
-      }
-    }
-    interfaces {
-      et-0/0/11 {
-        unit 901 {
-          connectivity-association MTS_MACSEC_TECH_SUPPORT;
-        }
-        unit 802 {
-          connectivity-association MTS_MACSEC_TECH_SUPPORT;
-        }
-      }
-    }
-  }
+  macsec {
+    connectivity-association MTS_MACSEC_TECH_SUPPORT {
+      cipher-suite gcm-aes-xpn-256;
+      security-mode static-cak;
+      mka {
+        sak-rekey-interval 300;
+        eapol-ether-type-profile EAPOL_ETH_PROFILE_TECH_SUP_3;
+      }
+      offset 50;
+      include-sci;
+      pre-shared-key {
+        ckn ab12cd34ef56;
+        cak "<REDACTED>"; ## SECRET-DATA
+      }
+      fallback-key {
+        ckn a1b2c3d4e5f6;
+        cak "<REDACTED>"; ## SECRET-DATA
+      }
+    }
+    interfaces {
+      et-0/0/11 {
+        unit 901 {
+          connectivity-association MTS_MACSEC_TECH_SUPPORT;
+        }
+        unit 802 {
+          connectivity-association MTS_MACSEC_TECH_SUPPORT;
+        }
+      }
+    }
+  }
 }
 interfaces {
-  et-0/1/1 {
-    flexible-vlan-tagging;
-    mtu 9022;            
-    encapsulation flexible-ethernet-services;
-    unit 901 {
-      encapsulation vlan-bridge;
-      vlan-id 901;
-    }
-    unit 802 {
-      encapsulation vlan-bridge;
-      vlan-id 802;
-    }
-  et-0/0/11 {
-    flexible-vlan-tagging;
-    mtu 9022;
-    encapsulation flexible-ethernet-services;
-    unit 901 {
-      encapsulation vlan-bridge;
-      vlan-id 901;
-    }
-    unit 802 {
-      encapsulation vlan-bridge;
-      vlan-id 802;
-    }
-  }
+  et-0/1/1 {
+    flexible-vlan-tagging;
+    mtu 9022;            
+    encapsulation flexible-ethernet-services;
+    unit 901 {
+      encapsulation vlan-bridge;
+      vlan-id 901;
+    }
+    unit 802 {
+      encapsulation vlan-bridge;
+      vlan-id 802;
+    }
+  et-0/0/11 {
+    flexible-vlan-tagging;
+    mtu 9022;
+    encapsulation flexible-ethernet-services;
+    unit 901 {
+      encapsulation vlan-bridge;
+      vlan-id 901;
+    }
+    unit 802 {
+      encapsulation vlan-bridge;
+      vlan-id 802;
+    }
+  }
 }
 forwarding-options {
-  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_1 {
-    ether-type 0x816F;
-  }
-  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_2 {
-    ether-type 0x826F;
-  }
-  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_3 {
-    ether-type 0x836F;
-  }
+  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_1 {
+    ether-type 0x816F;
+  }
+  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_2 {
+    ether-type 0x826F;
+  }
+  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_3 {
+    ether-type 0x836F;
+  }
 }
 bridge-domains {
-  bd901 {
-    domain-type bridge;
-    vlan-id 901;
-    interface et-0/0/11.901;
-    interface et-0/1/1.901;
-  }
-  bd802 {
-    domain-type bridge;
-    vlan-id 802;
-    interface et-0/0/11.802;
-    interface et-0/1/1.802;
-  }
+  bd901 {
+    domain-type bridge;
+    vlan-id 901;
+    interface et-0/0/11.901;
+    interface et-0/1/1.901;
+  }
+  bd802 {
+    domain-type bridge;
+    vlan-id 802;
+    interface et-0/0/11.802;
+    interface et-0/1/1.802;
+  }
 }
 ```
 
@@ -220,82 +220,82 @@ bridge-domains {
 
 ```
 security {
-  macsec {
-    connectivity-association MTS_MACSEC_TECH_SUPPORT {
-      cipher-suite gcm-aes-xpn-256;
-      security-mode static-cak;
-      mka {
-        sak-rekey-interval 300;
-        eapol-ether-type-profile EAPOL_ETH_PROFILE_TECH_SUP_3;
-      }
-      offset 50;
-      include-sci;
-      pre-shared-key {
-        ckn ab12cd34ef56;
-        cak "<REDACTED>"; ## SECRET-DATA
-      }
-      fallback-key {
-        ckn a1b2c3d4e5f6;
-        cak "<REDACTED>"; ## SECRET-DATA
-      }
-    }
-    interfaces {
-      et-0/0/10 {
-        unit 901 {
-          connectivity-association MTS_MACSEC_TECH_SUPPORT;
-        }
-        unit 802 {
-          connectivity-association MTS_MACSEC_TECH_SUPPORT;
-        }
-      et-0/2/8 {
-        flexible-vlan-tagging;
-        mtu 9022;
-        encapsulation flexible-ethernet-services;
-        unit 901 {
-          encapsulation vlan-bridge;
-          vlan-id 901;
-        }                
-        unit 802 {
-          encapsulation vlan-bridge;
-          vlan-id 802;
-        }
-      et-0/0/10 {
-        flexible-vlan-tagging;
-        mtu 9022;
-        encapsulation flexible-ethernet-services;
-        unit 901 {
-          encapsulation vlan-bridge;
-          vlan-id 901;
-        }
-        unit 802 {
-          encapsulation vlan-bridge;
-          vlan-id 802;
-        }
-    }
+  macsec {
+    connectivity-association MTS_MACSEC_TECH_SUPPORT {
+      cipher-suite gcm-aes-xpn-256;
+      security-mode static-cak;
+      mka {
+        sak-rekey-interval 300;
+        eapol-ether-type-profile EAPOL_ETH_PROFILE_TECH_SUP_3;
+      }
+      offset 50;
+      include-sci;
+      pre-shared-key {
+        ckn ab12cd34ef56;
+        cak "<REDACTED>"; ## SECRET-DATA
+      }
+      fallback-key {
+        ckn a1b2c3d4e5f6;
+        cak "<REDACTED>"; ## SECRET-DATA
+      }
+    }
+    interfaces {
+      et-0/0/10 {
+        unit 901 {
+          connectivity-association MTS_MACSEC_TECH_SUPPORT;
+        }
+        unit 802 {
+          connectivity-association MTS_MACSEC_TECH_SUPPORT;
+        }
+      et-0/2/8 {
+        flexible-vlan-tagging;
+        mtu 9022;
+        encapsulation flexible-ethernet-services;
+        unit 901 {
+          encapsulation vlan-bridge;
+          vlan-id 901;
+        }                
+        unit 802 {
+          encapsulation vlan-bridge;
+          vlan-id 802;
+        }
+      et-0/0/10 {
+        flexible-vlan-tagging;
+        mtu 9022;
+        encapsulation flexible-ethernet-services;
+        unit 901 {
+          encapsulation vlan-bridge;
+          vlan-id 901;
+        }
+        unit 802 {
+          encapsulation vlan-bridge;
+          vlan-id 802;
+        }
+    }
 forwarding-options {
-  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_1 {
-    ether-type 0x816F;
-  }
-  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_2 {
-    ether-type 0x826F;
-  }
-  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_3 {
-    ether-type 0x836F;
-  }
+  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_1 {
+    ether-type 0x816F;
+  }
+  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_2 {
+    ether-type 0x826F;
+  }
+  custom-eapol-ether-type-profiles EAPOL_ETH_PROFILE_TECH_SUP_3 {
+    ether-type 0x836F;
+  }
 }
-bridge-domains {   
-  bd901 {
-    domain-type bridge;
-    vlan-id 901;
-    interface et-0/2/8.901;
-    interface et-0/0/10.901;
-  }
-  bd802 {
-    domain-type bridge;
-    vlan-id 802;
-    interface et-0/2/8.802;
-    interface et-0/0/10.802;    
-  }
+bridge-domains {   
+  bd901 {
+    domain-type bridge;
+    vlan-id 901;
+    interface et-0/2/8.901;
+    interface et-0/0/10.901;
+  }
+  bd802 {
+    domain-type bridge;
+    vlan-id 802;
+    interface et-0/2/8.802;
+    interface et-0/0/10.802;    
+  }
 }
 ```
 
@@ -326,78 +326,78 @@ Advantages of rekeying:
 ## Verification of WAN MACSec
 
 ```
-root@CE1-1-MX304> show security mka sessions detail 
- Interface name: et-0/0/11.901
-   Interface state: Secured - Primary
-   Ether-type profile: EAPOL_ETH_PROFILE_TECH_SUP_3 - 0x836f
-   Member identifier: E229745F3F04CCF6B6CA6B31
-   CAK name: AB12CD34EF56
-   Security mode: static
-   MKA suspended: 0(s)
-   Transmit interval: 1020(ms)
-   SAK rekey interval: 300(s)
-   Preceding Key: enabled
-   Bounded Delay: disabled
-   Outbound SCI: A4:7F:1B:CE:53:69/1
-   Message number: 179    Key number: 2
-   MKA ICV Indicator: enabled
-   Key server: yes      Key server priority: 16
-   Latest SAK AN: 1      Latest SAK KI: E229745F3F04CCF6B6CA6B31/2
-   Previous SAK AN: 0     Previous SAK KI: E229745F3F04CCF6B6CA6B31/1
-   MKA Suspend For: disabled MKA Suspend On Request: disabled
-   CAK list: (2)
-    1. CAK name: AB12CD34EF56
-      CAK type: primary               Status: live
-      Member identifier: E229745F3F04CCF6B6CA6B31  Message number: 179
-      Peer list: (1)
-       1. Member identifier: F3EB05166895FA2500C80D43 (live)
-         Message number: 182     Hold time: 6000 (ms)
-         SCI: E8:24:A6:29:D6:44/1110 Uptime: 00:05:49
-         Lowest acceptable PN: 1453138
-    2. CAK name: A1B2C3D4E5F6
-      CAK type: fallback              Status: active
-      Member identifier: E73F6295334B0E80E0EAB23B  Message number: 174
-      Peer list: (1)        
-       1. Member identifier: 156AFF4BD132CB9C8F23C327 (live)
-         Message number: 177     Hold time: 5000 (ms)
-         SCI: E8:24:A6:29:D6:44/1110 Uptime: 00:05:43
-         Lowest acceptable PN: 1453138
+root@CE1-1-MX304> show security mka sessions detail 
+ Interface name: et-0/0/11.901
+   Interface state: Secured - Primary
+   Ether-type profile: EAPOL_ETH_PROFILE_TECH_SUP_3 - 0x836f
+   Member identifier: E229745F3F04CCF6B6CA6B31
+   CAK name: AB12CD34EF56
+   Security mode: static
+   MKA suspended: 0(s)
+   Transmit interval: 1020(ms)
+   SAK rekey interval: 300(s)
+   Preceding Key: enabled
+   Bounded Delay: disabled
+   Outbound SCI: A4:7F:1B:CE:53:69/1
+   Message number: 179    Key number: 2
+   MKA ICV Indicator: enabled
+   Key server: yes      Key server priority: 16
+   Latest SAK AN: 1      Latest SAK KI: E229745F3F04CCF6B6CA6B31/2
+   Previous SAK AN: 0     Previous SAK KI: E229745F3F04CCF6B6CA6B31/1
+   MKA Suspend For: disabled MKA Suspend On Request: disabled
+   CAK list: (2)
+    1. CAK name: AB12CD34EF56
+      CAK type: primary               Status: live
+      Member identifier: E229745F3F04CCF6B6CA6B31  Message number: 179
+      Peer list: (1)
+       1. Member identifier: F3EB05166895FA2500C80D43 (live)
+         Message number: 182     Hold time: 6000 (ms)
+         SCI: E8:24:A6:29:D6:44/1110 Uptime: 00:05:49
+         Lowest acceptable PN: 1453138
+    2. CAK name: A1B2C3D4E5F6
+      CAK type: fallback              Status: active
+      Member identifier: E73F6295334B0E80E0EAB23B  Message number: 174
+      Peer list: (1)        
+       1. Member identifier: 156AFF4BD132CB9C8F23C327 (live)
+         Message number: 177     Hold time: 5000 (ms)
+         SCI: E8:24:A6:29:D6:44/1110 Uptime: 00:05:43
+         Lowest acceptable PN: 1453138
 root@CE2-MX304> show security mka sessions detail 
- Interface name: et-0/0/10.901
-   Interface state: Secured - Primary
-   Ether-type profile: EAPOL_ETH_PROFILE_TECH_SUP_3 - 0x836f
-   Member identifier: F3EB05166895FA2500C80D43
-   CAK name: AB12CD34EF56
-   Security mode: static
-   MKA suspended: 0(s)
-   Transmit interval: 1020(ms)
-   SAK rekey interval: 300(s)
-   Preceding Key: enabled
-   Bounded Delay: disabled
-   Outbound SCI: E8:24:A6:29:D6:44/1
-   Message number: 183    Key number: 0
-   MKA ICV Indicator: enabled
-   Key server: no       Key server priority: 16
-   Latest SAK AN: 1      Latest SAK KI: E229745F3F04CCF6B6CA6B31/2
-   Previous SAK AN: 0     Previous SAK KI: E229745F3F04CCF6B6CA6B31/1
-   MKA Suspend For: disabled MKA Suspend On Request: disabled
-   CAK list: (2)
-    1. CAK name: AB12CD34EF56
-      CAK type: primary               Status: live
-      Member identifier: F3EB05166895FA2500C80D43  Message number: 183
-      Peer list: (1)
-       1. Member identifier: E229745F3F04CCF6B6CA6B31 (live)
-         Message number: 178     Hold time: 5000 (ms)
-         SCI: A4:7F:1B:CE:53:69/1109 Uptime: 00:05:48
-         Lowest acceptable PN: 1830180
-    2. CAK name: A1B2C3D4E5F6
-      CAK type: fallback              Status: active
-      Member identifier: 156AFF4BD132CB9C8F23C327  Message number: 178
-      Peer list: (1)        
-       1. Member identifier: E73F6295334B0E80E0EAB23B (live)
-         Message number: 173     Hold time: 6000 (ms)
-         SCI: A4:7F:1B:CE:53:69/1109 Uptime: 00:05:43
-         Lowest acceptable PN: 1830180
+ Interface name: et-0/0/10.901
+   Interface state: Secured - Primary
+   Ether-type profile: EAPOL_ETH_PROFILE_TECH_SUP_3 - 0x836f
+   Member identifier: F3EB05166895FA2500C80D43
+   CAK name: AB12CD34EF56
+   Security mode: static
+   MKA suspended: 0(s)
+   Transmit interval: 1020(ms)
+   SAK rekey interval: 300(s)
+   Preceding Key: enabled
+   Bounded Delay: disabled
+   Outbound SCI: E8:24:A6:29:D6:44/1
+   Message number: 183    Key number: 0
+   MKA ICV Indicator: enabled
+   Key server: no       Key server priority: 16
+   Latest SAK AN: 1      Latest SAK KI: E229745F3F04CCF6B6CA6B31/2
+   Previous SAK AN: 0     Previous SAK KI: E229745F3F04CCF6B6CA6B31/1
+   MKA Suspend For: disabled MKA Suspend On Request: disabled
+   CAK list: (2)
+    1. CAK name: AB12CD34EF56
+      CAK type: primary               Status: live
+      Member identifier: F3EB05166895FA2500C80D43  Message number: 183
+      Peer list: (1)
+       1. Member identifier: E229745F3F04CCF6B6CA6B31 (live)
+         Message number: 178     Hold time: 5000 (ms)
+         SCI: A4:7F:1B:CE:53:69/1109 Uptime: 00:05:48
+         Lowest acceptable PN: 1830180
+    2. CAK name: A1B2C3D4E5F6
+      CAK type: fallback              Status: active
+      Member identifier: 156AFF4BD132CB9C8F23C327  Message number: 178
+      Peer list: (1)        
+       1. Member identifier: E73F6295334B0E80E0EAB23B (live)
+         Message number: 173     Hold time: 6000 (ms)
+         SCI: A4:7F:1B:CE:53:69/1109 Uptime: 00:05:43
+         Lowest acceptable PN: 1830180
 ```
 
 ## MACSec Events
@@ -423,8 +423,8 @@ The appearance of two activation messages with different CKN values (AB12CD34EF5
 Warning Message Snippet:
 
 ```
-Jun  8 21:47:24  CE1-1-MX304 mgd[22684]: MACSEC_CKN_LENGTH_WARNING: To maximize security, recommend configuring all 64 hexadecimal digits of pre-shared-key ckn
-Jun  8 21:47:24  CE1-1-MX304 mgd[22684]: MACSEC_CKN_LENGTH_WARNING: To maximize security, recommend configuring all 64 hexadecimal digits of pre-shared-key ckn
+Jun  8 21:47:24  CE1-1-MX304 mgd[22684]: MACSEC_CKN_LENGTH_WARNING: To maximize security, recommend configuring all 64 hexadecimal digits of pre-shared-key ckn
+Jun  8 21:47:24  CE1-1-MX304 mgd[22684]: MACSEC_CKN_LENGTH_WARNING: To maximize security, recommend configuring all 64 hexadecimal digits of pre-shared-key ckn
 ```
 
 The above log message MACSEC_CKN_LENGTH_WARNING is a configuration validation when the configured CKN (Connectivity Association Key Name) is shorter than the recommended maximum length. The CKN is an identifier used by MKA (MACSec Key Agreement) to identify the Connectivity Association between MACSec peers. Although the configured CKN is valid and the MACSec session can still form successfully, Junos flags it as a security best-practice warning because a shorter CKN provides less uniqueness than a full-length value.
@@ -438,123 +438,123 @@ In summary, the warning is caused by a shorter-than-recommended CKN value. No im
 Traffic hitting the Ingress IFL of CE1 destined to hosts behind CE2
 
 ```
-root@CE1-1-MX304> show interfaces et-0/0/11.901 extensive | match pps 
-  Input packets:      153872547        95211 pps
-  Output packets:      154236267        34 pps
+root@CE1-1-MX304> show interfaces et-0/0/11.901 extensive | match pps 
+  Input packets:      153872547        95211 pps
+  Output packets:      154236267        34 pps
 root@CE2-MX304> show interfaces et-0/2/8.901 extensive | match pps 
-  Input packets:      158421591        35 pps
-  Output packets:      155652103        95198 pps
+  Input packets:      158421591        35 pps
+  Output packets:      155652103        95198 pps
 
 ```
 
 Bridge MAC Table Validation
 
 ```
-root@CE1-1-MX304> show bridge mac-table bridge-domain bd901 
-MAC flags    (S -static MAC, D -dynamic MAC, L -locally learned, C -Control MAC
-  O -OVSDB MAC, SE -Statistics enabled, NM -Non configured MAC, R -Remote PE MAC, P -Pinned MAC)
+root@CE1-1-MX304> show bridge mac-table bridge-domain bd901 
+MAC flags    (S -static MAC, D -dynamic MAC, L -locally learned, C -Control MAC
+  O -OVSDB MAC, SE -Statistics enabled, NM -Non configured MAC, R -Remote PE MAC, P -Pinned MAC)
 Routing instance : default-switch
- Bridging domain : bd901, VLAN : 901
-  MAC         MAC   GBP   Logical     NH   MAC     active
-  address       flags  Tag   interface    Index property  source
-  00:10:94:00:16:eb  D        et-0/0/11.901  
-  00:10:94:00:17:4f  D        et-0/1/1.901  
+ Bridging domain : bd901, VLAN : 901
+  MAC         MAC   GBP   Logical     NH   MAC     active
+  address       flags  Tag   interface    Index property  source
+  00:10:94:00:16:eb  D        et-0/0/11.901  
+  00:10:94:00:17:4f  D        et-0/1/1.901  
 {master}
-root@CE1-1-MX304> show bridge mac-table bridge-domain bd901 detail 
+root@CE1-1-MX304> show bridge mac-table bridge-domain bd901 detail 
 MAC address: 00:10:94:00:16:eb
- Routing instance: default-switch
-  Bridging domain: bd901, VLAN : 901
-  Learning interface: et-0/0/11.901
-  ELP-NH: 0     
-  Base learning interface: et-0/0/11.901
-  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
-  Epoch: 0              Sequence number: 2   
-  Learning mask: 0x00000001    
-  Time: 2026-06-08 21:47:35 PDTMAC address: 00:10:94:00:17:4f
- Routing instance: default-switch
-  Bridging domain: bd901, VLAN : 901
-  Learning interface: et-0/1/1.901 
-  ELP-NH: 0     
-  Base learning interface: et-0/1/1.901 
-  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
-  Epoch: 1              Sequence number: 1   
-  Learning mask: 0x00000001    
-  Time: 2026-06-08 21:26:36 PDT
+ Routing instance: default-switch
+  Bridging domain: bd901, VLAN : 901
+  Learning interface: et-0/0/11.901
+  ELP-NH: 0     
+  Base learning interface: et-0/0/11.901
+  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
+  Epoch: 0              Sequence number: 2   
+  Learning mask: 0x00000001    
+  Time: 2026-06-08 21:47:35 PDTMAC address: 00:10:94:00:17:4f
+ Routing instance: default-switch
+  Bridging domain: bd901, VLAN : 901
+  Learning interface: et-0/1/1.901 
+  ELP-NH: 0     
+  Base learning interface: et-0/1/1.901 
+  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
+  Epoch: 1              Sequence number: 1   
+  Learning mask: 0x00000001    
+  Time: 2026-06-08 21:26:36 PDT
 
 {master}
 root@CE1-1-MX304>
-root@CE2-MX304> show bridge mac-table bridge-domain bd901  
-MAC flags    (S -static MAC, D -dynamic MAC, L -locally learned, C -Control MAC
-  O -OVSDB MAC, SE -Statistics enabled, NM -Non configured MAC, R -Remote PE MAC, P -Pinned MAC)
+root@CE2-MX304> show bridge mac-table bridge-domain bd901  
+MAC flags    (S -static MAC, D -dynamic MAC, L -locally learned, C -Control MAC
+  O -OVSDB MAC, SE -Statistics enabled, NM -Non configured MAC, R -Remote PE MAC, P -Pinned MAC)
 Routing instance : default-switch
- Bridging domain : bd901, VLAN : 901
-  MAC         MAC   GBP   Logical     NH   MAC     active
-  address       flags  Tag   interface    Index property  source
-  00:10:94:00:16:eb  D        et-0/2/8.901  
-  00:10:94:00:17:4f  D        et-0/0/10.901  
+ Bridging domain : bd901, VLAN : 901
+  MAC         MAC   GBP   Logical     NH   MAC     active
+  address       flags  Tag   interface    Index property  source
+  00:10:94:00:16:eb  D        et-0/2/8.901  
+  00:10:94:00:17:4f  D        et-0/0/10.901  
 
-root@CE2-MX304> show bridge mac-table bridge-domain bd901 detail 
+root@CE2-MX304> show bridge mac-table bridge-domain bd901 detail 
 MAC address: 00:10:94:00:16:eb
- Routing instance: default-switch
-  Bridging domain: bd901, VLAN : 901
-  Learning interface: et-0/2/8.901 
-  ELP-NH: 0     
-  Base learning interface: et-0/2/8.901 
-  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
-  Epoch: 1              Sequence number: 1   
-  Learning mask: 0x00000001    
-  Time: 2026-06-08 21:26:36 PDT
+ Routing instance: default-switch
+  Bridging domain: bd901, VLAN : 901
+  Learning interface: et-0/2/8.901 
+  ELP-NH: 0     
+  Base learning interface: et-0/2/8.901 
+  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
+  Epoch: 1              Sequence number: 1   
+  Learning mask: 0x00000001    
+  Time: 2026-06-08 21:26:36 PDT
 MAC address: 00:10:94:00:17:4f
- Routing instance: default-switch
-  Bridging domain: bd901, VLAN : 901
-  Learning interface: et-0/0/10.901
-  ELP-NH: 0     
-  Base learning interface: et-0/0/10.901
-  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
-  Epoch: 0              Sequence number: 0   
-  Learning mask: 0x00000001    
-  Time: 2026-06-08 21:26:36 PDT
+ Routing instance: default-switch
+  Bridging domain: bd901, VLAN : 901
+  Learning interface: et-0/0/10.901
+  ELP-NH: 0     
+  Base learning interface: et-0/0/10.901
+  Layer 2 flags: in_hash,in_ifd,in_ifl,in_vlan,in_rtt,kernel,in_ifbd
+  Epoch: 0              Sequence number: 0   
+  Learning mask: 0x00000001    
+  Time: 2026-06-08 21:26:36 PDT
 
 ```
 
 The MACSec statistics for encrypted and decrypted packets are as follows:
 
 ```
-root@CE2-MX304> show security macsec statistics  
- Interface name: et-0/0/10.901
-  Secure Channel transmitted
-    Encrypted packets: 63474947
-    Encrypted bytes:  79978408020
-    Protected packets: 0
-    Protected bytes:  0
-  Secure Association transmitted
-    Encrypted packets: 0
-    Protected packets: 0
-  Secure Channel received
-    Accepted packets: 63461196
-    Validated bytes:  0
-    Decrypted bytes:  79960968360
-  Secure Association received
-    Accepted packets: 0
-    Validated bytes:  0
-    Decrypted bytes:  0
+root@CE2-MX304> show security macsec statistics  
+ Interface name: et-0/0/10.901
+  Secure Channel transmitted
+    Encrypted packets: 63474947
+    Encrypted bytes:  79978408020
+    Protected packets: 0
+    Protected bytes:  0
+  Secure Association transmitted
+    Encrypted packets: 0
+    Protected packets: 0
+  Secure Channel received
+    Accepted packets: 63461196
+    Validated bytes:  0
+    Decrypted bytes:  79960968360
+  Secure Association received
+    Accepted packets: 0
+    Validated bytes:  0
+    Decrypted bytes:  0
 Interface name: et-0/0/10.802
-  Secure Channel transmitted
-    Encrypted packets: 185018914
-    Encrypted bytes:  233123457420
-    Protected packets: 0
-    Protected bytes:  0
-  Secure Association transmitted
-    Encrypted packets: 52739263
-    Protected packets: 0
-  Secure Channel received
-    Accepted packets: 185011272
-    Validated bytes:  0
-    Decrypted bytes:  233112353040
-  Secure Association received
-    Accepted packets: 53868479   
-    Validated bytes:  0      
-    Decrypted bytes:  67872433860 
+  Secure Channel transmitted
+    Encrypted packets: 185018914
+    Encrypted bytes:  233123457420
+    Protected packets: 0
+    Protected bytes:  0
+  Secure Association transmitted
+    Encrypted packets: 52739263
+    Protected packets: 0
+  Secure Channel received
+    Accepted packets: 185011272
+    Validated bytes:  0
+    Decrypted bytes:  233112353040
+  Secure Association received
+    Accepted packets: 53868479   
+    Validated bytes:  0      
+    Decrypted bytes:  67872433860 
 ```
 
 ### Captured packet:
@@ -583,44 +583,44 @@ Device show CLI commands for scale scenario:
 
 ```
 {master}
-root@CE1-1-MX304> show security mka sessions summary | match "primary   live" | count   
-Count: 200  lines
+root@CE1-1-MX304> show security mka sessions summary | match "primary   live" | count   
+Count: 200  lines
 
 {master}
-root@CE1-1-MX304> show security mka sessions summary | match "fallback  active" | count  
+root@CE1-1-MX304> show security mka sessions summary | match "fallback  active" | count  
 Count: 200 lines
 
-root@CE2-MX304> show security mka sessions summary | match "primary   live" | count   
+root@CE2-MX304> show security mka sessions summary | match "primary   live" | count   
 Count: 200 lines
 
-root@CE2-MX304> show security mka sessions summary | match "fallback  active" | count  
+root@CE2-MX304> show security mka sessions summary | match "fallback  active" | count  
 Count: 200 lines
 
-root@CE2-MX304> show security mka sessions summary                     
-Interface  Member-ID         Type    Status    Tx    Rx    CAK Name
-et-0/0/10.901 F3EB05166895FA2500C80D43 primary   live     2515   1747   AB12CD34EF56
-et-0/0/10.901 156AFF4BD132CB9C8F23C327 fallback  active    2500   1735   A1B2C3D4E5F6
+root@CE2-MX304> show security mka sessions summary                     
+Interface  Member-ID         Type    Status    Tx    Rx    CAK Name
+et-0/0/10.901 F3EB05166895FA2500C80D43 primary   live     2515   1747   AB12CD34EF56
+et-0/0/10.901 156AFF4BD132CB9C8F23C327 fallback  active    2500   1735   A1B2C3D4E5F6
 
-et-0/0/10.850 A04AB1D856526C8E6507BE46 primary   live     2514   2508   AB12CD34EF56
-et-0/0/10.850 8F7E7EE39362E06625C44355 fallback  active    2499   2493   A1B2C3D4E5F6
+et-0/0/10.850 A04AB1D856526C8E6507BE46 primary   live     2514   2508   AB12CD34EF56
+et-0/0/10.850 8F7E7EE39362E06625C44355 fallback  active    2499   2493   A1B2C3D4E5F6
 
-et-0/1/0.851 831FD3581084CBBCE7DB6909  primary   live     2516   2507   AB12CD34EF56
-et-0/1/0.851 9AFDABB04C68409FFA8E81CD  fallback  active    2499   2493   A1B2C3D4E5F6
+et-0/1/0.851 831FD3581084CBBCE7DB6909  primary   live     2516   2507   AB12CD34EF56
+et-0/1/0.851 9AFDABB04C68409FFA8E81CD  fallback  active    2499   2493   A1B2C3D4E5F6
 
-et-0/1/0.900 DE807076FA2AB74C75D159DE  primary   live     2514   2507   AB12CD34EF56
-et-0/1/0.900 C9E41E273D4E749AB4FC1347  fallback  active    2499   2493   A1B2C3D4E5F6
+et-0/1/0.900 DE807076FA2AB74C75D159DE  primary   live     2514   2507   AB12CD34EF56
+et-0/1/0.900 C9E41E273D4E749AB4FC1347  fallback  active    2499   2493   A1B2C3D4E5F6
 
-et-0/2/2.901 D2D5BE4C46EB76FC748AABBC  primary   live     2517   2507   AB12CD34EF56
-et-0/2/2.901 F74A7E671D731EE919782832  fallback  active    2499   2492   A1B2C3D4E5F6
+et-0/2/2.901 D2D5BE4C46EB76FC748AABBC  primary   live     2517   2507   AB12CD34EF56
+et-0/2/2.901 F74A7E671D731EE919782832  fallback  active    2499   2492   A1B2C3D4E5F6
 
-et-0/2/2.950 659364BE812A285349217017  primary   live     2513   2507   AB12CD34EF56
-et-0/2/2.950 C02602A30349D2210598E131  fallback  active    2499   2493   A1B2C3D4E5F6
+et-0/2/2.950 659364BE812A285349217017  primary   live     2513   2507   AB12CD34EF56
+et-0/2/2.950 C02602A30349D2210598E131  fallback  active    2499   2493   A1B2C3D4E5F6
 
-et-0/2/1.951 4F75B2896EC076B42F3A8A8C  primary   live     2513   2508   AB12CD34EF56
-et-0/2/1.951 40F226449526640CFFB5EEB9  fallback  active    2499   2493   A1B2C3D4E5F6
+et-0/2/1.951 4F75B2896EC076B42F3A8A8C  primary   live     2513   2508   AB12CD34EF56
+et-0/2/1.951 40F226449526640CFFB5EEB9  fallback  active    2499   2493   A1B2C3D4E5F6
 
-et-0/2/1.1000 A4A407CF567EE52AE2A8C54A primary   live     2516   2507   AB12CD34EF56
-et-0/2/1.1000 E52B51EE697CBF176FF07FB9 fallback  active    2499   2493   A1B2C3D4E5F6
+et-0/2/1.1000 A4A407CF567EE52AE2A8C54A primary   live     2516   2507   AB12CD34EF56
+et-0/2/1.1000 E52B51EE697CBF176FF07FB9 fallback  active    2499   2493   A1B2C3D4E5F6
 ```
 
 ## Performance
@@ -631,11 +631,11 @@ The L3 stream throughput graph demonstrates that throughput increases significan
 
 ![Throughput vs Frame Size for L3-stream](images/figure3.png)
 
-For the L3 stream in Figure 7, throughput improves rapidly and reaches approximately 97–98 Gbps around the standard Ethernet MTU of 1500 bytes. This behavior indicates that the MACSec hardware is efficiently handling Layer 3 traffic without introducing substantial forwarding limitations. The increase in throughput is primarily due to the reduction in packets-per-second processing requirements and the decreasing impact of fixed MACSec overhead on larger packet sizes. As a result, the system can utilize the available link bandwidth more effectively.
+For the L3 stream in Figure 7, throughput improves rapidly and reaches approximately 97--98 Gbps around the standard Ethernet MTU of 1500 bytes. This behavior indicates that the MACSec hardware is efficiently handling Layer 3 traffic without introducing substantial forwarding limitations. The increase in throughput is primarily due to the reduction in packets-per-second processing requirements and the decreasing impact of fixed MACSec overhead on larger packet sizes. As a result, the system can utilize the available link bandwidth more effectively.
 
 ![Average Latency vs Frame Size for L3-stream](images/figure4.png)
 
-The graph in Figure 8 shows that average latency remains highly stable across all tested frame sizes, ranging from 64 bytes to 9000 bytes, with measured latency varying only between approximately 63 µs and 68 µs. This indicates that the EVPN-VPWS over WAN-MACsec solution delivers predictable and consistent forwarding performance regardless of packet size, which is essential for latency-sensitive applications and secure transport services.
+The graph in Figure 8 shows that average latency remains highly stable across all tested frame sizes, ranging from 64 bytes to 9000 bytes, with measured latency varying only between approximately 63 us and 68 us. This indicates that the EVPN-VPWS over WAN-MACsec solution delivers predictable and consistent forwarding performance regardless of packet size, which is essential for latency-sensitive applications and secure transport services.
 
 A slight increase in latency is observed for larger frame sizes, particularly at 4096-byte and 9000-byte jumbo frames, primarily due to additional packet serialization and processing requirements. However, the overall latency variation is minimal, demonstrating that WAN-MACsec encryption and EVPN-VPWS service processing introduce very low overhead and benefit from efficient hardware-based forwarding. These results validate the solution's ability to provide secure Layer 2 connectivity while maintaining low-latency, high-performance operation suitable for Data Center Interconnect (DCI) and enterprise WAN deployments.
 
@@ -645,7 +645,7 @@ Figure 9 shows the throughput performance of L2-stream traffic as the frame size
 
 ![Average Latency vs Frame Size for L2-stream](images/figure6.png)
 
-Figure 10 illustrates the average latency of L2-stream traffic as a function of frame size, ranging from 64 bytes to 9000 bytes. The results show that latency remains relatively stable at approximately 63 µs for frame sizes between 64 bytes and 1024 bytes, indicating efficient packet processing and minimal forwarding delay across small to medium-sized Ethernet frames. As the frame size increases beyond 1024 bytes, the average latency gradually rises, reaching approximately 65 µs at 2048 bytes, 69 µs at 4096 bytes, and 73 µs at 9000 bytes. This increase is expected due to the additional serialization and transmission time required for larger frames. Despite this upward trend, the overall latency variation remains modest, demonstrating that the platform maintains consistent forwarding performance and low processing overhead even when handling jumbo-frame traffic. These results highlight the efficiency and scalability of the L2 forwarding architecture under varying packet sizes.
+Figure 10 illustrates the average latency of L2-stream traffic as a function of frame size, ranging from 64 bytes to 9000 bytes. The results show that latency remains relatively stable at approximately 63 us for frame sizes between 64 bytes and 1024 bytes, indicating efficient packet processing and minimal forwarding delay across small to medium-sized Ethernet frames. As the frame size increases beyond 1024 bytes, the average latency gradually rises, reaching approximately 65 us at 2048 bytes, 69 us at 4096 bytes, and 73 us at 9000 bytes. This increase is expected due to the additional serialization and transmission time required for larger frames. Despite this upward trend, the overall latency variation remains modest, demonstrating that the platform maintains consistent forwarding performance and low processing overhead even when handling jumbo-frame traffic. These results highlight the efficiency and scalability of the L2 forwarding architecture under varying packet sizes.
 
 ## Throughput Test Summary
 
@@ -683,4 +683,4 @@ WAN-MACSec on MX Trio 6 demonstrates production-grade security with minimal forw
 
 ## Acknowledgments
 
-Special thanks to Amin Ehtesham for his continuous guidance and valuable contributions throughout the creation of this TechPost. I would also like to thank Suneesh Babu, Kawata Jerry, Dhanushkodi Prasennaram  and Ravi Sharma for their technical insights,f eedback and reviewing the document
+Special thanks to Amin Ehtesham for his continuous guidance and valuable contributions throughout the creation of this TechPost. I would also like to thank Suneesh Babu, Kawata Jerry, Dhanushkodi Prasennaram  and Ravi Sharma for their technical insights,f eedback and reviewing the document

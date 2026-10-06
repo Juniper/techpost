@@ -76,7 +76,7 @@ But across every vendor, first-generation port extenders share the same pain poi
 
 ## Use cases: Next Gen port Extender delivers
 
-Because Next Gen Port Extender is really “carrier-class ports, delivered cheaply and managed as one logical node,” it maps onto a set of well-defined service-provider and data-center deployments. These are the primary Next-Generation Port Extender use cases.
+Because Next Gen Port Extender is really "carrier-class ports, delivered cheaply and managed as one logical node," it maps onto a set of well-defined service-provider and data-center deployments. These are the primary Next-Generation Port Extender use cases.
 
 ### Provider Edge (SP / Telco)
 
@@ -84,15 +84,15 @@ The MX is a regular P/PE router in the service-provider or telco network, delive
 
 ### Low-speed peering
 
-The MX becomes a peering aggregation point. Many peering partners land on 1G/10G/25G interfaces (or sub-interfaces) through the satellites and run EBGP to the MX — no MPLS required. All routing intelligence and the full peering table stay concentrated on the MX; the satellites simply add port density.
+The MX becomes a peering aggregation point. Many peering partners land on 1G/10G/25G interfaces (or sub-interfaces) through the satellites and run EBGP to the MX --- no MPLS required. All routing intelligence and the full peering table stay concentrated on the MX; the satellites simply add port density.
 
 ### DC collapsed spine (small / medium DC)
 
-In a small or medium data center, the MX acts as the collapsed spine: WAN ports terminate directly on the MX, and access interfaces fan out across the satellites — spine plus access in one logical box. It is ideal wherever you need large numbers of low-speed interfaces. NGPE: collapse spine and access into a single logical router — WAN on the MX, dense low-speed access on satellites.
+In a small or medium data center, the MX acts as the collapsed spine: WAN ports terminate directly on the MX, and access interfaces fan out across the satellites --- spine plus access in one logical box. It is ideal wherever you need large numbers of low-speed interfaces. NGPE: collapse spine and access into a single logical router --- WAN on the MX, dense low-speed access on satellites.
 
 ### DC border leaf
 
-The AD/SD pair acts as a border leaf in a spine-leaf fabric, handling low-speed interfaces plus MPLS to EVPN/VXLAN stitching. The MX brings higher firewall-filter scale, larger MAC scale, and peering with a full Internet routing table, while the satellites supply the port fan-out. JNU value: a border-leaf gateway with MPLS/EVPN-VXLAN stitching, full-table peering, and high filter/MAC scale — plus satellite port density.
+The AD/SD pair acts as a border leaf in a spine-leaf fabric, handling low-speed interfaces plus MPLS to EVPN/VXLAN stitching. The MX brings higher firewall-filter scale, larger MAC scale, and peering with a full Internet routing table, while the satellites supply the port fan-out. JNU value: a border-leaf gateway with MPLS/EVPN-VXLAN stitching, full-table peering, and high filter/MAC scale --- plus satellite port density.
 
 Across all four, the pattern is the same: the MX keeps the high-speed interfaces and the intelligence; the satellites deliver the low-speed ports; you manage one logical router.
 
@@ -123,8 +123,8 @@ Across all four, the pattern is the same: the MX keeps the high-speed interfaces
 
 ## Conclusion: Ready to build the AI-era edge?
 
-As bandwidth demands climb, the smart move isn’t to consolidate every port speed onto one expensive platform — it’s to put each interface where it belongs. NGPE lets your aggregation router do what it’s built for at 100G/400G and beyond, while low-cost satellites land the 1G/10G ports with full MX/Trio6 scale behind them — and JNU automates the entire fabric so you never have to build it.
-Right interface speed on the right box, carrier-class scale where it counts — that’s Next Generation Port Extender.
+As bandwidth demands climb, the smart move isn't to consolidate every port speed onto one expensive platform --- it's to put each interface where it belongs. NGPE lets your aggregation router do what it's built for at 100G/400G and beyond, while low-cost satellites land the 1G/10G ports with full MX/Trio6 scale behind them --- and JNU automates the entire fabric so you never have to build it.
+Right interface speed on the right box, carrier-class scale where it counts --- that's Next Generation Port Extender.
 
 ## Useful links
 
