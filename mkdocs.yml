@@ -42,16 +42,290 @@ nav:
 - All Articles:
   - Select a Techpost: articles/menu/main.md
   - Platforms / Line Cards Deepdive:
+    - ACX7000 Series:
+      - ACX GEN: articles/acx-gen/article.md 
+      - Building the ACX7000 Series - the PFE: articles/building-the-acx7000-series-the-pfe/article.md
+      - ACX7100 Routers Deepdive: articles/acx7100-deepdive/article.md
+      - ACX7020 Routers Deepdive: articles/acx-7020-routers-deepdive/article.md
+      - ZR/ZR+ Coherent Optics in ACX7100-32C: articles/zr-optics-in-acx7100-32c/article.md
+      - ACX7024 Deepdive: articles/acx7024-deepdive/article.md
+      - ACX7100/ACX7509 Validation - EVPN MAC-VRF: articles/evpn-mac-vrf-validation-on-acx7000/article.md
+      - ACX7100/ACX7509 Validation - EVPN-VPWS: articles/evpn-vpws-validation-on-acx7000/article.md
+      - ACX7100/ACX7509 Validation - L3VPN/6VPE: articles/l3vpn-validation-on-acx7000/article.md
+      - ACX7509 Deepdive: articles/acx7509-deepdive/article.md
+      - ACX7100/ACX7509 Validation - L2VPN: articles/l2vpn-validation-on-acx7000/article.md
+      - ACX7100/ACX7509 Validation - VPLS: articles/acx7000-vpls-validation/article.md
+      - ACX7100/ACX7509 Validation - L2MAC Learning Rate: articles/acx7000-l2-mac-scale-and-learning-rate/article.md
+      - ACX7000 ERSPAN and Port Mirroring: articles/acx7000-erspan-and-port-mirroring/article.md
+      - Saving Power on ACX7000: articles/saving-power-on-acx7000-series/article.md
+      - ACX7000 Hardware Profiles: articles/acx7000-hardware-profiles/article.md
+      - Everything You Always Wanted to Know about ACX7000: articles/everything-about-acx7000/article.md
+      - Introducing the ACX7024X: articles/introducing-the-acx7024x/article.md
     - MX Series:
+      - MX304 Deepdive: articles/mx304-deepdive/article.md
+      - MX304 FIB Install Rate: articles/mx304-fib-install-rate/article.md
+      - BNG on MPC10: articles/bng-on-mpc10e/article.md
+      - Boosting Route Scale and Performance with JunOS: articles/boosting-route-scale-and-performance-with-junos/article.md
+      - Operating 1Tbps MX304/SRX4600 Firewall Scale-Out System: articles/operating-1tbps-firewall-scale-out-system/article.md
+      - From sFlow to IMON Flow Sampling on MX10K Platforms: articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article.md
+      - Junos Symmetrical Load Balancing: articles/junos-symmetrical-load-balancing/article.md
+      - MAP-T with Junos: articles/map-t-with-junos/article.md
+      - Fast Lookup Tuple - an Innovative Filtering Feature: articles/fast-lookup-tuple-an-innovative-filtering-feature/article.md
+      - Trio 6 Packet Walkthrough: articles/trio-6-packet-walkthrough/article.md
+      - MX10000 LC4800 Deepdive: articles/mx10000-lc4800-deepdive/article.md
+      - Filter-Based Forwarding on MX: articles/filter-based-forwarding-on-mx/article.md
+      - MX10000 LC4802 Deepdive: articles/mx10000-lc4802-deepdive/article.md
+      - Differentiate with Filters: articles/packet-filtering-on-juniper-silicon/article.md
       - MX301 Deepdive: articles/mx301-deepdive/article.md
+      - Inline IPSec on MX Series: articles/inline-ipsec-on-mx-series/article.md
       - MX301 High-Performance FlowSpec Without Compromise: articles/mx301-high-performance-flowspec-without-compromise/article.md
       - MX301 A Powerful Filtering Gateway: articles/mx301-a-powerful-filtering-gateway/article.md
-      - Fast Lookup Tuple - an Innovative Filtering Feature: articles/fast-lookup-tuple-an-innovative-filtering-feature/article.md
-      - From sFlow to IMON Flow Sampling on MX10K Platforms: articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article.md
+      - WAN MACsec Inline Throughput Testing on MX Series: articles/wan-macsec-inline-throughput-testing-on-mx-series/article.md
+    - PTX Series:
+      - Express 4 Filters - Foundation: articles/express-4-filters-foundation/article.md
+      - Layer 3 Solution for CDN Gateway: articles/layer-3-solution-for-the-cdn-gateway/article.md
+      - PTX FIB Compression: articles/ptx-fib-compression/article.md
+      - PTX10001-36MR L2 Circuit Scale: articles/ptx10001-36mr-l2-circuit-scale/article.md
+      - PTX10001-36MR Introduction: articles/ptx10001-36mr-introduction/article.md
+      - FIB programming speed validation - PTX10001-36MR: articles/ptx10001-36mr-fib-install-rate/article.md
+      - PTX10001-36MR FIB Install Rate: articles/ptx10001-36mr-fib-install-rate/article.md
+      - EVPN E-Line on PTX10k platforms: articles/evpn-eline-on-ptx10k-platforms/article.md
+      - Saving Energy on PTX with PFE Power Off: articles/saving-energy-on-ptx-with-pfe-power-off/article.md
+      - Features Saving Power on PTX10000: articles/ptx10000-power-optimization/article.md
+      - Guide to the EVPN VXLAN-based OISM on PTX: articles/evpn-vxlan-oism-on-ptx-routers/article.md
+      - Monitoring PTX Power and Environmentﾕs KPI through Telemetry: articles/monitoring-ptx-power-environments-with-telemetry/article.md
+      - Express 5 Overview: articles/express-5-overview/article.md
+      - PTX10002-36QDD Hardware Deepdive: articles/introducing-ptx10002-36qdd/article.md
+      - Flexible pipeline: articles/flexible-packet-processing-pipelines/article.md
+      - Flex Offset Filters in Express5: articles/flex-offset-filters-in-express5/article.md
+      - FIB Scale in Express5: articles/fib-scale-in-express5/article.md
+      - SRv6 in PTX Express 5: articles/srv6-in-ptx-express-5/article.md
+      - BIER + MVPN in PTX Express 5: articles/bier-mvpn-in-ptx-express-5/article.md
+      - EANTC BIER InterOp Testing on PTX10002-36QDD: articles/eantc-bier-interop-testing-on-ptx10002-36qdd/article.md
+      - FIB Install Rate in PTX Express5: articles/fib-install-rate-in-ptx-express5/article.md
+      - Introducing Express5 in PTX10K Chassis: articles/introducing-express5-in-ptx10k-chassis/article.md
+      - Training over 50km 800GE Links with PTX Routers: articles/training-over-50km-800ge-links-with-ptx-routers/article.md
+      - Introducing PTX12000 Chassis: articles/introducing-ptx12000-chassis/article.md
+      - Juniper PTX Routers in Front-End Network: articles/juniper-ptx-routers-in-front-end-network/article.md
+      - DCI Edge for AI Front End Clusters with Juniper PTX: articles/dci-edge-for-ai-front-end-clusters-part3/article.md
+      - Introducing the PTX10002-60MR: articles/introducing-the-ptx10002-60mr/article.md
+      - Fabric Design and Redundancy: articles/rethinking-fabric-redundancy/article.md
+      - Deepdive in the Fabric Topology: articles/ptx12008-fabric-topology/article.md
+      - Self Healing and Recovery Mechanisms For PTX12008: articles/self-healing-and-recovery-mechanisms-for-ptx12008/article.md
+      - Navigating the Front Panel Display: articles/navigating-the-ptx12008-lcd-module/article.md
+      - PTX12008 Power Distribution and Optimization: articles/ptx12008-power-distribution-and-optimization/article.md
+    - QFX Series:
+      - From QFX5100 to QFX5120: articles/from-qfx5100-to-qfx5120/article.md
+      - QFX5K-Series Switches Packet Buffer Architecture: articles/qfx5k-series-switches-packet-buffer-architecture/article.md
+      - Microburst Detection and Avoidance on QFX5k: articles/microburst-detection-and-avoidance-on-qfx5k/article.md
+      - Industry First 1.6T Liquid Cooled Switch QFX5250-64OE-L: articles/industry-first-16t-liquid-cooled-sw-qfx5250-64oe-l/article.md
+      - Control and Data Plane Traffic Capture on QFX Switches: articles/control-and-data-plane-traffic-capture-on-qfx-swit/article.md
+      - ORv3 Compliant QFX Series Switches: articles/orv3-compliant-qfx-series-switches/article.md
+      - Introducing the QFX5140: articles/introducing-the-qfx5140/article.md
+  - Routing:
+    - SRv6:
+      - SRv6 basic - SRv6 locator and End SIDs: articles/srv6-basics-locator-and-end-sids/article.md
+      - L3VPN over SRv6: articles/l3vpn-over-srv6/article.md
+      - SRv6 locator summarization: articles/srv6-summarization/article.md
+      - SRv6 SID Encoding and Transposition: articles/srv6-sid-encoding-and-transposition/article.md
+      - SRv6 L3VPN Inter-AS Option-C: articles/srv6-l3vpn-inter-as-option-c/article.md
+      - Link Slicing with MPLS and SRv6 Underlays: articles/link-slicing-with-mpls-and-srv6-underlays/article.md
+      - Link Slicing with MPLS and SRv6 Underlays Part 2: articles/link-slicing-with-mpls-and-srv6-underlays-part-2/article.md
+      - SRv6 Micro-SID (uSID) Basics: articles/srv6-micro-sid-basics/article.md
+      - L3VPN over SRv6 with JCNR: articles/l3vpn-over-srv6-with-jcnr/article.md
+      - SRv6 Explicit LSPs: articles/srv6-static-lsps/article.md
+      - Stitching Two Worlds IPv4 L3VPN InterAS (Option C) over an IPv6 Only SRv6 uSID Core: articles/inter-as-option-c-with-srv6-usid/article.md
+    - SR MPLS:
+      - Under construction: build.md
+    - EVPN:
+      - VPLS (LDP/BGP) to EVPN migration: articles/vpls-to-evpn-vpls-seamless-migration-on-mx-routers/article.md
+      - SRX EVPN/VXLAN T5 oIPSEC: articles/srx-evpnvxlan-t5-oipsec/article.md
+      - EVPN on the Stick: articles/evpn-on-a-stick/article.md
+      - L2 Metro Ring-Access With EVPN-ELAN: articles/l2-metro-ring-access-with-evpn-elan/article.md
+      - BNG Chassis Redundancy with DHCP Active Lease Query and EVPN VPWS: articles/bng-chassis-redundancy-with-dhcp-and-evpn-vpws/article.md
+    - Various Routing Topics:
+      - Seamless MPLS LDP-Signaled with OSPF IGP Underlay: articles/seamless-mpls-ldp-with-ospf/article.md
+      - Inter-domain On-demand SR-TE LSPs with BGP-LS: articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article.md
+      - BGP RIB Sharding: articles/bgp-rib-sharding/article.md
+      - Sizing Router Buffers - Small is the New Big: articles/sizing-router-buffers/article.md
+      - New Subscriber QOS for Next Generation Broadband: articles/new-subscriber-qos-for-next-generation-broadband/article.md
+      - BGP CT Interop Demo EANTC2023: articles/bgp-ct-interop-demo-eantc2023/article.md
+      - BGP FlowSpec ﾒExclude Interfacesﾓ on Express2 Platforms: articles/bgp-flowspec-exclude-interfaces-express2-platforms/article.md
+      - Optimizing Power Consumption in High-End Routers: articles/optimizing-power-consumption-in-high-end-routers/article.md
+      - BGP CT Use-Cases: articles/bgp-ct-use-cases/article.md
+      - Mastering BGP PIC on JUNOS: articles/mastering-bgp-pic-on-junos/article.md
+      - BGP Link-Bandwidth with JunOS: articles/bgp-link-bandwidth-with-junos/article.md
+      - Scalable BGP Route-Reflector: articles/scalable-bgp-route-reflector/article.md
+      - BIER Introduction and Underlay: articles/bier-introduction-and-underlay/article.md
+      - BGP Minimum ECMP: articles/bgp-minimum-ecmp/article.md
+      - BIER Table Lookup: articles/bier-table-lookup/article.md
+      - Secure Virtual Cell Site Router Solution with JCNR and cSRX: articles/secure-virtual-csr-solution-with-jcnr-and-csrx/article.md
+      - BIER Overlay: articles/bier-overlay/article.md
+      - L3VPN to Global RIB Leaking: articles/l3vpn-to-global-rib-leaking/article.md
+      - Navigating the Shadows of Dark Fiber Connectivity: articles/navigating-the-shadows-of-dark-fiber-connectivity/article.md
+      - Monitoring PFE Resources on EVO Routers: articles/monitoring-pfe-resources-on-evo-routers/article.md
+      - SR Tactical Traffic Engineering in Junos: articles/sr-tactical-traffic-engineering-in-junos/article.md
+      - BNG CUPS Controller and Geographical Redundancy: articles/bng-cups-controller-and-geographical-redundancy/article.md
+      - Migrating from OSPF/LDP to OSPF/SR-MPLS: articles/migrating-from-ospf-ldp-to-ospf-sr-mpls/article.md
+      - SR-TE LSPs Through a Multi-Domain Network: articles/sr-te-lsps-through-a-multi-domain-network/article.md
+      - Hybrid MNHA with eBGP: articles/hybrid-mnha-with-ebgp/article.md
+      - Wholistic Design Approach for MPLS Backbone Class of Service: articles/wholistic-design-approach-for-mpls-backbone-cos/article.md
+      - Mist Cradle Point and Site-to-Site IPSec Tunnels an SRX Perspective: articles/mist-cradle-point-and-site-to-site-ipsec-tunnels/article.md
+      - Class Based Forwarding over RSVP LSPs Design Consideration: articles/class-based-forwarding-over-rsvp-lsps-design/article.md
+      - FBF/CBF - Traffic-Engineering for Outstanding Services: articles/fbf-cbf-te-for-outstanding-services/article.md
+      - Adaptive Resource Control in TE Networks: articles/adaptive-resource-control-in-te-networks/article.md
+      - Adaptive Resource Control with Container LSPs: articles/adaptive-resource-control-with-container-lsps/article.md
+      - Experience-First Networking By Routing Active Testing: articles/experience-first-networking-by-routing-active-test/article.md
+      - TreeDN - The Fix for Catastrophically Successful Live Streaming Events: articles/introduction-to-treedn/article.md
+      - Large Enterprises WAN Landscape: articles/large-enterprises-wan-landscape-in-ai-era/article.md
+      - Optimize your Network with Routing Director: articles/optimize-your-network-with-routing-director/article.md
+      - MAP-E: articles/map-e-with-junos-os/article.md
+      - Mastering Local AS - Default mode: articles/mastering-local-as-default-mode/article.md
+      - Mastering Local AS - Alias mode: articles/mastering-local-as-alias-mode/article.md
+      - Mastering Local AS - Private mode: articles/mastering-local-as-private-mode/article.md
+      - Mastering Local AS - No-prepend-global-AS mode: articles/mastering-local-as-no-prepend-global-as/article.md
+      - Mastering Local AS - Private No-prepend-global-AS mode: articles/mastering-local-as-private-no-prepend-global-as/article.md
+      - JCNR and Topology-Independent Loop-Free Alternates (TI-LFA): articles/jcnr-and-topology-independent-loop-free-alternates/article.md
+      - Enhancing Route Manipulation: articles/enhancing-route-manipulation/article.md
+      - State, Signaling, and the Cost of Simplified Narratives: articles/state-signaling-and-the-cost-of-simplification/article.md
+      - INET.0 –  What? MNHA, IPSec and Multiple Routing Instances: articles/mnha-ipsec-and-multiple-routing-instances/article.md
+      - Testing BGP Roles (RFC 9234) with the JMCP Server: articles/testing-bgp-roles-rfc-9234-with-the-jmcp-server/article.md
+      - Secure BGP with ASPA Preventing and fixing route leaks: articles/secure-bgp-aspa-preventing-and-fixing-route-leak/article.md
+      - Migrating Colored Resolution from inetcolor to Classful Transport: articles/migrating-colored-resolution-from-inetcolor-to-ct/article.md
+      - AI-Driven Brownfield Migration to Juniper Routing Director: articles/ai-driven-brownfield-migration-to-jrd/article.md
+  - Multicast Routing:
+    - Under Construction: build.md
+  - Scale and Convergence Tests:
+    - Scale-Out Security Services with Auto-FBF: articles/scale-out-security-services-with-auto-fbf/article.md
+    - Operating MX/SRX Scale-Out System - Bulk Junos Config Changes: articles/mx-srx-scale-out-system-bulk-junos-config-changes/article.md
+    - Long-Distance Lossless Scale-Across: articles/long-distance-lossless-scale-across/article.md
+  - Silicon / PFE / Memories:
+    - Networking Chips vs GPUs/CPUs: articles/networking-chips-vs-gpuscpus/article.md
+    - Tearing down the memory wall: articles/tearing-down-memory-wall/article.md
+    - Silicon Photonics and Integrated Optics: articles/silicon-photonics-and-integrated-optics/article.md
+    - Longest Prefix Matching in Networking Chips: articles/longest-prefix-matching-in-networking-chips/article.md
+    - Chiplet Post from Linkedin: articles/chiplets-the-inevitable-transition/article.md
+    - Liquid Cooling - The Inflection Point: articles/liquid-cooling-the-inflection-point/article.md
+    - Flexible memory in Express5: articles/flexible-memory-in-express5/article.md
+    - Multi-Node High Availability Basics: articles/multi-node-high-availability-basics/article.md
+    - Debugging PFE exceptions on Microkernel FPCs with Natural Language and MCP: articles/debugging-pfe-exceptions-with-mcp/article.md
+  - JVD Juniper Validated Designs:
+    - Overview results of jvd-mbh-base: articles/jvd-mobile-backhaul-overview/article.md
+    - Introduction to Metro Ethernet Business Services Validated Design: articles/intro-to-metro-ethernet-business-services-jvd/article.md
+  - Forwarding, Load Balancing, Filtering:
+    - ESI-LAG Made Easier with EZ-LAG: articles/esi-lag-made-easier-with-ez-lag/article.md
+    - SRX/CloudATP Multi-Tenant DNS Filtering: articles/srxcloudatp-multi-tenant-dns-filtering/article.md
+    - Open-Source Monitoring of Network Forwarding Exceptions - A Practical Approach: articles/open-source-monitoring-of-forwarding-exceptions/article.md
+  - Technology and Features:
+    - Service Mapping to Colored MPLS Paths: articles/service-mapping-to-colored-mpls-paths/article.md
+    - Building Border Agnostic Architectures with Seamless MPLS: articles/border-agnostic-architectures-with-seamless-mpls/article.md
+    - MPLS Label Anti-Spoofing: articles/mpls-label-anti-spoofing/article.md
+    - Traffic Accounting with MX Features: articles/traffic-accounting-with-mx-features/article.md
+    - IP/VPN provision and operation with Apstra Freeform: articles/ip-vpn-network-apstra-freeform/article.md
+    - SRX AutoVPN / PSK with Linux strongSwan: articles/srx-autovpn-psk-with-linux-strongswan/article.md
+    - The Hidden Cost of Jitter in AI/ML Training Fabrics: articles/the-hidden-cost-of-jitter-in-aiml-training-fabrics/article.md
+    - SRX MPLS in Flow: articles/srx-mpls-in-flow/article.md
+  - BNG:
+    - Juniper BNG CUPS Architecture: articles/juniper-bng-cups-architecture/article.md
+    - Juniper BNG CUPS Hitless User Plane Maintenance: articles/juniper-bng-cups-hitless-user-plane-maintenance/article.md
+    - Juniper BNG CUPS Smart Load Balancing with High Availability: articles/juniper-bng-cups-smart-load-balancing-with-ha/article.md
+    - Juniper BNG CUPS Address Pool Management: articles/juniper-bng-cups-address-pool-management/article.md
+  - Security:
+    - The Evolution of Network Security: articles/the-evolution-of-network-security/article.md
+    - MACsec and L2PT over Non-Point-to-Point Networks in Junos: articles/macsec-and-l2pt-over-non-point-to-point-networks/article.md
+    - com.android.ipsec IKEv2 vs SRX: articles/com-android-ipsec-ikev2-vs-srx/article.md
+    - SRX4700 100Gbps Full Duplex IPSEC tunnel: articles/srx4700-100gbps-full-duplex-ipsec-tunnel/article.md
+    - SRX Dynamic IP Objects aka Feed-server: articles/srx-dynamic-ip-objects-aka-feed-server/article.md
+    - SRX MPLS in Flow - Part II: articles/srx-mpls-in-flow-part-2/article.md
+    - Securing IPVPN Connectivity on Juniper MX Using Inline IPsec: articles/securing-ipvpn-on-mx-using-inline-ipsec/article.md
+    - SRX Secure Fabric Entry Point: articles/srx-secure-fabric-entry-point/article.md
+    - SRX clustering. From Chassis Cluster to MultiNode High Availability: articles/srx-from-chassis-cluster-to-mnha/article.md
+    - SRX Multi-Node High Availability (MNHA) with VRRP: articles/srx-mnha-vrrp/article.md
+    - From SRX Chassis Cluster to MNHA Configurations side by side: articles/from-srx-chassis-cluster-to-mnha-configurations/article.md
+    - HPE SRX-SSE Link: articles/hpe-srx-sse-link/article.md
+    - Secure Active/Active Multivendor Fabrics with MNHA: articles/secure-activeactive-multivendor-fabrics-with-mnha/article.md
+  - Power Topics:
+    - Automate Juniper Apstra with PowerShell: articles/automate-juniper-apstra-with-powershell/article.md
+    - Power Observability: articles/juniper-routers-switches-power-observability/article.md
   - Observability, Sampling, Telemetry, SNMP:
+    - Telemetry Collector and Graphical Frontend on Junos Evolved: articles/telemetry-collector-and-dataviz-on-junos-evo/article.md
+    - Sampling Evolution: articles/sampling-evolution/article.md
+    - Using Junos SNMP utility MIB on Juniper SRX: articles/using-junos-snmp-utility-mib-on-juniper-srx/article.md
     - OpenJTS Network Observability with Streaming Telemetry: articles/introducing-openjts-telemetry-stack/article.md
-  - Various Routing Topics:
-    - Monitoring PFE Resources on EVO Routers: articles/monitoring-pfe-resources-on-evo-routers/article.md
+    - IPv6 Observability: articles/srv6-observability/article.md
+    - Enhancing Synchronization Networks with Passive Port Monitoring (PPM): articles/enhancing-network-synchronization-with-ppm/article.md
+  - Apstra:
+    - Juniper Apstra Introducing a True IBNS: articles/juniper-apstra-introducing-a-true-ibns/article.md
+    - Apstra IP Fabric Reference Design: articles/apstra-ip-fabric-reference-design/article.md
+    - Adding Device Profiles Using the Apstra UI: articles/adding-device-profiles-using-the-apstra-ui/article.md
+    - Creating Audit Trails with the Apstra Event Log: articles/creating-audit-trails-with-the-apstra-event-log/article.md
+    - Apstra Configlets: articles/apstra-configlets/article.md
+    - Apstra Device Replacement: articles/apstra-device-replacement/article.md
+    - Using Apstra Policy Assurance: articles/using-apstra-policy-assurance/article.md
+    - Introduction to Apstra Freeform: articles/introduction-to-apstra-freeform/article.md
+    - Apstra Freeform Day-2 Configuration: articles/apstra-freeform-day-2-configuration/article.md
+    - Config Rendering in Juniper Apstra: articles/config-rendering-in-juniper-apstra/article.md
+    - Using Apstra Drain Mode: articles/using-apstra-drain-mode/article.md
+    - Automating 3-stage Clos fabric with Terraform and Apstra: articles/automating-clos-fabric-with-terraform-and-apstra/article.md
+    - Apstra Server Clustering: articles/apstra-server-clustering/article.md
+    - Upgrading Device Operating Systems with Apstra: articles/upgrading-device-operating-systems-with-apstra/article.md
+    - Apstra Day 2 - Generic Systems: articles/day-2-generic-systems/article.md
+    - Introduction to Apstra Flow Data: articles/apstra-flow-data/article.md
+    - SP-style Config in Apstra Freeform for VLAN Overlap Use-Cases: articles/sp-style-config-apstra-freeform-for-vlan-overlap/article.md
+    - Micro-Segmentation in DC with Apstra and Junos: articles/micro-segmentation-in-dc-with-apstra-and-junos/article.md
+    - Implementing RBAC for Juniper Apstra Using ClearPass TACACS+ Server: articles/rbac-for-apstra-using-clearpass-tacacs-server/article.md
+  - Virtual Routers:
+    - Building Virtual Fabrics with vJunos-switch and Containerlab: articles/virtual-fabrics-vjunos-switch-and-containerlab/article.md
+    - vSRX on mini-PC with Linux/KVM: articles/vsrx-on-mini-pc-with-linux-kvm/article.md
+  - Routing Director (ex-Paragon):
+    - Service Orchestration with Paragon Automation: articles/service-orchestration-with-paragon-automation/article.md
+  - AI for Networking for AI:
+    - ML Post from Linkedin: articles/large-language-models-the-hardware-connection/article.md
+    - GPU Fabrics for GenAI Workloads: articles/gpu-fabrics-for-genai-workloads/article.md
+    - LLM Connector - a Conversational AI Assistant for Your Network: articles/llm-connector-a-conversational-ai-assistant/article.md
+    - Reimagining Network Operations with AI: articles/reimagining-network-operations-with-ai/article.md
+    - Network Automation with AI and Junos MCP Server: articles/network-automation-with-ai-and-junos-mcp-server/article.md
+    - Context-File Redis and High-Performance Storage: articles/context-file-redis-and-high-performance-storage/article.md
+    - Context-File Basics. Tokens, Data Formats, and Memory Management: articles/context-file-basics-tokens-and-memory-management/article.md
+    - Managing Junos Devices with Context-File and JMCP Server: articles/managing-junos-devices-with-context-file/article.md
+    - Context File Optimization and Alerting Strategies: articles/context-file-optimization-and-alerting-strategies/article.md
+    - Context Files. File Management and Data Collection Strategies: articles/file-management-and-data-collection-strategies/article.md
+    - Overlay Networking in AI Era: articles/overlay-networking-in-ai-era/article.md
+    - MCP w/ context file part 6: articles/hybrid-llm-python-architecture/article.md
+    - Connecting AI The Network Behind Every Inference: articles/connecting-ai-the-network-behind-every-inference/article.md
+    - Next Generation Port Extender (NGPE) The Right Interface Speed on the Right Box, for the AI Era: articles/next-generation-port-extender-ngpe/article.md
+  - Various Other Topics:
+    - Introduction to the Validation Series: articles/introducing-the-validation-series/article.md
+    - MX LC9600 Deepdive: articles/mx10000-lc9600-deepdive/article.md
+    - Letﾕs Talk About VOQ and DNX Pipeline: articles/voq-and-dnx-pipeline/article.md
+    - MX LC480 Deepdive: articles/mx10000-lc480-deepdive/article.md
+    - MPC10E Deepdive: articles/mpc10e-deepdive/article.md
+    - Mobile Backhaul Services Overlay: articles/mobile-backhaul-services-overlay/article.md
+    - vJunos Deployment on KVM: articles/vjunos-deployment-on-kvm/article.md
+    - Deploying and Using vJunos in a Bare Metal EVE-NG server: articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article.md
+    - Time Synchronization and Class D Clocks Support: articles/time-synchronization-and-class-d-clocks-support/article.md
+    - Centralized Deterministic CGNAT: articles/centralized-deterministic-cgnat/article.md
+    - Suspicious Control Flow Detection: articles/suspicious-control-flow-detection/article.md
+    - BIER Intro: articles/bier-for-sr-multicast-cheers/article.md
+    - To Spray or Not to Spray: articles/to-spray-or-not-to-spray/article.md
+    - G.8275.1.enh - Junipers Advancements in Timing and Synchronization: articles/g82751enh-advancements-in-timing-and-sync/article.md
+    - Detection of Blackholes Using Juniper Resiliency Interface: articles/detection-of-blackholes-in-networks-using-jri/article.md
+    - Packets Lost in Transit?: articles/packets-lost-in-transit/article.md
+    - JCNR for Equinix Metal: articles/jcnr-for-equinix-metal/article.md
+    - LLM Inference - Hw-Sw Optimizations: articles/llm-inference-hw-sw-optimizations/article.md
+    - LLM Inference - Hw-Sw Optimizations: articles/llm-inference-hw-sw-optimizations/article.md
+    - Selective Dynamic Load Balancing: articles/selective-dynamic-load-balancing/article.md
+    - SRX4600 CGN Configuration Breakdown: articles/srx4600-cgn-configuration-breakdown/article.md
+    - Single Stage IBA with GaN Converters: articles/single-stage-iba-with-gan-converters/article.md
+    - DNS64 and NAT64 on SRX Series: articles/dns64-and-nat64-on-srx-series/article.md
+    - Tap Aggregation: articles/tap-aggregation-for-network-observability/article.md
+    - YAMS - Managing JCNR with Model Context Protocol: articles/yams-managing-jcnr-with-model-context-protocol/article.md
+    - Construction of a multi-geo multi-cluster: articles/multi-geo-overlay-procedure/article.md
+    - Red Hat and Juniper Merge Ansible Collections: articles/red-hat-and-juniper-merge-ansible-collections/article.md
+    - 200 Articles on TechPost: articles/200-articles-on-articles/article.md
+    - DHCP on MNHA Back to Basics: articles/dhcp-on-mnha-back-to-basics/article.md
+    - 250 articles: articles/250-articles-on-articles/article.md
+    - Precision Timing in Modern Data Center: articles/precision-timing-in-modern-data-center/article.md
 - About us: about.md
 plugins:
 - caption-per-book
@@ -61,7 +335,7 @@ plugins:
     minify_html: true
 site_author: HPE Networking Techpost
 site_name: TECHPOST - Technical articles by HPE Networking
-site_url: https://juniper.github.io/techpost/
+site_url: https://juniper.github.io/articles/
 theme:
   custom_dir: overrides
   favicon: images/favicon.ico
