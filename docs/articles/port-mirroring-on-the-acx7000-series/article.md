@@ -8,14 +8,14 @@ Port mirroring sends a copy of network packets seen on one port to a network mon
 
 Every mirroring deployment has exactly two components:
 
-- Source of mirror --- the input to the mirror, i.e., the point from which traffic needs to be copied.
-- Destination of mirror --- the output of the mirror, i.e., where the copied traffic is sent (a local analyzer port, or a remote collector reachable over IP).
+- Source of mirror - the input to the mirror, i.e., the point from which traffic needs to be copied.
+- Destination of mirror - the output of the mirror, i.e., where the copied traffic is sent (a local analyzer port, or a remote collector reachable over IP).
 
 The ACX7000 family (ACX7024, ACX7100, ACX7332/7348, ACX7509, etc.), running Junos OS Evolved, supports three mirroring options:
 
-1. Local port mirroring --- mirror a port's traffic to another port on the same box.
-2. Remote port mirroring (ERSPAN) --- encapsulate mirrored traffic in GRE/ERSPAN and deliver it to a collector anywhere across a routed network.
-3. Filter-based port mirroring --- mirror only the traffic that matches a firewall filter term, giving you flow-level precision instead of copying an entire port.
+1. Local port mirroring - mirror a port's traffic to another port on the same box.
+2. Remote port mirroring (ERSPAN) - encapsulate mirrored traffic in GRE/ERSPAN and deliver it to a collector anywhere across a routed network.
+3. Filter-based port mirroring - mirror only the traffic that matches a firewall filter term, giving you flow-level precision instead of copying an entire port.
 
 This post walks through the architecture, configuration, and verification of all three on ACX7K, with working configuration samples you can adapt directly.
 
@@ -25,11 +25,11 @@ This post walks through the architecture, configuration, and verification of all
 
 Before you configure mirroring on an ACX7K platform, confirm the following:
 
-Software release: Port mirroring and ERSPAN are available on ACX7K products from Junos OS Evolved 22.4R1 onwards. Filter-based mirroring requires a later release --- verify feature support for your specific platform and release in the Juniper Feature Explorer.
+Software release: Port mirroring and ERSPAN are available on ACX7K products from Junos OS Evolved 22.4R1 onwards. Filter-based mirroring requires a later release - verify feature support for your specific platform and release in the Juniper Feature Explorer.
 
 A monitoring destination: a local port connected to a packet capture tool (Wireshark, tcpdump host, dedicated probe), or for ERSPAN, an IPv4-reachable collector that can decapsulate GRE/ERSPAN.
 
-Reachability for remote mirroring: the collector's IPv4 address must be present in the routing table (static, OSPF, IS-IS --- it doesn't matter, but it must resolve to a next hop).
+Reachability for remote mirroring: the collector's IPv4 address must be present in the routing table (static, OSPF, IS-IS - it doesn't matter, but it must resolve to a next hop).
 
 Headroom awareness: mirroring duplicates traffic. Mirroring a loaded 100G port toward a 10G analyzer port will drop mirrored copies. Size the output port for the traffic you intend to capture, or use filter-based mirroring to narrow the scope.
 
@@ -43,9 +43,9 @@ Local and remote (ERSPAN) mirroring are implemented through a software construct
 
 | Element | Purpose |
 |:--|:--|
-| input | The traffic collection point --- the interface(s) whose traffic is copied |
+| input | The traffic collection point - the interface(s) whose traffic is copied |
 | ingress / egress | The direction of traffic to capture, relative to the input interface |
-| output | Where the mirrored copies are sent --- a local interface (local mirroring) or an IPv4 address (ERSPAN) |
+| output | Where the mirrored copies are sent - a local interface (local mirroring) or an IPv4 address (ERSPAN) |
 
 Configuration:
 
@@ -64,7 +64,7 @@ analyzer {
 }
 ```
 
-Port-based mirroring copies all traffic ingressing (or egressing) the configured port. An important behavioral detail: the analyzer input is configured on an IFL (logical interface, e.g., et-0/0/4.0), and only unit 0 is allowed as input --- but the mirroring itself operates at the IFD (physical interface) level. Whichever unit you reference, the entire physical port is mirrored. The feature is enabled on the port. Both ingress and egress directions are supported, and the input can also be a port list --- multiple ports referenced by their IFL names in the same analyzer.
+Port-based mirroring copies all traffic ingressing (or egressing) the configured port. An important behavioral detail: the analyzer input is configured on an IFL (logical interface, e.g., et-0/0/4.0), and only unit 0 is allowed as input - but the mirroring itself operates at the IFD (physical interface) level. Whichever unit you reference, the entire physical port is mirrored. The feature is enabled on the port. Both ingress and egress directions are supported, and the input can also be a port list - multiple ports referenced by their IFL names in the same analyzer.
 
 ## Port-Mirroring Instances
 
@@ -88,7 +88,7 @@ Choosing a Mode:
 
 ### ERSPAN Packet Format
 
-With ERSPAN, the mirrored packet is not sent as-is. The ACX builds a new outer Ethernet and IPv4 header, adds GRE and ERSPAN headers, and carries the original frame --- headers intact, exactly as it arrived at ingress --- as the payload. The outer destination IP is the analyzer's configured output ip-address; the source IP is taken from the next-hop-facing interface. Your capture tool sees: new Eth header + IP + GRE + ERSPAN + original packet.
+With ERSPAN, the mirrored packet is not sent as-is. The ACX builds a new outer Ethernet and IPv4 header, adds GRE and ERSPAN headers, and carries the original frame - headers intact, exactly as it arrived at ingress - as the payload. The outer destination IP is the analyzer's configured output ip-address; the source IP is taken from the next-hop-facing interface. Your capture tool sees: new Eth header + IP + GRE + ERSPAN + original packet.
 
 ## Step-by-Step Implementation
 
@@ -96,7 +96,7 @@ With ERSPAN, the mirrored packet is not sent as-is. The ACX builds a new outer E
 
 Mirror all traffic entering et-0/0/4 to a locally attached analyzer on et-0/0/9.
 
-**Step 1** --- Prepare the output port. The analyzer port needs only a unit 0; no family, no VLAN membership:
+**Step 1** - Prepare the output port. The analyzer port needs only a unit 0; no family, no VLAN membership:
 
 ```
 set interfaces et-0/0/9 unit 0
@@ -104,7 +104,7 @@ set interfaces et-0/0/9 unit 0
 
 set interfaces et-0/0/9 unit 0
 
-**Step 2** --- Configure the analyzer:
+**Step 2** - Configure the analyzer:
 
 ```
 set forwarding-options analyzer A0 input ingress interface et-0/0/4.0
@@ -117,7 +117,7 @@ For a full working example, see the Juniper KB article "Sample configuration of 
 
 ### Remote Port Mirroring (ERSPAN)
 
-Same analyzer construct --- the only change is the output. Instead of a local interface, point it at the collector's IPv4 address:
+Same analyzer construct - the only change is the output. Instead of a local interface, point it at the collector's IPv4 address:
 
 ```
 set forwarding-options analyzer A0 input ingress interface et-0/0/4.0
@@ -284,14 +284,14 @@ Confirms the analyzer is programmed, its input/output bindings, and its state. I
 
 ### Verify Filter Hits Before Blaming the Mirror
 
-Always pair your mirror action with count --- it turns troubleshooting from guesswork into arithmetic:
+Always pair your mirror action with count - it turns troubleshooting from guesswork into arithmetic:
 
 ```
 show firewall filter f1
 show firewall filter f1 counter c1
 ```
 
-If the counter increments but the analyzer sees nothing, the problem is on the mirror path (output port, route, scale exhaustion). If the counter is at zero, your match conditions are wrong --- the mirror never had a chance.
+If the counter increments but the analyzer sees nothing, the problem is on the mirror path (output port, route, scale exhaustion). If the counter is at zero, your match conditions are wrong - the mirror never had a chance.
 
 ### Verify the Mirror Path
 
@@ -303,18 +303,18 @@ monitor interface traffic          # live view of packet rates on source vs. ana
 
 ### Validate the Capture Itself
 
-On the collector, verify the ERSPAN encapsulation: outer destination IP = the configured analyzer output address, outer source IP = the next-hop-facing interface, then GRE + ERSPAN headers, then the original packet untouched. Wireshark decodes ERSPAN natively --- check that the inner frame matches the flow your filter targets.
+On the collector, verify the ERSPAN encapsulation: outer destination IP = the configured analyzer output address, outer source IP = the next-hop-facing interface, then GRE + ERSPAN headers, then the original packet untouched. Wireshark decodes ERSPAN natively - check that the inner frame matches the flow your filter targets.
 
 Common Pitfalls and Platform Behaviors
 
-- IFL config, IFD behavior (analyzer mode). The analyzer accepts an IFL (et-0/0/0.0), but mirroring happens on the whole physical port. Don't expect per-unit selectivity from the analyzer --- that's what filter-based mirroring is for.
+- IFL config, IFD behavior (analyzer mode). The analyzer accepts an IFL (et-0/0/0.0), but mirroring happens on the whole physical port. Don't expect per-unit selectivity from the analyzer - that's what filter-based mirroring is for.
 - IPv4-only mirror destination. The analyzer output ip-address must be IPv4.
 - No IRB support for the analyzer. You cannot apply an analyzer to an IRB interface.
-- Changes require remove-and-reapply. Modifying the analyzer output (input interface or output host) in place doesn't take effect reliably --- delete the config, commit, re-add, commit.
+- Changes require remove-and-reapply. Modifying the analyzer output (input interface or output host) in place doesn't take effect reliably - delete the config, commit, re-add, commit.
 - Route changes affect ERSPAN. If the route to the mirror destination moves to a different egress interface than the one in place when the analyzer was committed, reapply the analyzer configuration.
-- Scale limits. Analyzer mode: up to 16 ingress and 8 egress mirror instances (commit error if exceeded), and a maximum of 8 combined ingress/egress instances per single output port. Filter-based: 16 ingress / 3 egress instances --- shared with every other mirroring consumer (analyzer, egress sFlow).
+- Scale limits. Analyzer mode: up to 16 ingress and 8 egress mirror instances (commit error if exceeded), and a maximum of 8 combined ingress/egress instances per single output port. Filter-based: 16 ingress / 3 egress instances - shared with every other mirroring consumer (analyzer, egress sFlow).
 - No ECMP for mirrored traffic. Mirrored copies will not load-balance across multiple equal-cost next hops.
-- Oversubscription is silent. If mirrored volume exceeds the output port's capacity, copies are dropped without ceremony. Production traffic is unaffected --- but your capture will have holes.
+- Oversubscription is silent. If mirrored volume exceeds the output port's capacity, copies are dropped without ceremony. Production traffic is unaffected - but your capture will have holes.
 
 ## Conclusion
 
@@ -324,8 +324,8 @@ The practical guidance distills to this: start with the narrowest scope that ans
 
 On ACX7K, mirroring is a set of tools, not just one feature. Using the right tool for your question turns a quick capture into a more complicated process.
 
-### Useful links
+## Useful links
 
-1.  [Sample configuration of port mirroring on ACX Series (Junos EVO) --- Juniper KB](https://supportportal.juniper.net/s/article/Sample-configuration-of-port-mirroring-on-ACX-Series-JUNOS-EVO)
-2.  [ACX7000 ERSPAN and Port Mirroring --- Juniper TechPost](https://juniper.github.io/techposts/acx7000-erspan-and-port-mirroring/article)
-3.  [Port Mirroring and Analyzers --- Juniper Documentation](https://www.juniper.net/documentation/us/en/software/junos/network-mgmt/topics/topic-map/port-mirroring-and-analyzers.html)
+1.  [Sample configuration of port mirroring on ACX Series (Junos EVO) - Juniper KB](https://supportportal.juniper.net/s/article/Sample-configuration-of-port-mirroring-on-ACX-Series-JUNOS-EVO)
+2.  [ACX7000 ERSPAN and Port Mirroring - Juniper TechPost](https://juniper.github.io/techposts/acx7000-erspan-and-port-mirroring/article)
+3.  [Port Mirroring and Analyzers - Juniper Documentation](https://www.juniper.net/documentation/us/en/software/junos/network-mgmt/topics/topic-map/port-mirroring-and-analyzers.html)

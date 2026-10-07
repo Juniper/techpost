@@ -60,16 +60,15 @@ It's tricky to discuss the mistakes that the LLM made in the lab exam without re
 
 LLMs have improved greatly at networking tasks over the last few months and have reached the point where they can do large amounts of useful work unaided. A year ago, one wouldn't have even contemplated having an LLM attempt the JNCIE-SP lab exam. It would have failed miserably. However, do not fall into the trap of thinking that an LLM is always correct. Although the LLM attained a remarkably high score, it did not score 100%. The output of LLMs should always be reviewed in the same way that the work of people should.
 
-### Useful links
+## Useful links
 
 - https://juniper.github.io/techposts/testing-bgp-roles-rfc-9234-with-the-jmcp-server/article
 - JNCIE-SP lab exam objectives: https://learningportal.juniper.net/juniper/user_activity_info.aspx?id=14337
 - Junos MCP Server: 
     - https://github.com/Juniper/junos-mcp-server
     - https://juniper.github.io/techposts/network-automation-with-ai-and-junos-mcp-server/article
-
 - JNCIE Self-Study Bundle: https://learningportal.juniper.net/juniper/user_activity_info.aspx?id=EDU-JUN-WBT-SSB-JNCIE-SP
 
-### Acknowledgments
+## Acknowledgments
 
 Many thanks to Jasun Rutter for facilitating access to the lab environment and Sidney Kriger for his detailed review of this article
