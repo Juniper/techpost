@@ -335,8 +335,8 @@ plugins:
     separator: '[\s\-\_]'
 - minify:
     minify_html: true
-site_author: HPE Networking Techpost
-site_name: TECHPOST - Technical articles by HPE Networking
+site_author: HPE Networking Tech Post
+site_name: Tech Post - Technical articles by HPE Networking
 site_url: https://juniper.github.io/techpost/
 theme:
   custom_dir: overrides
