@@ -2,1046 +2,1054 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://juniper.github.io/techpost/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/about/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/search-results/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/article_template/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/200-articles-on-techpost/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/250-articles-on-techpost/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx-7020-routers-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx7000-erspan-and-port-mirroring/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx7000-hardware-profiles/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx7000-l2-mac-scale-and-learning-rate/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx7000-vpls-validation/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx7024-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx7100-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/acx7509-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/adaptive-resource-control-in-te-networks/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/adaptive-resource-control-with-container-lsps/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/adding-device-profiles-using-the-apstra-ui/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ai-driven-brownfield-migration-to-jrd/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/apstra-configlets/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/apstra-device-replacement/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/apstra-flow-data/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/apstra-freeform-day-2-configuration/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/apstra-ip-fabric-reference-design/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/apstra-server-clustering/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/automate-juniper-apstra-with-powershell/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/automating-clos-fabric-with-terraform-and-apstra/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
+    </url>
+    <url>
+         <loc>https://juniper.github.io/techpost/articles/benchmarking-llms-against-networking-certification/article/</loc>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bgp-ct-interop-demo-eantc2023/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bgp-ct-use-cases/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bgp-flowspec-exclude-interfaces-express2-platforms/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bgp-link-bandwidth-with-junos/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bgp-minimum-ecmp/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bgp-rib-sharding/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bier-for-sr-multicast-cheers/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bier-introduction-and-underlay/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bier-mvpn-in-ptx-express-5/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bier-overlay/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bier-table-lookup/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bng-chassis-redundancy-with-dhcp-and-evpn-vpws/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bng-cups-controller-and-geographical-redundancy/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/bng-on-mpc10e/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/boosting-route-scale-and-performance-with-junos/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/border-agnostic-architectures-with-seamless-mpls/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/building-the-acx7000-series-the-pfe/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/centralized-deterministic-cgnat/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/chiplets-the-inevitable-transition/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/class-based-forwarding-over-rsvp-lsps-design/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/com-android-ipsec-ikev2-vs-srx/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/config-rendering-in-juniper-apstra/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/connecting-ai-the-network-behind-every-inference/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/context-file-basics-tokens-and-memory-management/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/context-file-optimization-and-alerting-strategies/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/context-file-redis-and-high-performance-storage/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/control-and-data-plane-traffic-capture-on-qfx-swit/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/creating-audit-trails-with-the-apstra-event-log/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/day-2-generic-systems/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/dci-edge-for-ai-front-end-clusters-part3/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/debugging-pfe-exceptions-with-mcp/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/detection-of-blackholes-in-networks-using-jri/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/dhcp-on-mnha-back-to-basics/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/dns64-and-nat64-on-srx-series/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/eantc-bier-interop-testing-on-ptx10002-36qdd/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/enhancing-network-synchronization-with-ppm/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/enhancing-route-manipulation/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/esi-lag-made-easier-with-ez-lag/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/everything-about-acx7000/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/evpn-eline-on-ptx10k-platforms/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/evpn-mac-vrf-validation-on-acx7000/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/evpn-on-a-stick/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/evpn-vpws-validation-on-acx7000/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/evpn-vxlan-oism-on-ptx-routers/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/experience-first-networking-by-routing-active-test/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/express-4-filters-foundation/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/express-5-overview/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/fast-lookup-tuple-an-innovative-filtering-feature/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/fbf-cbf-te-for-outstanding-services/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/fib-install-rate-in-ptx-express5/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/fib-scale-in-express5/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/file-management-and-data-collection-strategies/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/filter-based-forwarding-on-mx/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/flex-offset-filters-in-express5/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/flexible-memory-in-express5/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/flexible-packet-processing-pipelines/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/from-qfx5100-to-qfx5120/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/from-srx-chassis-cluster-to-mnha-configurations/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/g82751enh-advancements-in-timing-and-sync/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/gpu-fabrics-for-genai-workloads/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/hpe-srx-sse-link/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/hybrid-llm-python-architecture/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/hybrid-mnha-with-ebgp/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/industry-first-16t-liquid-cooled-sw-qfx5250-64oe-l/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/inline-ipsec-on-mx-series/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/inter-as-option-c-with-srv6-usid/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/intro-to-metro-ethernet-business-services-jvd/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-express5-in-ptx10k-chassis/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-openjts-telemetry-stack/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-ptx10002-36qdd/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-ptx12000-chassis/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-the-acx7024x/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-the-ptx10002-60mr/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-the-qfx5140/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introducing-the-validation-series/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introduction-to-apstra-freeform/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/introduction-to-treedn/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ip-vpn-network-apstra-freeform/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/jcnr-and-topology-independent-loop-free-alternates/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/jcnr-for-equinix-metal/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/juniper-apstra-introducing-a-true-ibns/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/juniper-bng-cups-address-pool-management/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/juniper-bng-cups-architecture/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/juniper-bng-cups-hitless-user-plane-maintenance/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/juniper-bng-cups-smart-load-balancing-with-ha/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/juniper-ptx-routers-in-front-end-network/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/juniper-routers-switches-power-observability/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/junos-symmetrical-load-balancing/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/jvd-mobile-backhaul-overview/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/l2-metro-ring-access-with-evpn-elan/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/l2vpn-validation-on-acx7000/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/l3vpn-over-srv6/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/l3vpn-over-srv6-with-jcnr/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/l3vpn-to-global-rib-leaking/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/l3vpn-validation-on-acx7000/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/large-enterprises-wan-landscape-in-ai-era/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/large-language-models-the-hardware-connection/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/layer-3-solution-for-the-cdn-gateway/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/link-slicing-with-mpls-and-srv6-underlays/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/link-slicing-with-mpls-and-srv6-underlays-part-2/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/liquid-cooling-the-inflection-point/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/llm-connector-a-conversational-ai-assistant/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/llm-inference-hw-sw-optimizations/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/long-distance-lossless-scale-across/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/longest-prefix-matching-in-networking-chips/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/macsec-and-l2pt-over-non-point-to-point-networks/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/managing-junos-devices-with-context-file/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/map-e-with-junos-os/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/map-t-with-junos/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mastering-bgp-pic-on-junos/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mastering-local-as-alias-mode/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mastering-local-as-default-mode/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mastering-local-as-no-prepend-global-as/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mastering-local-as-private-mode/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mastering-local-as-private-no-prepend-global-as/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/menu/main/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/micro-segmentation-in-dc-with-apstra-and-junos/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/microburst-detection-and-avoidance-on-qfx5k/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/migrating-colored-resolution-from-inetcolor-to-ct/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/migrating-from-ospf-ldp-to-ospf-sr-mpls/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mist-cradle-point-and-site-to-site-ipsec-tunnels/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mnha-ipsec-and-multiple-routing-instances/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mobile-backhaul-services-overlay/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/monitoring-pfe-resources-on-evo-routers/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/monitoring-ptx-power-environments-with-telemetry/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mpc10e-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mpls-label-anti-spoofing/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/multi-geo-overlay-procedure/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/multi-node-high-availability-basics/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx-srx-scale-out-system-bulk-junos-config-changes/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx10000-lc480-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx10000-lc4800-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx10000-lc4802-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx10000-lc9600-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx301-a-powerful-filtering-gateway/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx301-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx301-high-performance-flowspec-without-compromise/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx304-deepdive/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/mx304-fib-install-rate/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/navigating-the-ptx12008-lcd-module/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/navigating-the-shadows-of-dark-fiber-connectivity/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/network-automation-with-ai-and-junos-mcp-server/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/networking-chips-vs-gpuscpus/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/new-subscriber-qos-for-next-generation-broadband/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/next-generation-port-extender-ngpe/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/open-source-monitoring-of-forwarding-exceptions/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/operating-1tbps-firewall-scale-out-system/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/optimize-your-network-with-routing-director/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/optimizing-power-consumption-in-high-end-routers/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/orv3-compliant-qfx-series-switches/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/overlay-networking-in-ai-era/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/packet-filtering-on-juniper-silicon/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/packets-lost-in-transit/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
+    </url>
+    <url>
+         <loc>https://juniper.github.io/techpost/articles/port-mirroring-on-the-acx7000-series/article/</loc>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/precision-timing-in-modern-data-center/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ptx-fib-compression/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ptx10000-power-optimization/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ptx10001-36mr-fib-install-rate/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ptx10001-36mr-introduction/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ptx10001-36mr-l2-circuit-scale/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ptx12008-fabric-topology/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/ptx12008-power-distribution-and-optimization/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/qfx5k-series-switches-packet-buffer-architecture/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/rbac-for-apstra-using-clearpass-tacacs-server/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/red-hat-and-juniper-merge-ansible-collections/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/reimagining-network-operations-with-ai/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/rethinking-fabric-redundancy/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/sampling-evolution/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/saving-energy-on-ptx-with-pfe-power-off/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/saving-power-on-acx7000-series/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/scalable-bgp-route-reflector/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/scale-out-security-services-with-auto-fbf/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/seamless-mpls-ldp-with-ospf/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/secure-activeactive-multivendor-fabrics-with-mnha/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/secure-bgp-aspa-preventing-and-fixing-route-leak/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/secure-virtual-csr-solution-with-jcnr-and-csrx/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/securing-ipvpn-on-mx-using-inline-ipsec/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/selective-dynamic-load-balancing/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/service-mapping-to-colored-mpls-paths/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/service-orchestration-with-paragon-automation/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/silicon-photonics-and-integrated-optics/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/single-stage-iba-with-gan-converters/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/sizing-router-buffers/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/sp-style-config-apstra-freeform-for-vlan-overlap/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/sr-tactical-traffic-engineering-in-junos/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/sr-te-lsps-through-a-multi-domain-network/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-basics-locator-and-end-sids/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-in-ptx-express-5/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-l3vpn-inter-as-option-c/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-micro-sid-basics/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-observability/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-sid-encoding-and-transposition/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-static-lsps/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srv6-summarization/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-autovpn-psk-with-linux-strongswan/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-dynamic-ip-objects-aka-feed-server/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-evpnvxlan-t5-oipsec/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-from-chassis-cluster-to-mnha/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-mnha-vrrp/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-mpls-in-flow/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-mpls-in-flow-part-2/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx-secure-fabric-entry-point/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx4600-cgn-configuration-breakdown/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srx4700-100gbps-full-duplex-ipsec-tunnel/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/srxcloudatp-multi-tenant-dns-filtering/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/state-signaling-and-the-cost-of-simplification/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/suspicious-control-flow-detection/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/tap-aggregation-for-network-observability/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/tearing-down-memory-wall/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/telemetry-collector-and-dataviz-on-junos-evo/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/testing-bgp-roles-rfc-9234-with-the-jmcp-server/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/the-evolution-of-network-security/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/the-hidden-cost-of-jitter-in-aiml-training-fabrics/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/time-synchronization-and-class-d-clocks-support/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/to-spray-or-not-to-spray/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/traffic-accounting-with-mx-features/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/training-over-50km-800ge-links-with-ptx-routers/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/trio-6-packet-walkthrough/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/upgrading-device-operating-systems-with-apstra/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/using-apstra-drain-mode/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/using-apstra-policy-assurance/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/using-junos-snmp-utility-mib-on-juniper-srx/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/virtual-fabrics-vjunos-switch-and-containerlab/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/vjunos-deployment-on-kvm/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/voq-and-dnx-pipeline/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/vpls-to-evpn-vpls-seamless-migration-on-mx-routers/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/vsrx-on-mini-pc-with-linux-kvm/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/vxlansec-securing-the-modern-data-center/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/wan-macsec-inline-throughput-testing-on-mx-series/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/wholistic-design-approach-for-mpls-backbone-cos/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/yams-managing-jcnr-with-model-context-protocol/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
     <url>
          <loc>https://juniper.github.io/techpost/articles/zr-optics-in-acx7100-32c/article/</loc>
-         <lastmod>2026-10-06</lastmod>
+         <lastmod>2026-10-07</lastmod>
     </url>
 </urlset>
