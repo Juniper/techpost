@@ -61,6 +61,7 @@ nav:
       - ACX7000 Hardware Profiles: articles/acx7000-hardware-profiles/article.md
       - Everything You Always Wanted to Know about ACX7000: articles/everything-about-acx7000/article.md
       - Introducing the ACX7024X: articles/introducing-the-acx7024x/article.md
+      - Port Mirroring on the Acx7000 Series: articles/port-mirroring-on-the-acx7000-series/article.md
     - MX Series:
       - MX304 Deepdive: articles/mx304-deepdive/article.md
       - MX304 FIB Install Rate: articles/mx304-fib-install-rate/article.md
@@ -80,6 +81,7 @@ nav:
       - Inline IPSec on MX Series: articles/inline-ipsec-on-mx-series/article.md
       - MX301 High-Performance FlowSpec Without Compromise: articles/mx301-high-performance-flowspec-without-compromise/article.md
       - MX301 A Powerful Filtering Gateway: articles/mx301-a-powerful-filtering-gateway/article.md
+      - Next Generation Port Extender (NGPE) The Right Interface Speed on the Right Box, for the AI Era: articles/next-generation-port-extender-ngpe/article.md
       - WAN MACsec Inline Throughput Testing on MX Series: articles/wan-macsec-inline-throughput-testing-on-mx-series/article.md
     - PTX Series:
       - Express 4 Filters - Foundation: articles/express-4-filters-foundation/article.md
@@ -293,7 +295,7 @@ nav:
     - Overlay Networking in AI Era: articles/overlay-networking-in-ai-era/article.md
     - MCP w/ context file part 6: articles/hybrid-llm-python-architecture/article.md
     - Connecting AI The Network Behind Every Inference: articles/connecting-ai-the-network-behind-every-inference/article.md
-    - Next Generation Port Extender (NGPE) The Right Interface Speed on the Right Box, for the AI Era: articles/next-generation-port-extender-ngpe/article.md
+    - Benchmarking LLMs against Networking Certification Exams: techpost/benchmarking-llms-against-networking-certification/article.md
   - Various Other Topics:
     - Introduction to the Validation Series: articles/introducing-the-validation-series/article.md
     - MX LC9600 Deepdive: articles/mx10000-lc9600-deepdive/article.md

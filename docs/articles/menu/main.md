@@ -21,6 +21,26 @@ hide:
 
   <div class="card-grid">
 
+    <a class="card" href="../../benchmarking-llms-against-networking-certification/article" data-date="2026-09-20" data-category="AI for Networking for AI">
+      <img src="../../benchmarking-llms-against-networking-certification/images/logo.png" class="card-icon" alt="Benchmarking LLMs against Networking Certification Exams">
+      <div class="card-text">
+        <div class="card-category">AI for Networking for AI</div>
+        <div class="card-title">Benchmarking LLMs against Networking Certification Exams</div>
+        <div class="card-description">LLMs have improved greatly over the last few months with the advent of reasoning models. An off-the-shelf LLM with no specialised networking training is nevertheless very good at networking tasks. By analogy with medical and law school benchmarks, we tested LLMs against the HPE Networking service provider certification exams, from Associate up to the JNCIE-SP lab.</div>
+        <div class="card-subtitle">By Julian Lucek</div>
+      </div>
+    </a>
+
+    <a class="card" href="../../port-mirroring-on-the-acx7000-series/article" data-date="2026-09-26" data-category="ACX7000 Series">
+      <img src="../../port-mirroring-on-the-acx7000-series/images/logo.png" class="card-icon" alt="Port Mirroring on the ACX7000 Series">
+      <div class="card-text">
+        <div class="card-category">ACX7000 Series</div>
+        <div class="card-title">Port Mirroring on the ACX7000 Series</div>
+        <div class="card-description">Port mirroring sends a copy of network packets seen on one port to a monitoring connection on another port, without disturbing the original forwarding path. The ACX7000 family running Junos OS Evolved supports local, ERSPAN and filter-based mirroring; this post walks through the architecture, configuration and verification of all three with working samples.</div>
+        <div class="card-subtitle">By Amin</div>
+      </div>
+    </a>
+
     <a class="card" href="../../introducing-the-qfx5140/article" data-date="2026-08-31" data-category="Platforms / Line Cards Deepdive">
       <img src="../../introducing-the-qfx5140/images/logo.png" class="card-icon" alt="Introducing the QFX5140">
       <div class="card-text">
@@ -184,7 +204,7 @@ hide:
     <a class="card" href="../../next-generation-port-extender-ngpe/article" data-date="2026-07-27" data-category="AI for Networking for AI">
       <img src="../../next-generation-port-extender-ngpe/images/logo.png" class="card-icon" alt="Next Generation Port Extender (NGPE) The Right Interface Speed on the Right Box, for the AI Era">
       <div class="card-text">
-        <div class="card-category">AI for Networking for AI</div>
+        <div class="card-category">Platforms / Line Cards Deepdive</div>
         <div class="card-title">Next Generation Port Extender (NGPE) The Right Interface Speed on the Right Box, for the AI Era</div>
         <div class="card-description">The satellites' front-panel ports appear on the aggregation device as if they were native line-card ports. Add a satellite, and you've added 1G/10G ports: not another router to manage.</div>
         <div class="card-subtitle">By Pankaj Kumar</div>
