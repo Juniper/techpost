@@ -284,7 +284,7 @@ set backup-signal-route routing-instance vr-mnha
 
 > Note: for completeness - Hybrid mode provides signal routes as well; however, it also requires configuration of MNHA native VIPs, which is not wanted.
 
-The activeness probe runs after ICL loss (tracked by multi-hop BFD session), sending ICMP echo-requests toward an IP address on adjacent routing or switching equipment. The node that receives a response remains active; the node that does not remains in backup state. **Note: ** the probe source IP is the VRRP VIP, so only the VRRP master can send it - the backup has no mechanism to initiate probes and will correctly remain backup if only the ICL has failed. Related configuration with probing effectively from *ae0.1081* VRRP VIP:
+The activeness probe runs after ICL loss (tracked by multi-hop BFD session), sending ICMP echo-requests toward an IP address on adjacent routing or switching equipment. The node that receives a response remains active; the node that does not remains in backup state. **Note:** the probe source IP is the VRRP VIP, so only the VRRP master can send it - the backup has no mechanism to initiate probes and will correctly remain backup if only the ICL has failed. Related configuration with probing effectively from *ae0.1081* VRRP VIP:
 
 ```plaintext
 edit chassis high-availability services-redundancy-group 1
@@ -1016,7 +1016,7 @@ The stateless tester reports between 828-913ms of traffic loss, which correspond
 
 ![IxNetwork capture from PFE Failure test](images/figure5.png)
 
-> Note: recovering a node from the above condition can be done by waiting for the system to recover automatically, running the *restart chassis control *command, or rebooting the device.
+> Note: recovering a node from the above condition can be done by waiting for the system to recover automatically, running the *restart chassis control* command, or rebooting the device.
 
 Corresponding logs on SRX1600-1 taking over after SRX1600-2's arbitrary PFE crash:
 

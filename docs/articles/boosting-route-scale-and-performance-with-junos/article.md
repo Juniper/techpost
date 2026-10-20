@@ -172,7 +172,7 @@ MX304 achieves a speedy FIB installation in just 66 seconds, signaling efficient
 Fully converged RIB 2 minutes and 37 seconds to install 5M active routes; 30M in total.
 FIB install 2 minutes and 50 seconds.
 
-- **With sharding: **
+- **With sharding:**
 
 Fully converged RIB in 47 seconds to install 5M active routes; 30M in total.
 FIB install 5M best route 1 minute and 33 seconds.

@@ -28,7 +28,7 @@ The first capability is fulfilled by the match condition of firewall filters. We
 
 The second capability is made possible by the capable PFEs (Packet Forwarding Engines) we use in our switches. With this, we can enable DLB for certain flows matching the criteria configured. This will be useful for scenarios where we want to leverage the benefits of DLB while continuing to use the default static load-balancing for the rest.
 
-In the example, we have used* rdma-opcode *as the match condition, but we can use a wide range of "match" conditions that are already supported in QFX. We also support user-defined fields in firewall filters using flex-filter (a topic for another blog). So, if you do not have RDMA traffic, this feature may still be relevant for you.
+In the example, we have used* rdma-opcode* as the match condition, but we can use a wide range of "match" conditions that are already supported in QFX. We also support user-defined fields in firewall filters using flex-filter (a topic for another blog). So, if you do not have RDMA traffic, this feature may still be relevant for you.
 
 ## Topology
 

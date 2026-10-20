@@ -212,7 +212,7 @@ The BGP session will reset after implementing this change.
 
 ## Conclusion
 
-**Important note to conclude: **Enabling BGP multipath also installs additional next-hop entries in the PFE, occupying more memory, which can lead to memory constraints and limitations. However, this is not the case with Juniper devices such as MX Trio and PTX Express silicon.
+**Important note to conclude:** Enabling BGP multipath also installs additional next-hop entries in the PFE, occupying more memory, which can lead to memory constraints and limitations. However, this is not the case with Juniper devices such as MX Trio and PTX Express silicon.
 
 Glossary
 

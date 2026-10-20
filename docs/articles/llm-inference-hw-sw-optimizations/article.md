@@ -28,7 +28,7 @@ A quick refresher on LLM training (borrowed from my previous article) is given b
 
 To train an LLM using natural language text, large amounts of data are typically gathered using web scrape, Wikipedia, GitHub, stack exchange, Arixiv, etc. The vast amount of text from these data sets is first tokenized, often using methods like byte-pair encoding. Tokenization translates the raw text from the internet into a sequence of integers called tokens. A token generally represents a word. But it could be a subword, too. For example, the word "unhappy" might get broken into two tokens - one for the subword "un" and the other for the subword "happy."
 
-Depending on the dataset, there could be tens of thousands of unique tokens, and the dataset itself could map to hundreds of billions of tokens. Sequence or context length is the number of consecutive tokens the model will look at when predicting the next token during the training. The sequence length is ~2K in *GPT-3 *and *LLaMA2* (LLM from Meta).
+Depending on the dataset, there could be tens of thousands of unique tokens, and the dataset itself could map to hundreds of billions of tokens. Sequence or context length is the number of consecutive tokens the model will look at when predicting the next token during the training. The sequence length is ~2K in *GPT-3* and *LLaMA2* (LLM from Meta).
 
 To train the model, the tokens are broken into the array of size *batch_size (B) x sequence length*, and these batches are fed to large neural networks with transformer layers. The model is trained to predict the next word given the input sequence. The training often takes weeks, if not months, and requires large clusters of GPUs. Once the base model is trained, it typically goes through Supervised Fine Tuning (SFT). This important step tricks LLMs into acting as assistants, answering questions to human prompts! In supervised fine-tuning, human contractors create a curated dataset in the form of a prompt followed by a response, and the base model is retrained with this dataset. The trained SFT model now becomes an assistant capable of giving human-like responses to user prompts.
 
@@ -101,7 +101,7 @@ A few key metrics are often used to compare/evaluate different LLM serving syste
 
 **Time Per Output Token (TPOT)**: This is the average time the model takes to generate individual tokens in response to the input prompt. This metric assesses how each user will perceive the model's speed. For example, a TPOT of 100 milliseconds/token would be 600 tokens per minute. Since some tokens could also represent partial words, 600 tokens would typically contain ~450 words. 450 words per minute (WPM) is faster than the rate at which most of us can read (200-300 WPM).
 
-TPOT and TTFT are important metrics to keep users engaged with the LLM applications. The total latency for the response is the sum of TTFT and the *TPOT * number of tokens* *generated*.
+TPOT and TTFT are important metrics to keep users engaged with the LLM applications. The total latency for the response is the sum of TTFT and the *TPOT* number of tokens* *generated*.
 
 **Throughput**: While the prefill phase is compute-intensive, the decode phase is memory-bound, where parameters and key-value pairs are read from the GPU memory to compute the next token. In order to increase the efficiency of GPUs, the inferencing systems often batch together multiple user prompts for inference. By batching, the memory read cost can be amortized across all the user requests, and in addition, GPU computing can be used more efficiently by doing parallel computing across large batches.
 
@@ -225,7 +225,7 @@ This scheme doesn't guarantee perfect utilization of memory, but it significantl
 
 ![Simple illustration for dynamic allocation of memory blocks for KV cache.](images/picture8.png)
 
-*Simple illustration for dynamic allocation of memory blocks for KV cache. *
+*Simple illustration for dynamic allocation of memory blocks for KV cache.*
 
 Without this, every user request needs allocation for maximum sequence length times of KV pairs. With dynamic allocation, memory blocks can be allocated during run time.
 

@@ -101,7 +101,7 @@ The diagram below illustrates the topology used to demonstrate simple FBF on an 
 This simplified setup represents a typical **DCI** router connected to an **IP Fabric**, providing access to remote resources via two distinct paths:
 
 - A **quality** path through an **MPLS/SR** core network, and
-- A **best-effort **path via a **direct peering or transit (PNI)** connection.
+- A **best-effort** path via a **direct peering or transit (PNI)** connection.
 
 By default, remote resources are reached via the direct PNI link. The DUT hosts an **Internet VRF**, which is also used by a remote **ASBR** in the same AS. This ASBR advertises "public/remote" prefixes to all PE routers, including the DUT, via **L3VPN** (inet-vpn). The direct PNI interface is also part of the Internet VRF.
 
@@ -816,7 +816,7 @@ Destination        Type RtRef Next hop           Type Index    NhRef Netif
 default            perm     0                    rjct      520     1       <<< default reject route
 ```
 
-Just like in **Case 1**, traffic to **8.8.8.0/24 **will be rejected and punted to the routing engine (RE), which will respond with ICMP Unreachable messages (after being HW-policed to 2Kpps).
+Just like in **Case 1**, traffic to **8.8.8.0/24** will be rejected and punted to the routing engine (RE), which will respond with ICMP Unreachable messages (after being HW-policed to 2Kpps).
 
 To silently drop such packets instead of punting them, configure a static discard route as the default inside the FBF instance. But what if you want a fallback to the default routing table instead?
 

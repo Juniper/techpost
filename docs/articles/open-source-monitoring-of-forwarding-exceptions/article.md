@@ -36,7 +36,7 @@ The foundation of the monitoring solution lies in how IPFIX packets are structur
 
 ![Types of packets](images/picture4.png)
 
-[RFC7011](https://www.rfc-editor.org/rfc/rfc7011) defines three packet types used by IPFIX: *data template record, options template record *and* data record. *
+[RFC7011](https://www.rfc-editor.org/rfc/rfc7011) defines three packet types used by IPFIX: *data template record, options template record* and* data record.*
 
 *Source: [Juniper Community - Packets Lost in Transit](https://techpost.hpe.com/articles/packets-lost-in-transit/article)*
 
@@ -49,7 +49,7 @@ The foundation of the monitoring solution lies in how IPFIX packets are structur
 "*In the case of exotic template fields or extra payload not supported by GoFlow2 of out the box, it is possible to pass a mapping file using
 **-mapping mapping.yaml**.*"
 
-*Source: [https://github.com/netsampler/goflow2](https://github.com/netsampler/goflow2) *
+*Source: [https://github.com/netsampler/goflow2](https://github.com/netsampler/goflow2)*
 
 In our case, we need to use a mapping file to decode METADATA information.
 

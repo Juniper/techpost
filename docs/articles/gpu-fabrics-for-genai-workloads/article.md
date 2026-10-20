@@ -76,7 +76,7 @@ Each of the eight GPUs inside the server can talk to outside switches through 8 
 
 Thus the GPUs inside a server can communicate with each other with 9x bandwidth through the NVswitches compared to the 400Gbps links each GPU uses to connect to the other servers through the fabric.
 
-In addition, each server has two separate OSFP modules to connect to the storage network. The massive training datasets (~10TB for a 2600 Billion token *GPT-4 *model with 4B tokens) reside in the storage file systems and are fetched to the system memory through the storage network. This activity overlaps with training and ideally should not cause stalls between the iterations.
+In addition, each server has two separate OSFP modules to connect to the storage network. The massive training datasets (~10TB for a 2600 Billion token *GPT-4* model with 4B tokens) reside in the storage file systems and are fetched to the system memory through the storage network. This activity overlaps with training and ideally should not cause stalls between the iterations.
 
 Each *H100* GPU inside the server has 80GB of memory. This memory stores the model parameters (weights and biases), gradients, intermediate values (output activations during the forward pass and the gradients during the backward pass), optimizer states, scratch space for the computations, and other miscellaneous states. For large language models, most memory is taken up by the model parameters, gradients, and optimizer states. The storage required for intermediate values depends heavily on the model architecture and the training batch size.
 
@@ -98,7 +98,7 @@ When training the model with mini-batches, the size of the intermediate activati
 
 The model internals are oversimplified in this diagram for clarity.*
 
-According to Microsoft's paper, a 175B parameter model requires about 16 * 175B memory for storing the parameters, gradients, and optimizer states in mixed precision training. Obviously, a single *H100* GPU with only 80GB of memory can only fit part of the model. It would require ~35 GPUs for the *GPT-3* and ~300 for *GPT-4* models to fit the parameters alone.
+According to Microsoft's paper, a 175B parameter model requires about 16 * 175B memory for storing the parameters, gradients, and optimizer states in mixed precision training. Obviously, a single* H100* GPU with only 80GB of memory can only fit part of the model. It would require ~35 GPUs for the* GPT-3* and ~300 for* GPT-4* models to fit the parameters alone.
 
 If ***Nm*** is the number of GPUs a model is partitioned into and if ***Nd*** is the number of data-parallel groups (number of model copies), then the total GPUs in the cluster is ***Nm x Nd***, and this speeds up the training by ***Nd*** times over training the entire dataset using just ***Nm*** number of GPUs.
 

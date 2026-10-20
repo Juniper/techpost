@@ -207,7 +207,7 @@ For qualified optics and DAC cables, use the Hardware Compatibility Tool: [https
 
 ## Power System
 
-The QFX5140 uses two **1600 W AC power supply units **with 1+1 redundancy. The PSUs are factory-installed, hot-insertable, and hot-removable. If one PSU fails, the other balances the electrical load without interruption, and the failed unit can be replaced without powering off the switch. Each PSU has its own internal cooling fan.
+The QFX5140 uses two **1600 W AC power supply units** with 1+1 redundancy. The PSUs are factory-installed, hot-insertable, and hot-removable. If one PSU fails, the other balances the electrical load without interruption, and the failed unit can be replaced without powering off the switch. Each PSU has its own internal cooling fan.
 
 Table: PSU Electrical Specifications (JPSU-1600W-1UACAFO)
 

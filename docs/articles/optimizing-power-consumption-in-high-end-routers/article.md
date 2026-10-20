@@ -114,7 +114,7 @@ The table shows that the network ASIC's power is a significant portion of the to
 
 The efficiency loss of AC/DC and POL converters do contribute significantly to the total power. If retimers and gearboxes for are added for any of the WAN ports, that would also add to the power.
 
-*Note that the total power consumed by the system depends heavily on the traffic patterns and the total load on the network ports. But, for thermal and power supply design, worst-case power needs to be taken into account. *
+*Note that the total power consumed by the system depends heavily on the traffic patterns and the total load on the network ports. But, for thermal and power supply design, worst-case power needs to be taken into account.*
 
 ### Modular System Power
 

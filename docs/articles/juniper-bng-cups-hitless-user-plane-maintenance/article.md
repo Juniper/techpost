@@ -90,7 +90,7 @@ Figure below illustrates the Hitless User Plane Maintenance use case, detailing 
 
 **2.** The BNG CUPS Controller activates BNG-UP2.
 
-**3. **The network operators enable the access network to start forwarding traffic from Access PE to BNG-UP2 and the core network in similar way.
+**3.** The network operators enable the access network to start forwarding traffic from Access PE to BNG-UP2 and the core network in similar way.
 
 **4.** BNG-UP2 is now preprogrammed with the subscriber state information from BNG-UP1 as Hot Standby user plane, and as subscriber traffic arrives on BNG-UP2, BNG-UP2 is now forwarding this subscriber traffic. Once maintenance is complete, the technicians perform the same workflow in reverse to revert traffic back to BNG-UP1.
 
@@ -104,7 +104,7 @@ request user-plane maintenance associate serviced-user-plane <BNG-UP1> serviced-
 
 **2.** Operator to Setup network to route traffic to the chosen Backup (User-plane BNG-UP2). This step is provider and operator specific, and the actions taken at this step vary greatly with the various access and core network topologies they deploy.  For example, at this step the operator could setup the core network for attracting subscriber traffic to the Backup user-plane by setting the routing policy to import these prefixes. It also expected that at this step the operator is done setting up the access-network for the Backup user-plane.
 
-**3. **Make Backup user-plane BNG-UP2 Active. By now subscribers have been programmed on BNG-UP2 user-plane as it is ready to take over. This step executes the switchover from user-plane BNG-UP1 to user-plane BNG-UP2. When this step is done, user-plane BNG-UP2 is the Active user-plane and user-plane BNG-UP1 is the Backup.
+**3.** Make Backup user-plane BNG-UP2 Active. By now subscribers have been programmed on BNG-UP2 user-plane as it is ready to take over. This step executes the switchover from user-plane BNG-UP1 to user-plane BNG-UP2. When this step is done, user-plane BNG-UP2 is the Active user-plane and user-plane BNG-UP1 is the Backup.
 
 ```
 request user-plane maintenance switchover serviced-user-plane <BNG-UP2>

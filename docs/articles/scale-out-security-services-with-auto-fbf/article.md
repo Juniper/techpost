@@ -46,7 +46,7 @@ EMEA specialist exploration in scale-out realm is dated back to the introduction
 
 In live networks, service providers are using policy-based routing in various ways to distribute traffic load for decades. Anecdotally, some of these providers are manually re-configuring their devices if the destination for policy-based routing fails.
 
-*The Essential idea of auto-fbf is to use Filter Based Forwarding capabilities of Juniper equipment to steer traffic towards multiple SRX/vSRX instances, with automation changing FBF config based on liveness of individual elements as shown in infographics below. *
+*The Essential idea of auto-fbf is to use Filter Based Forwarding capabilities of Juniper equipment to steer traffic towards multiple SRX/vSRX instances, with automation changing FBF config based on liveness of individual elements as shown in infographics below.*
 
 ![Traffic split based on filters](images/picture3.png)
 

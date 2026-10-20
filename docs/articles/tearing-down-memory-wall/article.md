@@ -90,7 +90,7 @@ In semiconductors, in-memory computing refers to the computing that happens insi
 
 For example, inference in DNN (Deep Neural Networks) involves doing convolutions (which can be mapped to matrix multiplication) at each layer with inputs from the previous layer and the weights for the current layer. In a deep neural network with hundreds of layers, we are talking about hundreds of megabytes of storage for the weights. In traditional GPUs and TPU, these weights usually reside in the main memory and are fetched before each layer's computation.
 
-The in-memory architecture avoids this problem by looking at the memory as an analog array of resistive elements that store the weights (where the weight is represented by the resistive value of the memory element). When an input voltage V1 is applied to the resistive element, the current flowing through the element is* V1/R1* or *V1*G1* (where conductance *G1 = 1/R1*).
+The in-memory architecture avoids this problem by looking at the memory as an analog array of resistive elements that store the weights (where the weight is represented by the resistive value of the memory element). When an input voltage V1 is applied to the resistive element, the current flowing through the element is* V1/R1* or *V1*G1* (where conductance* G1 = 1/R1*).
 
 ![image](images/picture7.png)
 
@@ -126,7 +126,7 @@ HBM memory is made up of stacks of memory dies (4-16 stacks) with a logic base l
 
 Samsung recently announced an HBM-PIM device where the bottom four of the eight DRAM dies are replaced with logic dies consisting of processing cores.
 
-**Why are PIMs not gaining momentum? **
+**Why are PIMs not gaining momentum?**
 
 Possible applications for PIM are those that are memory intensive. In the computing domain, graph processing (used in page ranking and many other applications) is characterized by a random pattern of memory access, very less computation, and is an ideal candidate for off-loading to the processing cores near the memory. Research has shown 2x performance improvements and ~50% power reduction for this application.
 

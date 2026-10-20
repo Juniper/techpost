@@ -1517,7 +1517,7 @@ This isn't a troubleshooting guide, and it doesn't walk through what each failur
 
 ### Flow 1: N-S --- Fabric-C Tenant to Internet
 
-**Path: **192.168.31.201 (SERVICES Tenant on Fabric-C) -> vSRX-B (SRG-2 active) -> Perimeter Router -> Internet.
+**Path:** 192.168.31.201 (SERVICES Tenant on Fabric-C) -> vSRX-B (SRG-2 active) -> Perimeter Router -> Internet.
 
 **Step 1: Confirm the leaf knows where to route N-S traffic.**
 
@@ -1586,11 +1586,11 @@ What to look for: HA State: Warm on the backup node --- this is the mirrored ses
 
 ### Flow 2: N-S --- Fabric-J Tenant to Internet
 
-**Path:  **192.168.121.200  (ENGINEERING-J Tenant on Fabric-J) -> vSRX-A (SRG-3 active) -> Border Router -> Internet.
+**Path:** 192.168.121.200  (ENGINEERING-J Tenant on Fabric-J) -> vSRX-A (SRG-3 active) -> Border Router -> Internet.
 
 This flow is identical in structure to the Cisco N-S path, but via the Juniper fabric and the opposite SRG primacy --- worth showing explicitly because both flows running simultaneously on the same box is the thesis of this design.
 
-**The per-fabric asymmetry in one session table. **This output on vSRX-B shows both flows simultaneously --- Juniper traffic as Warm (B is backup for J), Cisco traffic as Active (B is primary for C):
+**The per-fabric asymmetry in one session table.** This output on vSRX-B shows both flows simultaneously --- Juniper traffic as Warm (B is backup for J), Cisco traffic as Active (B is primary for C):
 
 ```
 vSRX-B> show security flow session destination-prefix 8.8.8.8/32 protocol 1
@@ -1620,7 +1620,7 @@ What to look for: the same structure as the Cisco N-S session, but on the Junipe
 
 ### Flow 3: E-W --- Tenant to Tenant (Inter-VRF)
 
-**Path: **192.168.21.200 (ENGINEERING Tenant on Fabric-C) -> vSRX-B (SRG-2 active) -> 192.168.31.100 (SERVICES Tenant on Fabric-C).
+**Path:** 192.168.21.200 (ENGINEERING Tenant on Fabric-C) -> vSRX-B (SRG-2 active) -> 192.168.31.100 (SERVICES Tenant on Fabric-C).
 
 This is the inspection path this design is primarily built for --- traffic between tenants that the fabric would otherwise route internally without touching the SRX at all.
 

@@ -503,7 +503,7 @@ Import Policy Evaluation Timing:
 
 ## Summary
 
-Junos OS 25.4's route manipulation features, **rib-export **and **route-target-prefix-count**, provide service providers with unprecedented control and scalability:
+Junos OS 25.4's route manipulation features, **rib-export** and **route-target-prefix-count**, provide service providers with unprecedented control and scalability:
 
 - **rib-export** solves the secondary route limitation by creating primary copies, enabling route re-advertisement and flexibility in multi-table deployments
 - **route-target-prefix-count** addresses scale challenges in multi-VPN environments by enforcing per-customer limits instead of peer-level limits

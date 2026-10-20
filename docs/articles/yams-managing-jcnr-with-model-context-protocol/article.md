@@ -49,7 +49,7 @@ Execute Junos CLI commands across all cRPD (Containerized Routing Protocol Daemo
 
 **Key Features**:
 
-- Automatically prepends **cli -c **for proper Junos CLI execution
+- Automatically prepends **cli -c** for proper Junos CLI execution
 - Supports all standard Junos commands (show, configure, monitor)
 - Executes across all cRPD and cSRX pods simultaneously
 - Provides unified output from multiple clusters

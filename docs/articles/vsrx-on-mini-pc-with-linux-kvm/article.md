@@ -78,7 +78,7 @@ Reasonable minimum on RAM/storage side would have been 8GB /128GB respectively. 
 
 > Note: lately to achieve better vSRX performance on Hyperthreading capable CPU, it might be worth experimenting with vSRX PFE cores spawned across core(s) and HT siblings(s). Newer CPUs may not introduce jitter/latency for parallel performance of DPDK applications.
 
-**Two Ethernet ports **
+**Two Ethernet ports**
 
 - 1st port dedicated to external bridge hosting vSRX untrust interface, usually Internet uplink
 - 2nd port used for internal bridge passing 802.1Q VLAN tags to vSRX, avoids ge-0/0/x interfaces on vSRX for every network (possible scaling issue).
@@ -154,7 +154,7 @@ The schematics below describes more in detail the idea for networking layout des
 
 On Debian networking configuration takes place in /etc/network/interfaces file. Sample setup of bridges for trust, untrust and management:
 
-**br-untrust **
+**br-untrust**
 
 external Linux bridge connecting vSRX untrust interface ge-0/0/0 with host physical interface enp1s0
 
@@ -175,7 +175,7 @@ post-up bridge vlan del dev br-untrust vid 1 self
 - Disables STP, no delay prior bringing up
 - Isolates host from IP processing according to the blog-post above
 
-**br-trunk **
+**br-trunk**
 
 internal Linux bridge for passing VLAN tagged traffic from switch to vSRX ge-0/0/2 (no explicit filtering, switch taking care)
 

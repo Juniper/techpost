@@ -94,11 +94,11 @@ AI infrastructure cost is measured in **GPU hours per training cycle**. Jitter a
 - Cloud GPU billing at scale (e.g., 512 x A100s) can exceed $20K/day.
 - Even a 3--5% jitter-induced delay can lead to thousands of dollars in waste per run.
 
-For reference, OpenAI's GPT-3 consumed **355 GPU-years**. A conservative 5% delay equates to **~18 GPU-years, **a non-trivial financial and environmental cost.
+For reference, OpenAI's GPT-3 consumed **355 GPU-years**. A conservative 5% delay equates to **~18 GPU-years,** a non-trivial financial and environmental cost.
 
 While exact cost metrics vary by workload, even microsecond-scale jitter can nonlinearly increase model iteration time. In many customer environments, AI clusters run at hyperscale (hundreds of GPUs), where each minute of training matters. A seemingly small timing misalignment can translate into thousands of dollars in additional GPU billing, longer time-to-market, and significantly higher energy use.
 
-Real-world benchmarking has shown that even **20--50us of jitter, **when left uncorrected, can lead to **30--60% increases in training duration**, depending on the collective operation and topology skew. This delay stems not from packet loss or congestion, but from a lack of **timing determinism**, which is invisible to most legacy tools.
+Real-world benchmarking has shown that even **20--50us of jitter,** when left uncorrected, can lead to **30--60% increases in training duration**, depending on the collective operation and topology skew. This delay stems not from packet loss or congestion, but from a lack of **timing determinism**, which is invisible to most legacy tools.
 
 ## Real-World Impact of Microsecond Jitter
 
@@ -165,7 +165,7 @@ By tagging collective sync traffic (e.g., via DSCP or SR-Class), fabrics can:
 - Avoid FIFO queue contention with bulk or background traffic
 - Dynamically adjust queue thresholds or shaping based on real-time AI job metadata
 
-Emerging fabrics allow **per-job tagging policies **to be automatically propagated from AI orchestration layers (e.g., Slurm, Kubernetes, DeepSpeed) into the data plane---ensuring each model run gets the right priority treatment.
+Emerging fabrics allow **per-job tagging policies** to be automatically propagated from AI orchestration layers (e.g., Slurm, Kubernetes, DeepSpeed) into the data plane---ensuring each model run gets the right priority treatment.
 
 ![Queue isolation](images/picture8.png)
 

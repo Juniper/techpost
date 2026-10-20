@@ -225,7 +225,7 @@ inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
                 Thread: junos-main
 ```
 
-*The AS path of prefix 192.0.2.3/32 as shown in the output of the show route advertising-protocol command on R3: *
+*The AS path of prefix 192.0.2.3/32 as shown in the output of the show route advertising-protocol command on R3:*
 
 ```
 RE3# run show route advertising-protocol bgp 198.51.100.1 192.0.2.3 detail

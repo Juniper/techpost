@@ -376,7 +376,7 @@ term priority 0
 
 **  **
 
-**Step 5: **Let's baseline our counters and send some more test traffic from the peer node.
+**Step 5:** Let's baseline our counters and send some more test traffic from the peer node.
 
 Observe that there is no more packet loss.
 

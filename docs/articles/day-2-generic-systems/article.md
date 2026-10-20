@@ -51,7 +51,7 @@ On this screen, we select the interface on leaf1 where the server attaches. It i
 
 ![Apstra day2 Generic Systems 06](images/picture8.png)
 
-If all looks good, press the **Create** button to stage the additions and our view drops back to **Physical > Topology rack1_leaf1 **view.
+If all looks good, press the **Create** button to stage the additions and our view drops back to **Physical > Topology rack1_leaf1** view.
 
 ![Apstra day2 Generic Systems 07](images/picture9.png)
 

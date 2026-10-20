@@ -141,7 +141,7 @@ Each pair of Reverse Gear Box is mapped to one PG and each 800Gbps port is also 
 
 ## Routing Engine Overview
 
-The internal PTX10002-60MR Routing Engine is powered by an **Intel Ice Lake-D 8-core processor **running at frequency up to 3.1GHz. Note it's a build-in RE, not a FRU (Field Replaceable Unit).
+The internal PTX10002-60MR Routing Engine is powered by an **Intel Ice Lake-D 8-core processor** running at frequency up to 3.1GHz. Note it's a build-in RE, not a FRU (Field Replaceable Unit).
 
 The Routing Engine is equipped with four 32 GB DDR4 RDIMMs (two DIMMs per channel), delivering a total memory capacity of **128GB** operating at a memory speed of 2400 MT/s. For local storage, the platform supports **two 200 GB NVMe SSDs**, which are mounted on the bottom side of the Routing Engine board. A mechanical design provision allows the SSDs to be removed and serviced from the bottom of the chassis, simplifying maintenance operations.
 

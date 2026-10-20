@@ -225,7 +225,7 @@ ADJ_HOURS  = config.get_thresholds('adjacency')['critical_hours']
 
 Changing propagation_wait_s in the YAML is the only operation needed. Python parses the frontmatter fresh on the next run; the LLM reads it in-context. Both stay aligned automatically. A git diff skills/isis_lsdb.skill.md shows all threshold and logic changes in one place.
 
-**Want to set up the skill-embedded threshold approach for a new check? **Use this prompt to generate the skill file with embedded YAML frontmatter thresholds and the matching Python frontmatter reader:
+**Want to set up the skill-embedded threshold approach for a new check?** Use this prompt to generate the skill file with embedded YAML frontmatter thresholds and the matching Python frontmatter reader:
 
 ```
 Add a new `<check_name>` health check using the skill-embedded threshold approach (YAML frontmatter as canonical source):

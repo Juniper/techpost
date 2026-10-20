@@ -406,7 +406,7 @@ Traffic-Engineering (RSVP, SRTE)
 
 *Guide to the EVPN VXLAN based Optimised Inter-subnet Multicast (OISM) on Express4 based PTX10k platforms.*
 
-- **BIER For SR Multicast -- Cheers! ** (By Jeffrey Zhang)
+- **BIER For SR Multicast -- Cheers!** (By Jeffrey Zhang)
 
 [https://techpost.hpe.com/articles/bier-for-sr-multicast-cheers/article](https://techpost.hpe.com/articles/bier-for-sr-multicast-cheers/article)
 
@@ -1002,7 +1002,7 @@ Traffic-Engineering (RSVP, SRTE)
 
 *This Tech Post aims to address multi-tenant secure Remote Access of the HPE Juniper Networking SRX firewall. A demo setup that allows for direct breakout into an EVPN/VXLAN fabric VRF, where the SRX serves as a secure, user identity-aware fabric entry point is shown. This functionality is achieved through the integration of the Juniper Identity Management Service (JIMS) with the Juniper Secure Connect (JSC) Remote Access VPN starting Junos 24.4. The article also provides examples of the long-awaited VRF-to-zone mapping feature that emerged in Junos 25.4, changing the approach to SRX zone firewalls with EVPN and MPLS VRFs.*
 
-- **INET.0 -- What? ** (By James Rathbun)
+- **INET.0 -- What?** (By James Rathbun)
 
 [https://techpost.hpe.com/articles/mnha-ipsec-and-multiple-routing-instances/article](https://techpost.hpe.com/articles/mnha-ipsec-and-multiple-routing-instances/article)
 
@@ -1082,7 +1082,7 @@ Traffic-Engineering (RSVP, SRTE)
 
 [https://techpost.hpe.com/articles/detection-of-blackholes-in-networks-using-jri/article](https://techpost.hpe.com/articles/detection-of-blackholes-in-networks-using-jri/article)
 
-*Unfortunately, black-holes sometimes occur in networks -- packets disappear without trace for no apparent reason. Often the first symptom is when customers of the network complain about poor performance. Working out which router is responsible can be like looking for a needle in a haystack, and even once the suspect router is identified, it can take some time to ascertain which particular packets are being dropped and why. One needs to look at multiple log-files and the output of various show commands to piece together what is happening. *
+*Unfortunately, black-holes sometimes occur in networks -- packets disappear without trace for no apparent reason. Often the first symptom is when customers of the network complain about poor performance. Working out which router is responsible can be like looking for a needle in a haystack, and even once the suspect router is identified, it can take some time to ascertain which particular packets are being dropped and why. One needs to look at multiple log-files and the output of various show commands to piece together what is happening.*
 
 - **Packets Lost in Transit?** (By Anton Elita)
 
@@ -1296,7 +1296,7 @@ Traffic-Engineering (RSVP, SRTE)
 
 [https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article](https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article)
 
-*vJunos-switch and vJunosEvolved deployed on EVE-NG and integrated with Juniper Apstra to build a complete Data Center fabric.                    *
+*vJunos-switch and vJunosEvolved deployed on EVE-NG and integrated with Juniper Apstra to build a complete Data Center fabric.*
 
 - **JCNR for Equinix Metal** (By Vivek Shenoy)
 
@@ -1304,7 +1304,7 @@ Traffic-Engineering (RSVP, SRTE)
 
 *JCNR brings a lot of value by providing seamless connectivity between workloads across locations, public cloud boundaries, and workload form-factor, by providing full router functionality.*
 
-- **JCNR and Topology-Independent Loop-Free Alternates (TI-LFA) ** (By Lavanya Kumar Ambatipudi)
+- **JCNR and Topology-Independent Loop-Free Alternates (TI-LFA)** (By Lavanya Kumar Ambatipudi)
 
 [https://techpost.hpe.com/articles/jcnr-and-topology-independent-loop-free-alternates/article](https://techpost.hpe.com/articles/jcnr-and-topology-independent-loop-free-alternates/article)
 

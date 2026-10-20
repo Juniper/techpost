@@ -84,7 +84,7 @@ Therefore, EPRS caters within a L2 ring for loop avoidance and the utilization o
 
 The **L2 nodes forming the ring topology have three different ERPS types:**
 
-- **Normal node: **The node has no special role on the ring.
+- **Normal node:** The node has no special role on the ring.
 - **RPL owner node:** The node owns the RPL and blocks or unblocks traffic over the RPL.
 - **RPL neighbor node:** The node that directly connects the RPL link of the RPL owner.
 

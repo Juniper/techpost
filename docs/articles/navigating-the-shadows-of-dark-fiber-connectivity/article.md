@@ -191,7 +191,7 @@ For more information on how the router collects VDM please refer to the More Inf
 
 ## Results
 
-Columns highlighted yellow indicate that the Rx Power is below the advertised Rx Sensitivity. The column highlighted ** in red ** indicates that the channel is down.
+Columns highlighted yellow indicate that the Rx Power is below the advertised Rx Sensitivity. The column highlighted ** in red** indicates that the channel is down.
 
 For brevity, only et-0/0/8, the worst-performing transceiver is shown. For the rest of the results, go to the "Extensive Results" section of this article.
 

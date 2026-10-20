@@ -62,7 +62,7 @@ Table: inetcolor vs CT: side-by-side
 
 ## Step 1 --- inventory the existing steering model
 
-Start by finding every place that imposes legacy colored resolution: BGP *extended-nexthop-color*, policy "*then resolution-map*", "routing-options resolution rib ... *inetcolor-import, inet6color-import*", and rib-groups that import uncolored transport into* inetcolor.0* or *inet6color.0. *
+Start by finding every place that imposes legacy colored resolution: BGP *extended-nexthop-color*, policy "*then resolution-map*", "routing-options resolution rib ... *inetcolor-import, inet6color-import*", and rib-groups that import uncolored transport into* inetcolor.0* or *inet6color.0.*
 
 ## Step 2 --- enable CT primitives
 

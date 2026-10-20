@@ -90,7 +90,7 @@ As the next step, let us configure all BGP roles as per the "business relations"
 
 After properly setting the roles, the BGP session is expected to bounce once and come up with the proper roles.
 
-The role (**Type 9**) is carried in the **BGP OPEN **capability set and negotiated at session establishment.
+The role (**Type 9**) is carried in the **BGP OPEN** capability set and negotiated at session establishment.
 
 ```
 [-] Border Gateway Protocol - OPEN Message

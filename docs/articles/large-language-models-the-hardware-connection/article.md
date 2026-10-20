@@ -145,7 +145,7 @@ NVLink switch that is used to connect between the 8 GPUs in the GPU server could
 
 The third-generation NVswitch supports 64 NVLink ports with 12.8Tbps of switching capacity. It also supports multicast and in-network aggregation. With in-network aggregation, aggregation of the gradients from all worker GPUs happens inside the NVswitches, and the updated gradients are sent back to the GPUs to start the next iteration. This could potentially reduce inter-GPU traffic between the training iterations.
 
-Nvidia claims it can train *GPT-3 *model 2x faster with NVswitch fabric than with InfiniBand switch fabric. This performance is impressive, but the switch is 4x less bandwidth than the 51.2Tbps switches offered by the high-end switch vendors! It is economically not feasible to build large-scale systems with >1K GPUs with NVswitches, and the protocol itself might have limitations in supporting larger scales.
+Nvidia claims it can train *GPT-3* model 2x faster with NVswitch fabric than with InfiniBand switch fabric. This performance is impressive, but the switch is 4x less bandwidth than the 51.2Tbps switches offered by the high-end switch vendors! It is economically not feasible to build large-scale systems with >1K GPUs with NVswitches, and the protocol itself might have limitations in supporting larger scales.
 
 Further, Nvidia does not sell these NVswitches standalone. If the data centers want to scale out the existing GPU clusters by a mix and match of GPUs from different vendors, they cannot do so with NVswitches as the GPUs from other vendors do not support these interfaces.
 
