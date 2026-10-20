@@ -44,7 +44,11 @@
       header instead of being injected or relocated via custom CSS/JS. -#}
   {% set site_url = config.site_url | trim("/") %}
   <script>
-    var tpSiteUrl = "{{ site_url }}";
+    var tpConfiguredSiteUrl = new URL("{{ site_url }}");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
     var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
 
     // Single source of truth for the article taxonomy, shared by the HFWS
