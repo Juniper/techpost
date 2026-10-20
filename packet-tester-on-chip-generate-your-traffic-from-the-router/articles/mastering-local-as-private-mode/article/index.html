@@ -1,0 +1,682 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/mastering-local-as-private-mode/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Mastering Local AS - Private Mode - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Mastering Local AS - Private Mode"><meta property=og:image content=https://techpost.hpe.com/articles/mastering-local-as-private-mode/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/mastering-local-as-private-mode/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#mastering-local-as-private-mode class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Mastering Local AS - Private Mode </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#private-local-as-option class=md-nav__link> <span class=md-ellipsis> Private Local-AS Option </span> </a> </li> <li class=md-nav__item> <a href=#scenario-overview class=md-nav__link> <span class=md-ellipsis> Scenario Overview </span> </a> </li> <li class=md-nav__item> <a href=#as-path-verification-points class=md-nav__link> <span class=md-ellipsis> AS Path Verification Points </span> </a> </li> <li class=md-nav__item> <a href=#topology class=md-nav__link> <span class=md-ellipsis> Topology </span> </a> </li> <li class=md-nav__item> <a href=#assumptions-and-considerations class=md-nav__link> <span class=md-ellipsis> Assumptions and Considerations </span> </a> </li> <li class=md-nav__item> <a href=#configuration-local-as-private-configured-towards-ebgp-peer-r1 class=md-nav__link> <span class=md-ellipsis> Configuration: Local AS Private configured towards eBGP peer (R1) </span> </a> </li> <li class=md-nav__item> <a href=#example-1-route-propagation-from-ebgp-r1-to-ebgp-r2 class=md-nav__link> <span class=md-ellipsis> Example 1: Route propagation from eBGP* (R1) to eBGP (R2) </span> </a> </li> <li class=md-nav__item> <a href=#example-2-route-propagation-from-ebgp-r1-to-ibgp-r4 class=md-nav__link> <span class=md-ellipsis> Example 2: Route propagation from eBGP* (R1) to iBGP (R4) </span> </a> </li> <li class=md-nav__item> <a href=#example-3-route-propagation-from-dut-r3-to-ebgp-r1 class=md-nav__link> <span class=md-ellipsis> Example 3: Route propagation from DUT (R3) to eBGP* (R1) </span> </a> </li> <li class=md-nav__item> <a href=#example-4-route-propagation-from-ebgp-r2-to-ebgp-r1 class=md-nav__link> <span class=md-ellipsis> Example 4: Route propagation from eBGP (R2) to eBGP* (R1) </span> </a> </li> <li class=md-nav__item> <a href=#example-5-route-propagation-from-ibgp-r4-to-ebgp-r1 class=md-nav__link> <span class=md-ellipsis> Example 5: Route propagation from iBGP (R4) to eBGP* (R1) </span> </a> </li> <li class=md-nav__item> <a href=#private-local-as-option-behavior-for-an-ebgp-peer class=md-nav__link> <span class=md-ellipsis> Private local AS Option Behavior for an eBGP Peer </span> </a> </li> <li class=md-nav__item> <a href=#configuration-local-as-private-configured-towards-ibgp-peer-r4 class=md-nav__link> <span class=md-ellipsis> Configuration: Local AS Private configured towards iBGP peer (R4) </span> </a> </li> <li class=md-nav__item> <a href=#example-1-route-propagation-from-ibgp-r4-to-ebgp-r1 class=md-nav__link> <span class=md-ellipsis> Example 1: Route propagation from iBGP* (R4) to eBGP (R1) </span> </a> </li> <li class=md-nav__item> <a href=#example-2-route-propagation-from-ibgp-r4-to-ibgp-r5 class=md-nav__link> <span class=md-ellipsis> Example 2: Route propagation from iBGP* (R4) to iBGP (R5) </span> </a> </li> <li class=md-nav__item> <a href=#example-3-route-propagation-from-dut-r3-to-ibgp-r4 class=md-nav__link> <span class=md-ellipsis> Example 3: Route propagation from DUT (R3) to iBGP* (R4) </span> </a> </li> <li class=md-nav__item> <a href=#example-4-route-propagation-from-ebgp-r1-to-ibgp-r4 class=md-nav__link> <span class=md-ellipsis> Example 4: Route propagation from eBGP (R1) to iBGP* (R4) </span> </a> </li> <li class=md-nav__item> <a href=#example-5-route-propagation-from-ibgp-r5-to-ibgp-r4 class=md-nav__link> <span class=md-ellipsis> Example 5: Route propagation from iBGP (R5) to iBGP* (R4) </span> </a> </li> <li class=md-nav__item> <a href=#private-local-as-option-behavior-for-an-ibgp-peer class=md-nav__link> <span class=md-ellipsis> Private local AS Option Behavior for an iBGP Peer </span> </a> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> <li class=md-nav__item> <a href=#comments class=md-nav__link> <span class=md-ellipsis> Comments </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=mastering-local-as-private-mode>Mastering Local AS - Private Mode<a class=headerlink href=#mastering-local-as-private-mode title="Permanent link">&para;</a></h1> <p><strong>Juhie Mohan Motiani - 11/03/2025</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/mastering-local-as-private-mode.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/mastering-local-as-private-mode.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <p>A detailed breakdown of the Private option for the local-AS setting in BGP on Juniper devices, showing how this mode influences AS-path prepending in both eBGP and iBGP peering. It covers configuration examples, route propagation scenarios, and illustrates how the local AS and global AS values are prepended differently depending on peer type.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">&para;</a></h2> <p>This series of techpost will provide a comprehensive overview of the various BGP local AS configuration options available on Juniper devices. Local AS is a powerful feature used in scenarios such as network migrations, mergers, and acquisitions. It enables BGP sessions to present a local AS number instead of the global AS when establishing peerings. We will detail the behavior of each configuration option, covering both the iBGP and eBGP use cases. A summary table of AS paths of all the routes after each local AS option is included for quick reference and comparison.</p> <p>Five local AS options are available, each catering to a range of use cases, from seamless network migrations to complex multi-homing scenarios:</p> <ul> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-default-mode/article>Default</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-alias-mode/article>Alias</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-private-mode/article>Private (focus of this article)</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-no-prepend-global-as/article>No-Prepend-Global-AS</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-private-no-prepend-global-as/article>Private No-Prepend-Global-AS</a></li> </ul> <p>These options allow network operators to modify AS path information, influencing how routes are perceived and propagated within and beyond their autonomous system. The following sections provide an in-depth exploration of the default option, highlighting its strengths and limitations.</p> <h2 id=private-local-as-option>Private Local-AS Option<a class=headerlink href=#private-local-as-option title="Permanent link">&para;</a></h2> <p>Syntax: <strong><em>local-as <as-number> private</em></strong></p> <p>The local AS private option allows the local AS to be used only during session establishment with the eBGP neighbor and is hidden in AS paths sent to other external peers. Therefore, only global AS will be included in AS paths advertised to other external peers. This is useful when peering locally with devices still configured with the old AS, but you want to prevent the local AS from being propagated beyond the immediate neighbor. This helps maintain legacy peerings without exposing the local AS globally.</p> <p>Example configuration:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>protocols {
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>   bgp {
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>      group test {
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>         local-as 65551 private;
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>         neighbor &lt;address&gt; {
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>            peer-as 64501;
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>         }
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>      }
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>   }
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>}
+</code></pre></div></td></tr></table></div> <p>Key behaviors:</p> <ol> <li>Peer Establishment: BGP sessions use the local ASN in their OPEN message.</li> <li>Local AS applied to eBGP peer:</li> <li>Routes advertised from eBGP peers with local-as private configuration to other eBGP peers will only have the global ASN number prepended to the AS path and not the local ASN as it is private.</li> <li>Routes advertised from eBGP peers with local-as private configuration to iBGP will NOT have the local ASN or the global ASN prepended to the AS path as the local ASN is private.</li> <li>Local AS applied to iBGP peer:</li> <li>Routes advertised from iBGP peers with local-as private configuration to other eBGP peers will only have the global ASN prepended to the AS path.</li> <li>Routes advertised from iBGP peers with local-as private configuration to other iBGP peers will NOT have the local ASN or the global ASN prepended to the AS path.</li> <li>Cannot be used with the alias option.</li> </ol> <h2 id=scenario-overview>Scenario Overview<a class=headerlink href=#scenario-overview title="Permanent link">&para;</a></h2> <p>The primary goal of this document is to validate the behavior of the <strong>private local AS option</strong> and understand how the AS path is prepended or modified in different scenarios. It takes various route propagation scenarios into account and lists the expected AS path for each route.</p> <h2 id=as-path-verification-points>AS Path Verification Points<a class=headerlink href=#as-path-verification-points title="Permanent link">&para;</a></h2> <p>We examine the AS path in three distinct contexts:</p> <ol> <li>Show route advertising-protocol output. Displays the AS path that will be advertised to the neighbor, including the AS numbers being prepended.</li> <li>Actual BGP UPDATE message content (captured via traceoptions). Reflects the AS path as it appears within the real BGP UPDATE message sent to the peer.</li> <li>Local routing table (RIB) representation. Shows the AS path stored in the local routing table prior to any AS path modifications.</li> </ol> <p>Capturing both the show route advertising-protocol output and the actual BGP UPDATE message allows us to identify and analyze any discrepancies between the intended advertisement and the actual message transmitted.</p> <h2 id=topology>Topology<a class=headerlink href=#topology title="Permanent link">&para;</a></h2> <p>The example environment consists of five routers arranged in a star topology, with router R3 serving as the central node and Device Under Test (DUT). Each router's global AS number is indicated within the square boxes. This is the base topology and currently does not show local-as configuration. The local-as configuration will be applied on R3 (DUT) towards either R1 (eBGP) or R4 (iBGP), depending on the specific example scenario. For each example, the topology will indicate where local-as is applied and how the route propagates. This topology is purposefully designed to thoroughly evaluate various route propagation behaviors and to analyze the effects of local AS configurations in each context.</p> <p><img alt=Topology src=../images/picture3.png></p> <h2 id=assumptions-and-considerations>Assumptions and Considerations<a class=headerlink href=#assumptions-and-considerations title="Permanent link">&para;</a></h2> <ul> <li>R3 is the Device Under Test (DUT), and all observations are made through R3's lens.</li> <li>The local-as configuration is always applied on R3 (DUT) towards R1 for eBGP scenarios and towards R4 for iBGP scenarios.</li> <li>Local-as configuration is only applied towards one router (either R1 or R4) for a given eBGP/iBGP scenario.</li> <li>AS number 65551 refers to the Local AS, and AS number 64503 refers to the Global AS.</li> <li>The topology used in this document is only for educational purposes and should not be used as a reference for any other purpose.</li> </ul> <h2 id=configuration-local-as-private-configured-towards-ebgp-peer-r1>Configuration: Local AS Private configured towards eBGP peer (R1)<a class=headerlink href=#configuration-local-as-private-configured-towards-ebgp-peer-r1 title="Permanent link">&para;</a></h2> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1> 1</a></span>
+<span class=normal><a href=#__codelineno-1-2> 2</a></span>
+<span class=normal><a href=#__codelineno-1-3> 3</a></span>
+<span class=normal><a href=#__codelineno-1-4> 4</a></span>
+<span class=normal><a href=#__codelineno-1-5> 5</a></span>
+<span class=normal><a href=#__codelineno-1-6> 6</a></span>
+<span class=normal><a href=#__codelineno-1-7> 7</a></span>
+<span class=normal><a href=#__codelineno-1-8> 8</a></span>
+<span class=normal><a href=#__codelineno-1-9> 9</a></span>
+<span class=normal><a href=#__codelineno-1-10>10</a></span>
+<span class=normal><a href=#__codelineno-1-11>11</a></span>
+<span class=normal><a href=#__codelineno-1-12>12</a></span>
+<span class=normal><a href=#__codelineno-1-13>13</a></span>
+<span class=normal><a href=#__codelineno-1-14>14</a></span>
+<span class=normal><a href=#__codelineno-1-15>15</a></span>
+<span class=normal><a href=#__codelineno-1-16>16</a></span>
+<span class=normal><a href=#__codelineno-1-17>17</a></span>
+<span class=normal><a href=#__codelineno-1-18>18</a></span>
+<span class=normal><a href=#__codelineno-1-19>19</a></span>
+<span class=normal><a href=#__codelineno-1-20>20</a></span>
+<span class=normal><a href=#__codelineno-1-21>21</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>R1                                      R4
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>[64501]                                 [64503]
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>(192.0.2.1/32)                          (192.0.2.4/32)
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>|                                       |
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>|  eBGP                       iBGP      |
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>|  (local-as 65551 private)             |
+<a id=__codelineno-1-7 name=__codelineno-1-7></a>+-------------+           +-------------+
+<a id=__codelineno-1-8 name=__codelineno-1-8></a>              |           |
+<a id=__codelineno-1-9 name=__codelineno-1-9></a>              |___    ____|
+<a id=__codelineno-1-10 name=__codelineno-1-10></a>               ___  R3____
+<a id=__codelineno-1-11 name=__codelineno-1-11></a>               (192.0.2.3/32)
+<a id=__codelineno-1-12 name=__codelineno-1-12></a>              |  [64503]  |
+<a id=__codelineno-1-13 name=__codelineno-1-13></a>              |           |
+<a id=__codelineno-1-14 name=__codelineno-1-14></a>              |           |
+<a id=__codelineno-1-15 name=__codelineno-1-15></a>+-------------+           +-------------+
+<a id=__codelineno-1-16 name=__codelineno-1-16></a>|                                        |
+<a id=__codelineno-1-17 name=__codelineno-1-17></a>|  eBGP                       iBGP       |
+<a id=__codelineno-1-18 name=__codelineno-1-18></a>|                                        |
+<a id=__codelineno-1-19 name=__codelineno-1-19></a>(192.0.2.2/32)                          (192.0.2.5/32)
+<a id=__codelineno-1-20 name=__codelineno-1-20></a>R2                                      R5
+<a id=__codelineno-1-21 name=__codelineno-1-21></a>[64502]                                 [64503]
+</code></pre></div></td></tr></table></div> <p>The following five example scenarios cover all the cases where local AS private configuration on an eBGP setup impacts the AS path.</p> <p>Please note that "*" in below examples marks the neighbor on which R3 (DUT) has the local-as configuration applied.</p> <h2 id=example-1-route-propagation-from-ebgp-r1-to-ebgp-r2>Example 1: Route propagation from eBGP* (R1) to eBGP (R2)<a class=headerlink href=#example-1-route-propagation-from-ebgp-r1-to-ebgp-r2 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via eBGP from R1 to the eBGP peer R2, where R3 applies a local AS private on its eBGP session with R1. R1 advertises its loopback address 192.0.2.1/32 to R3, which then re-advertises the prefix to R2.</p> <p><em>AS path of prefix 192.0.2.1/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span>
+<span class=normal><a href=#__codelineno-2-2>2</a></span>
+<span class=normal><a href=#__codelineno-2-3>3</a></span>
+<span class=normal><a href=#__codelineno-2-4>4</a></span>
+<span class=normal><a href=#__codelineno-2-5>5</a></span>
+<span class=normal><a href=#__codelineno-2-6>6</a></span>
+<span class=normal><a href=#__codelineno-2-7>7</a></span>
+<span class=normal><a href=#__codelineno-2-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>RE3# run show route 192.0.2.1
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-2-5 name=__codelineno-2-5></a>
+<a id=__codelineno-2-6 name=__codelineno-2-6></a>192.0.2.1/32       *[BGP/170] 00:00:38, localpref 100
+<a id=__codelineno-2-7 name=__codelineno-2-7></a>                      AS path: 64501 I, validation-state: unverified
+<a id=__codelineno-2-8 name=__codelineno-2-8></a>                    &gt;  to 198.51.100.1 via ge-0/0/0.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.1/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1>1</a></span>
+<span class=normal><a href=#__codelineno-3-2>2</a></span>
+<span class=normal><a href=#__codelineno-3-3>3</a></span>
+<span class=normal><a href=#__codelineno-3-4>4</a></span>
+<span class=normal><a href=#__codelineno-3-5>5</a></span>
+<span class=normal><a href=#__codelineno-3-6>6</a></span>
+<span class=normal><a href=#__codelineno-3-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>RE3# run show route advertising-protocol bgp 198.51.100.5 192.0.2.1 detail
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>* 192.0.2.1/32 (1 entry, 1 announced)
+<a id=__codelineno-3-5 name=__codelineno-3-5></a> BGP group r2 type External
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>     Nexthop: Self
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>     AS path: [64503] 64501 I
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.1/32 in the BGP UPDATE message sent to R2:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1>1</a></span>
+<span class=normal><a href=#__codelineno-4-2>2</a></span>
+<span class=normal><a href=#__codelineno-4-3>3</a></span>
+<span class=normal><a href=#__codelineno-4-4>4</a></span>
+<span class=normal><a href=#__codelineno-4-5>5</a></span>
+<span class=normal><a href=#__codelineno-4-6>6</a></span>
+<span class=normal><a href=#__codelineno-4-7>7</a></span>
+<span class=normal><a href=#__codelineno-4-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>BGP SEND 198.51.100.6+179 -&gt; 198.51.100.5+62237
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>BGP SEND message type 2 (Update) length 52
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>BGP SEND Update PDU length 52
+<a id=__codelineno-4-4 name=__codelineno-4-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 10: 64503 64501
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>BGP SEND flags 0x40 code NextHop(3): 198.51.100.6 length(4)
+<a id=__codelineno-4-7 name=__codelineno-4-7></a>End-of-Attributes
+<a id=__codelineno-4-8 name=__codelineno-4-8></a>BGP SEND         192.0.2.1/32
+</code></pre></div></td></tr></table></div> <h2 id=example-2-route-propagation-from-ebgp-r1-to-ibgp-r4>Example 2: Route propagation from eBGP* (R1) to iBGP (R4)<a class=headerlink href=#example-2-route-propagation-from-ebgp-r1-to-ibgp-r4 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via eBGP from R1 to the iBGP peer R4, where R3 applies a local AS private on its eBGP session with R1. R1 advertises its loopback address 192.0.2.1/32 to R3, which then re-advertises the prefix to R4.</p> <p>AS path of prefix 192.0.2.1/32 in the routing table inet.0 on R3:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span>
+<span class=normal><a href=#__codelineno-5-2>2</a></span>
+<span class=normal><a href=#__codelineno-5-3>3</a></span>
+<span class=normal><a href=#__codelineno-5-4>4</a></span>
+<span class=normal><a href=#__codelineno-5-5>5</a></span>
+<span class=normal><a href=#__codelineno-5-6>6</a></span>
+<span class=normal><a href=#__codelineno-5-7>7</a></span>
+<span class=normal><a href=#__codelineno-5-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>RE3# run show route 192.0.2.1
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>192.0.2.1/32       *[BGP/170] 00:00:38, localpref 100
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>                      AS path: 64501 I, validation-state: unverified
+<a id=__codelineno-5-8 name=__codelineno-5-8></a>                    &gt;  to 198.51.100.1 via ge-0/0/0.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.1/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span>
+<span class=normal><a href=#__codelineno-6-3>3</a></span>
+<span class=normal><a href=#__codelineno-6-4>4</a></span>
+<span class=normal><a href=#__codelineno-6-5>5</a></span>
+<span class=normal><a href=#__codelineno-6-6>6</a></span>
+<span class=normal><a href=#__codelineno-6-7>7</a></span>
+<span class=normal><a href=#__codelineno-6-8>8</a></span>
+<span class=normal><a href=#__codelineno-6-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>RE3# run show route advertising-protocol bgp 203.0.113.1 192.0.2.1 detail
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>* 192.0.2.1/32 (1 entry, 1 announced)
+<a id=__codelineno-6-5 name=__codelineno-6-5></a> BGP group r4 type Internal
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>     Nexthop: Self
+<a id=__codelineno-6-7 name=__codelineno-6-7></a>     Flags: Nexthop Change
+<a id=__codelineno-6-8 name=__codelineno-6-8></a>     Localpref: 100
+<a id=__codelineno-6-9 name=__codelineno-6-9></a>     AS path: [64503] 64501 I
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.1/32 in the BGP UPDATE message sent to R4:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
+<span class=normal><a href=#__codelineno-7-2>2</a></span>
+<span class=normal><a href=#__codelineno-7-3>3</a></span>
+<span class=normal><a href=#__codelineno-7-4>4</a></span>
+<span class=normal><a href=#__codelineno-7-5>5</a></span>
+<span class=normal><a href=#__codelineno-7-6>6</a></span>
+<span class=normal><a href=#__codelineno-7-7>7</a></span>
+<span class=normal><a href=#__codelineno-7-8>8</a></span>
+<span class=normal><a href=#__codelineno-7-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>BGP SEND 203.0.113.2+179 -&gt; 203.0.113.1+52167
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>BGP SEND message type 2 (Update) length 55
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>BGP SEND Update PDU length 55
+<a id=__codelineno-7-4 name=__codelineno-7-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-7-5 name=__codelineno-7-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 6: 64501
+<a id=__codelineno-7-6 name=__codelineno-7-6></a>BGP SEND flags 0x40 code NextHop(3): 203.0.113.2 length(4)
+<a id=__codelineno-7-7 name=__codelineno-7-7></a>BGP SEND flags 0x40 code LocalPref(5): 100 length(4)
+<a id=__codelineno-7-8 name=__codelineno-7-8></a>End-of-Attributes
+<a id=__codelineno-7-9 name=__codelineno-7-9></a>BGP SEND         192.0.2.1/32
+</code></pre></div></td></tr></table></div> <h2 id=example-3-route-propagation-from-dut-r3-to-ebgp-r1>Example 3: Route propagation from DUT (R3) to eBGP* (R1)<a class=headerlink href=#example-3-route-propagation-from-dut-r3-to-ebgp-r1 title="Permanent link">&para;</a></h2> <p>This example examines the AS path of a direct/static route advertised to an eBGP peer. R3 advertises its loopback address 192.0.2.3/32 to R1.</p> <p><em>AS path of prefix 192.0.2.3/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1> 1</a></span>
+<span class=normal><a href=#__codelineno-8-2> 2</a></span>
+<span class=normal><a href=#__codelineno-8-3> 3</a></span>
+<span class=normal><a href=#__codelineno-8-4> 4</a></span>
+<span class=normal><a href=#__codelineno-8-5> 5</a></span>
+<span class=normal><a href=#__codelineno-8-6> 6</a></span>
+<span class=normal><a href=#__codelineno-8-7> 7</a></span>
+<span class=normal><a href=#__codelineno-8-8> 8</a></span>
+<span class=normal><a href=#__codelineno-8-9> 9</a></span>
+<span class=normal><a href=#__codelineno-8-10>10</a></span>
+<span class=normal><a href=#__codelineno-8-11>11</a></span>
+<span class=normal><a href=#__codelineno-8-12>12</a></span>
+<span class=normal><a href=#__codelineno-8-13>13</a></span>
+<span class=normal><a href=#__codelineno-8-14>14</a></span>
+<span class=normal><a href=#__codelineno-8-15>15</a></span>
+<span class=normal><a href=#__codelineno-8-16>16</a></span>
+<span class=normal><a href=#__codelineno-8-17>17</a></span>
+<span class=normal><a href=#__codelineno-8-18>18</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>RE3# run show route 192.0.2.3 detail
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>
+<a id=__codelineno-8-3 name=__codelineno-8-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-8-4 name=__codelineno-8-4></a>192.0.2.3/32 (1 entry, 1 announced)
+<a id=__codelineno-8-5 name=__codelineno-8-5></a>        *Direct Preference: 0
+<a id=__codelineno-8-6 name=__codelineno-8-6></a>                Next hop type: Interface, Next hop index: 0
+<a id=__codelineno-8-7 name=__codelineno-8-7></a>                Address: 0x825cd14
+<a id=__codelineno-8-8 name=__codelineno-8-8></a>                Next-hop reference count: 1
+<a id=__codelineno-8-9 name=__codelineno-8-9></a>                Kernel Table Id: 0
+<a id=__codelineno-8-10 name=__codelineno-8-10></a>                Next hop: via lo0.0, selected
+<a id=__codelineno-8-11 name=__codelineno-8-11></a>                State: &lt;Active Int&gt;
+<a id=__codelineno-8-12 name=__codelineno-8-12></a>                Local AS: 64503
+<a id=__codelineno-8-13 name=__codelineno-8-13></a>                Age: 9:22
+<a id=__codelineno-8-14 name=__codelineno-8-14></a>                Validation State: unverified
+<a id=__codelineno-8-15 name=__codelineno-8-15></a>                Task: IF
+<a id=__codelineno-8-16 name=__codelineno-8-16></a>                Announcement bits (1): 3-Resolve tree 1
+<a id=__codelineno-8-17 name=__codelineno-8-17></a>                AS path: I
+<a id=__codelineno-8-18 name=__codelineno-8-18></a>                Thread: junos-main
+</code></pre></div></td></tr></table></div> <p><em>The AS path of prefix 192.0.2.3/32, as shown in the output of the show route advertising-protocol command on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1>1</a></span>
+<span class=normal><a href=#__codelineno-9-2>2</a></span>
+<span class=normal><a href=#__codelineno-9-3>3</a></span>
+<span class=normal><a href=#__codelineno-9-4>4</a></span>
+<span class=normal><a href=#__codelineno-9-5>5</a></span>
+<span class=normal><a href=#__codelineno-9-6>6</a></span>
+<span class=normal><a href=#__codelineno-9-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>RE3# run show route advertising-protocol bgp 198.51.100.1 192.0.2.3 detail
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>* 192.0.2.3/32 (1 entry, 1 announced)
+<a id=__codelineno-9-5 name=__codelineno-9-5></a> BGP group r1 type External
+<a id=__codelineno-9-6 name=__codelineno-9-6></a>     Nexthop: Self
+<a id=__codelineno-9-7 name=__codelineno-9-7></a>     AS path: [65551] I
+</code></pre></div></td></tr></table></div> <p>The example above includes square brackets to indicate the AS number being prepended to the AS path before advertisement</p> <p><em>AS path of prefix 192.0.2.1/32 in the BGP UPDATE message sent to R1:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1>1</a></span>
+<span class=normal><a href=#__codelineno-10-2>2</a></span>
+<span class=normal><a href=#__codelineno-10-3>3</a></span>
+<span class=normal><a href=#__codelineno-10-4>4</a></span>
+<span class=normal><a href=#__codelineno-10-5>5</a></span>
+<span class=normal><a href=#__codelineno-10-6>6</a></span>
+<span class=normal><a href=#__codelineno-10-7>7</a></span>
+<span class=normal><a href=#__codelineno-10-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>BGP SEND 198.51.100.2+63816 -&gt; 198.51.100.1+179
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>BGP SEND message type 2 (Update) length 48
+<a id=__codelineno-10-3 name=__codelineno-10-3></a>BGP SEND Update PDU length 48
+<a id=__codelineno-10-4 name=__codelineno-10-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-10-5 name=__codelineno-10-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 6: 65551
+<a id=__codelineno-10-6 name=__codelineno-10-6></a>BGP SEND flags 0x40 code NextHop(3): 198.51.100.2 length(4)
+<a id=__codelineno-10-7 name=__codelineno-10-7></a>End-of-Attributes
+<a id=__codelineno-10-8 name=__codelineno-10-8></a>BGP SEND         192.0.2.3/32
+</code></pre></div></td></tr></table></div> <h2 id=example-4-route-propagation-from-ebgp-r2-to-ebgp-r1>Example 4: Route propagation from eBGP (R2) to eBGP* (R1)<a class=headerlink href=#example-4-route-propagation-from-ebgp-r2-to-ebgp-r1 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via eBGP from R2 to the eBGP peer R1, where R3 applies a local AS private on its eBGP session with R1. R2 advertises its loopback address 192.0.2.2/32 to R3, which then re-advertises the prefix to R1.</p> <p><em>AS path of prefix 192.0.2.2/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1>1</a></span>
+<span class=normal><a href=#__codelineno-11-2>2</a></span>
+<span class=normal><a href=#__codelineno-11-3>3</a></span>
+<span class=normal><a href=#__codelineno-11-4>4</a></span>
+<span class=normal><a href=#__codelineno-11-5>5</a></span>
+<span class=normal><a href=#__codelineno-11-6>6</a></span>
+<span class=normal><a href=#__codelineno-11-7>7</a></span>
+<span class=normal><a href=#__codelineno-11-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>RE3# run show route 192.0.2.2
+<a id=__codelineno-11-2 name=__codelineno-11-2></a>
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-11-4 name=__codelineno-11-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>192.0.2.2/32       *[BGP/170] 00:22:51, localpref 100
+<a id=__codelineno-11-7 name=__codelineno-11-7></a>                      AS path: 64502 I, validation-state: unverified
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>                    &gt;  to 198.51.100.5 via ge-0/0/2.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.2/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1>1</a></span>
+<span class=normal><a href=#__codelineno-12-2>2</a></span>
+<span class=normal><a href=#__codelineno-12-3>3</a></span>
+<span class=normal><a href=#__codelineno-12-4>4</a></span>
+<span class=normal><a href=#__codelineno-12-5>5</a></span>
+<span class=normal><a href=#__codelineno-12-6>6</a></span>
+<span class=normal><a href=#__codelineno-12-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>RE3# run show route advertising-protocol bgp 198.51.100.1 192.0.2.2 detail
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>
+<a id=__codelineno-12-3 name=__codelineno-12-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-12-4 name=__codelineno-12-4></a>* 192.0.2.2/32 (1 entry, 1 announced)
+<a id=__codelineno-12-5 name=__codelineno-12-5></a> BGP group r1 type External
+<a id=__codelineno-12-6 name=__codelineno-12-6></a>     Nexthop: Self
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>     AS path: 64503 64502 I
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.2/32 in the BGP UPDATE message sent to R1:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1>1</a></span>
+<span class=normal><a href=#__codelineno-13-2>2</a></span>
+<span class=normal><a href=#__codelineno-13-3>3</a></span>
+<span class=normal><a href=#__codelineno-13-4>4</a></span>
+<span class=normal><a href=#__codelineno-13-5>5</a></span>
+<span class=normal><a href=#__codelineno-13-6>6</a></span>
+<span class=normal><a href=#__codelineno-13-7>7</a></span>
+<span class=normal><a href=#__codelineno-13-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a>BGP SEND 198.51.100.2+53228 -&gt; 198.51.100.1+179
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>BGP SEND message type 2 (Update) length 56
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>BGP SEND Update PDU length 56
+<a id=__codelineno-13-4 name=__codelineno-13-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 14: 65551 64503 64502
+<a id=__codelineno-13-6 name=__codelineno-13-6></a>BGP SEND flags 0x40 code NextHop(3): 198.51.100.2 length(4)
+<a id=__codelineno-13-7 name=__codelineno-13-7></a>End-of-Attributes
+<a id=__codelineno-13-8 name=__codelineno-13-8></a>BGP SEND         192.0.2.2/32
+</code></pre></div></td></tr></table></div> <h2 id=example-5-route-propagation-from-ibgp-r4-to-ebgp-r1>Example 5: Route propagation from iBGP (R4) to eBGP* (R1)<a class=headerlink href=#example-5-route-propagation-from-ibgp-r4-to-ebgp-r1 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via iBGP from R4 to the eBGP peer R1, where R3 applies a local AS private on its eBGP session with R1. R4 advertises its loopback address 192.0.2.4/32 to R3, which then re-advertises the prefix to R1.</p> <p><em>AS path of prefix 192.0.2.4/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1>1</a></span>
+<span class=normal><a href=#__codelineno-14-2>2</a></span>
+<span class=normal><a href=#__codelineno-14-3>3</a></span>
+<span class=normal><a href=#__codelineno-14-4>4</a></span>
+<span class=normal><a href=#__codelineno-14-5>5</a></span>
+<span class=normal><a href=#__codelineno-14-6>6</a></span>
+<span class=normal><a href=#__codelineno-14-7>7</a></span>
+<span class=normal><a href=#__codelineno-14-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a>RE3# run show route 192.0.2.4
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>
+<a id=__codelineno-14-3 name=__codelineno-14-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-14-4 name=__codelineno-14-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-14-5 name=__codelineno-14-5></a>
+<a id=__codelineno-14-6 name=__codelineno-14-6></a>192.0.2.4/32       *[BGP/170] 00:00:52, localpref 100
+<a id=__codelineno-14-7 name=__codelineno-14-7></a>                      AS path: I, validation-state: unverified
+<a id=__codelineno-14-8 name=__codelineno-14-8></a>                    &gt;  to 203.0.113.1 via ge-0/0/4.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.4/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1>1</a></span>
+<span class=normal><a href=#__codelineno-15-2>2</a></span>
+<span class=normal><a href=#__codelineno-15-3>3</a></span>
+<span class=normal><a href=#__codelineno-15-4>4</a></span>
+<span class=normal><a href=#__codelineno-15-5>5</a></span>
+<span class=normal><a href=#__codelineno-15-6>6</a></span>
+<span class=normal><a href=#__codelineno-15-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a>RE3# run show route advertising-protocol bgp 198.51.100.1 192.0.2.4 detail
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>
+<a id=__codelineno-15-3 name=__codelineno-15-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-15-4 name=__codelineno-15-4></a>* 192.0.2.4/32 (1 entry, 1 announced)
+<a id=__codelineno-15-5 name=__codelineno-15-5></a> BGP group r1 type External
+<a id=__codelineno-15-6 name=__codelineno-15-6></a>     Nexthop: Self
+<a id=__codelineno-15-7 name=__codelineno-15-7></a>     AS path: 64503 I
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.4/32 in the BGP UPDATE message sent to R1:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-16-1>1</a></span>
+<span class=normal><a href=#__codelineno-16-2>2</a></span>
+<span class=normal><a href=#__codelineno-16-3>3</a></span>
+<span class=normal><a href=#__codelineno-16-4>4</a></span>
+<span class=normal><a href=#__codelineno-16-5>5</a></span>
+<span class=normal><a href=#__codelineno-16-6>6</a></span>
+<span class=normal><a href=#__codelineno-16-7>7</a></span>
+<span class=normal><a href=#__codelineno-16-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-16-1 name=__codelineno-16-1></a>BGP SEND 198.51.100.2+53239 -&gt; 198.51.100.1+179
+<a id=__codelineno-16-2 name=__codelineno-16-2></a>BGP SEND message type 2 (Update) length 52
+<a id=__codelineno-16-3 name=__codelineno-16-3></a>BGP SEND Update PDU length 52
+<a id=__codelineno-16-4 name=__codelineno-16-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-16-5 name=__codelineno-16-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 10: 65551 64503
+<a id=__codelineno-16-6 name=__codelineno-16-6></a>BGP SEND flags 0x40 code NextHop(3): 198.51.100.2 length(4)
+<a id=__codelineno-16-7 name=__codelineno-16-7></a>End-of-Attributes
+<a id=__codelineno-16-8 name=__codelineno-16-8></a>BGP SEND         192.0.2.4/32
+</code></pre></div></td></tr></table></div> <h2 id=private-local-as-option-behavior-for-an-ebgp-peer>Private local AS Option Behavior for an eBGP Peer<a class=headerlink href=#private-local-as-option-behavior-for-an-ebgp-peer title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th style="text-align: left;">Route Direction(S -&gt; DUT -&gt; D)</th> <th style="text-align: left;">As PathLocal RIB</th> <th style="text-align: left;">AS Path(show adv to "D")</th> <th style="text-align: left;">UPDATE MESSAGEto "D"</th> <th style="text-align: left;">ASPATH_PREPENDby DUT</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">R1 -&gt; R3 -&gt; R2</td> <td style="text-align: left;">64501 I</td> <td style="text-align: left;">[64503] 64501 I</td> <td style="text-align: left;">64503 64501 I</td> <td style="text-align: left;">Global-as</td> </tr> <tr> <td style="text-align: left;">R1 -&gt; R3 -&gt; R4</td> <td style="text-align: left;">64501 I</td> <td style="text-align: left;">[64503] 64501 I</td> <td style="text-align: left;">64501 I</td> <td style="text-align: left;"></td> </tr> <tr> <td style="text-align: left;">R3 -&gt; R1</td> <td style="text-align: left;">I</td> <td style="text-align: left;">[65551] I</td> <td style="text-align: left;">65551 I</td> <td style="text-align: left;">Local-as</td> </tr> <tr> <td style="text-align: left;">R2 -&gt; R3 -&gt; R1</td> <td style="text-align: left;">64502 I</td> <td style="text-align: left;">64503 64502 I</td> <td style="text-align: left;">65551 64503 64502 I</td> <td style="text-align: left;">Local-as, Global-as</td> </tr> <tr> <td style="text-align: left;">R4 -&gt; R3 -&gt; R1</td> <td style="text-align: left;">I</td> <td style="text-align: left;">64503 I</td> <td style="text-align: left;">65551 64503 I</td> <td style="text-align: left;">Local-as, Global-as</td> </tr> </tbody> </table> <h2 id=configuration-local-as-private-configured-towards-ibgp-peer-r4>Configuration: Local AS Private configured towards iBGP peer (R4)<a class=headerlink href=#configuration-local-as-private-configured-towards-ibgp-peer-r4 title="Permanent link">&para;</a></h2> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-17-1> 1</a></span>
+<span class=normal><a href=#__codelineno-17-2> 2</a></span>
+<span class=normal><a href=#__codelineno-17-3> 3</a></span>
+<span class=normal><a href=#__codelineno-17-4> 4</a></span>
+<span class=normal><a href=#__codelineno-17-5> 5</a></span>
+<span class=normal><a href=#__codelineno-17-6> 6</a></span>
+<span class=normal><a href=#__codelineno-17-7> 7</a></span>
+<span class=normal><a href=#__codelineno-17-8> 8</a></span>
+<span class=normal><a href=#__codelineno-17-9> 9</a></span>
+<span class=normal><a href=#__codelineno-17-10>10</a></span>
+<span class=normal><a href=#__codelineno-17-11>11</a></span>
+<span class=normal><a href=#__codelineno-17-12>12</a></span>
+<span class=normal><a href=#__codelineno-17-13>13</a></span>
+<span class=normal><a href=#__codelineno-17-14>14</a></span>
+<span class=normal><a href=#__codelineno-17-15>15</a></span>
+<span class=normal><a href=#__codelineno-17-16>16</a></span>
+<span class=normal><a href=#__codelineno-17-17>17</a></span>
+<span class=normal><a href=#__codelineno-17-18>18</a></span>
+<span class=normal><a href=#__codelineno-17-19>19</a></span>
+<span class=normal><a href=#__codelineno-17-20>20</a></span>
+<span class=normal><a href=#__codelineno-17-21>21</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-17-1 name=__codelineno-17-1></a>R1                                      R4
+<a id=__codelineno-17-2 name=__codelineno-17-2></a>[64501]                                 [64503]
+<a id=__codelineno-17-3 name=__codelineno-17-3></a>(192.0.2.1/32)                          (192.0.2.4/32)
+<a id=__codelineno-17-4 name=__codelineno-17-4></a>|                                       |
+<a id=__codelineno-17-5 name=__codelineno-17-5></a>|  eBGP                       iBGP      |
+<a id=__codelineno-17-6 name=__codelineno-17-6></a>|                              (local-as 65551 private)
+<a id=__codelineno-17-7 name=__codelineno-17-7></a>+-------------+           +-------------+
+<a id=__codelineno-17-8 name=__codelineno-17-8></a>              |           |
+<a id=__codelineno-17-9 name=__codelineno-17-9></a>              |___    ____|
+<a id=__codelineno-17-10 name=__codelineno-17-10></a>               ___  R3____
+<a id=__codelineno-17-11 name=__codelineno-17-11></a>               (192.0.2.3/32)
+<a id=__codelineno-17-12 name=__codelineno-17-12></a>              |  [64503]  |
+<a id=__codelineno-17-13 name=__codelineno-17-13></a>              |           |
+<a id=__codelineno-17-14 name=__codelineno-17-14></a>              |           |
+<a id=__codelineno-17-15 name=__codelineno-17-15></a>+-------------+           +-------------+
+<a id=__codelineno-17-16 name=__codelineno-17-16></a>|                                        |
+<a id=__codelineno-17-17 name=__codelineno-17-17></a>|  eBGP                       iBGP       |
+<a id=__codelineno-17-18 name=__codelineno-17-18></a>|                                        |
+<a id=__codelineno-17-19 name=__codelineno-17-19></a>(192.0.2.2/32)                          (192.0.2.5/32)
+<a id=__codelineno-17-20 name=__codelineno-17-20></a>R2                                      R5
+<a id=__codelineno-17-21 name=__codelineno-17-21></a>[64502]                                 [64503]
+</code></pre></div></td></tr></table></div> <p>The following five example scenarios cover all the cases where local AS private configuration on an iBGP setup impacts the AS path.</p> <h2 id=example-1-route-propagation-from-ibgp-r4-to-ebgp-r1>Example 1: Route propagation from iBGP* (R4) to eBGP (R1)<a class=headerlink href=#example-1-route-propagation-from-ibgp-r4-to-ebgp-r1 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via iBGP from R4 to the eBGP peer R1, where R3 applies a local AS private on its iBGP session with R4. R4 advertises its loopback address 192.0.2.4/32 to R3, which then re-advertises the prefix to R1.</p> <p><em>AS path of prefix 192.0.2.4/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-18-1>1</a></span>
+<span class=normal><a href=#__codelineno-18-2>2</a></span>
+<span class=normal><a href=#__codelineno-18-3>3</a></span>
+<span class=normal><a href=#__codelineno-18-4>4</a></span>
+<span class=normal><a href=#__codelineno-18-5>5</a></span>
+<span class=normal><a href=#__codelineno-18-6>6</a></span>
+<span class=normal><a href=#__codelineno-18-7>7</a></span>
+<span class=normal><a href=#__codelineno-18-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-18-1 name=__codelineno-18-1></a>RE3# run show route 192.0.2.4
+<a id=__codelineno-18-2 name=__codelineno-18-2></a>
+<a id=__codelineno-18-3 name=__codelineno-18-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-18-4 name=__codelineno-18-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-18-5 name=__codelineno-18-5></a>
+<a id=__codelineno-18-6 name=__codelineno-18-6></a>192.0.2.4/32       *[BGP/170] 01:13:25, localpref 100
+<a id=__codelineno-18-7 name=__codelineno-18-7></a>                      AS path: I, validation-state: unverified
+<a id=__codelineno-18-8 name=__codelineno-18-8></a>                    &gt;  to 203.0.113.1 via ge-0/0/4.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.4/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-19-1>1</a></span>
+<span class=normal><a href=#__codelineno-19-2>2</a></span>
+<span class=normal><a href=#__codelineno-19-3>3</a></span>
+<span class=normal><a href=#__codelineno-19-4>4</a></span>
+<span class=normal><a href=#__codelineno-19-5>5</a></span>
+<span class=normal><a href=#__codelineno-19-6>6</a></span>
+<span class=normal><a href=#__codelineno-19-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-19-1 name=__codelineno-19-1></a>RE3# run show route advertising-protocol bgp 198.51.100.1 192.0.2.4 detail
+<a id=__codelineno-19-2 name=__codelineno-19-2></a>
+<a id=__codelineno-19-3 name=__codelineno-19-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-19-4 name=__codelineno-19-4></a>* 192.0.2.4/32 (1 entry, 1 announced)
+<a id=__codelineno-19-5 name=__codelineno-19-5></a> BGP group r1 type External
+<a id=__codelineno-19-6 name=__codelineno-19-6></a>     Nexthop: Self
+<a id=__codelineno-19-7 name=__codelineno-19-7></a>     AS path: [64503] I
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.4/32 as seen in the BGP UPDATE message sent to R1:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-20-1>1</a></span>
+<span class=normal><a href=#__codelineno-20-2>2</a></span>
+<span class=normal><a href=#__codelineno-20-3>3</a></span>
+<span class=normal><a href=#__codelineno-20-4>4</a></span>
+<span class=normal><a href=#__codelineno-20-5>5</a></span>
+<span class=normal><a href=#__codelineno-20-6>6</a></span>
+<span class=normal><a href=#__codelineno-20-7>7</a></span>
+<span class=normal><a href=#__codelineno-20-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-20-1 name=__codelineno-20-1></a>BGP SEND 198.51.100.2+54973 -&gt; 198.51.100.1+179
+<a id=__codelineno-20-2 name=__codelineno-20-2></a>BGP SEND message type 2 (Update) length 53
+<a id=__codelineno-20-3 name=__codelineno-20-3></a>BGP SEND Update PDU length 53
+<a id=__codelineno-20-4 name=__codelineno-20-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-20-5 name=__codelineno-20-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 6: 64503
+<a id=__codelineno-20-6 name=__codelineno-20-6></a>BGP SEND flags 0x40 code NextHop(3): 198.51.100.2 length(4)
+<a id=__codelineno-20-7 name=__codelineno-20-7></a>End-of-Attributes
+<a id=__codelineno-20-8 name=__codelineno-20-8></a>BGP SEND         192.0.2.4/32
+</code></pre></div></td></tr></table></div> <h2 id=example-2-route-propagation-from-ibgp-r4-to-ibgp-r5>Example 2: Route propagation from iBGP* (R4) to iBGP (R5)<a class=headerlink href=#example-2-route-propagation-from-ibgp-r4-to-ibgp-r5 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via iBGP from R4 to the iBGP peer R5, where R3 applies a local AS private on its iBGP session with R4. R4 advertises its loopback address 192.0.2.4/32 to R3, which then re-advertises the prefix to R5.</p> <p><em>AS path of prefix 192.0.2.4/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-21-1>1</a></span>
+<span class=normal><a href=#__codelineno-21-2>2</a></span>
+<span class=normal><a href=#__codelineno-21-3>3</a></span>
+<span class=normal><a href=#__codelineno-21-4>4</a></span>
+<span class=normal><a href=#__codelineno-21-5>5</a></span>
+<span class=normal><a href=#__codelineno-21-6>6</a></span>
+<span class=normal><a href=#__codelineno-21-7>7</a></span>
+<span class=normal><a href=#__codelineno-21-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-21-1 name=__codelineno-21-1></a>RE3# run show route 192.0.2.4
+<a id=__codelineno-21-2 name=__codelineno-21-2></a>
+<a id=__codelineno-21-3 name=__codelineno-21-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-21-4 name=__codelineno-21-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-21-5 name=__codelineno-21-5></a>
+<a id=__codelineno-21-6 name=__codelineno-21-6></a>192.0.2.4/32       *[BGP/170] 01:13:25, localpref 100
+<a id=__codelineno-21-7 name=__codelineno-21-7></a>                      AS path: I, validation-state: unverified
+<a id=__codelineno-21-8 name=__codelineno-21-8></a>                    &gt;  to 203.0.113.1 via ge-0/0/4.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.4/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-22-1> 1</a></span>
+<span class=normal><a href=#__codelineno-22-2> 2</a></span>
+<span class=normal><a href=#__codelineno-22-3> 3</a></span>
+<span class=normal><a href=#__codelineno-22-4> 4</a></span>
+<span class=normal><a href=#__codelineno-22-5> 5</a></span>
+<span class=normal><a href=#__codelineno-22-6> 6</a></span>
+<span class=normal><a href=#__codelineno-22-7> 7</a></span>
+<span class=normal><a href=#__codelineno-22-8> 8</a></span>
+<span class=normal><a href=#__codelineno-22-9> 9</a></span>
+<span class=normal><a href=#__codelineno-22-10>10</a></span>
+<span class=normal><a href=#__codelineno-22-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-22-1 name=__codelineno-22-1></a>RE3# run show route advertising-protocol bgp 203.0.113.5 192.0.2.4 detail
+<a id=__codelineno-22-2 name=__codelineno-22-2></a>
+<a id=__codelineno-22-3 name=__codelineno-22-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-22-4 name=__codelineno-22-4></a>* 192.0.2.4/32 (1 entry, 1 announced)
+<a id=__codelineno-22-5 name=__codelineno-22-5></a> BGP group r5 type Internal
+<a id=__codelineno-22-6 name=__codelineno-22-6></a>     Nexthop: Self
+<a id=__codelineno-22-7 name=__codelineno-22-7></a>     Flags: Nexthop Change
+<a id=__codelineno-22-8 name=__codelineno-22-8></a>     Localpref: 100
+<a id=__codelineno-22-9 name=__codelineno-22-9></a>     AS path: [64503] I
+<a id=__codelineno-22-10 name=__codelineno-22-10></a>     Cluster ID: 192.0.2.3
+<a id=__codelineno-22-11 name=__codelineno-22-11></a>     Originator ID: 192.0.2.4
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix as seen in the BGP UPDATE message sent to R5:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-23-1> 1</a></span>
+<span class=normal><a href=#__codelineno-23-2> 2</a></span>
+<span class=normal><a href=#__codelineno-23-3> 3</a></span>
+<span class=normal><a href=#__codelineno-23-4> 4</a></span>
+<span class=normal><a href=#__codelineno-23-5> 5</a></span>
+<span class=normal><a href=#__codelineno-23-6> 6</a></span>
+<span class=normal><a href=#__codelineno-23-7> 7</a></span>
+<span class=normal><a href=#__codelineno-23-8> 8</a></span>
+<span class=normal><a href=#__codelineno-23-9> 9</a></span>
+<span class=normal><a href=#__codelineno-23-10>10</a></span>
+<span class=normal><a href=#__codelineno-23-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-23-1 name=__codelineno-23-1></a>BGP SEND 203.0.113.6+179 -&gt; 203.0.113.5+63524
+<a id=__codelineno-23-2 name=__codelineno-23-2></a>BGP SEND message type 2 (Update) length 63
+<a id=__codelineno-23-3 name=__codelineno-23-3></a>BGP SEND Update PDU length 63
+<a id=__codelineno-23-4 name=__codelineno-23-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-23-5 name=__codelineno-23-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 0: &lt;null&gt;
+<a id=__codelineno-23-6 name=__codelineno-23-6></a>BGP SEND flags 0x40 code NextHop(3): 203.0.113.6 length(4)
+<a id=__codelineno-23-7 name=__codelineno-23-7></a>BGP SEND flags 0x40 code LocalPref(5): 100 length(4)
+<a id=__codelineno-23-8 name=__codelineno-23-8></a>BGP SEND flags 0x80 code Originator_Id(9) 192.0.2.4 length(4)
+<a id=__codelineno-23-9 name=__codelineno-23-9></a>BGP SEND flags 0x80 code Cluster_List(10): length(4) 192.0.2.3
+<a id=__codelineno-23-10 name=__codelineno-23-10></a>End-of-Attributes
+<a id=__codelineno-23-11 name=__codelineno-23-11></a>BGP SEND         192.0.2.4/32
+</code></pre></div></td></tr></table></div> <h2 id=example-3-route-propagation-from-dut-r3-to-ibgp-r4>Example 3: Route propagation from DUT (R3) to iBGP* (R4)<a class=headerlink href=#example-3-route-propagation-from-dut-r3-to-ibgp-r4 title="Permanent link">&para;</a></h2> <p>This example examines the AS path of a direct/static route advertised to an iBGP peer. R3 advertises its loopback address 192.0.2.3/32 to R4.</p> <p><em>AS path of prefix 192.0.2.3/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-24-1> 1</a></span>
+<span class=normal><a href=#__codelineno-24-2> 2</a></span>
+<span class=normal><a href=#__codelineno-24-3> 3</a></span>
+<span class=normal><a href=#__codelineno-24-4> 4</a></span>
+<span class=normal><a href=#__codelineno-24-5> 5</a></span>
+<span class=normal><a href=#__codelineno-24-6> 6</a></span>
+<span class=normal><a href=#__codelineno-24-7> 7</a></span>
+<span class=normal><a href=#__codelineno-24-8> 8</a></span>
+<span class=normal><a href=#__codelineno-24-9> 9</a></span>
+<span class=normal><a href=#__codelineno-24-10>10</a></span>
+<span class=normal><a href=#__codelineno-24-11>11</a></span>
+<span class=normal><a href=#__codelineno-24-12>12</a></span>
+<span class=normal><a href=#__codelineno-24-13>13</a></span>
+<span class=normal><a href=#__codelineno-24-14>14</a></span>
+<span class=normal><a href=#__codelineno-24-15>15</a></span>
+<span class=normal><a href=#__codelineno-24-16>16</a></span>
+<span class=normal><a href=#__codelineno-24-17>17</a></span>
+<span class=normal><a href=#__codelineno-24-18>18</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-24-1 name=__codelineno-24-1></a>RE3# run show route 192.0.2.3 detail
+<a id=__codelineno-24-2 name=__codelineno-24-2></a>
+<a id=__codelineno-24-3 name=__codelineno-24-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-24-4 name=__codelineno-24-4></a>192.0.2.3/32 (1 entry, 1 announced)
+<a id=__codelineno-24-5 name=__codelineno-24-5></a>        *Direct Preference: 0
+<a id=__codelineno-24-6 name=__codelineno-24-6></a>                Next hop type: Interface, Next hop index: 0
+<a id=__codelineno-24-7 name=__codelineno-24-7></a>                Address: 0x825cd14
+<a id=__codelineno-24-8 name=__codelineno-24-8></a>                Next-hop reference count: 1
+<a id=__codelineno-24-9 name=__codelineno-24-9></a>                Kernel Table Id: 0
+<a id=__codelineno-24-10 name=__codelineno-24-10></a>                Next hop: via lo0.0, selected
+<a id=__codelineno-24-11 name=__codelineno-24-11></a>                State: &lt;Active Int&gt;
+<a id=__codelineno-24-12 name=__codelineno-24-12></a>                Local AS: 64503
+<a id=__codelineno-24-13 name=__codelineno-24-13></a>                Age: 2:55:27
+<a id=__codelineno-24-14 name=__codelineno-24-14></a>                Validation State: unverified
+<a id=__codelineno-24-15 name=__codelineno-24-15></a>                Task: IF
+<a id=__codelineno-24-16 name=__codelineno-24-16></a>                Announcement bits (1): 3-Resolve tree 1
+<a id=__codelineno-24-17 name=__codelineno-24-17></a>                AS path: I
+<a id=__codelineno-24-18 name=__codelineno-24-18></a>                Thread: junos-main
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.3/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-25-1>1</a></span>
+<span class=normal><a href=#__codelineno-25-2>2</a></span>
+<span class=normal><a href=#__codelineno-25-3>3</a></span>
+<span class=normal><a href=#__codelineno-25-4>4</a></span>
+<span class=normal><a href=#__codelineno-25-5>5</a></span>
+<span class=normal><a href=#__codelineno-25-6>6</a></span>
+<span class=normal><a href=#__codelineno-25-7>7</a></span>
+<span class=normal><a href=#__codelineno-25-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-25-1 name=__codelineno-25-1></a>RE3# run show route advertising-protocol bgp 203.0.113.1 192.0.2.3 detail
+<a id=__codelineno-25-2 name=__codelineno-25-2></a>
+<a id=__codelineno-25-3 name=__codelineno-25-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-25-4 name=__codelineno-25-4></a>* 192.0.2.3/32 (1 entry, 1 announced)
+<a id=__codelineno-25-5 name=__codelineno-25-5></a> BGP group r4 type Internal
+<a id=__codelineno-25-6 name=__codelineno-25-6></a>     Nexthop: Self
+<a id=__codelineno-25-7 name=__codelineno-25-7></a>     Localpref: 100
+<a id=__codelineno-25-8 name=__codelineno-25-8></a>     AS path: [65551] I
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.3/32 as seen in the BGP UPDATE message sent to R4:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-26-1>1</a></span>
+<span class=normal><a href=#__codelineno-26-2>2</a></span>
+<span class=normal><a href=#__codelineno-26-3>3</a></span>
+<span class=normal><a href=#__codelineno-26-4>4</a></span>
+<span class=normal><a href=#__codelineno-26-5>5</a></span>
+<span class=normal><a href=#__codelineno-26-6>6</a></span>
+<span class=normal><a href=#__codelineno-26-7>7</a></span>
+<span class=normal><a href=#__codelineno-26-8>8</a></span>
+<span class=normal><a href=#__codelineno-26-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-26-1 name=__codelineno-26-1></a>BGP SEND 203.0.113.2+179 -&gt; 203.0.113.1+49764
+<a id=__codelineno-26-2 name=__codelineno-26-2></a>BGP SEND message type 2 (Update) length 49
+<a id=__codelineno-26-3 name=__codelineno-26-3></a>BGP SEND Update PDU length 49
+<a id=__codelineno-26-4 name=__codelineno-26-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-26-5 name=__codelineno-26-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 0: &lt;null&gt;
+<a id=__codelineno-26-6 name=__codelineno-26-6></a>BGP SEND flags 0x40 code NextHop(3): 203.0.113.2 length(4)
+<a id=__codelineno-26-7 name=__codelineno-26-7></a>BGP SEND flags 0x40 code LocalPref(5): 100 length(4)
+<a id=__codelineno-26-8 name=__codelineno-26-8></a>End-of-Attributes
+<a id=__codelineno-26-9 name=__codelineno-26-9></a>BGP SEND         192.0.2.3/32
+</code></pre></div></td></tr></table></div> <h2 id=example-4-route-propagation-from-ebgp-r1-to-ibgp-r4>Example 4: Route propagation from eBGP (R1) to iBGP* (R4)<a class=headerlink href=#example-4-route-propagation-from-ebgp-r1-to-ibgp-r4 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via eBGP from R1 to the iBGP peer R4, where R3 applies a local AS private on its iBGP session with R4. R1 advertises its loopback address 192.0.2.1/32 to R3, which then re-advertises the prefix to R4.</p> <p><em>AS path of prefix 192.0.2.1/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-27-1>1</a></span>
+<span class=normal><a href=#__codelineno-27-2>2</a></span>
+<span class=normal><a href=#__codelineno-27-3>3</a></span>
+<span class=normal><a href=#__codelineno-27-4>4</a></span>
+<span class=normal><a href=#__codelineno-27-5>5</a></span>
+<span class=normal><a href=#__codelineno-27-6>6</a></span>
+<span class=normal><a href=#__codelineno-27-7>7</a></span>
+<span class=normal><a href=#__codelineno-27-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-27-1 name=__codelineno-27-1></a>RE3# run show route 192.0.2.1
+<a id=__codelineno-27-2 name=__codelineno-27-2></a>
+<a id=__codelineno-27-3 name=__codelineno-27-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-27-4 name=__codelineno-27-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-27-5 name=__codelineno-27-5></a>
+<a id=__codelineno-27-6 name=__codelineno-27-6></a>192.0.2.1/32       *[BGP/170] 00:01:15, localpref 100
+<a id=__codelineno-27-7 name=__codelineno-27-7></a>                      AS path: 64501 I, validation-state: unverified
+<a id=__codelineno-27-8 name=__codelineno-27-8></a>                    &gt;  to 198.51.100.1 via ge-0/0/0.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.1/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-28-1>1</a></span>
+<span class=normal><a href=#__codelineno-28-2>2</a></span>
+<span class=normal><a href=#__codelineno-28-3>3</a></span>
+<span class=normal><a href=#__codelineno-28-4>4</a></span>
+<span class=normal><a href=#__codelineno-28-5>5</a></span>
+<span class=normal><a href=#__codelineno-28-6>6</a></span>
+<span class=normal><a href=#__codelineno-28-7>7</a></span>
+<span class=normal><a href=#__codelineno-28-8>8</a></span>
+<span class=normal><a href=#__codelineno-28-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-28-1 name=__codelineno-28-1></a>RE3# run show route advertising-protocol bgp 203.0.113.1 192.0.2.1 detail
+<a id=__codelineno-28-2 name=__codelineno-28-2></a>
+<a id=__codelineno-28-3 name=__codelineno-28-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-28-4 name=__codelineno-28-4></a>* 192.0.2.1/32 (1 entry, 1 announced)
+<a id=__codelineno-28-5 name=__codelineno-28-5></a> BGP group r4 type Internal
+<a id=__codelineno-28-6 name=__codelineno-28-6></a>     Nexthop: Self
+<a id=__codelineno-28-7 name=__codelineno-28-7></a>     Flags: Nexthop Change
+<a id=__codelineno-28-8 name=__codelineno-28-8></a>     Localpref: 100
+<a id=__codelineno-28-9 name=__codelineno-28-9></a>     AS path: 64503 64501 I
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.1/32 as seen in the BGP UPDATE message sent to R4:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-29-1> 1</a></span>
+<span class=normal><a href=#__codelineno-29-2> 2</a></span>
+<span class=normal><a href=#__codelineno-29-3> 3</a></span>
+<span class=normal><a href=#__codelineno-29-4> 4</a></span>
+<span class=normal><a href=#__codelineno-29-5> 5</a></span>
+<span class=normal><a href=#__codelineno-29-6> 6</a></span>
+<span class=normal><a href=#__codelineno-29-7> 7</a></span>
+<span class=normal><a href=#__codelineno-29-8> 8</a></span>
+<span class=normal><a href=#__codelineno-29-9> 9</a></span>
+<span class=normal><a href=#__codelineno-29-10>10</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-29-1 name=__codelineno-29-1></a>AS path of prefix 192.0.2.1/32 as seen in the BGP UPDATE message sent to R4:
+<a id=__codelineno-29-2 name=__codelineno-29-2></a>BGP SEND 203.0.113.2+179 -&gt; 203.0.113.1+60754
+<a id=__codelineno-29-3 name=__codelineno-29-3></a>BGP SEND message type 2 (Update) length 59
+<a id=__codelineno-29-4 name=__codelineno-29-4></a>BGP SEND Update PDU length 59
+<a id=__codelineno-29-5 name=__codelineno-29-5></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-29-6 name=__codelineno-29-6></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 10: 64503 64501
+<a id=__codelineno-29-7 name=__codelineno-29-7></a>BGP SEND flags 0x40 code NextHop(3): 203.0.113.2 length(4)
+<a id=__codelineno-29-8 name=__codelineno-29-8></a>BGP SEND flags 0x40 code LocalPref(5): 100 length(4)
+<a id=__codelineno-29-9 name=__codelineno-29-9></a>End-of-Attributes
+<a id=__codelineno-29-10 name=__codelineno-29-10></a>BGP SEND    192.0.2.1/32
+</code></pre></div></td></tr></table></div> <h2 id=example-5-route-propagation-from-ibgp-r5-to-ibgp-r4>Example 5: Route propagation from iBGP (R5) to iBGP* (R4)<a class=headerlink href=#example-5-route-propagation-from-ibgp-r5-to-ibgp-r4 title="Permanent link">&para;</a></h2> <p>This example describes the propagation of routes learned via iBGP from R5 to the iBGP peer R4, where R3 applies a local AS private on its iBGP session with R4. R5 advertises its loopback address 192.0.2.5/32 to R3, which then re-advertises the prefix to R4.</p> <p><em>AS path of prefix 192.0.2.5/32 in the routing table inet.0 on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-30-1>1</a></span>
+<span class=normal><a href=#__codelineno-30-2>2</a></span>
+<span class=normal><a href=#__codelineno-30-3>3</a></span>
+<span class=normal><a href=#__codelineno-30-4>4</a></span>
+<span class=normal><a href=#__codelineno-30-5>5</a></span>
+<span class=normal><a href=#__codelineno-30-6>6</a></span>
+<span class=normal><a href=#__codelineno-30-7>7</a></span>
+<span class=normal><a href=#__codelineno-30-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-30-1 name=__codelineno-30-1></a>RE3# run show route 192.0.2.5
+<a id=__codelineno-30-2 name=__codelineno-30-2></a>
+<a id=__codelineno-30-3 name=__codelineno-30-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-30-4 name=__codelineno-30-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-30-5 name=__codelineno-30-5></a>
+<a id=__codelineno-30-6 name=__codelineno-30-6></a>192.0.2.5/32       *[BGP/170] 19:25:27, localpref 100
+<a id=__codelineno-30-7 name=__codelineno-30-7></a>                      AS path: I, validation-state: unverified
+<a id=__codelineno-30-8 name=__codelineno-30-8></a>                    &gt;  to 203.0.113.5 via ge-0/0/6.0
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.5/32 in the show route advertising-protocol output on R3:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-31-1> 1</a></span>
+<span class=normal><a href=#__codelineno-31-2> 2</a></span>
+<span class=normal><a href=#__codelineno-31-3> 3</a></span>
+<span class=normal><a href=#__codelineno-31-4> 4</a></span>
+<span class=normal><a href=#__codelineno-31-5> 5</a></span>
+<span class=normal><a href=#__codelineno-31-6> 6</a></span>
+<span class=normal><a href=#__codelineno-31-7> 7</a></span>
+<span class=normal><a href=#__codelineno-31-8> 8</a></span>
+<span class=normal><a href=#__codelineno-31-9> 9</a></span>
+<span class=normal><a href=#__codelineno-31-10>10</a></span>
+<span class=normal><a href=#__codelineno-31-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-31-1 name=__codelineno-31-1></a>RE3# run show route advertising-protocol bgp 203.0.113.1 192.0.2.5 detail
+<a id=__codelineno-31-2 name=__codelineno-31-2></a>
+<a id=__codelineno-31-3 name=__codelineno-31-3></a>inet.0: 20 destinations, 20 routes (20 active, 0 holddown, 0 hidden)
+<a id=__codelineno-31-4 name=__codelineno-31-4></a>* 192.0.2.5/32 (1 entry, 1 announced)
+<a id=__codelineno-31-5 name=__codelineno-31-5></a> BGP group r4 type Internal
+<a id=__codelineno-31-6 name=__codelineno-31-6></a>     Nexthop: Self
+<a id=__codelineno-31-7 name=__codelineno-31-7></a>     Flags: Nexthop Change
+<a id=__codelineno-31-8 name=__codelineno-31-8></a>     Localpref: 100
+<a id=__codelineno-31-9 name=__codelineno-31-9></a>     AS path: 64503 I
+<a id=__codelineno-31-10 name=__codelineno-31-10></a>     Cluster ID: 192.0.2.3
+<a id=__codelineno-31-11 name=__codelineno-31-11></a>     Originator ID: 192.0.2.5
+</code></pre></div></td></tr></table></div> <p><em>AS path of prefix 192.0.2.5/32 as seen in the BGP UDPATE message sent to R4:</em></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-32-1> 1</a></span>
+<span class=normal><a href=#__codelineno-32-2> 2</a></span>
+<span class=normal><a href=#__codelineno-32-3> 3</a></span>
+<span class=normal><a href=#__codelineno-32-4> 4</a></span>
+<span class=normal><a href=#__codelineno-32-5> 5</a></span>
+<span class=normal><a href=#__codelineno-32-6> 6</a></span>
+<span class=normal><a href=#__codelineno-32-7> 7</a></span>
+<span class=normal><a href=#__codelineno-32-8> 8</a></span>
+<span class=normal><a href=#__codelineno-32-9> 9</a></span>
+<span class=normal><a href=#__codelineno-32-10>10</a></span>
+<span class=normal><a href=#__codelineno-32-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-32-1 name=__codelineno-32-1></a>BGP SEND 203.0.113.2+179 -&gt; 203.0.113.1+60826
+<a id=__codelineno-32-2 name=__codelineno-32-2></a>BGP SEND message type 2 (Update) length 69
+<a id=__codelineno-32-3 name=__codelineno-32-3></a>BGP SEND Update PDU length 69
+<a id=__codelineno-32-4 name=__codelineno-32-4></a>BGP SEND flags 0x40 code Origin(1): IGP, length(1)
+<a id=__codelineno-32-5 name=__codelineno-32-5></a>BGP SEND flags 0x40 code ASPath(2) (4-byte-cap) length 6: 64503
+<a id=__codelineno-32-6 name=__codelineno-32-6></a>BGP SEND flags 0x40 code NextHop(3): 203.0.113.2 length(4)
+<a id=__codelineno-32-7 name=__codelineno-32-7></a>BGP SEND flags 0x40 code LocalPref(5): 100 length(4)
+<a id=__codelineno-32-8 name=__codelineno-32-8></a>BGP SEND flags 0x80 code Originator_Id(9) 192.0.2.5 length(4)
+<a id=__codelineno-32-9 name=__codelineno-32-9></a>BGP SEND flags 0x80 code Cluster_List(10): length(4) 192.0.2.3
+<a id=__codelineno-32-10 name=__codelineno-32-10></a>End-of-Attributes
+<a id=__codelineno-32-11 name=__codelineno-32-11></a>BGP SEND         192.0.2.5/32
+</code></pre></div></td></tr></table></div> <h2 id=private-local-as-option-behavior-for-an-ibgp-peer>Private local AS Option Behavior for an iBGP Peer<a class=headerlink href=#private-local-as-option-behavior-for-an-ibgp-peer title="Permanent link">&para;</a></h2> <table> <thead> <tr> <th style="text-align: left;">Route Direction(S -&gt; DUT -&gt; D)</th> <th style="text-align: left;">As PathLocal RIB</th> <th style="text-align: left;">AS Path(show adv to "D")</th> <th style="text-align: left;">UPDATE MESSAGEto "D"</th> <th style="text-align: left;">ASPATH_PREPENDby DUT</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">R4 -&gt; R3 -&gt; R1</td> <td style="text-align: left;">I</td> <td style="text-align: left;">[64503] I</td> <td style="text-align: left;">64503 I</td> <td style="text-align: left;">Global-as</td> </tr> <tr> <td style="text-align: left;">R4 -&gt; R3 -&gt; R5</td> <td style="text-align: left;">I</td> <td style="text-align: left;">[64503] I</td> <td style="text-align: left;"><null></td> <td style="text-align: left;"></td> </tr> <tr> <td style="text-align: left;">R3 -&gt; R4</td> <td style="text-align: left;">I</td> <td style="text-align: left;">[65551] I</td> <td style="text-align: left;"><null></td> <td style="text-align: left;"></td> </tr> <tr> <td style="text-align: left;">R1 -&gt; R3 -&gt; R4</td> <td style="text-align: left;">64501 I</td> <td style="text-align: left;">64503 64501 I</td> <td style="text-align: left;">64503 64501 I</td> <td style="text-align: left;">Global-as</td> </tr> <tr> <td style="text-align: left;">R5 -&gt; R3 -&gt; R4</td> <td style="text-align: left;">I</td> <td style="text-align: left;">64503 I</td> <td style="text-align: left;">64503 I</td> <td style="text-align: left;">Global-as</td> </tr> </tbody> </table> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">&para;</a></h2> <p>This article covered the details of <strong>Private Local AS option</strong>, please check the articles in the section below for the other options.</p> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">&para;</a></h2> <p>Local-AS options articles:</p> <ul> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-alias-mode/article>Default</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-alias-mode/article>Alias</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-private-mode/article>Private</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-no-prepend-global-as/article>No-Prepend-Global-AS</a></li> <li><a href=https://techpost.hpe.com/articles/mastering-local-as-private-no-prepend-global-as/article>Private No-Prepend-Global-AS</a></li> </ul> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">&para;</a></h2> <ul> <li>AS(N): Autonomous System (Number)</li> <li>BGP: Border Gateway Protocol</li> <li>DUT: Device Under Test</li> <li>ISP: Internet Service Provider</li> <li>RIB: Routing Information Base</li> </ul> <h2 id=comments>Comments<a class=headerlink href=#comments title="Permanent link">&para;</a></h2> <p>If you want to reach out for comments, feedback or questions, drop us an email at:</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>

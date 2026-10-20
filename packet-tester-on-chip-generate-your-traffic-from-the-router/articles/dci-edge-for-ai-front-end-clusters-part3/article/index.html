@@ -1,0 +1,517 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>DCI Edge for AI Front End Clusters with Juniper PTX - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="DCI Edge for AI Front End Clusters with Juniper PTX"><meta property=og:image content=https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#dci-edge-for-ai-front-end-clusters-with-juniper-ptx class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> DCI Edge for AI Front End Clusters with Juniper PTX </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#north-south-flows class=md-nav__link> <span class=md-ellipsis> North-South Flows </span> </a> </li> <li class=md-nav__item> <a href=#internet-peering-architecture class=md-nav__link> <span class=md-ellipsis> Internet Peering Architecture </span> </a> </li> <li class=md-nav__item> <a href=#security-considerations class=md-nav__link> <span class=md-ellipsis> Security Considerations </span> </a> </li> <li class=md-nav__item> <a href=#option-1-centralized-firewall-placement-at-net-wan-pop class=md-nav__link> <span class=md-ellipsis> Option 1: Centralized Firewall Placement at NET WAN PoP </span> </a> </li> <li class=md-nav__item> <a href=#option-2-local-firewall-placement-at-each-data-center class=md-nav__link> <span class=md-ellipsis> Option 2: Local Firewall Placement at Each Data Center </span> </a> </li> <li class=md-nav__item> <a href=#connecting-tenant-vrfs-to-the-dc-firewall class=md-nav__link> <span class=md-ellipsis> Connecting Tenant VRFs to the DC Firewall </span> </a> <nav class=md-nav aria-label="Connecting Tenant VRFs to the DC Firewall"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#option-1 class=md-nav__link> <span class=md-ellipsis> Option-1 </span> </a> </li> <li class=md-nav__item> <a href=#option-2 class=md-nav__link> <span class=md-ellipsis> Option-2 </span> </a> </li> <li class=md-nav__item> <a href=#option-3 class=md-nav__link> <span class=md-ellipsis> Option-3 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#east-west-flows-dci class=md-nav__link> <span class=md-ellipsis> East-West Flows (DCI) </span> </a> </li> <li class=md-nav__item> <a href=#resiliency-and-redundancy class=md-nav__link> <span class=md-ellipsis> Resiliency and Redundancy </span> </a> </li> <li class=md-nav__item> <a href=#east-west-flows class=md-nav__link> <span class=md-ellipsis> East-West Flows </span> </a> </li> <li class=md-nav__item> <a href=#north-south-flows_1 class=md-nav__link> <span class=md-ellipsis> North-South Flows </span> </a> </li> <li class=md-nav__item> <a href=#bgp-prefix-independent-convergence-pic class=md-nav__link> <span class=md-ellipsis> BGP Prefix-Independent Convergence (PIC) </span> </a> </li> <li class=md-nav__item> <a href=#recommendation class=md-nav__link> <span class=md-ellipsis> Recommendation </span> </a> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful Links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=dci-edge-for-ai-front-end-clusters-with-juniper-ptx>DCI Edge for AI Front End Clusters with Juniper PTX<a class=headerlink href=#dci-edge-for-ai-front-end-clusters-with-juniper-ptx title="Permanent link">&para;</a></h1> <p><strong>Kashif Nawaz - 03/18/2026</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/dci-edge-for-ai-front-end-clusters-part3.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/dci-edge-for-ai-front-end-clusters-part3.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <p>How Juniper PTX routers consolidate tunnel aggregation, DCI, and secure internet edge roles to simplify large-scale AI front-end networking. In this article, we will detail design choices and deployment considerations for using PTX at the DCI edge to provide scalable multi-tenant connectivity for thousands of DPU-based AI nodes.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">&para;</a></h2> <p>In the <a href=https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article>first part of this series</a> was dedicated to architecture and implementation details to build large scale EVPN Type-5 tunnel aggregation solution using Juniper PTX Series Router. In last article of the series, we will detail the remaining parts of the solution, i.e.</p> <ul> <li>East-West Connectivity</li> <li>North Bound Connectivity</li> </ul> <p>We will use different terms during the solution description, so let's agree at high-level what terms and definitions would be interchangeably used.</p> <ul> <li><strong>East-West Connectivity</strong> will be used to describe cross data center flows which is also called Data Center Interconnect (DCI).</li> <li><strong>North Bound Connectivity</strong> or North-South flows will be used to describe inbound/outbound internet and public access for tenant workloads.</li> <li><strong>Tunnel Aggregator</strong> or DCI Edge Router are the same device i.e. Juniper PTX Routers.</li> </ul> <p><img alt src=../images/picture3.png></p> <p>As per our experience with different customers, majority (~ 80-85%) of overall traffic is East-West between data centers while ~15-20% traffic volumes belong to North-South flows. All these traffic flows, i.e. North-South and East-West, are routed/controlled via Juniper PTX based Tunnel Aggregator, reinforcing our notion of dual-role purpose that we explored in <a href=https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article>Part 2.</a></p> <h2 id=north-south-flows>North-South Flows<a class=headerlink href=#north-south-flows title="Permanent link">&para;</a></h2> <p>In Tunnel Aggregator, multi-tenancy is implemented by provisioning 2 dedicated VRFs for each tenant: TENANT_X_MGMT_VRF and TENANT_X_FE_VRF where X denotes the tenant number/id. We have already discussed this dual VRF model in Part 2. Now in this blog, we are looking to provide public connectivity to tenant workloads (inbound and outbound) but we still need to maintain isolation between tenants in multi-tenancy environment.</p> <p><img alt src=../images/picture4.png></p> <p>TENANT workloads that have been assigned public IP addresses are much easier to get onto the Internet. Public IP addresses on tenant workloads are not the common case in enterprise environment. A Network Address Translation (NAT) functionality will be required:</p> <ul> <li>To translate public IP addresses into private IP addresses for inbound/ingress traffic flows</li> <li>To translate internal private IP addresses on the TENANT_X_FE_VRF and TENANT_X_MGMT_VRFs into public IP addresses for outbound/ egress traffic flows.</li> </ul> <p>Regardless of whether the workloads are using public or private IP addresses on the tenant side, workloads VRF and management fabric VRF will always require a default route for North-South connectivity.</p> <h2 id=internet-peering-architecture>Internet Peering Architecture<a class=headerlink href=#internet-peering-architecture title="Permanent link">&para;</a></h2> <p>Enterprises relies on transit internet providers for a full internet feed. It is common practice to establish multiple transit peering connections for redundancy and throughput needs. With 100G and 400G link speeds now being the norm, these transit peering connections are terminated on dedicated enterprise internet peering routers.</p> <p>Network WAN Points of Presence (NET WAN PoPs), typically housed in co-location facilities, are the ideal placement for internet peering routers where transit connections are terminated. Data centers and compute facilities that require internet access are then connected to the nearest NET WAN PoP. To ensure high availability and redundancy, each data center and compute facility maintains connectivity to multiple NET WAN PoPs: in case of failure, internet access is preserved without disruption.</p> <p><img alt src=../images/picture5.png></p> <h2 id=security-considerations>Security Considerations<a class=headerlink href=#security-considerations title="Permanent link">&para;</a></h2> <p>The threats and attacks coming from the Internet have also to be walled out from the internal compute, storage and network infrastructure. It requires the deployment of network firewalls and other security paraphernalia like Distributed Denial of Service (DDoS) mitigation solutions. End-to-end security posture/solution against multi-faceted cyber threats is not in scope of this tech post.</p> <p>However, we will thoroughly cover network firewall placement and selective traffic flows routing via network firewall as we need Network Address Translation (NAT) functionality for North-South flows.</p> <p>Network firewall placement is a design choice where different scenarios have been considered:</p> <ul> <li>Firewall placement in NET WAN PoPs allows one firewall cluster to serve the entire geographical region, thus saving infrastructural cost.</li> <li>Firewall placement in each data center / compute facility provides better scalability and control.</li> </ul> <p>Juniper SRX series is an industry leading firewall which offers carrier grade routing, with all required security features. To learn more about SRX security features, please visit our public <a href=https://www.juniper.net/documentation/us/en/software/junos/security-policies/topics/topic-map/security-zone-configuration.html>documentation</a>. It also supports <a href=https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article>EVPN Type-5 signaling and VxLAN</a> forwarding which is an important construct for firewall integration with DCI edge router (to be discussed in the upcoming section).</p> <p>Besides securing network perimeter and compute facilities using network firewalls and DDoS mitigation, MACSec is an important feature for securing data transportation in both directions (East-West and North-South flows). To learn about MACSec implementation in Junos/EVO, we invite you to check the public <a href=https://www.juniper.net/documentation/us/en/software/junos/security-services/topics/task/macsec.html>documentation</a>.</p> <h2 id=option-1-centralized-firewall-placement-at-net-wan-pop>Option 1: Centralized Firewall Placement at NET WAN PoP<a class=headerlink href=#option-1-centralized-firewall-placement-at-net-wan-pop title="Permanent link">&para;</a></h2> <p>The firewall is deployed in the regional NET WAN PoP where Internet transit peering is terminated over a peering router directly connected to the firewall. The connection between the peering router and the firewall uses public IP space. The firewall connects to the Provider Edge routers in the WAN PoP, with the possibility of inserting the switching layer within the WAN PoP for between-tiers connectivity.</p> <ul> <li>The peering router gets the full internet routing table from the transit providers and advertises a default route to the firewall.</li> <li>The firewall propagates this default route to the WAN PoP PE routers which advertise it to all the data centers and compute facilities that it peers with.</li> <li>The default route is received on the DCI edge routers and each VRF, namely TENANT_X_FE_VRF, and TENANT_X_MGMT_VRF gets the route by matching the import, Route Target.</li> </ul> <p><img alt src=../images/picture6.png></p> <p>While this architecture provides advantage by reducing cost, maintaining strict multi-tenancy at scale in this model is problematic. Hence, NAT function is performed in regional NET WAN PoP firewall. Keeping all the tenant VRFs mapped and managed uniformly across DCI edge router, WAN PoP PE and WAN PoP firewall is an administratively burdensome task.</p> <h2 id=option-2-local-firewall-placement-at-each-data-center>Option 2: Local Firewall Placement at Each Data Center<a class=headerlink href=#option-2-local-firewall-placement-at-each-data-center title="Permanent link">&para;</a></h2> <p>The most practical option for large-scale multi-tenant environments is to position a dedicated firewall in each data center / compute facility. This greatly simplifies the NET WAN PoP architecture. Rather than having multiple network layers in the WAN PoP, internet peering routers can also act as the NET WAN PoP PE routers.</p> <p>The WAN NET PoP PE and peering router terminate all Internet Transit Peering connections within a dedicated VRF (PUBLIC_VRF) and advertises either the full Internet routing table or just the default route to each Datacenter / Compute Facility.</p> <p>We will use the term Data Center (DC) Firewall in subsequent paragraphs to refer to this design approach.</p> <p><img alt src=../images/picture7.png></p> <p>On the DCI edge router, it is generally recommended to have a PUBLIC_VRF where default route internet feed coming from the WAN POP PE will be received.</p> <p>The PUBLIC_VRF has direct connectivity to the data center firewall. The link between the DCI edge PUBLIC_VRF and data center firewall will be on a public routable IP subnet. The firewall will have public routable subnets for the NAT, that can be used for the inside to outside traffic, as well as the outside to inside traffic for every tenant. Covering details of different types of NAT is not in scope of this post.</p> <p>The data center firewall advertises the public routable (NAT) prefix to the PUBLIC_VRF in the DCI edge router, and the PUBLIC_VRF on the DCI edge router advertises the 0.0.0.0/0 default route back to the firewall.</p> <h2 id=connecting-tenant-vrfs-to-the-dc-firewall>Connecting Tenant VRFs to the DC Firewall<a class=headerlink href=#connecting-tenant-vrfs-to-the-dc-firewall title="Permanent link">&para;</a></h2> <p>Having established the PUBLIC_VRF design on the DCI edge router and the role of the DC Firewall, it is now important to discuss how individual tenant VRFs on the DCI edge router and tunnel aggregator are connected to the firewall. Several options are available for this connectivity.</p> <ul> <li><strong>Option-1</strong>: Using a single eBGP Session between DC Firewall and DCI Edge router in inet.0 routing table and route leaking from and to tenant VRFs inside DCI Edge Router.</li> <li><strong>Option-2</strong>: Multiple eBGP sessions between DC Firewall and DCI Edge router, one per tenant.</li> <li><strong>Option-3</strong>: Using a single eBGP Session (EVPN signaling) to exchange EVPN Type-5 routes between DC Firewall and DCI Edge router.</li> </ul> <h3 id=option-1>Option-1<a class=headerlink href=#option-1 title="Permanent link">&para;</a></h3> <p>This option requires an eBGP session from DC firewall and DCI edge in the inet.0 routing table and advertising a default route 0.0.0.0/0 from the DC firewall towards DCI edge router.</p> <p><img alt src=../images/picture8.png></p> <p>In the tunnel aggregator, each tenant prefixes are required to be leaked from tenant VRF to the inet.0 and then further redistribution towards DC Firewall over eBGP session. Furthermore, default route 0/0 received from DC Firewall is required to leak into each tenant along with interface route (connecting DCI Edge router and DC Firewall). Auto-Export RIB-Group (import-rib) along with the import-policy are very useful constructs for this route leaking.</p> <p>However, this method breaks multi-tenancy as all tenant routes are leaked to inet.0 (default routing table) and then to firewall over same eBGP session, there is possibility that tenant can reach each other workloads. This is a major issue in a multi-tenant environment that requires complete isolation.</p> <h3 id=option-2>Option-2<a class=headerlink href=#option-2 title="Permanent link">&para;</a></h3> <p>This option maintains multi-tenancy by having a separate routing instance on the DC firewall for each tenant, and then Inter-AS Option-A between each tenant routing instance on the DC firewall and each corresponding tenant VRF on the DCI edge router. This provides isolation for each tenant, but a tremendous amount of administration. Each tenant would get IP connectivity between DC firewall and the DCI edge router and then separate eBGP sessions for the Inter-AS Option-A handoff. This would be administratively quite complex as tenant numbers grow.</p> <p><img alt src=../images/picture9.png></p> <h3 id=option-3>Option-3<a class=headerlink href=#option-3 title="Permanent link">&para;</a></h3> <p>The third option is the most elegant, where routes between DC Firewall and DCI Edge router are exchanged over single eBGP session using EVPN signaling.</p> <p><img alt src=../images/picture10.png></p> <p>Tenant VRFs routes are advertised from tunnel aggregator towards firewall over single BGP sessions as EVPN Type-5 routes. These routes carry the necessary VNI and Route Target per tenant as BGP communities. Some additional config is needed on each router in the VRF via the protocol <strong>evpn</strong> interconnect stanza. This config will replace the router-mac community of routes received from DPUs with the tunnel aggregator router-mac while sending those routes towards firewall.</p> <p>All config and outputs presented in this section are validated in PTX-10001-36MR running Junos 25.2R1-S2.3-EVO.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1>1</a></span>
+<span class=normal><a href=#__codelineno-0-2>2</a></span>
+<span class=normal><a href=#__codelineno-0-3>3</a></span>
+<span class=normal><a href=#__codelineno-0-4>4</a></span>
+<span class=normal><a href=#__codelineno-0-5>5</a></span>
+<span class=normal><a href=#__codelineno-0-6>6</a></span>
+<span class=normal><a href=#__codelineno-0-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>TAN_1_FE_VRF {
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>    instance-type vrf;
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>    protocols {
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>        evpn {
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>            interconnect {
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>                vrf-target target:1:2000;
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>                route-distinguisher 10.20.0.78:2000;
+</code></pre></div></td></tr></table></div> <p>Firewall will import routes to the desired tenant routing instance by matching the Route Target and thus maintaining strict per-tenant isolation and without requiring separate BGP sessions per tenant.</p> <p>We have also added family route-target in BGP config between Firewall and Tunnel Aggregator which ensures that opposite peer will send only those routes whose route-target is already configured on receiver side thus controlling un-necessary control plane route flooding.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1> 1</a></span>
+<span class=normal><a href=#__codelineno-1-2> 2</a></span>
+<span class=normal><a href=#__codelineno-1-3> 3</a></span>
+<span class=normal><a href=#__codelineno-1-4> 4</a></span>
+<span class=normal><a href=#__codelineno-1-5> 5</a></span>
+<span class=normal><a href=#__codelineno-1-6> 6</a></span>
+<span class=normal><a href=#__codelineno-1-7> 7</a></span>
+<span class=normal><a href=#__codelineno-1-8> 8</a></span>
+<span class=normal><a href=#__codelineno-1-9> 9</a></span>
+<span class=normal><a href=#__codelineno-1-10>10</a></span>
+<span class=normal><a href=#__codelineno-1-11>11</a></span>
+<span class=normal><a href=#__codelineno-1-12>12</a></span>
+<span class=normal><a href=#__codelineno-1-13>13</a></span>
+<span class=normal><a href=#__codelineno-1-14>14</a></span>
+<span class=normal><a href=#__codelineno-1-15>15</a></span>
+<span class=normal><a href=#__codelineno-1-16>16</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>bgp {
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>group FW_OVERLAY {
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>        multihop {
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>            ttl 1;
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>        }
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>        family evpn {
+<a id=__codelineno-1-7 name=__codelineno-1-7></a>            signaling;
+<a id=__codelineno-1-8 name=__codelineno-1-8></a>        }
+<a id=__codelineno-1-9 name=__codelineno-1-9></a>        family route-target;
+<a id=__codelineno-1-10 name=__codelineno-1-10></a>
+<a id=__codelineno-1-11 name=__codelineno-1-11></a>routing-options {
+<a id=__codelineno-1-12 name=__codelineno-1-12></a>    resolution {
+<a id=__codelineno-1-13 name=__codelineno-1-13></a>        rib bgp.rtarget.0 {
+<a id=__codelineno-1-14 name=__codelineno-1-14></a>            resolution-ribs inet.0;
+<a id=__codelineno-1-15 name=__codelineno-1-15></a>        }
+<a id=__codelineno-1-16 name=__codelineno-1-16></a>    }
+</code></pre></div></td></tr></table></div> <p>Hence, there will be more than one tunnel aggregator which requires the following config to be added in each tunnel aggregator.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span>
+<span class=normal><a href=#__codelineno-2-2>2</a></span>
+<span class=normal><a href=#__codelineno-2-3>3</a></span>
+<span class=normal><a href=#__codelineno-2-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>protocols {
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>evpn {
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>        interconnect-multihoming-peer-gateways x.x.x.x;
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>    }
+</code></pre></div></td></tr></table></div> <p>Let's verify some control plane exchanges. First, we will verify the EVPN Type-5 route sent by a DPU hosted (virtual router) is received and installed into a tenant VRF, on the tunnel aggregator. We can see that an EVPN Type-5 prefix is received and installed, and it has <strong>router-mac:9c:5a:80:30:d6:66</strong> community attached to it.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1> 1</a></span>
+<span class=normal><a href=#__codelineno-3-2> 2</a></span>
+<span class=normal><a href=#__codelineno-3-3> 3</a></span>
+<span class=normal><a href=#__codelineno-3-4> 4</a></span>
+<span class=normal><a href=#__codelineno-3-5> 5</a></span>
+<span class=normal><a href=#__codelineno-3-6> 6</a></span>
+<span class=normal><a href=#__codelineno-3-7> 7</a></span>
+<span class=normal><a href=#__codelineno-3-8> 8</a></span>
+<span class=normal><a href=#__codelineno-3-9> 9</a></span>
+<span class=normal><a href=#__codelineno-3-10>10</a></span>
+<span class=normal><a href=#__codelineno-3-11>11</a></span>
+<span class=normal><a href=#__codelineno-3-12>12</a></span>
+<span class=normal><a href=#__codelineno-3-13>13</a></span>
+<span class=normal><a href=#__codelineno-3-14>14</a></span>
+<span class=normal><a href=#__codelineno-3-15>15</a></span>
+<span class=normal><a href=#__codelineno-3-16>16</a></span>
+<span class=normal><a href=#__codelineno-3-17>17</a></span>
+<span class=normal><a href=#__codelineno-3-18>18</a></span>
+<span class=normal><a href=#__codelineno-3-19>19</a></span>
+<span class=normal><a href=#__codelineno-3-20>20</a></span>
+<span class=normal><a href=#__codelineno-3-21>21</a></span>
+<span class=normal><a href=#__codelineno-3-22>22</a></span>
+<span class=normal><a href=#__codelineno-3-23>23</a></span>
+<span class=normal><a href=#__codelineno-3-24>24</a></span>
+<span class=normal><a href=#__codelineno-3-25>25</a></span>
+<span class=normal><a href=#__codelineno-3-26>26</a></span>
+<span class=normal><a href=#__codelineno-3-27>27</a></span>
+<span class=normal><a href=#__codelineno-3-28>28</a></span>
+<span class=normal><a href=#__codelineno-3-29>29</a></span>
+<span class=normal><a href=#__codelineno-3-30>30</a></span>
+<span class=normal><a href=#__codelineno-3-31>31</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>DUT&gt;  show bgp summary group tan_overlay 
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>10.38.96.16           65101      27407      27038       0       0 1w1d 15:39:32 Establ
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>  bgp.evpn.0: 2/2/2/0
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>  TAN_1_FE_VRF.evpn.0: 2/2/2/0
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>  TAN_1_MGMT_VRF.evpn.0: 2/2/2/0
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>10.187.0.76           65103      13092      12906       0       0  4d 3:09:26 Establ
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>  bgp.evpn.0: 2/2/2/0
+<a id=__codelineno-3-10 name=__codelineno-3-10></a>  TAN_2_FE_VRF.evpn.0: 2/2/2/0
+<a id=__codelineno-3-11 name=__codelineno-3-11></a>
+<a id=__codelineno-3-12 name=__codelineno-3-12></a>DUT&gt; show route receive-protocol bgp 10.38.96.16 table TAN_1_FE_VRF.evpn.0 
+<a id=__codelineno-3-13 name=__codelineno-3-13></a>
+<a id=__codelineno-3-14 name=__codelineno-3-14></a>TAN_1_FE_VRF.evpn.0: 7 destinations, 7 routes (7 active, 0 holddown, 0 hidden)
+<a id=__codelineno-3-15 name=__codelineno-3-15></a>  Prefix                  Nexthop              MED     Lclpref    AS path
+<a id=__codelineno-3-16 name=__codelineno-3-16></a>  5:10.38.96.16:200::0::192.168.254.3::32/248                   
+<a id=__codelineno-3-17 name=__codelineno-3-17></a>*                         10.38.96.16                             65101 65006 I
+<a id=__codelineno-3-18 name=__codelineno-3-18></a>  5:10.38.96.16:200::0::2001::100::128/248                   
+<a id=__codelineno-3-19 name=__codelineno-3-19></a>*                         10.38.96.16                             65101 65006 I
+<a id=__codelineno-3-20 name=__codelineno-3-20></a>
+<a id=__codelineno-3-21 name=__codelineno-3-21></a>DUT&gt; show route receive-protocol bgp 10.38.96.16 table TAN_1_FE_VRF.evpn.0 match-prefix 5:10.38.96.16:200::0::192.168.254.3::32/248 extensive
+<a id=__codelineno-3-22 name=__codelineno-3-22></a>
+<a id=__codelineno-3-23 name=__codelineno-3-23></a>TAN_1_FE_VRF.evpn.0: 7 destinations, 7 routes (7 active, 0 holddown, 0 hidden)
+<a id=__codelineno-3-24 name=__codelineno-3-24></a>* 5:10.38.96.16:200::0::192.168.254.3::32/248 (1 entry, 1 announced)
+<a id=__codelineno-3-25 name=__codelineno-3-25></a>     Import Accepted
+<a id=__codelineno-3-26 name=__codelineno-3-26></a>     Route Distinguisher: 10.38.96.16:200
+<a id=__codelineno-3-27 name=__codelineno-3-27></a>     Route Label: 200
+<a id=__codelineno-3-28 name=__codelineno-3-28></a>     Overlay gateway address: 0.0.0.0
+<a id=__codelineno-3-29 name=__codelineno-3-29></a>     Nexthop: 10.38.96.16
+<a id=__codelineno-3-30 name=__codelineno-3-30></a>     AS path: 65101 65006 I 
+<a id=__codelineno-3-31 name=__codelineno-3-31></a>     Communities: target:2:200 encapsulation:vxlan(0x8) router-mac:9c:5a:80:30:d6:66
+</code></pre></div></td></tr></table></div> <p>Now let's verify same route is sent to DC Firewall as the EVPN Type-5 route while the tunnel aggregator has replaced router-mac community <strong>i.e router-mac:9c:5a:80:30:a9:66</strong> which is different than router-mac community received from DPU hosted software router.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1> 1</a></span>
+<span class=normal><a href=#__codelineno-4-2> 2</a></span>
+<span class=normal><a href=#__codelineno-4-3> 3</a></span>
+<span class=normal><a href=#__codelineno-4-4> 4</a></span>
+<span class=normal><a href=#__codelineno-4-5> 5</a></span>
+<span class=normal><a href=#__codelineno-4-6> 6</a></span>
+<span class=normal><a href=#__codelineno-4-7> 7</a></span>
+<span class=normal><a href=#__codelineno-4-8> 8</a></span>
+<span class=normal><a href=#__codelineno-4-9> 9</a></span>
+<span class=normal><a href=#__codelineno-4-10>10</a></span>
+<span class=normal><a href=#__codelineno-4-11>11</a></span>
+<span class=normal><a href=#__codelineno-4-12>12</a></span>
+<span class=normal><a href=#__codelineno-4-13>13</a></span>
+<span class=normal><a href=#__codelineno-4-14>14</a></span>
+<span class=normal><a href=#__codelineno-4-15>15</a></span>
+<span class=normal><a href=#__codelineno-4-16>16</a></span>
+<span class=normal><a href=#__codelineno-4-17>17</a></span>
+<span class=normal><a href=#__codelineno-4-18>18</a></span>
+<span class=normal><a href=#__codelineno-4-19>19</a></span>
+<span class=normal><a href=#__codelineno-4-20>20</a></span>
+<span class=normal><a href=#__codelineno-4-21>21</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>DUT&gt; show bgp summary group FW_OVERLAY 
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
+<a id=__codelineno-4-4 name=__codelineno-4-4></a>10.38.96.18           65102       2073       2027       0       1    15:35:07 Establ
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>  bgp.rtarget.0: 2/2/2/0
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>  bgp.evpn.0: 2/2/2/0
+<a id=__codelineno-4-7 name=__codelineno-4-7></a>  TAN_1_FE_VRF.evpn.0: 2/2/2/0
+<a id=__codelineno-4-8 name=__codelineno-4-8></a>  TAN_1_MGMT_VRF.evpn.0: 1/1/1/0
+<a id=__codelineno-4-9 name=__codelineno-4-9></a>
+<a id=__codelineno-4-10 name=__codelineno-4-10></a>DUT&gt; show route advertising-protocol bgp 10.38.96.18 table TAN_1_FE_VRF.evpn.0 match-prefix 5:10.187.0.78:2000::0::192.168.254.3::32/248 extensive 
+<a id=__codelineno-4-11 name=__codelineno-4-11></a>
+<a id=__codelineno-4-12 name=__codelineno-4-12></a>TAN_1_FE_VRF.evpn.0: 7 destinations, 7 routes (7 active, 0 holddown, 0 hidden)
+<a id=__codelineno-4-13 name=__codelineno-4-13></a>* 5:10.187.0.78:2000::0::192.168.254.3::32/248 (1 entry, 1 announced)
+<a id=__codelineno-4-14 name=__codelineno-4-14></a> BGP group FW_OVERLAY type External
+<a id=__codelineno-4-15 name=__codelineno-4-15></a>     Route Distinguisher: 10.20.0.78:2000
+<a id=__codelineno-4-16 name=__codelineno-4-16></a>     Route Label: 200
+<a id=__codelineno-4-17 name=__codelineno-4-17></a>     Overlay gateway address: 0.0.0.0
+<a id=__codelineno-4-18 name=__codelineno-4-18></a>     Nexthop: Self
+<a id=__codelineno-4-19 name=__codelineno-4-19></a>     Flags: Nexthop Change
+<a id=__codelineno-4-20 name=__codelineno-4-20></a>     AS path: [64980] 65101 65006 I 
+<a id=__codelineno-4-21 name=__codelineno-4-21></a>     Communities: 65000:201 target:1:2000 encapsulation:vxlan(0x8) router-mac:9c:5a:80:30:a9:66
+</code></pre></div></td></tr></table></div> <h2 id=east-west-flows-dci>East-West Flows (DCI)<a class=headerlink href=#east-west-flows-dci title="Permanent link">&para;</a></h2> <p>So far, we have discussed North-South traffic and different options for DC firewall integration with DCI edge router. This section will focus on East-West traffic, i.e. Data Center Interconnect (DCI).</p> <p>There are many choices for signaling and transport protocols for DCI. The choices range from L3VPN with RSVP-TE based traffic engineering and MPLS forwarding to EVPN stitching between data center sites with MPLS or VXLAN forwarding, and some customers have adopted SRv6 as well. Here, we will look at the L3VPN architecture which uses MP-iBGP for routing information exchange (IP-VPN IPv4 and IPv6 prefixes) while RSVP-TE is used for LSP signaling with MPLS label-based forwarding.</p> <p><img alt src=../images/picture11.png></p> <p>A key capability enabled in this design is <strong>auto-bandwidth adjustment</strong> which allows LSPs to dynamically adjust their reserved bandwidth based on actual traffic demand. When the required bandwidth is unavailable on the current path, the LSP is re-signaled to an alternate path where sufficient capacity exists, and traffic is shifted in a make-before-break fashion to ensure no packet loss during the transition.</p> <p>Complementing auto-bandwidth, Container LSPs automate the creation and pruning of LSPs based on real-time traffic needs. This gives the ingress router enough parallel LSPs to perform equal-cost multipath (ECMP) load balancing toward an egress router, maximizing utilization of available capacity across all paths. In addition to bandwidth management and traffic engineering (TE), two additional features can be incorporated to further enhance TE posture.</p> <ul> <li><strong>Class-Based Forwarding</strong> (CBF) to segregate delay-sensitive traffic and send it over premium-grade paths.</li> <li><strong>Class of Service</strong> (CoS) with Weighted Round Robin (WRR) for congestion management during peak utilization of the links.</li> </ul> <p>All these topics require a complete book to cover all the theoretical base and implementation details. Fortunately, I have written 5 detailed articles on each of these topics.</p> <ul> <li><a href=https://techpost.hpe.com/articles/large-enterprises-wan-landscape-in-ai-era/article>Large Enterprises WAN Landscape in AI Era</a></li> <li><a href=https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article>Adaptive Resource Control in TE Networks</a></li> <li><a href=https://techpost.hpe.com/articles/adaptive-resource-control-with-container-lsps/article>Adaptive Resource Control with Container LSPs</a></li> <li><a href=https://techpost.hpe.com/articles/wholistic-design-approach-for-mpls-backbone-cos/article>Wholistic Design Approach for MPLS Backbone CoS</a></li> <li><a href=https://techpost.hpe.com/articles/class-based-forwarding-over-rsvp-lsps-design/article>Class-Based Forwarding over RSVP LSPs Design</a></li> </ul> <h2 id=resiliency-and-redundancy>Resiliency and Redundancy<a class=headerlink href=#resiliency-and-redundancy title="Permanent link">&para;</a></h2> <p>Relying only on physical layer resiliency and redundancy is not enough to design carrier grade DCI / North Bound connectivity. Routing infrastructure resiliency and redundancy within single DCI / tunnel aggregator device is also crucial. Having resilient and redundant routing infrastructure inside each DCI / tunnel aggregator device will ensure that any catastrophic event should not disrupt ongoing traffic flows, or disruption should be minimal if at all unavoidable.</p> <p>Before going into implementation details and verification, let's understand one important concept. Junos/ EVO assigns relative weight to each Next-hop (NH) while installing it in Forwarding Information Base (FIB) and any NH's assigned weight will decide if it is available for active traffic forwarding. Some of the NH used by Junos/EVO are described below:</p> <ul> <li><strong>Weight 0x1</strong>: It depicts primary NH and will be used for active forwarding.</li> <li><strong>Weight 0x4000</strong>: It depicts a backup path and will be used once primary NH fails.</li> <li><strong>Weight 0x8001</strong>: It depicts bypass LSP NH and will be used for active forwarding if primary fails.</li> </ul> <p>All config and outputs presented in this section are validated in PTX-10001-36MR running Junos 23.4R2-S5.4-EVO.</p> <h2 id=east-west-flows>East-West Flows<a class=headerlink href=#east-west-flows title="Permanent link">&para;</a></h2> <p>If multiple egress PEs are available then East-West flows should be sent towards all egress PE to optimize the inter-DC links utilization. On a standard DCI (MPLS backbone) setup, many remote PE routers may advertise the same prefix. In this case, BGP route resolution (Junos feature) uses the IGP metric to the protocol next hop (which is the remote PE loopback) as a tiebreaker to choose one PE over the others. What ends up happening is that only one PE is chosen as the active next hop with the lowest IGP cost, and all other next hops for the same prefix remain in the RIB and are not used or programmed into the FIB.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span>
+<span class=normal><a href=#__codelineno-5-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>State: &lt;Secondary NotBest Int Ext ProtectionCand&gt;
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>                Inactive reason: Not Best in its group - IGP metric
+</code></pre></div></td></tr></table></div> <p>Even if multipath is enabled at VRF level, if IGP metrics to the remote PE loopbacks are not equal, the stricter path selection rules will cause the higher metric PEs to be completely excluded from the forwarding table, leaving the real inter-DC bandwidth unused and failover dependent on BGP reconvergence. Adding <strong>vpn-unequal-cost</strong> to the tenant VRF routing options overrides this behavior.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span>
+<span class=normal><a href=#__codelineno-6-3>3</a></span>
+<span class=normal><a href=#__codelineno-6-4>4</a></span>
+<span class=normal><a href=#__codelineno-6-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>  routing-instances
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>              abc  {
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>                   routing-options {
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>                            multipath {
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>                                 vpn-unequal-cost;
+</code></pre></div></td></tr></table></div> <p>The above configuration enables protocol independent load balancing for L3 VPN and once enabled, ingress PE router can receive and install routes from multiple remote PEs into RIB and FIB regardless of the IGP metric associated with the remote PE's loopback address. A routing policy with a load-balance per-flow knob needs to be applied under a forwarding table as well.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1> 1</a></span>
+<span class=normal><a href=#__codelineno-7-2> 2</a></span>
+<span class=normal><a href=#__codelineno-7-3> 3</a></span>
+<span class=normal><a href=#__codelineno-7-4> 4</a></span>
+<span class=normal><a href=#__codelineno-7-5> 5</a></span>
+<span class=normal><a href=#__codelineno-7-6> 6</a></span>
+<span class=normal><a href=#__codelineno-7-7> 7</a></span>
+<span class=normal><a href=#__codelineno-7-8> 8</a></span>
+<span class=normal><a href=#__codelineno-7-9> 9</a></span>
+<span class=normal><a href=#__codelineno-7-10>10</a></span>
+<span class=normal><a href=#__codelineno-7-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>policy-statement ecmp {
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>        then {
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>            load-balance per-flow;
+<a id=__codelineno-7-4 name=__codelineno-7-4></a>        }
+<a id=__codelineno-7-5 name=__codelineno-7-5></a>    }
+<a id=__codelineno-7-6 name=__codelineno-7-6></a>routing-options {
+<a id=__codelineno-7-7 name=__codelineno-7-7></a>
+<a id=__codelineno-7-8 name=__codelineno-7-8></a>    forwarding-table {
+<a id=__codelineno-7-9 name=__codelineno-7-9></a>        export ecmp;
+<a id=__codelineno-7-10 name=__codelineno-7-10></a>    }
+<a id=__codelineno-7-11 name=__codelineno-7-11></a>}
+</code></pre></div></td></tr></table></div> <p>Traffic flows from ingress PE to multiple egress PEs will be load balanced across all unequal cost multipaths (ECMPs) regardless of the differences in IGP metric to remote PE. This provides full utilization of all DCI bandwidth under normal conditions and enables much faster convergence in the event of a PE or LSP failure, since the pre-computed multiple NHs are already installed in the FIB.</p> <p>In the below snippet, we can see that a prefix 172.172.0.0/16 is installed with multiple active next-hops.</p> <ul> <li>DC1-PE1-DC2-PE-1-CONTAINER-1, Protocol Next-Hop 10.10.28.85 (<strong>metric 210</strong>)</li> <li>DC1-PE1-DC2-PE-2-CONTAINER-1, Protocol Next-Hop 10.10.0.78 (<strong>metric 2100</strong>)</li> </ul> <p>It is because, vpn-unequal-cost is configured under multipath inside VRF which ignores the IGP metrics of remote PEs loopback address (resolver address) and installs all unequal cost routes in RIB and FIB. Traffic will be load balanced over thiese next-hops.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1> 1</a></span>
+<span class=normal><a href=#__codelineno-8-2> 2</a></span>
+<span class=normal><a href=#__codelineno-8-3> 3</a></span>
+<span class=normal><a href=#__codelineno-8-4> 4</a></span>
+<span class=normal><a href=#__codelineno-8-5> 5</a></span>
+<span class=normal><a href=#__codelineno-8-6> 6</a></span>
+<span class=normal><a href=#__codelineno-8-7> 7</a></span>
+<span class=normal><a href=#__codelineno-8-8> 8</a></span>
+<span class=normal><a href=#__codelineno-8-9> 9</a></span>
+<span class=normal><a href=#__codelineno-8-10>10</a></span>
+<span class=normal><a href=#__codelineno-8-11>11</a></span>
+<span class=normal><a href=#__codelineno-8-12>12</a></span>
+<span class=normal><a href=#__codelineno-8-13>13</a></span>
+<span class=normal><a href=#__codelineno-8-14>14</a></span>
+<span class=normal><a href=#__codelineno-8-15>15</a></span>
+<span class=normal><a href=#__codelineno-8-16>16</a></span>
+<span class=normal><a href=#__codelineno-8-17>17</a></span>
+<span class=normal><a href=#__codelineno-8-18>18</a></span>
+<span class=normal><a href=#__codelineno-8-19>19</a></span>
+<span class=normal><a href=#__codelineno-8-20>20</a></span>
+<span class=normal><a href=#__codelineno-8-21>21</a></span>
+<span class=normal><a href=#__codelineno-8-22>22</a></span>
+<span class=normal><a href=#__codelineno-8-23>23</a></span>
+<span class=normal><a href=#__codelineno-8-24>24</a></span>
+<span class=normal><a href=#__codelineno-8-25>25</a></span>
+<span class=normal><a href=#__codelineno-8-26>26</a></span>
+<span class=normal><a href=#__codelineno-8-27>27</a></span>
+<span class=normal><a href=#__codelineno-8-28>28</a></span>
+<span class=normal><a href=#__codelineno-8-29>29</a></span>
+<span class=normal><a href=#__codelineno-8-30>30</a></span>
+<span class=normal><a href=#__codelineno-8-31>31</a></span>
+<span class=normal><a href=#__codelineno-8-32>32</a></span>
+<span class=normal><a href=#__codelineno-8-33>33</a></span>
+<span class=normal><a href=#__codelineno-8-34>34</a></span>
+<span class=normal><a href=#__codelineno-8-35>35</a></span>
+<span class=normal><a href=#__codelineno-8-36>36</a></span>
+<span class=normal><a href=#__codelineno-8-37>37</a></span>
+<span class=normal><a href=#__codelineno-8-38>38</a></span>
+<span class=normal><a href=#__codelineno-8-39>39</a></span>
+<span class=normal><a href=#__codelineno-8-40>40</a></span>
+<span class=normal><a href=#__codelineno-8-41>41</a></span>
+<span class=normal><a href=#__codelineno-8-42>42</a></span>
+<span class=normal><a href=#__codelineno-8-43>43</a></span>
+<span class=normal><a href=#__codelineno-8-44>44</a></span>
+<span class=normal><a href=#__codelineno-8-45>45</a></span>
+<span class=normal><a href=#__codelineno-8-46>46</a></span>
+<span class=normal><a href=#__codelineno-8-47>47</a></span>
+<span class=normal><a href=#__codelineno-8-48>48</a></span>
+<span class=normal><a href=#__codelineno-8-49>49</a></span>
+<span class=normal><a href=#__codelineno-8-50>50</a></span>
+<span class=normal><a href=#__codelineno-8-51>51</a></span>
+<span class=normal><a href=#__codelineno-8-52>52</a></span>
+<span class=normal><a href=#__codelineno-8-53>53</a></span>
+<span class=normal><a href=#__codelineno-8-54>54</a></span>
+<span class=normal><a href=#__codelineno-8-55>55</a></span>
+<span class=normal><a href=#__codelineno-8-56>56</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>DUT&gt; show route 172.172.0.0/16  exact
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>
+<a id=__codelineno-8-3 name=__codelineno-8-3></a>mgmt_junos.inet.0: 3 destinations, 3 routes (3 active, 0 holddown, 0 hidden)
+<a id=__codelineno-8-4 name=__codelineno-8-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-8-5 name=__codelineno-8-5></a>
+<a id=__codelineno-8-6 name=__codelineno-8-6></a>0.0.0.0/0          *[Static/5] 18w2d 13:10:49
+<a id=__codelineno-8-7 name=__codelineno-8-7></a>                    &gt;  to 10.8.207.254 via re0:mgmt-0.0
+<a id=__codelineno-8-8 name=__codelineno-8-8></a>
+<a id=__codelineno-8-9 name=__codelineno-8-9></a>prod.inet.0: 11 destinations, 18 routes (11 active, 0 holddown, 0 hidden)
+<a id=__codelineno-8-10 name=__codelineno-8-10></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-8-11 name=__codelineno-8-11></a>
+<a id=__codelineno-8-12 name=__codelineno-8-12></a>172.172.0.0/16 @[BGP/170] 00:15:21, localpref 100, from 10.10.28.85
+<a id=__codelineno-8-13 name=__codelineno-8-13></a>                              AS path: I, validation-state: unverified
+<a id=__codelineno-8-14 name=__codelineno-8-14></a>                              &gt;  to 10.10.10.32 via et-0/0/9.0, label-switched-path DC1-PE1-DC2-PE-1-CONTAINER-1
+<a id=__codelineno-8-15 name=__codelineno-8-15></a>                              to 10.10.10.108 via et-0/1/4.0, label-switched-path Bypass-&gt;10.10.10.32-&gt;10.10.10.35
+<a id=__codelineno-8-16 name=__codelineno-8-16></a>                              [BGP/170] 00:43:01, localpref 100, from 10.10.0.78
+<a id=__codelineno-8-17 name=__codelineno-8-17></a>                               AS path: I, validation-state: unverified
+<a id=__codelineno-8-18 name=__codelineno-8-18></a>                               &gt;  to 10.10.10.0 via et-0/0/0.0, Push 233, Push 11604(top)
+<a id=__codelineno-8-19 name=__codelineno-8-19></a>                               to 10.10.10.32 via et-0/0/9.0, Push 233, Push 14035(top)
+<a id=__codelineno-8-20 name=__codelineno-8-20></a>                               #[Multipath/255] 00:15:21, metric2 210
+<a id=__codelineno-8-21 name=__codelineno-8-21></a>                               &gt;  to 10.10.10.32 via et-0/0/9.0, label-switched-path DC1-PE1-DC2-PE2-CONTAINER-1
+<a id=__codelineno-8-22 name=__codelineno-8-22></a>                               to 10.10.10.108 via et-0/1/4.0, label-switched-path Bypass-&gt;10.10.10.32-&gt;10.10.10.35
+<a id=__codelineno-8-23 name=__codelineno-8-23></a>                               to 10.10.10.0 via et-0/0/0.0, label-switched-path DC1-WAN-POP2-CONTAINER-1
+<a id=__codelineno-8-24 name=__codelineno-8-24></a>                               to 10.10.10.32 via et-0/0/9.0, label-switched-path Bypass-&gt;10.10.10.0-&gt;10.10.10.117
+<a id=__codelineno-8-25 name=__codelineno-8-25></a>
+<a id=__codelineno-8-26 name=__codelineno-8-26></a>DUT&gt; show route 172.172.0.0/16  table TAN_1_FE_VRF.inet.0 protocol multipath                                           
+<a id=__codelineno-8-27 name=__codelineno-8-27></a>
+<a id=__codelineno-8-28 name=__codelineno-8-28></a>prod.inet.0: 11 destinations, 18 routes (11 active, 0 holddown, 0 hidden)
+<a id=__codelineno-8-29 name=__codelineno-8-29></a>@ = Routing Use Only, # = Forwarding Use Only
+<a id=__codelineno-8-30 name=__codelineno-8-30></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-8-31 name=__codelineno-8-31></a>
+<a id=__codelineno-8-32 name=__codelineno-8-32></a>172.172.0.0/16    #[Multipath/255] 1d 01:37:49, metric2 210
+<a id=__codelineno-8-33 name=__codelineno-8-33></a>                            &gt;  to 10.10.10.32 via et-0/0/9.0, label-switched-path DC1-PE1-DC2-PE2-CONTAINER-1
+<a id=__codelineno-8-34 name=__codelineno-8-34></a>                            to 10.10.10.108 via et-0/1/4.0, label-switched-path Bypass-&gt;10.10.10.32-&gt;10.10.10.35
+<a id=__codelineno-8-35 name=__codelineno-8-35></a>                            to 10.10.10.0 via et-0/0/0.0, label-switched-path s DC1-PE1-DC2-PE2-CONTAINER-2
+<a id=__codelineno-8-36 name=__codelineno-8-36></a>                            to 10.10.10.32 via et-0/0/9.0, label-switched-path Bypass-&gt;10.10.10.0-&gt;10.10.10.117
+<a id=__codelineno-8-37 name=__codelineno-8-37></a>DUT&gt; show route 172.172.0.0/16  table TAN_1_FE_VRF.inet.0 protocol multipath extensive | match "Protocol next hop:"    
+<a id=__codelineno-8-38 name=__codelineno-8-38></a>                    Protocol next hop: 10.10.28.85
+<a id=__codelineno-8-39 name=__codelineno-8-39></a>                    Protocol next hop: 10.10.0.78
+<a id=__codelineno-8-40 name=__codelineno-8-40></a>
+<a id=__codelineno-8-41 name=__codelineno-8-41></a>DUT&gt;  show route 10.10.28.85 table inet.0                                                           
+<a id=__codelineno-8-42 name=__codelineno-8-42></a>
+<a id=__codelineno-8-43 name=__codelineno-8-43></a>inet.0: 61 destinations, 61 routes (59 active, 0 holddown, 2 hidden)
+<a id=__codelineno-8-44 name=__codelineno-8-44></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-8-45 name=__codelineno-8-45></a>
+<a id=__codelineno-8-46 name=__codelineno-8-46></a>10.10.28.85/32     *[IS-IS/18] 1d 19:02:11, metric 210
+<a id=__codelineno-8-47 name=__codelineno-8-47></a>                             &gt;  to 10.10.10.32 via et-0/0/9.0
+<a id=__codelineno-8-48 name=__codelineno-8-48></a>
+<a id=__codelineno-8-49 name=__codelineno-8-49></a>DUT&gt; show route 10.10.0.78 table inet.0    
+<a id=__codelineno-8-50 name=__codelineno-8-50></a>
+<a id=__codelineno-8-51 name=__codelineno-8-51></a>inet.0: 61 destinations, 61 routes (59 active, 0 holddown, 2 hidden)
+<a id=__codelineno-8-52 name=__codelineno-8-52></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-8-53 name=__codelineno-8-53></a>
+<a id=__codelineno-8-54 name=__codelineno-8-54></a>10.10.0.78/32     *[IS-IS/18] 2w2d 06:45:09, metric 2100
+<a id=__codelineno-8-55 name=__codelineno-8-55></a>                       to 10.10.10.108 via et-0/1/4.0
+<a id=__codelineno-8-56 name=__codelineno-8-56></a>                        &gt;  to 10.10.10.0 via et-0/0/0.0
+</code></pre></div></td></tr></table></div> <p>In forwarding plane, a unilist (<strong>ulst</strong>) next-hop (NH) with index 8586 is created which consists of 2 composite NHs, each pointing to one of the remote PE via an indirect (<strong>indr</strong>) NH. In Junos/EVO, unlist NH is used for traffic load balancing purposes. To read more about different next-hop types, please read <a href=https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article>the blog here</a>.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1> 1</a></span>
+<span class=normal><a href=#__codelineno-9-2> 2</a></span>
+<span class=normal><a href=#__codelineno-9-3> 3</a></span>
+<span class=normal><a href=#__codelineno-9-4> 4</a></span>
+<span class=normal><a href=#__codelineno-9-5> 5</a></span>
+<span class=normal><a href=#__codelineno-9-6> 6</a></span>
+<span class=normal><a href=#__codelineno-9-7> 7</a></span>
+<span class=normal><a href=#__codelineno-9-8> 8</a></span>
+<span class=normal><a href=#__codelineno-9-9> 9</a></span>
+<span class=normal><a href=#__codelineno-9-10>10</a></span>
+<span class=normal><a href=#__codelineno-9-11>11</a></span>
+<span class=normal><a href=#__codelineno-9-12>12</a></span>
+<span class=normal><a href=#__codelineno-9-13>13</a></span>
+<span class=normal><a href=#__codelineno-9-14>14</a></span>
+<span class=normal><a href=#__codelineno-9-15>15</a></span>
+<span class=normal><a href=#__codelineno-9-16>16</a></span>
+<span class=normal><a href=#__codelineno-9-17>17</a></span>
+<span class=normal><a href=#__codelineno-9-18>18</a></span>
+<span class=normal><a href=#__codelineno-9-19>19</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>DUT&gt;  show route forwarding-table destination 172.172.0.0/16  vpn TAN_1_FE_VRF    
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>Routing table: TAN_1_FE_VRF
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>Internet:
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>Destination        Type RtRef Next hop           Type Index    NhRef Netif
+<a id=__codelineno-9-5 name=__codelineno-9-5></a>default            user     0           ulst     8586     1
+<a id=__codelineno-9-6 name=__codelineno-9-6></a>                                                comp     8584     1
+<a id=__codelineno-9-7 name=__codelineno-9-7></a>                                                indr     8582     1
+<a id=__codelineno-9-8 name=__codelineno-9-8></a>                                                ulst     8602     1
+<a id=__codelineno-9-9 name=__codelineno-9-9></a>                                                sftw Push 15709     8577     1 et-0/0/9.0
+<a id=__codelineno-9-10 name=__codelineno-9-10></a>                    10.10.10.32         ucst     1003     1 et-0/0/9.0
+<a id=__codelineno-9-11 name=__codelineno-9-11></a>                                                sftw Push 24344, Push 9702(top)     8601     1 et-0/1/4.0
+<a id=__codelineno-9-12 name=__codelineno-9-12></a>                   10.10.10.108       ucst     1000     1 et-0/1/4.0
+<a id=__codelineno-9-13 name=__codelineno-9-13></a>                                               comp     8585     1
+<a id=__codelineno-9-14 name=__codelineno-9-14></a>                                                indr     8583     1
+<a id=__codelineno-9-15 name=__codelineno-9-15></a>                                                ulst     8578     1
+<a id=__codelineno-9-16 name=__codelineno-9-16></a>                                                sftw Push 11604     8544     1 et-0/0/0.0
+<a id=__codelineno-9-17 name=__codelineno-9-17></a>                      10.10.10.0         ucst     1001     1 et-0/0/0.0
+<a id=__codelineno-9-18 name=__codelineno-9-18></a>                                                sftw Push 14035     8576     1 et-0/0/9.0
+<a id=__codelineno-9-19 name=__codelineno-9-19></a>                     10.10.10.32        ucst     1003     1 et-0/0/9.0
+</code></pre></div></td></tr></table></div> <p>We can see "Weight: 0x1" is assigned to two NHs and those are LSPs (DC1-PE1-DC2-PE-1-CONTAINER-1 and DC1-PE1-DC2-PE-2-CONTAINER-1) where "Weight: 0x8001" corresponds to by-pass LSP for each primary LSP.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1>1</a></span>
+<span class=normal><a href=#__codelineno-10-2>2</a></span>
+<span class=normal><a href=#__codelineno-10-3>3</a></span>
+<span class=normal><a href=#__codelineno-10-4>4</a></span>
+<span class=normal><a href=#__codelineno-10-5>5</a></span>
+<span class=normal><a href=#__codelineno-10-6>6</a></span>
+<span class=normal><a href=#__codelineno-10-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>DUT&gt; show route forwarding-table destination 172.172.0.0/16  vpn TAN_1_FE_VRF | match weight   
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>                                    Weight: 0x0   Balance: 0    
+<a id=__codelineno-10-3 name=__codelineno-10-3></a>  Next-hop interface: et-0/0/9.0    Weight: 0x1   Balance: 0    
+<a id=__codelineno-10-4 name=__codelineno-10-4></a>  Next-hop interface: et-0/1/4.0    Weight: 0x8001 Balance: 0    
+<a id=__codelineno-10-5 name=__codelineno-10-5></a>                                    Weight: 0x0   Balance: 0    
+<a id=__codelineno-10-6 name=__codelineno-10-6></a>  Next-hop interface: et-0/0/0.0    Weight: 0x1   Balance: 0    
+<a id=__codelineno-10-7 name=__codelineno-10-7></a>  Next-hop interface: et-0/0/9.0    Weight: 0x8001 Balance: 0    
+</code></pre></div></td></tr></table></div> <h2 id=north-south-flows_1>North-South Flows<a class=headerlink href=#north-south-flows_1 title="Permanent link">&para;</a></h2> <p>Hence, default route and internet feed would be received from multiple NET WAN PoPs, and it's quite possible that due to geographical placement, one WAN PoP offer lower latency as compared to other WAN PoPs. In such a scenario, <strong>Unequal Cost Multipath load balancing should be avoided</strong>, and internet bound traffic flows should only traverse via primary WAN PoP which offers lowest latency. However, for sake of redundancy, secondary WAN PoP internet feed / default route should be installed in RIB and FIB and should be readily available for traffic forwarding in case connectivity with primary WAN PoP goes down.</p> <p>As discussed above, by default, routes with lowest IGP metrics will be installed in RIB and FIB as active routes and routes with the next higher IGP metric will be inactive in RIB with the following message.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1>1</a></span>
+<span class=normal><a href=#__codelineno-11-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>State: &lt;Secondary NotBest Int Ext ProtectionCand&gt;
+<a id=__codelineno-11-2 name=__codelineno-11-2></a>                Inactive reason: Not Best in its group - IGP metric
+</code></pre></div></td></tr></table></div> <p>We can put more control on selecting which NET WAN PoP should be the most preferable exit point towards the internet. We can assign different local-preferences to each internet feed / default route that is received on DCI Edge router (PUBLIC_VRF) using a vrf-import policy and install different preference routes in the PUBLIC_VRF RIB. Only routes with the highest local preference will be installed in FIB and thus will be used for traffic forwarding. Other routes will be inactive state (inside RIB) with the following message.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1>1</a></span>
+<span class=normal><a href=#__codelineno-12-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>State: &lt;Secondary Int Ext ProtectionCand&gt;
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>                Inactive reason: Local Preference
+</code></pre></div></td></tr></table></div> <h2 id=bgp-prefix-independent-convergence-pic>BGP Prefix-Independent Convergence (PIC)<a class=headerlink href=#bgp-prefix-independent-convergence-pic title="Permanent link">&para;</a></h2> <p>As discussed above, for North-Bound connectivity we don't require unequal cost multipath load balancing but for sake of resiliency and redundancy backup paths should be available in RIB and FIB so that if primary path fails then backup path automatically take over traffic with minimal convergence time.</p> <p>BGP Prefix-Independent Convergence (PIC) feature allows the computation and installation of backup paths in RIB and FIB with higher weight. These higher weight NHs (<strong>Weight: 0x4000</strong>) will not be used for active forwarding until lower weight, or primary NHs (<strong>Weight: 0x1</strong>) are available for traffic forwarding. But as soon as primary NHs go down due to any reason, the higher weight NHs will become new primary NH.</p> <p>To learn more about BGP PIC, <a href=https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article>please read this blog</a>.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1>1</a></span>
+<span class=normal><a href=#__codelineno-13-2>2</a></span>
+<span class=normal><a href=#__codelineno-13-3>3</a></span>
+<span class=normal><a href=#__codelineno-13-4>4</a></span>
+<span class=normal><a href=#__codelineno-13-5>5</a></span>
+<span class=normal><a href=#__codelineno-13-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a>routing-instances { 
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>PUBLIC_VRF
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>instance-type vrf;
+<a id=__codelineno-13-4 name=__codelineno-13-4></a>        { 
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>      routing-options { 
+<a id=__codelineno-13-6 name=__codelineno-13-6></a>             protect core;
+</code></pre></div></td></tr></table></div> <p>Let's verify the above-described behavior with some outputs.</p> <p>We can see that default route 0/0 is received and installed in PUBLIC_VRF and multipath is enabled. And it is achieved without adding "multipath vpn-unequal-cost" config.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1> 1</a></span>
+<span class=normal><a href=#__codelineno-14-2> 2</a></span>
+<span class=normal><a href=#__codelineno-14-3> 3</a></span>
+<span class=normal><a href=#__codelineno-14-4> 4</a></span>
+<span class=normal><a href=#__codelineno-14-5> 5</a></span>
+<span class=normal><a href=#__codelineno-14-6> 6</a></span>
+<span class=normal><a href=#__codelineno-14-7> 7</a></span>
+<span class=normal><a href=#__codelineno-14-8> 8</a></span>
+<span class=normal><a href=#__codelineno-14-9> 9</a></span>
+<span class=normal><a href=#__codelineno-14-10>10</a></span>
+<span class=normal><a href=#__codelineno-14-11>11</a></span>
+<span class=normal><a href=#__codelineno-14-12>12</a></span>
+<span class=normal><a href=#__codelineno-14-13>13</a></span>
+<span class=normal><a href=#__codelineno-14-14>14</a></span>
+<span class=normal><a href=#__codelineno-14-15>15</a></span>
+<span class=normal><a href=#__codelineno-14-16>16</a></span>
+<span class=normal><a href=#__codelineno-14-17>17</a></span>
+<span class=normal><a href=#__codelineno-14-18>18</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a>DUT&gt; show route 0/0 exact table PUBLIC_VRF 
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>
+<a id=__codelineno-14-3 name=__codelineno-14-3></a>prod.inet.0: 11 destinations, 22 routes (11 active, 0 holddown, 0 hidden)
+<a id=__codelineno-14-4 name=__codelineno-14-4></a>+ = Active Route, - = Last Active, * = Both
+<a id=__codelineno-14-5 name=__codelineno-14-5></a>
+<a id=__codelineno-14-6 name=__codelineno-14-6></a>0.0.0.0/0     @[BGP/170] 00:32:05, localpref 100, from 10.10.28.85
+<a id=__codelineno-14-7 name=__codelineno-14-7></a>                         AS path: I, validation-state: unverified
+<a id=__codelineno-14-8 name=__codelineno-14-8></a>                         &gt;  to 10.10.10.32 via et-0/0/9.0, label-switched-path DC1-WAN-POP1-CONTAINER-1
+<a id=__codelineno-14-9 name=__codelineno-14-9></a>                          to 10.10.10.108 via et-0/1/4.0, label-switched-path Bypass-&gt;10.10.10.32-&gt;10.10.10.35
+<a id=__codelineno-14-10 name=__codelineno-14-10></a>                         [BGP/170] 00:32:05, localpref 100, from 10.10.0.78
+<a id=__codelineno-14-11 name=__codelineno-14-11></a>                         AS path: I, validation-state: unverified
+<a id=__codelineno-14-12 name=__codelineno-14-12></a>                         &gt;  to 10.10.10.0 via et-0/0/0.0, Push 233, Push 11604(top)
+<a id=__codelineno-14-13 name=__codelineno-14-13></a>                         to 10.10.10.32 via et-0/0/9.0, Push 233, Push 14035(top)
+<a id=__codelineno-14-14 name=__codelineno-14-14></a>                         #[Multipath/255] 00:32:05, metric2 210
+<a id=__codelineno-14-15 name=__codelineno-14-15></a>                         &gt;  to 10.10.10.32 via et-0/0/9.0, label-switched-path DC1-WAN-POP1-CONTAINER-1
+<a id=__codelineno-14-16 name=__codelineno-14-16></a>                         to 10.10.10.108 via et-0/1/4.0, label-switched-path Bypass-&gt;10.10.10.32-&gt;10.10.10.35
+<a id=__codelineno-14-17 name=__codelineno-14-17></a>                         to 10.10.10.0 via et-0/0/0.0, label-switched-path DC1-WAN-POP2-CONTAINER-1
+<a id=__codelineno-14-18 name=__codelineno-14-18></a>                         to 10.10.10.32 via et-0/0/9.0, label-switched-path Bypass-&gt;10.10.10.0-&gt;10.10.10.117
+</code></pre></div></td></tr></table></div> <p>In the FIB, we can see that a <strong>ulst NH</strong> with index 8605 is created but it further explores weight of each NHs. We can see that one NH hop has <strong>0x4000</strong> weight. As described above NH with weight 0x4000 is backup NH installed in FIB and will be used actively for traffic flows only if primary NH (Weight: <strong>0x1</strong>) fails due to any reason.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1> 1</a></span>
+<span class=normal><a href=#__codelineno-15-2> 2</a></span>
+<span class=normal><a href=#__codelineno-15-3> 3</a></span>
+<span class=normal><a href=#__codelineno-15-4> 4</a></span>
+<span class=normal><a href=#__codelineno-15-5> 5</a></span>
+<span class=normal><a href=#__codelineno-15-6> 6</a></span>
+<span class=normal><a href=#__codelineno-15-7> 7</a></span>
+<span class=normal><a href=#__codelineno-15-8> 8</a></span>
+<span class=normal><a href=#__codelineno-15-9> 9</a></span>
+<span class=normal><a href=#__codelineno-15-10>10</a></span>
+<span class=normal><a href=#__codelineno-15-11>11</a></span>
+<span class=normal><a href=#__codelineno-15-12>12</a></span>
+<span class=normal><a href=#__codelineno-15-13>13</a></span>
+<span class=normal><a href=#__codelineno-15-14>14</a></span>
+<span class=normal><a href=#__codelineno-15-15>15</a></span>
+<span class=normal><a href=#__codelineno-15-16>16</a></span>
+<span class=normal><a href=#__codelineno-15-17>17</a></span>
+<span class=normal><a href=#__codelineno-15-18>18</a></span>
+<span class=normal><a href=#__codelineno-15-19>19</a></span>
+<span class=normal><a href=#__codelineno-15-20>20</a></span>
+<span class=normal><a href=#__codelineno-15-21>21</a></span>
+<span class=normal><a href=#__codelineno-15-22>22</a></span>
+<span class=normal><a href=#__codelineno-15-23>23</a></span>
+<span class=normal><a href=#__codelineno-15-24>24</a></span>
+<span class=normal><a href=#__codelineno-15-25>25</a></span>
+<span class=normal><a href=#__codelineno-15-26>26</a></span>
+<span class=normal><a href=#__codelineno-15-27>27</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a>DUT&gt; show route forwarding-table destination 0/0 vpn PUBLIC_VRF
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>Routing table: prod.inet
+<a id=__codelineno-15-3 name=__codelineno-15-3></a>Internet:
+<a id=__codelineno-15-4 name=__codelineno-15-4></a>Destination        Type RtRef Next hop           Type Index    NhRef Netif
+<a id=__codelineno-15-5 name=__codelineno-15-5></a>default            user     0          ulst     8605     1
+<a id=__codelineno-15-6 name=__codelineno-15-6></a>                                               comp     8590     1
+<a id=__codelineno-15-7 name=__codelineno-15-7></a>                                               indr     8587     1
+<a id=__codelineno-15-8 name=__codelineno-15-8></a>                                               ulst     8602     1
+<a id=__codelineno-15-9 name=__codelineno-15-9></a>                                               sftw Push 15709     8577     1 et-0/0/9.0
+<a id=__codelineno-15-10 name=__codelineno-15-10></a>                     10.10.10.32       ucst     1003     1 et-0/0/9.0
+<a id=__codelineno-15-11 name=__codelineno-15-11></a>                                               sftw Push 24344, Push 9702(top)     8601     1 et-0/1/4.0
+<a id=__codelineno-15-12 name=__codelineno-15-12></a>                    10.10.10.108      ucst     1000     1 et-0/1/4.0
+<a id=__codelineno-15-13 name=__codelineno-15-13></a>                                               comp     8604     1
+<a id=__codelineno-15-14 name=__codelineno-15-14></a>                                               indr     8594     1
+<a id=__codelineno-15-15 name=__codelineno-15-15></a>                                               ulst     8578     1
+<a id=__codelineno-15-16 name=__codelineno-15-16></a>                                               sftw Push 11604     8544     1 et-0/0/0.0
+<a id=__codelineno-15-17 name=__codelineno-15-17></a>                      10.10.10.0        ucst     1001     1 et-0/0/0.0
+<a id=__codelineno-15-18 name=__codelineno-15-18></a>                                                sftw Push 14035     8576     1 et-0/0/9.0
+<a id=__codelineno-15-19 name=__codelineno-15-19></a>                    10.10.10.32        ucst     1003     1 et-0/0/9.0
+<a id=__codelineno-15-20 name=__codelineno-15-20></a>
+<a id=__codelineno-15-21 name=__codelineno-15-21></a>DUT&gt; show route forwarding-table destination 0/0 vpn PUBLIC_VRF extensive | grep Weight:       
+<a id=__codelineno-15-22 name=__codelineno-15-22></a>                                    Weight: 0x1   Balance: 0    
+<a id=__codelineno-15-23 name=__codelineno-15-23></a>  Next-hop interface: et-0/0/9.0    Weight: 0x1   Balance: 0    
+<a id=__codelineno-15-24 name=__codelineno-15-24></a>  Next-hop interface: et-0/1/4.0    Weight: 0x8001 Balance: 0    
+<a id=__codelineno-15-25 name=__codelineno-15-25></a>                                    Weight: 0x4000 Balance: 0    
+<a id=__codelineno-15-26 name=__codelineno-15-26></a>  Next-hop interface: et-0/0/0.0    Weight: 0x1   Balance: 0    
+<a id=__codelineno-15-27 name=__codelineno-15-27></a>  Next-hop interface: et-0/0/9.0    Weight: 0x8001 Balance: 0
+</code></pre></div></td></tr></table></div> <p>In case LSP to primary NET WAN PoP does down since the pre-computed backup path is already present in the FIB and so no update from RPD is required to route traffic over previously backup path which is a newer active path. This enables faster convergence during failover scenarios.</p> <h2 id=recommendation>Recommendation<a class=headerlink href=#recommendation title="Permanent link">&para;</a></h2> <p>Using unequal cost multipath load balancing vs BGP PIC will be a design choice for a particular network, and it's driven by specific needs. In case same prefix is being received from multiple egress PEs over unequal cost (IGP metric) but for better utilization of backbone capacity, egress traffic load balancing is required over unequal cost multipaths then "<strong>vpn-unequal-cost</strong>" must be configured.</p> <p>If <strong>vpn-unequal-cost</strong> config is not applied due to design choice but multiple exit paths from ingress PE to Egress PEs exist, then "protect core" must be applied.</p> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">&para;</a></h2> <p>In this tech post we have elaborated different design choices for North-South and East-West connectivity. We have also described the need for resiliency and redundancy for routing infrastructure within a DCI Edge router and how to achieve optimal convergence during catastrophic events. In my next blog, I will explore SRv6 for overlay tunneling between DPU hosted software routers and tunnel Aggregator.</p> <h2 id=useful-links>Useful Links<a class=headerlink href=#useful-links title="Permanent link">&para;</a></h2> <ul> <li>Intro - Overlay Networking in AI Era: <a href=https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article>https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article</a></li> <li>Part2 - Juniper PTX Routers in Front-End Network: <a href=https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article>https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article</a></li> <li>Part3 - DCI Edge for AI Front End Clusters with Juniper PTX: <a href=https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article>https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article</a></li> </ul> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">&para;</a></h2> <ul> <li>Auto-Bandwidth: An RSVP-TE feature that monitors actual LSP traffic utilization and periodically adjusts the bandwidth reservation to match observed demand, re-signaling along an optimal path using make-before-break when thresholds are crossed.</li> <li>LSP (Label Switched Path): A unidirectional forwarding path through an MPLS network where packets are forwarded using labels rather than IP lookups, established and maintained via RSVP-TE signaling.</li> <li>CBF (Class-Based Forwarding): A traffic engineering technique that maps traffic classes to specific LSPs based on DSCP or EXP markings, ensuring each traffic type is forwarded along a path that meets its performance objectives.</li> <li>Container LSPs: A Juniper RSVP-TE feature that automatically provisions and removes member LSPs between PE routers for ECMP load balancing, dynamically scaling aggregate bandwidth based on measured demand.</li> <li>CoS (Class of Service): A set of mechanisms for classifying, marking, queuing, and scheduling traffic to provide differentiated forwarding treatment and ensure critical traffic receives preferential handling during congestion</li> <li>FIB (Forwarding Information Base): The hardware-programmed forwarding table derived from the RIB, used by the router to make packet forwarding decisions at line rate.</li> <li>Inter-AS Option-A: A BGP L3VPN interconnect method where adjacent PE routers exchange per-VRF eBGP sessions across an AS boundary, providing strict per-tenant isolation at the cost of additional per-tenant session and configuration overhead.</li> <li>IP-VPN (L3VPN): A BGP/MPLS-based Layer 3 VPN service carrying tenant routes as MP-BGP VPN prefixes with Route Distinguishers and Route Targets, providing per-tenant routing isolation across a shared MPLS backbone.</li> <li>Make-Before-Break: An RSVP-TE re-optimization procedure that establishes a new LSP along an alternate path before tearing down the existing one, ensuring continuous traffic forwarding during path changes.</li> <li>NAT (Network Address Translation): A firewall function that translates tenant private IP addresses into publicly routable addresses before traffic exits to the internet.</li> <li>NET WAN POP (Network WAN Point of Presence): A co-location or carrier facility where the data center connects to internet transit and peering providers through dedicated peering and transit routers.</li> <li>P Router (Provider Router): A core transit router within the MPLS backbone that forwards packets solely on MPLS labels, maintaining no BGP state and no awareness of customer VPN routes.</li> <li>PE Router (Provider Edge Router): A border router at the edge of an MPLS backbone that maintains per-tenant VRFs and exchanges VPN routes with remote PE routers via MP-iBGP. In this architecture, the PTX DCI Edge serves this role.</li> <li>RIB-Group: A Junos OS construct that imports routes from one routing table into one or more additional tables, used here to distribute default routes from inet.0 into per-tenant VRFs.</li> <li>RIB (Routing Information Base): The control plane routing table contains all routes learned from configured protocols, from which best paths are selected and programmed into the FIB.</li> <li>Route Distinguisher (RD): A unique 8-byte value prepended to VPN prefixes to make them globally unique within the BGP table, allowing identical prefixes to coexist across multiple tenant VRFs.</li> <li>Route Target (RT): A BGP extended community attached to VPN prefixes governing which VRFs import and export specific routes, serving as the primary mechanism for per-tenant isolation in this architecture.</li> <li>RSVP-TE (Resource Reservation Protocol with Traffic Engineering): A signaling protocol that establishes LSPs with explicit path constraints and bandwidth reservations across the MPLS backbone, enabling deterministic traffic engineering between DCI PE routers.</li> <li>SRv6 (Segment Routing over IPv6): A network programming architecture encoding forwarding instructions as an ordered list of IPv6 segments within the packet header, enabling end-to-end source routing without per-flow state in the network core.</li> <li>VNI (VXLAN Network Identifier): A 24-bit identifier embedded in the VXLAN header that identifies the tenant network segment, supporting up to 16 million unique segment identifiers.</li> <li>VRF (Virtual Routing and Forwarding): A technology creating multiple independent routing instances on a single router, ensuring complete per-tenant route isolation by maintaining and forwarding each tenant's prefixes separately.</li> <li>VTEP (VXLAN Tunnel Endpoint): A device performing VXLAN encapsulation on egress and decapsulation on ingress at the overlay network boundary. In this architecture, VTEPs exist only at DPUs and the Tunnel Aggregator.</li> <li>VXLAN (Virtual Extensible LAN): An overlay encapsulation protocol tunneling Layer 2 or Layer 3 tenant traffic inside UDP/IP packets using a 24-bit VNI for segment identification, used here with EVPN Type-5 signaling between DPUs and the Tunnel Aggregator.</li> <li>WRR (Weighted Round Robin): A queue scheduling algorithm that services multiple traffic queues in proportion to assigned weights, ensuring higher-priority traffic receives a larger share of bandwidth during congestion.</li> </ul> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>

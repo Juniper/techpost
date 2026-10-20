@@ -1,0 +1,616 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/srxcloudatp-multi-tenant-dns-filtering/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>SRX/CloudATP Multi-Tenant DNS Filtering - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="SRX/CloudATP Multi-Tenant DNS Filtering"><meta property=og:image content=https://techpost.hpe.com/articles/srxcloudatp-multi-tenant-dns-filtering/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/srxcloudatp-multi-tenant-dns-filtering/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#srxcloudatp-multi-tenant-dns-filtering class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> SRX/CloudATP Multi-Tenant DNS Filtering </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#topology class=md-nav__link> <span class=md-ellipsis> Topology </span> </a> </li> <li class=md-nav__item> <a href=#summary-of-steps class=md-nav__link> <span class=md-ellipsis> Summary of Steps </span> </a> <nav class=md-nav aria-label="Summary of Steps"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#cloudatp-setup class=md-nav__link> <span class=md-ellipsis> CloudATP Setup </span> </a> </li> <li class=md-nav__item> <a href=#cloudatp-tenant-realms class=md-nav__link> <span class=md-ellipsis> CloudATP Tenant Realms </span> </a> </li> <li class=md-nav__item> <a href=#cloudatp-api-setup class=md-nav__link> <span class=md-ellipsis> CloudATP API Setup </span> </a> </li> <li class=md-nav__item> <a href=#srx-settings class=md-nav__link> <span class=md-ellipsis> SRX Settings </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#verification class=md-nav__link> <span class=md-ellipsis> Verification </span> </a> <nav class=md-nav aria-label=Verification> <ul class=md-nav__list> <li class=md-nav__item> <a href=#encrypted-dns class=md-nav__link> <span class=md-ellipsis> Encrypted DNS </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#appendix-configurations class=md-nav__link> <span class=md-ellipsis> Appendix: Configurations </span> </a> <nav class=md-nav aria-label="Appendix: Configurations"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#appendix-1-base-srx-config class=md-nav__link> <span class=md-ellipsis> Appendix 1: base SRX config </span> </a> </li> <li class=md-nav__item> <a href=#appendix-2-sample-cloudatp-enrollment class=md-nav__link> <span class=md-ellipsis> Appendix 2: Sample CloudATP Enrollment </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> <li class=md-nav__item> <a href=#acknowledgments class=md-nav__link> <span class=md-ellipsis> Acknowledgments </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=srxcloudatp-multi-tenant-dns-filtering>SRX/CloudATP Multi-Tenant DNS Filtering<a class=headerlink href=#srxcloudatp-multi-tenant-dns-filtering title="Permanent link">&para;</a></h1> <p><strong>Karel Hendrych - 12/28/2024</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/srxcloudatp-multi-tenant-dns-filtering.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/srxcloudatp-multi-tenant-dns-filtering.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <p>Describes the ability of the Juniper SRX, in conjunction with the CloudATP service, to enforce DNS query blocking through an API-driven, multi-tenant approach. Each tenant has its own virtual router, ingress zone, dedicated API token, and independent visibility for granular control and operational separation.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">&para;</a></h2> <p>Lately, security intelligence services on perimeter firewalls that categorize threat levels for IP addresses and URLs have become a common basic measure to prevent access to known malicious destinations. Companies are also utilizing their own threat intelligence data to enhance vendor and third-party feeds. In certain situations, multi-tenancy with custom threat intelligence on the same physical or virtual firewall may be required. This includes separation from the perspective of the API used to modify the lists of DNS queries to block or sinkhole, as well as ensuring corresponding visibility regarding the actions taken. For example, this could apply to an IoT security use case.</p> <p>In more detail, the following text explains the ability of <a href=https://www.juniper.net/documentation/us/en/software/atp-cloud/atp-cloud-admin-guide/topics/concept/atp-cloud-about.html>CloudATP</a>-enabled SRX devices to filter DNS queries by using per-tenant security intelligence feeds. This is achieved by assigning the SRX device to a CloudATP realm, mapping individual routing instances to API-enabled subordinate realms, and enabling granular DNS query control.</p> <p>This feature set is available on premium-tier licensed SRX devices because of the use of the CloudATP API. However, an easy way to try it out is by using vSRX with a security subscription <a href=https://www.juniper.net/us/en/dm/download-next-gen-vsrx-firewall-trial.html>Trial license</a> available for registered customers and partners. Alternatively, licenses can be obtained through Juniper sales representatives.</p> <h2 id=topology>Topology<a class=headerlink href=#topology title="Permanent link">&para;</a></h2> <p>Let's consider the following topology. The base configuration of the SRX is detailed in Appendix 1, while the expansion through Secintel settings will be addressed in the upcoming sections. Two tenants, designated as green-colored T1 and blue-colored T2, each have their own virtual router instance linked to the corresponding zone (T1 or T2) via an interface. The default gateway is imported from the VR-COMMON routing instance, which has an interface assigned to the common source NAT-enabled UNTRUST zone leading to the Internet. This default gateway import is unidirectional, utilizing the established flow for return traffic.</p> <p><img alt="demo setup topology" src=../images/picture3.png></p> <h2 id=summary-of-steps>Summary of Steps<a class=headerlink href=#summary-of-steps title="Permanent link">&para;</a></h2> <p>In summary, the approach involves the administrator of the entire setup to:</p> <ul> <li>Enroll the SRX into a CloudATP realm called, for example, DNSF-ROOT.</li> <li>Follow this with the creation of two additional CloudATP realms, DNSF-T1 and DNSF-T2, which are attached to DNSF-ROOT.</li> <li>In the Managed Security Services Provider (MSSP) style DNSF-ROOT realm, assign VRs T1 and T2 to the corresponding realms.</li> <li>Once the SRX-CloudATP setup is complete, establish API tokens for the tenant realms.</li> <li>Follow this with the SRX-side feed and enforcement configuration.</li> <li>Complete the API data load and verification as the final steps.</li> </ul> <p>In this specific example, a challenging aspect of DNS is the use of encryption methods such as DNS over TLS (DoT) and DNS over HTTPS (DoH) by clients, which can evade DNS filtering. This topic will be discussed in the Encrypted DNS section.</p> <h3 id=cloudatp-setup>CloudATP Setup<a class=headerlink href=#cloudatp-setup title="Permanent link">&para;</a></h3> <p>The prerequisite is either a commercial Premium CloudATP tier or any Premium trial assigned on the cloud side to the physical SRX serial number. In the case of vSRX, Premium entitlement to the software serial number of the ATP license on the cloud side is required. For vSRX,<a href=https://www.juniper.net/us/en/dm/download-next-gen-vsrx-firewall-trial.html> a Trial license</a> set can be immediately used by registered users.</p> <p>To establish a Cloud ATP realm, a Juniper account must be used in the corresponding region selected on <a href=https://sky.junipersecurity.net/ >the global CloudATP page</a>.</p> <p><img alt="CloudATP realm setup" src=../images/picture4.png></p> <p>In the next step, the SRX device needs to be enrolled by executing the proposed request command in the SRX CLI:</p> <p><img alt="CloudATP SRX enrollment" src=../images/picture5.png></p> <blockquote> <p>Note: in case of enrollment issues, the output can be compared to the successful enrollment output provided in Appendix 2.</p> </blockquote> <p>Upon CloudATP enrollment, the list of devices will include the actual physical or virtual SRX, as well as arbitrary devices representing routing instances:</p> <p><img alt="list of enrolled SRX devices" src=../images/picture6.png></p> <h3 id=cloudatp-tenant-realms>CloudATP Tenant Realms<a class=headerlink href=#cloudatp-tenant-realms title="Permanent link">&para;</a></h3> <p>In the next steps, realms for attaching to the DNSF-ROOT realm need to be created from the initial CloudATP page using the same process for both DNSF-T1 and DNSF-T2, as there is no separate process for subordinate realms:</p> <p><img alt="setup of subordinate realms" src=../images/picture7.png></p> <p>Newly created realms must be attached in the DNSF-ROOT under Misc Configuration/Realm Management:</p> <p><img alt="sub-ordinate realm attachment" src=../images/picture8.png></p> <p>After attaching the realms, a drop-down for realm selection will be available in the upper right corner of the DNSF-ROOT:</p> <p><img alt="selection of realms from DNSF-ROOT" src=../images/picture9.png></p> <p>As the next step, in the DNSF-ROOT realm management, device association (Virtual Routers) to realms is configured:</p> <p><img alt="assignment of devices to sub-ordinate realm" src=../images/picture10.png></p> <p>For example, the resulting list of MSSP-style realms and their associated VR devices:</p> <p><img alt="device association to sub-ordinate realms" src=../images/picture11.png></p> <p>Naturally, when logging in as the DNSF-T1/T2 admin, the management scope is limited to the specific realm, with no realm selection drop-down available:</p> <p><img alt="device view from sub-ordinate realm" src=../images/picture12.png></p> <h3 id=cloudatp-api-setup>CloudATP API Setup<a class=headerlink href=#cloudatp-api-setup title="Permanent link">&para;</a></h3> <p>As noted in the introduction, the purpose of the API is to provide a programmatic approach to loading a custom list of prohibited domains. In an MSSP environment, one tenant may permit certain domains while others may block them, with each having separate API access.</p> <p>For the next steps, create folders representing tenants on a Linux/Unix machine equipped with bash and curl, e.g., demo-dnsf-t1 and demo-dnsf-t2.</p> <p>API token setup is done individually at the tenant realm, either by selecting a particular realm from DNSF-ROOT or by logging in directly. API tokens are created in Administration under Application Tokens:</p> <p><img alt="API token setup" src=../images/picture13.png></p> <p>Insert the individual API tokens for both tenants into the api-token.txt file located in the corresponding folder created in the previous step:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1>1</a></span>
+<span class=normal><a href=#__codelineno-0-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a># echo "DNSF-T1-API-TOKEN" &gt; demo-dnsf-t1/api-token.txt 
+<a id=__codelineno-0-2 name=__codelineno-0-2></a># echo "DNSF-T2-API-TOKEN" &gt; demo-dnsf-t2/api-token.txt 
+</code></pre></div></td></tr></table></div> <p>The Juniper Threat Intelligence Open API (<a href=https://www.juniper.net/documentation/us/en/software/atp-cloud/atp-cloud-api-setup/topics/concept/atp-cloud-api-overview.html>documentation</a>) offers a patch option for manipulating feed data (recommended method); however, the easiest option for a lab trial is to recreate the feed object.</p> <p>A simple one-liner script, api-create-feed.sh, taking the first argument as the DNS feed name and the second as the submitted file containing domain names, may look as follows:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1>1</a></span>
+<span class=normal><a href=#__codelineno-1-2>2</a></span>
+<span class=normal><a href=#__codelineno-1-3>3</a></span>
+<span class=normal><a href=#__codelineno-1-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>#!/bin/bash
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>curl --form file=@$2 --request POST \
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>--url https://threat-api.sky.junipersecurity.net/v2/cloudfeeds/DNS/file/$1 \
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>--header "Authorization: Bearer `cat api-token.txt`" \
+</code></pre></div></td></tr></table></div> <p>Similarly, here is a one-liner api-delete-feed.sh script for deleting the DNS feed, which accepts the DNS feed name as the first argument:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span>
+<span class=normal><a href=#__codelineno-2-2>2</a></span>
+<span class=normal><a href=#__codelineno-2-3>3</a></span>
+<span class=normal><a href=#__codelineno-2-4>4</a></span>
+<span class=normal><a href=#__codelineno-2-5>5</a></span>
+<span class=normal><a href=#__codelineno-2-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>#!/bin/bash
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>curl --request DELETE \
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>  --url https://threat-api.sky.junipersecurity.net/v2/cloudfeeds/DNS/param/$1 \
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>  --header "Authorization: Bearer `cat api-token.txt`" \
+<a id=__codelineno-2-5 name=__codelineno-2-5></a>  --header 'Content-Type: multipart/form-data' \
+<a id=__codelineno-2-6 name=__codelineno-2-6></a>  --form 'server=*'
+</code></pre></div></td></tr></table></div> <p>For example, the domains.txt file contains a list of arbitrary sample domains with a threat level of 10 (which can be referenced in policies in terms of actions).</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1> 1</a></span>
+<span class=normal><a href=#__codelineno-3-2> 2</a></span>
+<span class=normal><a href=#__codelineno-3-3> 3</a></span>
+<span class=normal><a href=#__codelineno-3-4> 4</a></span>
+<span class=normal><a href=#__codelineno-3-5> 5</a></span>
+<span class=normal><a href=#__codelineno-3-6> 6</a></span>
+<span class=normal><a href=#__codelineno-3-7> 7</a></span>
+<span class=normal><a href=#__codelineno-3-8> 8</a></span>
+<span class=normal><a href=#__codelineno-3-9> 9</a></span>
+<span class=normal><a href=#__codelineno-3-10>10</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>smartweb2595.com,10
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>newstore1460.com,10
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>topapp5226.com,10
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>topstore7658.com,10
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>newapp5634.com,10
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>topweb8022.com,10
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>happyzone8922.com,10
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>smartzone3594.com,10
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>smartspace9672.com,10
+<a id=__codelineno-3-10 name=__codelineno-3-10></a>newstore4752.com,10
+</code></pre></div></td></tr></table></div> <p>Finally, this may be a simple wrapper script, xreload_feed.sh, that calls the previously created one-liner scripts for creating and deleting the feed for DNSF-T2:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1>1</a></span>
+<span class=normal><a href=#__codelineno-4-2>2</a></span>
+<span class=normal><a href=#__codelineno-4-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>#!/bin/bash
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>./api-delete-feed.sh demo_dnsf_t2
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>./api-create-feed.sh demo_dnsf_t2 domains.txt
+</code></pre></div></td></tr></table></div> <p>Sample reload of DNS feeds for both tenants from their corresponding folders:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span>
+<span class=normal><a href=#__codelineno-5-2>2</a></span>
+<span class=normal><a href=#__codelineno-5-3>3</a></span>
+<span class=normal><a href=#__codelineno-5-4>4</a></span>
+<span class=normal><a href=#__codelineno-5-5>5</a></span>
+<span class=normal><a href=#__codelineno-5-6>6</a></span>
+<span class=normal><a href=#__codelineno-5-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>demo-dnsf-t1# ./xreload_feed.sh 
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>{"message":"Successfully deleted feed.","request_id":"0bd1e788-f2ab-41c6-b6c1-2d8aee6b8c58"}
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>{"request_id":"7a0fdadb-9850-4061-8192-d45fc6178c33"}
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>demo-dnsf-t2# ./xreload_feed.sh
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>{"message":"Successfully deleted feed.","request_id":"6a0096e7-2411-445d-8c10-be12b740e534"}
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>{"request_id":"73fa6064-33ec-4ea7-bec9-20b16fac2128"}
+</code></pre></div></td></tr></table></div> <h3 id=srx-settings>SRX Settings<a class=headerlink href=#srx-settings title="Permanent link">&para;</a></h3> <p>In addition to the sample base configuration available in Appendix 1, the following configuration sets up the SRX Security Intelligence to use the API-created feeds. All matching DNS domain requests flagged with a threat level of 10 will be discarded and logged:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1> 1</a></span>
+<span class=normal><a href=#__codelineno-6-2> 2</a></span>
+<span class=normal><a href=#__codelineno-6-3> 3</a></span>
+<span class=normal><a href=#__codelineno-6-4> 4</a></span>
+<span class=normal><a href=#__codelineno-6-5> 5</a></span>
+<span class=normal><a href=#__codelineno-6-6> 6</a></span>
+<span class=normal><a href=#__codelineno-6-7> 7</a></span>
+<span class=normal><a href=#__codelineno-6-8> 8</a></span>
+<span class=normal><a href=#__codelineno-6-9> 9</a></span>
+<span class=normal><a href=#__codelineno-6-10>10</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>set services security-intelligence profile t1 category DNS
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>set services security-intelligence profile t1 rule 1 match feed-name demo_dnsf_t1
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>set services security-intelligence profile t1 rule 1 match threat-level 10
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>set services security-intelligence profile t1 rule 1 then action block drop
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>set services security-intelligence profile t1 rule 1 then log
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>set services security-intelligence profile t2 category DNS
+<a id=__codelineno-6-7 name=__codelineno-6-7></a>set services security-intelligence profile t2 rule 1 match feed-name demo_dnsf_t2
+<a id=__codelineno-6-8 name=__codelineno-6-8></a>set services security-intelligence profile t2 rule 1 match threat-level 10
+<a id=__codelineno-6-9 name=__codelineno-6-9></a>set services security-intelligence profile t2 rule 1 then action block drop
+<a id=__codelineno-6-10 name=__codelineno-6-10></a>set services security-intelligence profile t2 rule 1 then log
+</code></pre></div></td></tr></table></div> <blockquote> <p>Note: if the Juniper-supplied DNS threat feed is not used in any other profile, the following configuration can be used to disable it:</p> </blockquote> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>set services security-intelligence global-disable-feed feed-name global_dns
+</code></pre></div></td></tr></table></div> <p>Then, the profiles are referenced by the Security Intelligence policy:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1>1</a></span>
+<span class=normal><a href=#__codelineno-8-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>set services security-intelligence policy t1 DNS t1
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>set services security-intelligence policy t2 DNS t2
+</code></pre></div></td></tr></table></div> <p>And Security Intelligence policies are referenced by the actual firewall policies:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1>1</a></span>
+<span class=normal><a href=#__codelineno-9-2>2</a></span>
+<span class=normal><a href=#__codelineno-9-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>edit security policies
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>set from-zone t1 to-zone common policy t1 then permit application-services security-intelligence-policy t1
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>set from-zone t2 to-zone common policy t2 then permit application-services security-intelligence-policy t2
+</code></pre></div></td></tr></table></div> <p>To receive Secintel logs in the CloudATP portal via the data plane channel, the source interface needs to be specified due to the use of a non-default routing table towards the Internet. Additionally, for simple on-box logging, the JWeb report infrastructure can be used:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1>1</a></span>
+<span class=normal><a href=#__codelineno-10-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>set services advanced-anti-malware connection source-interface ge-0/0/0.0   
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>set security log report
+</code></pre></div></td></tr></table></div> <p>The first place to verify whether the DNS feeds have been loaded is in the summary view of Secintel categories, where 'Vrf name' represents the Virtual Router attribute of the feed. Internally, the SRX adds an extra dimension of the routing instance to the feeds received from the CloudATP DNSF-ROOT realm:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1> 1</a></span>
+<span class=normal><a href=#__codelineno-11-2> 2</a></span>
+<span class=normal><a href=#__codelineno-11-3> 3</a></span>
+<span class=normal><a href=#__codelineno-11-4> 4</a></span>
+<span class=normal><a href=#__codelineno-11-5> 5</a></span>
+<span class=normal><a href=#__codelineno-11-6> 6</a></span>
+<span class=normal><a href=#__codelineno-11-7> 7</a></span>
+<span class=normal><a href=#__codelineno-11-8> 8</a></span>
+<span class=normal><a href=#__codelineno-11-9> 9</a></span>
+<span class=normal><a href=#__codelineno-11-10>10</a></span>
+<span class=normal><a href=#__codelineno-11-11>11</a></span>
+<span class=normal><a href=#__codelineno-11-12>12</a></span>
+<span class=normal><a href=#__codelineno-11-13>13</a></span>
+<span class=normal><a href=#__codelineno-11-14>14</a></span>
+<span class=normal><a href=#__codelineno-11-15>15</a></span>
+<span class=normal><a href=#__codelineno-11-16>16</a></span>
+<span class=normal><a href=#__codelineno-11-17>17</a></span>
+<span class=normal><a href=#__codelineno-11-18>18</a></span>
+<span class=normal><a href=#__codelineno-11-19>19</a></span>
+<span class=normal><a href=#__codelineno-11-20>20</a></span>
+<span class=normal><a href=#__codelineno-11-21>21</a></span>
+<span class=normal><a href=#__codelineno-11-22>22</a></span>
+<span class=normal><a href=#__codelineno-11-23>23</a></span>
+<span class=normal><a href=#__codelineno-11-24>24</a></span>
+<span class=normal><a href=#__codelineno-11-25>25</a></span>
+<span class=normal><a href=#__codelineno-11-26>26</a></span>
+<span class=normal><a href=#__codelineno-11-27>27</a></span>
+<span class=normal><a href=#__codelineno-11-28>28</a></span>
+<span class=normal><a href=#__codelineno-11-29>29</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>&gt; show services security-intelligence category summary    
+<a id=__codelineno-11-2 name=__codelineno-11-2></a>
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>Category name     :DNS
+<a id=__codelineno-11-4 name=__codelineno-11-4></a>  Status          :Enable
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>  Description     :DNS sinkhole
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>  Update interval :60s
+<a id=__codelineno-11-7 name=__codelineno-11-7></a>  TTL             :3456000s
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>  Feed name       :demo_dnsf_t1
+<a id=__codelineno-11-9 name=__codelineno-11-9></a>    logical-system:root-logical-system
+<a id=__codelineno-11-10 name=__codelineno-11-10></a>    Vrf name      :vr-t1
+<a id=__codelineno-11-11 name=__codelineno-11-11></a>    Version       :20241125.0
+<a id=__codelineno-11-12 name=__codelineno-11-12></a>    Objects number:10
+<a id=__codelineno-11-13 name=__codelineno-11-13></a>    Create time   :2024-11-25 09:33:50 CET
+<a id=__codelineno-11-14 name=__codelineno-11-14></a>    Update time   :2024-11-25 09:40:27 CET
+<a id=__codelineno-11-15 name=__codelineno-11-15></a>    Update status :Store succeeded
+<a id=__codelineno-11-16 name=__codelineno-11-16></a>    Expired       :No
+<a id=__codelineno-11-17 name=__codelineno-11-17></a>    Status        :Active
+<a id=__codelineno-11-18 name=__codelineno-11-18></a>    Options       :N/A
+<a id=__codelineno-11-19 name=__codelineno-11-19></a>  Feed name       :demo_dnsf_t2
+<a id=__codelineno-11-20 name=__codelineno-11-20></a>    logical-system:root-logical-system
+<a id=__codelineno-11-21 name=__codelineno-11-21></a>    Vrf name      :vr-t2
+<a id=__codelineno-11-22 name=__codelineno-11-22></a>    Version       :20241125.0
+<a id=__codelineno-11-23 name=__codelineno-11-23></a>    Objects number:10
+<a id=__codelineno-11-24 name=__codelineno-11-24></a>    Create time   :2024-11-25 09:34:58 CET
+<a id=__codelineno-11-25 name=__codelineno-11-25></a>    Update time   :2024-11-25 09:40:27 CET
+<a id=__codelineno-11-26 name=__codelineno-11-26></a>    Update status :Store succeeded
+<a id=__codelineno-11-27 name=__codelineno-11-27></a>    Expired       :No
+<a id=__codelineno-11-28 name=__codelineno-11-28></a>    Status        :Active
+<a id=__codelineno-11-29 name=__codelineno-11-29></a>    Options       :N/A
+</code></pre></div></td></tr></table></div> <p>The content of the feed for the DNS category can be viewed as follows:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1> 1</a></span>
+<span class=normal><a href=#__codelineno-12-2> 2</a></span>
+<span class=normal><a href=#__codelineno-12-3> 3</a></span>
+<span class=normal><a href=#__codelineno-12-4> 4</a></span>
+<span class=normal><a href=#__codelineno-12-5> 5</a></span>
+<span class=normal><a href=#__codelineno-12-6> 6</a></span>
+<span class=normal><a href=#__codelineno-12-7> 7</a></span>
+<span class=normal><a href=#__codelineno-12-8> 8</a></span>
+<span class=normal><a href=#__codelineno-12-9> 9</a></span>
+<span class=normal><a href=#__codelineno-12-10>10</a></span>
+<span class=normal><a href=#__codelineno-12-11>11</a></span>
+<span class=normal><a href=#__codelineno-12-12>12</a></span>
+<span class=normal><a href=#__codelineno-12-13>13</a></span>
+<span class=normal><a href=#__codelineno-12-14>14</a></span>
+<span class=normal><a href=#__codelineno-12-15>15</a></span>
+<span class=normal><a href=#__codelineno-12-16>16</a></span>
+<span class=normal><a href=#__codelineno-12-17>17</a></span>
+<span class=normal><a href=#__codelineno-12-18>18</a></span>
+<span class=normal><a href=#__codelineno-12-19>19</a></span>
+<span class=normal><a href=#__codelineno-12-20>20</a></span>
+<span class=normal><a href=#__codelineno-12-21>21</a></span>
+<span class=normal><a href=#__codelineno-12-22>22</a></span>
+<span class=normal><a href=#__codelineno-12-23>23</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>&gt; show services security-intelligence category detail category-name DNS feed-name demo_dnsf_t1     
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>
+<a id=__codelineno-12-3 name=__codelineno-12-3></a>Category name   :DNS
+<a id=__codelineno-12-4 name=__codelineno-12-4></a>  Feed name     :demo_dnsf_t1
+<a id=__codelineno-12-5 name=__codelineno-12-5></a>  logical-system:root-logical-system
+<a id=__codelineno-12-6 name=__codelineno-12-6></a>  Vrf name      :vr-t1
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>  Version       :20241125.0
+<a id=__codelineno-12-8 name=__codelineno-12-8></a>  Objects number:10
+<a id=__codelineno-12-9 name=__codelineno-12-9></a>  Create time   :2024-11-25 09:33:50 CET
+<a id=__codelineno-12-10 name=__codelineno-12-10></a>  Update time   :2024-11-25 09:41:03 CET
+<a id=__codelineno-12-11 name=__codelineno-12-11></a>  Update status :Store succeeded
+<a id=__codelineno-12-12 name=__codelineno-12-12></a>  Expired       :No
+<a id=__codelineno-12-13 name=__codelineno-12-13></a>  Options       :N/A
+<a id=__codelineno-12-14 name=__codelineno-12-14></a>  { url:coolsite3022.com threat_level:10}
+<a id=__codelineno-12-15 name=__codelineno-12-15></a>  { url:fastweb7639.com threat_level:10}
+<a id=__codelineno-12-16 name=__codelineno-12-16></a>  { url:greatsite8880.com threat_level:10}
+<a id=__codelineno-12-17 name=__codelineno-12-17></a>  { url:greattech2443.com threat_level:10}
+<a id=__codelineno-12-18 name=__codelineno-12-18></a>  { url:happyworld5071.com threat_level:10}
+<a id=__codelineno-12-19 name=__codelineno-12-19></a>  { url:mytech2524.com threat_level:10}
+<a id=__codelineno-12-20 name=__codelineno-12-20></a>  { url:newapp1289.com threat_level:10}
+<a id=__codelineno-12-21 name=__codelineno-12-21></a>  { url:smartweb881.com threat_level:10}
+<a id=__codelineno-12-22 name=__codelineno-12-22></a>  { url:smartworld7813.com threat_level:10}
+<a id=__codelineno-12-23 name=__codelineno-12-23></a>  { url:topworld938.com threat_level:10}
+</code></pre></div></td></tr></table></div> <h2 id=verification>Verification<a class=headerlink href=#verification title="Permanent link">&para;</a></h2> <p>One of the many options is to validate using the host command (from the bind9-host package). DNS resolution works for juniper.net, but times out for the hostname listed in the feed:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1>1</a></span>
+<span class=normal><a href=#__codelineno-13-2>2</a></span>
+<span class=normal><a href=#__codelineno-13-3>3</a></span>
+<span class=normal><a href=#__codelineno-13-4>4</a></span>
+<span class=normal><a href=#__codelineno-13-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a># host juniper.net
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>juniper.net has address 44.224.71.252
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>
+<a id=__codelineno-13-4 name=__codelineno-13-4></a># host coolsite3022.com
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>;; connection timed out; no servers could be reached
+</code></pre></div></td></tr></table></div> <blockquote> <p>Note: in the case of an allowed DNS query to a non-existent domain, an NXDOMAIN status would be returned.</p> </blockquote> <p>Secintel counters indicate the actions taken per DNS query type:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1> 1</a></span>
+<span class=normal><a href=#__codelineno-14-2> 2</a></span>
+<span class=normal><a href=#__codelineno-14-3> 3</a></span>
+<span class=normal><a href=#__codelineno-14-4> 4</a></span>
+<span class=normal><a href=#__codelineno-14-5> 5</a></span>
+<span class=normal><a href=#__codelineno-14-6> 6</a></span>
+<span class=normal><a href=#__codelineno-14-7> 7</a></span>
+<span class=normal><a href=#__codelineno-14-8> 8</a></span>
+<span class=normal><a href=#__codelineno-14-9> 9</a></span>
+<span class=normal><a href=#__codelineno-14-10>10</a></span>
+<span class=normal><a href=#__codelineno-14-11>11</a></span>
+<span class=normal><a href=#__codelineno-14-12>12</a></span>
+<span class=normal><a href=#__codelineno-14-13>13</a></span>
+<span class=normal><a href=#__codelineno-14-14>14</a></span>
+<span class=normal><a href=#__codelineno-14-15>15</a></span>
+<span class=normal><a href=#__codelineno-14-16>16</a></span>
+<span class=normal><a href=#__codelineno-14-17>17</a></span>
+<span class=normal><a href=#__codelineno-14-18>18</a></span>
+<span class=normal><a href=#__codelineno-14-19>19</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a>&gt; show services security-intelligence dns-statistics profile t1    
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>
+<a id=__codelineno-14-3 name=__codelineno-14-3></a>Category DNS:
+<a id=__codelineno-14-4 name=__codelineno-14-4></a>  Profile t1:
+<a id=__codelineno-14-5 name=__codelineno-14-5></a>    DNS Query Type       Requests      Sinkhole      Drop          Permit        Log
+<a id=__codelineno-14-6 name=__codelineno-14-6></a>
+<a id=__codelineno-14-7 name=__codelineno-14-7></a>  UDP Counter:
+<a id=__codelineno-14-8 name=__codelineno-14-8></a>            A              4             0             2             0            2
+<a id=__codelineno-14-9 name=__codelineno-14-9></a>         AAAA              1             0             0             0            0
+<a id=__codelineno-14-10 name=__codelineno-14-10></a>           MX              1             0             0             0            0
+<a id=__codelineno-14-11 name=__codelineno-14-11></a>        CNAME              0             0             0             0            0
+<a id=__codelineno-14-12 name=__codelineno-14-12></a>          SRV              0             0             0             0            0
+<a id=__codelineno-14-13 name=__codelineno-14-13></a>    SRV NoErr              0             0             0             0            0
+<a id=__codelineno-14-14 name=__codelineno-14-14></a>          TXT              0             0             0             0            0
+<a id=__codelineno-14-15 name=__codelineno-14-15></a>    TXT NoErr              0             0             0             0            0
+<a id=__codelineno-14-16 name=__codelineno-14-16></a>          ANY              0             0             0             0            0
+<a id=__codelineno-14-17 name=__codelineno-14-17></a>         MISC              0             0             0             0            0
+<a id=__codelineno-14-18 name=__codelineno-14-18></a>&lt;SNIP&gt;
+<a id=__codelineno-14-19 name=__codelineno-14-19></a>        Total              6             0             2             0            2
+</code></pre></div></td></tr></table></div> <p>Details about the drop can be found in the SRX logs:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1>1</a></span>
+<span class=normal><a href=#__codelineno-15-2>2</a></span>
+<span class=normal><a href=#__codelineno-15-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a>&gt; show security log report in-detail dns threat-severity 10
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>
+<a id=__codelineno-15-3 name=__codelineno-15-3></a>2024-11-30T19:26:44 vsrx-dnsf RT_SECINTEL - DNSF_ACTION_LOG [sub-category="custom" query-type="A" protocol-id="17" feed-name="demo_dnsf_t1" source-address="10.1.1.10" destination-address="1.1.1.1" category="dns" query="coolsite3022.com" action="drop" source-port="58866" destination-port="53" policy-name="t1" profile-name="t1" username="N/A" session-id="10" source-zone-name="t1" destination-zone-name="common" threat-severity="10"]
+</code></pre></div></td></tr></table></div> <p>And the corresponding CloudATP realm log:</p> <p><img alt="CloudATP tenant DNS action view" src=../images/picture14.png></p> <p>In the case of no logs appearing in the CloudATP realm, the first place to check is the CloudATP data plane connection to see if there is any active connection, as shown below:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-16-1> 1</a></span>
+<span class=normal><a href=#__codelineno-16-2> 2</a></span>
+<span class=normal><a href=#__codelineno-16-3> 3</a></span>
+<span class=normal><a href=#__codelineno-16-4> 4</a></span>
+<span class=normal><a href=#__codelineno-16-5> 5</a></span>
+<span class=normal><a href=#__codelineno-16-6> 6</a></span>
+<span class=normal><a href=#__codelineno-16-7> 7</a></span>
+<span class=normal><a href=#__codelineno-16-8> 8</a></span>
+<span class=normal><a href=#__codelineno-16-9> 9</a></span>
+<span class=normal><a href=#__codelineno-16-10>10</a></span>
+<span class=normal><a href=#__codelineno-16-11>11</a></span>
+<span class=normal><a href=#__codelineno-16-12>12</a></span>
+<span class=normal><a href=#__codelineno-16-13>13</a></span>
+<span class=normal><a href=#__codelineno-16-14>14</a></span>
+<span class=normal><a href=#__codelineno-16-15>15</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-16-1 name=__codelineno-16-1></a>&gt; show services advanced-anti-malware status 
+<a id=__codelineno-16-2 name=__codelineno-16-2></a>
+<a id=__codelineno-16-3 name=__codelineno-16-3></a>Server connection status:
+<a id=__codelineno-16-4 name=__codelineno-16-4></a>  Server hostname: srxapi.eu-west-1.sky.junipersecurity.net
+<a id=__codelineno-16-5 name=__codelineno-16-5></a>  Server realm: demo-dnsf-root
+<a id=__codelineno-16-6 name=__codelineno-16-6></a>  Server port: 443
+<a id=__codelineno-16-7 name=__codelineno-16-7></a>  Proxy hostname: None
+<a id=__codelineno-16-8 name=__codelineno-16-8></a>  Proxy port: None
+<a id=__codelineno-16-9 name=__codelineno-16-9></a>    Control Plane:
+<a id=__codelineno-16-10 name=__codelineno-16-10></a>      Connection time: 2024-11-25 10:20:44 CET
+<a id=__codelineno-16-11 name=__codelineno-16-11></a>      Connection status: Connected
+<a id=__codelineno-16-12 name=__codelineno-16-12></a>    Service Plane:
+<a id=__codelineno-16-13 name=__codelineno-16-13></a>      master
+<a id=__codelineno-16-14 name=__codelineno-16-14></a>        Connection active number: 1
+<a id=__codelineno-16-15 name=__codelineno-16-15></a>        Connection retry statistics: 1
+</code></pre></div></td></tr></table></div> <h3 id=encrypted-dns>Encrypted DNS<a class=headerlink href=#encrypted-dns title="Permanent link">&para;</a></h3> <p>Obviously, encrypted DNS, such as DoH and DoT, evades filtering unless interception capability exists. Another method is to prohibit encrypted DNS communication and allow the clients to fall back to traditional unencrypted DNS.</p> <p>The following would reconfigure Tenant 1 policies to reject the L7 meta-application DNS-ENCRYPTED, representing DoH and DoT, and turn classic firewall rules into a unified NGFW style by using dynamic-application match:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-17-1> 1</a></span>
+<span class=normal><a href=#__codelineno-17-2> 2</a></span>
+<span class=normal><a href=#__codelineno-17-3> 3</a></span>
+<span class=normal><a href=#__codelineno-17-4> 4</a></span>
+<span class=normal><a href=#__codelineno-17-5> 5</a></span>
+<span class=normal><a href=#__codelineno-17-6> 6</a></span>
+<span class=normal><a href=#__codelineno-17-7> 7</a></span>
+<span class=normal><a href=#__codelineno-17-8> 8</a></span>
+<span class=normal><a href=#__codelineno-17-9> 9</a></span>
+<span class=normal><a href=#__codelineno-17-10>10</a></span>
+<span class=normal><a href=#__codelineno-17-11>11</a></span>
+<span class=normal><a href=#__codelineno-17-12>12</a></span>
+<span class=normal><a href=#__codelineno-17-13>13</a></span>
+<span class=normal><a href=#__codelineno-17-14>14</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-17-1 name=__codelineno-17-1></a>delete security policies from-zone t1 to-zone common
+<a id=__codelineno-17-2 name=__codelineno-17-2></a>edit security policies from-zone t1 to-zone common
+<a id=__codelineno-17-3 name=__codelineno-17-3></a>set policy t1-reject match source-address any
+<a id=__codelineno-17-4 name=__codelineno-17-4></a>set policy t1-reject match destination-address any
+<a id=__codelineno-17-5 name=__codelineno-17-5></a>set policy t1-reject match application any
+<a id=__codelineno-17-6 name=__codelineno-17-6></a>set policy t1-reject match dynamic-application junos:DNS-ENCRYPTED
+<a id=__codelineno-17-7 name=__codelineno-17-7></a>set policy t1-reject then reject
+<a id=__codelineno-17-8 name=__codelineno-17-8></a>set policy t1-reject then log session-init
+<a id=__codelineno-17-9 name=__codelineno-17-9></a>set policy t1 match source-address any
+<a id=__codelineno-17-10 name=__codelineno-17-10></a>set policy t1 match destination-address any
+<a id=__codelineno-17-11 name=__codelineno-17-11></a>set policy t1 match application any
+<a id=__codelineno-17-12 name=__codelineno-17-12></a>set policy t1 match dynamic-application any
+<a id=__codelineno-17-13 name=__codelineno-17-13></a>set policy t1 then permit application-services security-intelligence-policy t1
+<a id=__codelineno-17-14 name=__codelineno-17-14></a>set security policies global policy reject-log match dynamic-application any
+</code></pre></div></td></tr></table></div> <p>Sample logs of Application Firewall reject action for DoH:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-18-1>1</a></span>
+<span class=normal><a href=#__codelineno-18-2>2</a></span>
+<span class=normal><a href=#__codelineno-18-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-18-1 name=__codelineno-18-1></a>&gt; show security log report in-detail session deny 
+<a id=__codelineno-18-2 name=__codelineno-18-2></a>
+<a id=__codelineno-18-3 name=__codelineno-18-3></a>2024-11-30T19:27:43 vsrx-dnsf RT_FLOW - RT_FLOW_SESSION_DENY [application="SSL" source-address="10.1.1.10" destination-address="8.8.8.8" nested-application="DNS-ENCRYPTED" username="10.1.1.10" policy-name="t1-reject" packet-incoming-interface="ge-0/0/1.181" source-zone-name="t1" destination-zone-name="common" session-id="13" source-port="35058" destination-port="443" protocol-id="TCP" reason="Rejected by policy"]
+</code></pre></div></td></tr></table></div> <h2 id=appendix-configurations>Appendix: Configurations<a class=headerlink href=#appendix-configurations title="Permanent link">&para;</a></h2> <h3 id=appendix-1-base-srx-config>Appendix 1: base SRX config<a class=headerlink href=#appendix-1-base-srx-config title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-19-1> 1</a></span>
+<span class=normal><a href=#__codelineno-19-2> 2</a></span>
+<span class=normal><a href=#__codelineno-19-3> 3</a></span>
+<span class=normal><a href=#__codelineno-19-4> 4</a></span>
+<span class=normal><a href=#__codelineno-19-5> 5</a></span>
+<span class=normal><a href=#__codelineno-19-6> 6</a></span>
+<span class=normal><a href=#__codelineno-19-7> 7</a></span>
+<span class=normal><a href=#__codelineno-19-8> 8</a></span>
+<span class=normal><a href=#__codelineno-19-9> 9</a></span>
+<span class=normal><a href=#__codelineno-19-10>10</a></span>
+<span class=normal><a href=#__codelineno-19-11>11</a></span>
+<span class=normal><a href=#__codelineno-19-12>12</a></span>
+<span class=normal><a href=#__codelineno-19-13>13</a></span>
+<span class=normal><a href=#__codelineno-19-14>14</a></span>
+<span class=normal><a href=#__codelineno-19-15>15</a></span>
+<span class=normal><a href=#__codelineno-19-16>16</a></span>
+<span class=normal><a href=#__codelineno-19-17>17</a></span>
+<span class=normal><a href=#__codelineno-19-18>18</a></span>
+<span class=normal><a href=#__codelineno-19-19>19</a></span>
+<span class=normal><a href=#__codelineno-19-20>20</a></span>
+<span class=normal><a href=#__codelineno-19-21>21</a></span>
+<span class=normal><a href=#__codelineno-19-22>22</a></span>
+<span class=normal><a href=#__codelineno-19-23>23</a></span>
+<span class=normal><a href=#__codelineno-19-24>24</a></span>
+<span class=normal><a href=#__codelineno-19-25>25</a></span>
+<span class=normal><a href=#__codelineno-19-26>26</a></span>
+<span class=normal><a href=#__codelineno-19-27>27</a></span>
+<span class=normal><a href=#__codelineno-19-28>28</a></span>
+<span class=normal><a href=#__codelineno-19-29>29</a></span>
+<span class=normal><a href=#__codelineno-19-30>30</a></span>
+<span class=normal><a href=#__codelineno-19-31>31</a></span>
+<span class=normal><a href=#__codelineno-19-32>32</a></span>
+<span class=normal><a href=#__codelineno-19-33>33</a></span>
+<span class=normal><a href=#__codelineno-19-34>34</a></span>
+<span class=normal><a href=#__codelineno-19-35>35</a></span>
+<span class=normal><a href=#__codelineno-19-36>36</a></span>
+<span class=normal><a href=#__codelineno-19-37>37</a></span>
+<span class=normal><a href=#__codelineno-19-38>38</a></span>
+<span class=normal><a href=#__codelineno-19-39>39</a></span>
+<span class=normal><a href=#__codelineno-19-40>40</a></span>
+<span class=normal><a href=#__codelineno-19-41>41</a></span>
+<span class=normal><a href=#__codelineno-19-42>42</a></span>
+<span class=normal><a href=#__codelineno-19-43>43</a></span>
+<span class=normal><a href=#__codelineno-19-44>44</a></span>
+<span class=normal><a href=#__codelineno-19-45>45</a></span>
+<span class=normal><a href=#__codelineno-19-46>46</a></span>
+<span class=normal><a href=#__codelineno-19-47>47</a></span>
+<span class=normal><a href=#__codelineno-19-48>48</a></span>
+<span class=normal><a href=#__codelineno-19-49>49</a></span>
+<span class=normal><a href=#__codelineno-19-50>50</a></span>
+<span class=normal><a href=#__codelineno-19-51>51</a></span>
+<span class=normal><a href=#__codelineno-19-52>52</a></span>
+<span class=normal><a href=#__codelineno-19-53>53</a></span>
+<span class=normal><a href=#__codelineno-19-54>54</a></span>
+<span class=normal><a href=#__codelineno-19-55>55</a></span>
+<span class=normal><a href=#__codelineno-19-56>56</a></span>
+<span class=normal><a href=#__codelineno-19-57>57</a></span>
+<span class=normal><a href=#__codelineno-19-58>58</a></span>
+<span class=normal><a href=#__codelineno-19-59>59</a></span>
+<span class=normal><a href=#__codelineno-19-60>60</a></span>
+<span class=normal><a href=#__codelineno-19-61>61</a></span>
+<span class=normal><a href=#__codelineno-19-62>62</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-19-1 name=__codelineno-19-1></a>set version 24.2R1-S1.10
+<a id=__codelineno-19-2 name=__codelineno-19-2></a>set system host-name vsrx-dnsf
+<a id=__codelineno-19-3 name=__codelineno-19-3></a>set system syslog file messages any any
+<a id=__codelineno-19-4 name=__codelineno-19-4></a>set system syslog file messages archive size 5m
+<a id=__codelineno-19-5 name=__codelineno-19-5></a>set system syslog file messages archive files 5
+<a id=__codelineno-19-6 name=__codelineno-19-6></a>set services application-identification
+<a id=__codelineno-19-7 name=__codelineno-19-7></a>set security log mode stream
+<a id=__codelineno-19-8 name=__codelineno-19-8></a>set security alg h323 disable
+<a id=__codelineno-19-9 name=__codelineno-19-9></a>set security alg mgcp disable
+<a id=__codelineno-19-10 name=__codelineno-19-10></a>set security alg msrpc disable
+<a id=__codelineno-19-11 name=__codelineno-19-11></a>set security alg sunrpc disable
+<a id=__codelineno-19-12 name=__codelineno-19-12></a>set security alg rtsp disable
+<a id=__codelineno-19-13 name=__codelineno-19-13></a>set security alg sccp disable
+<a id=__codelineno-19-14 name=__codelineno-19-14></a>set security alg sip disable
+<a id=__codelineno-19-15 name=__codelineno-19-15></a>set security alg talk disable
+<a id=__codelineno-19-16 name=__codelineno-19-16></a>set security alg tftp disable
+<a id=__codelineno-19-17 name=__codelineno-19-17></a>set security alg pptp disable
+<a id=__codelineno-19-18 name=__codelineno-19-18></a>set security flow tcp-session strict-syn-check
+<a id=__codelineno-19-19 name=__codelineno-19-19></a>set security nat source rule-set common from zone t1
+<a id=__codelineno-19-20 name=__codelineno-19-20></a>set security nat source rule-set common from zone t2
+<a id=__codelineno-19-21 name=__codelineno-19-21></a>set security nat source rule-set common to zone common
+<a id=__codelineno-19-22 name=__codelineno-19-22></a>set security nat source rule-set common rule common match source-address 0.0.0.0/0
+<a id=__codelineno-19-23 name=__codelineno-19-23></a>set security nat source rule-set common rule common match destination-address 0.0.0.0/0
+<a id=__codelineno-19-24 name=__codelineno-19-24></a>set security nat source rule-set common rule common then source-nat interface
+<a id=__codelineno-19-25 name=__codelineno-19-25></a>set security policies from-zone t1 to-zone common policy t1 match source-address any
+<a id=__codelineno-19-26 name=__codelineno-19-26></a>set security policies from-zone t1 to-zone common policy t1 match destination-address any
+<a id=__codelineno-19-27 name=__codelineno-19-27></a>set security policies from-zone t1 to-zone common policy t1 match application any
+<a id=__codelineno-19-28 name=__codelineno-19-28></a>set security policies from-zone t1 to-zone common policy t1 then permit
+<a id=__codelineno-19-29 name=__codelineno-19-29></a>set security policies from-zone t2 to-zone common policy t2 match source-address any
+<a id=__codelineno-19-30 name=__codelineno-19-30></a>set security policies from-zone t2 to-zone common policy t2 match destination-address any
+<a id=__codelineno-19-31 name=__codelineno-19-31></a>set security policies from-zone t2 to-zone common policy t2 match application any
+<a id=__codelineno-19-32 name=__codelineno-19-32></a>set security policies from-zone t2 to-zone common policy t2 then permit
+<a id=__codelineno-19-33 name=__codelineno-19-33></a>set security policies global policy reject-log match source-address any
+<a id=__codelineno-19-34 name=__codelineno-19-34></a>set security policies global policy reject-log match destination-address any
+<a id=__codelineno-19-35 name=__codelineno-19-35></a>set security policies global policy reject-log match application any
+<a id=__codelineno-19-36 name=__codelineno-19-36></a>set security policies global policy reject-log match to-zone common
+<a id=__codelineno-19-37 name=__codelineno-19-37></a>set security policies global policy reject-log then reject
+<a id=__codelineno-19-38 name=__codelineno-19-38></a>set security policies global policy reject-log then log session-init
+<a id=__codelineno-19-39 name=__codelineno-19-39></a>set security zones security-zone common interfaces ge-0/0/0.0 host-inbound-traffic system-services ping
+<a id=__codelineno-19-40 name=__codelineno-19-40></a>set security zones security-zone t1 interfaces ge-0/0/1.181 host-inbound-traffic system-services ping
+<a id=__codelineno-19-41 name=__codelineno-19-41></a>set security zones security-zone t1 tcp-rst
+<a id=__codelineno-19-42 name=__codelineno-19-42></a>set security zones security-zone t2 interfaces ge-0/0/1.182 host-inbound-traffic system-services ping
+<a id=__codelineno-19-43 name=__codelineno-19-43></a>set security zones security-zone t2 tcp-rst
+<a id=__codelineno-19-44 name=__codelineno-19-44></a>set interfaces ge-0/0/0 unit 0 family inet address 203.0.113.10/24
+<a id=__codelineno-19-45 name=__codelineno-19-45></a>set interfaces ge-0/0/1 vlan-tagging    
+<a id=__codelineno-19-46 name=__codelineno-19-46></a>set interfaces ge-0/0/1 unit 181 vlan-id 181
+<a id=__codelineno-19-47 name=__codelineno-19-47></a>set interfaces ge-0/0/1 unit 181 family inet address 10.1.1.1/24
+<a id=__codelineno-19-48 name=__codelineno-19-48></a>set interfaces ge-0/0/1 unit 182 vlan-id 182
+<a id=__codelineno-19-49 name=__codelineno-19-49></a>set interfaces ge-0/0/1 unit 182 family inet address 10.2.1.1/24
+<a id=__codelineno-19-50 name=__codelineno-19-50></a>set policy-options policy-statement import-from-common term 1 from instance vr-common
+<a id=__codelineno-19-51 name=__codelineno-19-51></a>set policy-options policy-statement import-from-common term 1 from route-filter 0.0.0.0/0 exact
+<a id=__codelineno-19-52 name=__codelineno-19-52></a>set policy-options policy-statement import-from-common term 1 then accept
+<a id=__codelineno-19-53 name=__codelineno-19-53></a>set policy-options policy-statement import-from-common term 100 then reject
+<a id=__codelineno-19-54 name=__codelineno-19-54></a>set routing-instances vr-common instance-type virtual-router
+<a id=__codelineno-19-55 name=__codelineno-19-55></a>set routing-instances vr-common routing-options static route 0.0.0.0/0 next-hop 203.0.113.1
+<a id=__codelineno-19-56 name=__codelineno-19-56></a>set routing-instances vr-common interface ge-0/0/0.0
+<a id=__codelineno-19-57 name=__codelineno-19-57></a>set routing-instances vr-t1 instance-type virtual-router
+<a id=__codelineno-19-58 name=__codelineno-19-58></a>set routing-instances vr-t1 routing-options instance-import import-from-common
+<a id=__codelineno-19-59 name=__codelineno-19-59></a>set routing-instances vr-t1 interface ge-0/0/1.181
+<a id=__codelineno-19-60 name=__codelineno-19-60></a>set routing-instances vr-t2 instance-type virtual-router
+<a id=__codelineno-19-61 name=__codelineno-19-61></a>set routing-instances vr-t2 routing-options instance-import import-from-common
+<a id=__codelineno-19-62 name=__codelineno-19-62></a>set routing-instances vr-t2 interface ge-0/0/1.182
+</code></pre></div></td></tr></table></div> <h3 id=appendix-2-sample-cloudatp-enrollment>Appendix 2: Sample CloudATP Enrollment<a class=headerlink href=#appendix-2-sample-cloudatp-enrollment title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-20-1> 1</a></span>
+<span class=normal><a href=#__codelineno-20-2> 2</a></span>
+<span class=normal><a href=#__codelineno-20-3> 3</a></span>
+<span class=normal><a href=#__codelineno-20-4> 4</a></span>
+<span class=normal><a href=#__codelineno-20-5> 5</a></span>
+<span class=normal><a href=#__codelineno-20-6> 6</a></span>
+<span class=normal><a href=#__codelineno-20-7> 7</a></span>
+<span class=normal><a href=#__codelineno-20-8> 8</a></span>
+<span class=normal><a href=#__codelineno-20-9> 9</a></span>
+<span class=normal><a href=#__codelineno-20-10>10</a></span>
+<span class=normal><a href=#__codelineno-20-11>11</a></span>
+<span class=normal><a href=#__codelineno-20-12>12</a></span>
+<span class=normal><a href=#__codelineno-20-13>13</a></span>
+<span class=normal><a href=#__codelineno-20-14>14</a></span>
+<span class=normal><a href=#__codelineno-20-15>15</a></span>
+<span class=normal><a href=#__codelineno-20-16>16</a></span>
+<span class=normal><a href=#__codelineno-20-17>17</a></span>
+<span class=normal><a href=#__codelineno-20-18>18</a></span>
+<span class=normal><a href=#__codelineno-20-19>19</a></span>
+<span class=normal><a href=#__codelineno-20-20>20</a></span>
+<span class=normal><a href=#__codelineno-20-21>21</a></span>
+<span class=normal><a href=#__codelineno-20-22>22</a></span>
+<span class=normal><a href=#__codelineno-20-23>23</a></span>
+<span class=normal><a href=#__codelineno-20-24>24</a></span>
+<span class=normal><a href=#__codelineno-20-25>25</a></span>
+<span class=normal><a href=#__codelineno-20-26>26</a></span>
+<span class=normal><a href=#__codelineno-20-27>27</a></span>
+<span class=normal><a href=#__codelineno-20-28>28</a></span>
+<span class=normal><a href=#__codelineno-20-29>29</a></span>
+<span class=normal><a href=#__codelineno-20-30>30</a></span>
+<span class=normal><a href=#__codelineno-20-31>31</a></span>
+<span class=normal><a href=#__codelineno-20-32>32</a></span>
+<span class=normal><a href=#__codelineno-20-33>33</a></span>
+<span class=normal><a href=#__codelineno-20-34>34</a></span>
+<span class=normal><a href=#__codelineno-20-35>35</a></span>
+<span class=normal><a href=#__codelineno-20-36>36</a></span>
+<span class=normal><a href=#__codelineno-20-37>37</a></span>
+<span class=normal><a href=#__codelineno-20-38>38</a></span>
+<span class=normal><a href=#__codelineno-20-39>39</a></span>
+<span class=normal><a href=#__codelineno-20-40>40</a></span>
+<span class=normal><a href=#__codelineno-20-41>41</a></span>
+<span class=normal><a href=#__codelineno-20-42>42</a></span>
+<span class=normal><a href=#__codelineno-20-43>43</a></span>
+<span class=normal><a href=#__codelineno-20-44>44</a></span>
+<span class=normal><a href=#__codelineno-20-45>45</a></span>
+<span class=normal><a href=#__codelineno-20-46>46</a></span>
+<span class=normal><a href=#__codelineno-20-47>47</a></span>
+<span class=normal><a href=#__codelineno-20-48>48</a></span>
+<span class=normal><a href=#__codelineno-20-49>49</a></span>
+<span class=normal><a href=#__codelineno-20-50>50</a></span>
+<span class=normal><a href=#__codelineno-20-51>51</a></span>
+<span class=normal><a href=#__codelineno-20-52>52</a></span>
+<span class=normal><a href=#__codelineno-20-53>53</a></span>
+<span class=normal><a href=#__codelineno-20-54>54</a></span>
+<span class=normal><a href=#__codelineno-20-55>55</a></span>
+<span class=normal><a href=#__codelineno-20-56>56</a></span>
+<span class=normal><a href=#__codelineno-20-57>57</a></span>
+<span class=normal><a href=#__codelineno-20-58>58</a></span>
+<span class=normal><a href=#__codelineno-20-59>59</a></span>
+<span class=normal><a href=#__codelineno-20-60>60</a></span>
+<span class=normal><a href=#__codelineno-20-61>61</a></span>
+<span class=normal><a href=#__codelineno-20-62>62</a></span>
+<span class=normal><a href=#__codelineno-20-63>63</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-20-1 name=__codelineno-20-1></a>Platform is supported by ATP Cloud: VSRX.
+<a id=__codelineno-20-2 name=__codelineno-20-2></a>Version 24.2R1-S1.10 is valid for bootstrapping.
+<a id=__codelineno-20-3 name=__codelineno-20-3></a>Enrolling with ATP Cloud license serial number: 20161111.
+<a id=__codelineno-20-4 name=__codelineno-20-4></a>Going to enroll single device for VSRX: f8ef568918e0@20161111 with hostname vsrx-dnsf.
+<a id=__codelineno-20-5 name=__codelineno-20-5></a>Not finding Application Signature DB on this device.
+<a id=__codelineno-20-6 name=__codelineno-20-6></a>Installing Application Signature DB.
+<a id=__codelineno-20-7 name=__codelineno-20-7></a>Start downloading Application Signature DB update...
+<a id=__codelineno-20-8 name=__codelineno-20-8></a>Check Application Signature DB download status...
+<a id=__codelineno-20-9 name=__codelineno-20-9></a>Wait for Application Signature DB signature download status...
+<a id=__codelineno-20-10 name=__codelineno-20-10></a>Start installing Application Signature DB update...
+<a id=__codelineno-20-11 name=__codelineno-20-11></a>Communicate with cloud...
+<a id=__codelineno-20-12 name=__codelineno-20-12></a>License type for this device: premium.
+<a id=__codelineno-20-13 name=__codelineno-20-13></a>License of your device will expire in 714 days.
+<a id=__codelineno-20-14 name=__codelineno-20-14></a>Remove related security-intelligence service configurations...
+<a id=__codelineno-20-15 name=__codelineno-20-15></a>Remove related advanced-anti-malware service configurations...
+<a id=__codelineno-20-16 name=__codelineno-20-16></a>Remove related SSL service configurations...
+<a id=__codelineno-20-17 name=__codelineno-20-17></a>Remove related PKI configurations...
+<a id=__codelineno-20-18 name=__codelineno-20-18></a>Clear local certificate aamw-srx-cert...
+<a id=__codelineno-20-19 name=__codelineno-20-19></a>Clear key pair: aamw-srx-cert...
+<a id=__codelineno-20-20 name=__codelineno-20-20></a>Clear CA profile aamw-cloud-ca...
+<a id=__codelineno-20-21 name=__codelineno-20-21></a>Clear CA profile aamw-secintel-ca...
+<a id=__codelineno-20-22 name=__codelineno-20-22></a>Configure CA...
+<a id=__codelineno-20-23 name=__codelineno-20-23></a>Request aamw-secintel-ca CA...
+<a id=__codelineno-20-24 name=__codelineno-20-24></a>Wait aamw-secintel-ca CA download status...
+<a id=__codelineno-20-25 name=__codelineno-20-25></a>Load aamw-secintel-ca CA...
+<a id=__codelineno-20-26 name=__codelineno-20-26></a>Request aamw-cloud-ca CA...
+<a id=__codelineno-20-27 name=__codelineno-20-27></a>Wait aamw-cloud-ca CA download status...
+<a id=__codelineno-20-28 name=__codelineno-20-28></a>Load aamw-cloud-ca CA...
+<a id=__codelineno-20-29 name=__codelineno-20-29></a>Retrieve CA profile aamw-ca...
+<a id=__codelineno-20-30 name=__codelineno-20-30></a>CA certificate ready: aamw-ca...
+<a id=__codelineno-20-31 name=__codelineno-20-31></a>CA certificate ready: aamw-cloud-ca...
+<a id=__codelineno-20-32 name=__codelineno-20-32></a>CA certificate ready: aamw-secintel-ca...
+<a id=__codelineno-20-33 name=__codelineno-20-33></a>Generate key pair: aamw-srx-cert...
+<a id=__codelineno-20-34 name=__codelineno-20-34></a>Enroll local certificate aamw-srx-cert with CA server...
+<a id=__codelineno-20-35 name=__codelineno-20-35></a>Configure SSL service...
+<a id=__codelineno-20-36 name=__codelineno-20-36></a>Configuration added successfully for SSL service.
+<a id=__codelineno-20-37 name=__codelineno-20-37></a>Configure advanced-anti-malware service...
+<a id=__codelineno-20-38 name=__codelineno-20-38></a>Configuration added successfully for advanced-anti-malware service.
+<a id=__codelineno-20-39 name=__codelineno-20-39></a>Configure security-intelligence service...
+<a id=__codelineno-20-40 name=__codelineno-20-40></a>Configuration added successfully for security-intelligence service.
+<a id=__codelineno-20-41 name=__codelineno-20-41></a>Check configuration on device...
+<a id=__codelineno-20-42 name=__codelineno-20-42></a>SSL profile:                          [OK]
+<a id=__codelineno-20-43 name=__codelineno-20-43></a>SecIntel CA:                          [OK]
+<a id=__codelineno-20-44 name=__codelineno-20-44></a>Cloud CA:                             [OK]
+<a id=__codelineno-20-45 name=__codelineno-20-45></a>Client cert found:                    [OK]
+<a id=__codelineno-20-46 name=__codelineno-20-46></a>SSL profile action:                   [OK]
+<a id=__codelineno-20-47 name=__codelineno-20-47></a>URL for advanced-anti-malware:        [OK]
+<a id=__codelineno-20-48 name=__codelineno-20-48></a>Profile for advanced-anti-malware:    [OK]
+<a id=__codelineno-20-49 name=__codelineno-20-49></a>URL for security-intelligence:        [OK]
+<a id=__codelineno-20-50 name=__codelineno-20-50></a>Profile for security-intelligence:    [OK]
+<a id=__codelineno-20-51 name=__codelineno-20-51></a>All configurations are correct for enrollment.
+<a id=__codelineno-20-52 name=__codelineno-20-52></a>Communicate with cloud...
+<a id=__codelineno-20-53 name=__codelineno-20-53></a>Wait for aamw connection status...
+<a id=__codelineno-20-54 name=__codelineno-20-54></a>Device enrolled successfully!
+<a id=__codelineno-20-55 name=__codelineno-20-55></a>Please see following links for more information:
+<a id=__codelineno-20-56 name=__codelineno-20-56></a>ATP Cloud sample config:
+<a id=__codelineno-20-57 name=__codelineno-20-57></a> https://www.juniper.net/documentation/en_US/release-independent/sky-atp/topics/example/configuration/sky-atp-policy-creating-cli.html
+<a id=__codelineno-20-58 name=__codelineno-20-58></a>ATP Cloud quick start guide:
+<a id=__codelineno-20-59 name=__codelineno-20-59></a> http://www.juniper.net/documentation/en_US/release-independent/sky-atp/information-products/topic-collections/sky-atp-qsg.pdf
+<a id=__codelineno-20-60 name=__codelineno-20-60></a>ATP Cloud technical documents:
+<a id=__codelineno-20-61 name=__codelineno-20-61></a> http://www.juniper.net/documentation/en_US/release-independent/sky-atp/information-products/pathway-pages/index.html
+<a id=__codelineno-20-62 name=__codelineno-20-62></a>It is recommended to run diagnostic process with the following cli command to make sure all configurations are valid:
+<a id=__codelineno-20-63 name=__codelineno-20-63></a> request services advanced-anti-malware diagnostics srxapi.eu-west-1.sky.junipersecurity.net detail
+</code></pre></div></td></tr></table></div> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">&para;</a></h2> <p>The discussed feature set brings the following benefits:</p> <ul> <li>Strengthens defense by allowing organizations to block or sinkhole malicious DNS queries with precision.</li> <li>Allows combining vendor-provided intelligence with custom threat feeds to address unique business risks.</li> <li>Facilitates granular threat intelligence enforcement for multiple tenants on a single SRX device, reducing infrastructure complexity and costs.</li> <li>Empowers tenants with independent control, visibility, and API access, improving customer satisfaction in managed service environments.</li> </ul> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">&para;</a></h2> <ul> <li><a href=https://www.juniper.net/documentation/us/en/software/atp-cloud/atp-cloud-admin-guide/topics/concept/atp-cloud-about.html>https://www.juniper.net/documentation/us/en/software/atp-cloud/atp-cloud-admin-guide/topics/concept/atp-cloud-about.html</a></li> <li><a href=https://www.juniper.net/documentation/us/en/quick-start/software/atp-cloud/atp-cloud-quick-start/topics/topic-map/id-step-1-begin.html>https://www.juniper.net/documentation/us/en/quick-start/software/atp-cloud/atp-cloud-quick-start/topics/topic-map/id-step-1-begin.html</a></li> <li><a href=https://www.juniper.net/documentation/us/en/software/atp-cloud/atp-cloud-api-setup/topics/concept/atp-cloud-api-overview.html>https://www.juniper.net/documentation/us/en/software/atp-cloud/atp-cloud-api-setup/topics/concept/atp-cloud-api-overview.html</a></li> <li><a href=https://www.juniper.net/us/en/dm/download-next-gen-vsrx-firewall-trial.html>https://www.juniper.net/us/en/dm/download-next-gen-vsrx-firewall-trial.html</a></li> <li><a href=https://www.juniper.net/us/en/products/security/srx-series.html>https://www.juniper.net/us/en/products/security/srx-series.html</a></li> </ul> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">&para;</a></h2> <ul> <li>API: Application Programming Interface</li> <li>ATP: Advanced Threat Prevention</li> <li>CLI: Command Line Interface</li> <li>DNS: Domain Name System</li> <li>DoH: DNS over HTTPS</li> <li>DoT: DNS over TLS</li> <li>GUI: Graphical User Interface</li> <li>HTTPS: Hyper Text Transfer Protocol Secure</li> <li>MSSP: Managed Security Services Provider</li> <li>NGFW: Next Generation Firewall</li> <li>TLS: Transport Layer Security</li> <li>VR: Virtual Router</li> </ul> <h2 id=acknowledgments>Acknowledgments<a class=headerlink href=#acknowledgments title="Permanent link">&para;</a></h2> <p>All the people who provided valuable feedback: Mark Barrett, Kelly Brazil, Tim Carlens, Javier Grizzuti, Steven Jacques, Matthijs Nagel - and others from team JNPR! Finally, vSRX/SRX dev and product teams for delivering the Swiss army knife for security and networking.</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>

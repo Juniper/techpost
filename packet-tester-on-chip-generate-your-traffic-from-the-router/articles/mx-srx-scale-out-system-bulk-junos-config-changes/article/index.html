@@ -1,0 +1,614 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/mx-srx-scale-out-system-bulk-junos-config-changes/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Operating MX/SRX Scale-Out System - Bulk Junos Config Changes - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Operating MX/SRX Scale-Out System - Bulk Junos Config Changes"><meta property=og:image content=https://techpost.hpe.com/articles/mx-srx-scale-out-system-bulk-junos-config-changes/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/mx-srx-scale-out-system-bulk-junos-config-changes/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#operating-mxsrx-scale-out-system-bulk-junos-config-changes class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Operating MX/SRX Scale-Out System - Bulk Junos Config Changes </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#the-challenge class=md-nav__link> <span class=md-ellipsis> The challenge </span> </a> </li> <li class=md-nav__item> <a href=#the-tool class=md-nav__link> <span class=md-ellipsis> The tool </span> </a> </li> <li class=md-nav__item> <a href=#troubleshooting class=md-nav__link> <span class=md-ellipsis> Troubleshooting </span> </a> </li> <li class=md-nav__item> <a href=#tool-help class=md-nav__link> <span class=md-ellipsis> Tool Help </span> </a> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> <nav class=md-nav aria-label=Conclusion> <ul class=md-nav__list> <li class=md-nav__item> <a href=#availability class=md-nav__link> <span class=md-ellipsis> Availability </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> <li class=md-nav__item> <a href=#acknowledgments class=md-nav__link> <span class=md-ellipsis> Acknowledgments </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=operating-mxsrx-scale-out-system-bulk-junos-config-changes>Operating MX/SRX Scale-Out System - Bulk Junos Config Changes<a class=headerlink href=#operating-mxsrx-scale-out-system-bulk-junos-config-changes title="Permanent link">&para;</a></h1> <p><strong>Karel Hendrych - 02/22/2024</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/mx-srx-scale-out-system-bulk-junos-config-changes.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/mx-srx-scale-out-system-bulk-junos-config-changes.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <p>A minimalistic tool for bulk config changes in the scale-out system beyond options available in Auto-FBF CLI</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">&para;</a></h2> <p>This TechPost is continuation of "<a href=https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article>Scale-Out Security Services with Auto-FBF</a> looking at the things more practically. Now the focus will be on a minimalistic tool for bulk config changes in the scale-out system beyond options available in Auto-FBF CLI. To a certain extent the tool could be used as a very simplistic alternative to templating features of Security Director and other external tooling. In this specific example the tool is used for controlling configuration of scaled-out SRX firewalls from MX/PTX device. Reading previous TechPosts is recommended for understanding the Auto-FBF principles. However, approaches are applicable elsewhere too due to generic nature for any Junos devices.</p> <h2 id=the-challenge>The challenge<a class=headerlink href=#the-challenge title="Permanent link">&para;</a></h2> <p>Let's imagine a simple topology from previous TechPost consisting of Juniper Networks <a href=https://www.juniper.net/us/en/products/routers/mx-series/mx304-universal-routing-platform.html>MX304 router </a>as the scale-out distribution device and four <a href=https://www.juniper.net/us/en/products/security/srx-series/srx4600-cloud-service-provider-firewall.html>SRX4600 firewalls</a>.</p> <p><img alt=Topology src=../images/picture3.png></p> <p>Configuration changes done manually to all four devices (possibly many more) are impractical and prone to errors. Therefore, flexible Python based tool for on-box operation with following features:</p> <ul> <li>Conduct Junos config changes from Auto-FBF distribution device(s) like the MX/PTX (or any other Junos / PyEZ equipped machine)</li> <li>Use Jinja2 templates</li> <li>Have optional workflow using prototype device for validation and verification prior bulk change</li> <li>Preview Junos set commands for prototype device</li> <li>Do diff of running/candidate config on prototype device</li> <li>Load configuration to prototype device</li> <li>Able to operate on multiple devices using sequence modifier. For example, the devices having sequentially lined up interface IPs, next /30 prefix, BGP ASNs, etc.</li> <li>Have a profile driven bulk configuration push</li> <li>Profiles able to mix different device types with different templates, e.g., vSRX/SRX4600</li> <li>Control what device types are eligible for configuration push and/or only for viewing rendered set commands from template (safety and operator review prior Junos load set)</li> <li>Easy to expand by new template variables inside of the code for given device type, simple expansion for template data from external data sources</li> <li>Thorough logging, including template rendering debug</li> <li>Ability to archive committed templates and set commands for audit and roll-back purposes</li> <li>General purpose where the tool could be de-coupled from Auto-FBF; or placed elsewhere than MX/PTX to manage configuration (any PyEZ library equipped machine).</li> </ul> <p>The idea of prototype prior changing everything comes from real-life when changes can cause unforeseen consequences. One or more devices in the scale-out system can be designated for testing changes including longevity test prior roll out to whole system. Besides that, Auto-FBF has concept of groups where one or more devices can be designated for various purposes, one of them can be prototype device(s) group serving limited number of subscribers (e.g., mobile SP testing APN). Generally, this is one of the greatest operational advantages of scale-out systems that changes can be thoroughly tested including real-life traffic patterns on smaller set of devices.</p> <h2 id=the-tool>The tool<a class=headerlink href=#the-tool title="Permanent link">&para;</a></h2> <p>First step is to list preconfigured templates stored in predefined folder on the MX304, MD5 is handy for tracing in logs what template got pushed where and whether the template has been changed:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span>
+<span class=normal><a href=#__codelineno-0-11>11</a></span>
+<span class=normal><a href=#__codelineno-0-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf list-template all 
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>---------------------------------------------------------------------------------------
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>|   # |     /var/db/scripts/op/template/*.j2     |                md5                 |
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>---------------------------------------------------------------------------------------
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>|   1 |                      01-mx304-20-srx4600 |   5192e37ebbc55f5fbfd3fe921da5f9c2 |
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>---------------------------------------------------------------------------------------
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>|   2 |                           01-srx4600-all |   3b2b986b1ad8b4d5bab3740f412953b9 |
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>---------------------------------------------------------------------------------------
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>|   3 |                        01-srx4600-common |   153f5f6f81574567633a75e691c95f7c |
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>---------------------------------------------------------------------------------------
+<a id=__codelineno-0-11 name=__codelineno-0-11></a>|   4 |                         01-srx4600-local |   9d6514d63c11753927e6b9801cdccd4e |
+<a id=__codelineno-0-12 name=__codelineno-0-12></a>---------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>To show contents of a template defining SRX4600 specific settings - CLI show command is available as well:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1> 1</a></span>
+<span class=normal><a href=#__codelineno-1-2> 2</a></span>
+<span class=normal><a href=#__codelineno-1-3> 3</a></span>
+<span class=normal><a href=#__codelineno-1-4> 4</a></span>
+<span class=normal><a href=#__codelineno-1-5> 5</a></span>
+<span class=normal><a href=#__codelineno-1-6> 6</a></span>
+<span class=normal><a href=#__codelineno-1-7> 7</a></span>
+<span class=normal><a href=#__codelineno-1-8> 8</a></span>
+<span class=normal><a href=#__codelineno-1-9> 9</a></span>
+<span class=normal><a href=#__codelineno-1-10>10</a></span>
+<span class=normal><a href=#__codelineno-1-11>11</a></span>
+<span class=normal><a href=#__codelineno-1-12>12</a></span>
+<span class=normal><a href=#__codelineno-1-13>13</a></span>
+<span class=normal><a href=#__codelineno-1-14>14</a></span>
+<span class=normal><a href=#__codelineno-1-15>15</a></span>
+<span class=normal><a href=#__codelineno-1-16>16</a></span>
+<span class=normal><a href=#__codelineno-1-17>17</a></span>
+<span class=normal><a href=#__codelineno-1-18>18</a></span>
+<span class=normal><a href=#__codelineno-1-19>19</a></span>
+<span class=normal><a href=#__codelineno-1-20>20</a></span>
+<span class=normal><a href=#__codelineno-1-21>21</a></span>
+<span class=normal><a href=#__codelineno-1-22>22</a></span>
+<span class=normal><a href=#__codelineno-1-23>23</a></span>
+<span class=normal><a href=#__codelineno-1-24>24</a></span>
+<span class=normal><a href=#__codelineno-1-25>25</a></span>
+<span class=normal><a href=#__codelineno-1-26>26</a></span>
+<span class=normal><a href=#__codelineno-1-27>27</a></span>
+<span class=normal><a href=#__codelineno-1-28>28</a></span>
+<span class=normal><a href=#__codelineno-1-29>29</a></span>
+<span class=normal><a href=#__codelineno-1-30>30</a></span>
+<span class=normal><a href=#__codelineno-1-31>31</a></span>
+<span class=normal><a href=#__codelineno-1-32>32</a></span>
+<span class=normal><a href=#__codelineno-1-33>33</a></span>
+<span class=normal><a href=#__codelineno-1-34>34</a></span>
+<span class=normal><a href=#__codelineno-1-35>35</a></span>
+<span class=normal><a href=#__codelineno-1-36>36</a></span>
+<span class=normal><a href=#__codelineno-1-37>37</a></span>
+<span class=normal><a href=#__codelineno-1-38>38</a></span>
+<span class=normal><a href=#__codelineno-1-39>39</a></span>
+<span class=normal><a href=#__codelineno-1-40>40</a></span>
+<span class=normal><a href=#__codelineno-1-41>41</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf show-template 01-srx4600-local 
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>#
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>####################################### BEGIN 01-srx4600-local #######################################
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>#
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>delete groups auto-fbf-local
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>delete groups auto-fbf
+<a id=__codelineno-1-7 name=__codelineno-1-7></a>
+<a id=__codelineno-1-8 name=__codelineno-1-8></a>set groups auto-fbf-local security log stream server-35 source-address 100.65.0.{{ seq_p1 }}
+<a id=__codelineno-1-9 name=__codelineno-1-9></a>set groups auto-fbf-local interfaces ae0 unit 1000 family inet address 100.64.0.{{ seq_p1 }}/24
+<a id=__codelineno-1-10 name=__codelineno-1-10></a>set groups auto-fbf-local interfaces ae0 unit 1000 family inet6 address dead:64::{{ seq_p1 }}/64
+<a id=__codelineno-1-11 name=__codelineno-1-11></a>set groups auto-fbf-local interfaces ae0 unit 1001 family inet address 100.65.0.{{ seq_p1 }}/24
+<a id=__codelineno-1-12 name=__codelineno-1-12></a>set groups auto-fbf-local interfaces ae0 unit 1001 family inet6 address dead:65::{{ seq_p1 }}/64
+<a id=__codelineno-1-13 name=__codelineno-1-13></a>set groups auto-fbf-local routing-instances vr-gi routing-options autonomous-system {{ aut_sys }}
+<a id=__codelineno-1-14 name=__codelineno-1-14></a>
+<a id=__codelineno-1-15 name=__codelineno-1-15></a>set groups auto-fbf security nat source pool pool-1 address 3.0.{{ seq }}.0/24
+<a id=__codelineno-1-16 name=__codelineno-1-16></a>set groups auto-fbf routing-instances vr-gi routing-options static route 3.0.{{ seq }}.0/24 discard
+<a id=__codelineno-1-17 name=__codelineno-1-17></a>
+<a id=__codelineno-1-18 name=__codelineno-1-18></a>set groups auto-fbf-local chassis aggregated-devices ethernet device-count 1
+<a id=__codelineno-1-19 name=__codelineno-1-19></a>set groups auto-fbf-local security zones security-zone inet interfaces ae0.1000
+<a id=__codelineno-1-20 name=__codelineno-1-20></a>set groups auto-fbf-local security zones security-zone gi interfaces ae0.1001
+<a id=__codelineno-1-21 name=__codelineno-1-21></a>set groups auto-fbf-local interfaces ae0 vlan-tagging
+<a id=__codelineno-1-22 name=__codelineno-1-22></a>set groups auto-fbf-local interfaces ae0 aggregated-ether-options lacp active
+<a id=__codelineno-1-23 name=__codelineno-1-23></a>set groups auto-fbf-local interfaces ae0 aggregated-ether-options lacp periodic fast
+<a id=__codelineno-1-24 name=__codelineno-1-24></a>set groups auto-fbf-local interfaces ae0 unit 1000 description inet
+<a id=__codelineno-1-25 name=__codelineno-1-25></a>set groups auto-fbf-local interfaces ae0 unit 1000 vlan-id 1000
+<a id=__codelineno-1-26 name=__codelineno-1-26></a>set groups auto-fbf-local interfaces ae0 unit 1001 description gi
+<a id=__codelineno-1-27 name=__codelineno-1-27></a>set groups auto-fbf-local interfaces ae0 unit 1001 vlan-id 1001
+<a id=__codelineno-1-28 name=__codelineno-1-28></a>set groups auto-fbf-local interfaces et-1/0/0 ether-options 802.3ad ae0
+<a id=__codelineno-1-29 name=__codelineno-1-29></a>set groups auto-fbf-local interfaces et-1/0/1 ether-options 802.3ad ae0
+<a id=__codelineno-1-30 name=__codelineno-1-30></a>set groups auto-fbf-local interfaces et-1/0/2 ether-options 802.3ad ae0
+<a id=__codelineno-1-31 name=__codelineno-1-31></a>set groups auto-fbf-local interfaces et-1/0/3 ether-options 802.3ad ae0
+<a id=__codelineno-1-32 name=__codelineno-1-32></a>set groups auto-fbf-local routing-instances vr-gi interface ae0.1000
+<a id=__codelineno-1-33 name=__codelineno-1-33></a>set groups auto-fbf-local routing-instances vr-gi interface ae0.1001
+<a id=__codelineno-1-34 name=__codelineno-1-34></a>set groups auto-fbf-local routing-instances vr-gi protocols bgp bfd-liveness-detection minimum-interval 300
+<a id=__codelineno-1-35 name=__codelineno-1-35></a>set groups auto-fbf-local routing-instances vr-gi protocols bgp bfd-liveness-detection multiplier 3
+<a id=__codelineno-1-36 name=__codelineno-1-36></a>
+<a id=__codelineno-1-37 name=__codelineno-1-37></a>set apply-groups auto-fbf-local
+<a id=__codelineno-1-38 name=__codelineno-1-38></a>set apply-groups auto-fbf
+<a id=__codelineno-1-39 name=__codelineno-1-39></a>#
+<a id=__codelineno-1-40 name=__codelineno-1-40></a>####################################### END  01-srx4600-local ########################################
+<a id=__codelineno-1-41 name=__codelineno-1-41></a>#
+</code></pre></div></td></tr></table></div> <p>The above template has variable for sequentially increased parameter (seq) and by +1 (seq_p1) for bulk operations. Junos groups are used to ensure starting over during every template operation by deleting the groups at the beginning.</p> <p>To preview Junos set commands rendered from the given template for defined device type (setting variables for template) and for specific sequence:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1> 1</a></span>
+<span class=normal><a href=#__codelineno-2-2> 2</a></span>
+<span class=normal><a href=#__codelineno-2-3> 3</a></span>
+<span class=normal><a href=#__codelineno-2-4> 4</a></span>
+<span class=normal><a href=#__codelineno-2-5> 5</a></span>
+<span class=normal><a href=#__codelineno-2-6> 6</a></span>
+<span class=normal><a href=#__codelineno-2-7> 7</a></span>
+<span class=normal><a href=#__codelineno-2-8> 8</a></span>
+<span class=normal><a href=#__codelineno-2-9> 9</a></span>
+<span class=normal><a href=#__codelineno-2-10>10</a></span>
+<span class=normal><a href=#__codelineno-2-11>11</a></span>
+<span class=normal><a href=#__codelineno-2-12>12</a></span>
+<span class=normal><a href=#__codelineno-2-13>13</a></span>
+<span class=normal><a href=#__codelineno-2-14>14</a></span>
+<span class=normal><a href=#__codelineno-2-15>15</a></span>
+<span class=normal><a href=#__codelineno-2-16>16</a></span>
+<span class=normal><a href=#__codelineno-2-17>17</a></span>
+<span class=normal><a href=#__codelineno-2-18>18</a></span>
+<span class=normal><a href=#__codelineno-2-19>19</a></span>
+<span class=normal><a href=#__codelineno-2-20>20</a></span>
+<span class=normal><a href=#__codelineno-2-21>21</a></span>
+<span class=normal><a href=#__codelineno-2-22>22</a></span>
+<span class=normal><a href=#__codelineno-2-23>23</a></span>
+<span class=normal><a href=#__codelineno-2-24>24</a></span>
+<span class=normal><a href=#__codelineno-2-25>25</a></span>
+<span class=normal><a href=#__codelineno-2-26>26</a></span>
+<span class=normal><a href=#__codelineno-2-27>27</a></span>
+<span class=normal><a href=#__codelineno-2-28>28</a></span>
+<span class=normal><a href=#__codelineno-2-29>29</a></span>
+<span class=normal><a href=#__codelineno-2-30>30</a></span>
+<span class=normal><a href=#__codelineno-2-31>31</a></span>
+<span class=normal><a href=#__codelineno-2-32>32</a></span>
+<span class=normal><a href=#__codelineno-2-33>33</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf device-type srx4600 template 01-srx4600-local seq 7                         
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>delete groups auto-fbf-local
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>delete groups auto-fbf
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>set groups auto-fbf-local interfaces ae0 unit 1000 family inet address 100.64.0.8/24
+<a id=__codelineno-2-5 name=__codelineno-2-5></a>set groups auto-fbf-local interfaces ae0 unit 1000 family inet6 address dead:64::8/64
+<a id=__codelineno-2-6 name=__codelineno-2-6></a>set groups auto-fbf-local interfaces ae0 unit 1001 family inet address 100.65.0.8/24
+<a id=__codelineno-2-7 name=__codelineno-2-7></a>set groups auto-fbf-local interfaces ae0 unit 1001 family inet6 address dead:65::8/64
+<a id=__codelineno-2-8 name=__codelineno-2-8></a>set groups auto-fbf-local routing-instances vr-gi routing-options autonomous-system 65207
+<a id=__codelineno-2-9 name=__codelineno-2-9></a>
+<a id=__codelineno-2-10 name=__codelineno-2-10></a>set groups auto-fbf security nat source pool pool-1 address 3.0.7.0/25
+<a id=__codelineno-2-11 name=__codelineno-2-11></a>set groups auto-fbf routing-instances vr-gi routing-options static route 3.0.7.0/25 discard
+<a id=__codelineno-2-12 name=__codelineno-2-12></a>
+<a id=__codelineno-2-13 name=__codelineno-2-13></a>set groups auto-fbf-local chassis aggregated-devices ethernet device-count 1
+<a id=__codelineno-2-14 name=__codelineno-2-14></a>set groups auto-fbf-local security zones security-zone inet interfaces ae0.1000
+<a id=__codelineno-2-15 name=__codelineno-2-15></a>set groups auto-fbf-local security zones security-zone gi interfaces ae0.1001
+<a id=__codelineno-2-16 name=__codelineno-2-16></a>set groups auto-fbf-local interfaces ae0 vlan-tagging
+<a id=__codelineno-2-17 name=__codelineno-2-17></a>set groups auto-fbf-local interfaces ae0 aggregated-ether-options lacp active
+<a id=__codelineno-2-18 name=__codelineno-2-18></a>set groups auto-fbf-local interfaces ae0 aggregated-ether-options lacp periodic fast
+<a id=__codelineno-2-19 name=__codelineno-2-19></a>set groups auto-fbf-local interfaces ae0 unit 1000 description inet
+<a id=__codelineno-2-20 name=__codelineno-2-20></a>set groups auto-fbf-local interfaces ae0 unit 1000 vlan-id 1000
+<a id=__codelineno-2-21 name=__codelineno-2-21></a>set groups auto-fbf-local interfaces ae0 unit 1001 description gi
+<a id=__codelineno-2-22 name=__codelineno-2-22></a>set groups auto-fbf-local interfaces ae0 unit 1001 vlan-id 1001
+<a id=__codelineno-2-23 name=__codelineno-2-23></a>set groups auto-fbf-local interfaces et-1/0/0 ether-options 802.3ad ae0
+<a id=__codelineno-2-24 name=__codelineno-2-24></a>set groups auto-fbf-local interfaces et-1/0/1 ether-options 802.3ad ae0
+<a id=__codelineno-2-25 name=__codelineno-2-25></a>set groups auto-fbf-local interfaces et-1/0/2 ether-options 802.3ad ae0
+<a id=__codelineno-2-26 name=__codelineno-2-26></a>set groups auto-fbf-local interfaces et-1/0/3 ether-options 802.3ad ae0
+<a id=__codelineno-2-27 name=__codelineno-2-27></a>set groups auto-fbf-local routing-instances vr-gi interface ae0.1000
+<a id=__codelineno-2-28 name=__codelineno-2-28></a>set groups auto-fbf-local routing-instances vr-gi interface ae0.1001
+<a id=__codelineno-2-29 name=__codelineno-2-29></a>set groups auto-fbf-local routing-instances vr-gi protocols bgp bfd-liveness-detection minimum-interval 300
+<a id=__codelineno-2-30 name=__codelineno-2-30></a>set groups auto-fbf-local routing-instances vr-gi protocols bgp bfd-liveness-detection multiplier 3
+<a id=__codelineno-2-31 name=__codelineno-2-31></a>
+<a id=__codelineno-2-32 name=__codelineno-2-32></a>set apply-groups auto-fbf-local
+<a id=__codelineno-2-33 name=__codelineno-2-33></a>set apply-groups auto-fbf
+</code></pre></div></td></tr></table></div> <p>To view diff between running and candidate configuration from given template on a prototype device (selected was srx-07 -- also matching sequence 7), for example when SRX template above would increase NAT pool size from /26 to /25:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1>1</a></span>
+<span class=normal><a href=#__codelineno-3-2>2</a></span>
+<span class=normal><a href=#__codelineno-3-3>3</a></span>
+<span class=normal><a href=#__codelineno-3-4>4</a></span>
+<span class=normal><a href=#__codelineno-3-5>5</a></span>
+<span class=normal><a href=#__codelineno-3-6>6</a></span>
+<span class=normal><a href=#__codelineno-3-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf device-type srx4600 template 01-srx4600-local diff-target srx-07 seq 7    
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>[edit groups auto-fbf security nat source pool pool-1 address]
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>+       3.0.7.0/25;
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>-       3.0.7.0/26;
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>[edit groups auto-fbf routing-instances vr-gi routing-options static]
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>+       route 3.0.7.0/25 discard;
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>-       route 3.0.7.0/26 discard;
+</code></pre></div></td></tr></table></div> <p>The diff is working on rollback 0 - the recommended approach are junos groups avoiding risk of changing other group(s) than in template and core configuration for remote out of band management outside of groups.</p> <p>Also, diff is handy to see difference between template modified by sequence applied to non-matching device - effectively showing difference between devices. For example, sequence 7 applied to srx-08 (would have been normally srx-07 as in previous example):</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1> 1</a></span>
+<span class=normal><a href=#__codelineno-4-2> 2</a></span>
+<span class=normal><a href=#__codelineno-4-3> 3</a></span>
+<span class=normal><a href=#__codelineno-4-4> 4</a></span>
+<span class=normal><a href=#__codelineno-4-5> 5</a></span>
+<span class=normal><a href=#__codelineno-4-6> 6</a></span>
+<span class=normal><a href=#__codelineno-4-7> 7</a></span>
+<span class=normal><a href=#__codelineno-4-8> 8</a></span>
+<span class=normal><a href=#__codelineno-4-9> 9</a></span>
+<span class=normal><a href=#__codelineno-4-10>10</a></span>
+<span class=normal><a href=#__codelineno-4-11>11</a></span>
+<span class=normal><a href=#__codelineno-4-12>12</a></span>
+<span class=normal><a href=#__codelineno-4-13>13</a></span>
+<span class=normal><a href=#__codelineno-4-14>14</a></span>
+<span class=normal><a href=#__codelineno-4-15>15</a></span>
+<span class=normal><a href=#__codelineno-4-16>16</a></span>
+<span class=normal><a href=#__codelineno-4-17>17</a></span>
+<span class=normal><a href=#__codelineno-4-18>18</a></span>
+<span class=normal><a href=#__codelineno-4-19>19</a></span>
+<span class=normal><a href=#__codelineno-4-20>20</a></span>
+<span class=normal><a href=#__codelineno-4-21>21</a></span>
+<span class=normal><a href=#__codelineno-4-22>22</a></span>
+<span class=normal><a href=#__codelineno-4-23>23</a></span>
+<span class=normal><a href=#__codelineno-4-24>24</a></span>
+<span class=normal><a href=#__codelineno-4-25>25</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf device-type srx4600 template 01-srx4600-local diff-target srx-08 seq 7    
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>[edit groups auto-fbf-local security log stream server-35]
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>-     source-address 100.65.0.9;
+<a id=__codelineno-4-4 name=__codelineno-4-4></a>+     source-address 100.65.0.8;
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>[edit groups auto-fbf-local interfaces ae0 unit 1000 family inet]
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>+        address 100.64.0.8/24;
+<a id=__codelineno-4-7 name=__codelineno-4-7></a>-        address 100.64.0.9/24;
+<a id=__codelineno-4-8 name=__codelineno-4-8></a>[edit groups auto-fbf-local interfaces ae0 unit 1000 family inet6]
+<a id=__codelineno-4-9 name=__codelineno-4-9></a>+        address dead:64::8/64;
+<a id=__codelineno-4-10 name=__codelineno-4-10></a>-        address dead:64::9/64;
+<a id=__codelineno-4-11 name=__codelineno-4-11></a>[edit groups auto-fbf-local interfaces ae0 unit 1001 family inet]
+<a id=__codelineno-4-12 name=__codelineno-4-12></a>+        address 100.65.0.8/24;
+<a id=__codelineno-4-13 name=__codelineno-4-13></a>-        address 100.65.0.9/24;
+<a id=__codelineno-4-14 name=__codelineno-4-14></a>[edit groups auto-fbf-local interfaces ae0 unit 1001 family inet6]
+<a id=__codelineno-4-15 name=__codelineno-4-15></a>+        address dead:65::8/64;
+<a id=__codelineno-4-16 name=__codelineno-4-16></a>-        address dead:65::9/64;
+<a id=__codelineno-4-17 name=__codelineno-4-17></a>[edit groups auto-fbf-local routing-instances vr-gi routing-options]
+<a id=__codelineno-4-18 name=__codelineno-4-18></a>-      autonomous-system 65208;
+<a id=__codelineno-4-19 name=__codelineno-4-19></a>+      autonomous-system 65207;
+<a id=__codelineno-4-20 name=__codelineno-4-20></a>[edit groups auto-fbf security nat source pool pool-1 address]
+<a id=__codelineno-4-21 name=__codelineno-4-21></a>+       3.0.7.0/26;
+<a id=__codelineno-4-22 name=__codelineno-4-22></a>-       3.0.8.0/25;
+<a id=__codelineno-4-23 name=__codelineno-4-23></a>[edit groups auto-fbf routing-instances vr-gi routing-options static]
+<a id=__codelineno-4-24 name=__codelineno-4-24></a>+       route 3.0.7.0/26 discard;
+<a id=__codelineno-4-25 name=__codelineno-4-25></a>-       route 3.0.8.0/25 discard;
+</code></pre></div></td></tr></table></div> <p>Next step is configuration push to the prototype device:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span>
+<span class=normal><a href=#__codelineno-5-2>2</a></span>
+<span class=normal><a href=#__codelineno-5-3>3</a></span>
+<span class=normal><a href=#__codelineno-5-4>4</a></span>
+<span class=normal><a href=#__codelineno-5-5>5</a></span>
+<span class=normal><a href=#__codelineno-5-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf device-type srx4600 template 01-srx4600-local push-target srx-07 seq 7    
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>|    device    |                      template operation status message                      | 
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>|    srx-07    |                                   01-srx4600-local template commit complete | 
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>----------------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>Change made to prototype device srx-07 seen using Auto-FBF nat-info tool:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1> 1</a></span>
+<span class=normal><a href=#__codelineno-6-2> 2</a></span>
+<span class=normal><a href=#__codelineno-6-3> 3</a></span>
+<span class=normal><a href=#__codelineno-6-4> 4</a></span>
+<span class=normal><a href=#__codelineno-6-5> 5</a></span>
+<span class=normal><a href=#__codelineno-6-6> 6</a></span>
+<span class=normal><a href=#__codelineno-6-7> 7</a></span>
+<span class=normal><a href=#__codelineno-6-8> 8</a></span>
+<span class=normal><a href=#__codelineno-6-9> 9</a></span>
+<span class=normal><a href=#__codelineno-6-10>10</a></span>
+<span class=normal><a href=#__codelineno-6-11>11</a></span>
+<span class=normal><a href=#__codelineno-6-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>root@mx304-20-re0&gt; op auto-fbf srx-nat-info all          
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>|  instance   |   pool name   |               range               |  IPs  |   usage    | peak usage |     peak usage time      | % failed session |
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>|   srx-07    |        pool-1 |               3.0.7.0 - 3.0.7.127 |   128 |         0% |         0% |  1970-01-01 01:00:00 CET |            0.000 |
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-6-7 name=__codelineno-6-7></a>|   srx-08    |        pool-1 |                3.0.8.0 - 3.0.8.63 |    64 |         0% |        77% |  2023-12-29 02:00:30 CET |            0.000 |
+<a id=__codelineno-6-8 name=__codelineno-6-8></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-6-9 name=__codelineno-6-9></a>|   srx-09    |        pool-1 |                3.0.9.0 - 3.0.9.63 |    64 |         0% |        75% |  2023-12-29 02:00:30 CET |            0.000 |
+<a id=__codelineno-6-10 name=__codelineno-6-10></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-6-11 name=__codelineno-6-11></a>|   srx-10    |        pool-1 |              3.0.10.0 - 3.0.10.63 |    64 |         0% |        76% |  2023-12-29 02:00:30 CET |            0.000 |
+<a id=__codelineno-6-12 name=__codelineno-6-12></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>And corresponding log records about push and commit of specific template to srx-07:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
+<span class=normal><a href=#__codelineno-7-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>[root]/var/db/scripts/op/auto-fbf-gen-dev.py[99906] srx-07 template push /var/db/scripts/op/template/01-srx4600-local.j2 (md5: d31be14dadd2ce3437b2c1a3d84fd39d)
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>[root]/var/db/scripts/op/auto-fbf-gen-dev.py[99906] srx-07 commit complete /var/db/scripts/op/template/01-srx4600-local.j2 (md5: d31be14dadd2ce3437b2c1a3d84fd39d)
+</code></pre></div></td></tr></table></div> <p>Then bulk configuration push is driven by profiles pre-defined in configuration file, to list profiles:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1> 1</a></span>
+<span class=normal><a href=#__codelineno-8-2> 2</a></span>
+<span class=normal><a href=#__codelineno-8-3> 3</a></span>
+<span class=normal><a href=#__codelineno-8-4> 4</a></span>
+<span class=normal><a href=#__codelineno-8-5> 5</a></span>
+<span class=normal><a href=#__codelineno-8-6> 6</a></span>
+<span class=normal><a href=#__codelineno-8-7> 7</a></span>
+<span class=normal><a href=#__codelineno-8-8> 8</a></span>
+<span class=normal><a href=#__codelineno-8-9> 9</a></span>
+<span class=normal><a href=#__codelineno-8-10>10</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf list-profile all 
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>-------------------------------
+<a id=__codelineno-8-3 name=__codelineno-8-3></a>|   # |  push target profile  | 
+<a id=__codelineno-8-4 name=__codelineno-8-4></a>-------------------------------
+<a id=__codelineno-8-5 name=__codelineno-8-5></a>|   1 |         srx4600_local | 
+<a id=__codelineno-8-6 name=__codelineno-8-6></a>-------------------------------
+<a id=__codelineno-8-7 name=__codelineno-8-7></a>|   2 |        srx4600_common | 
+<a id=__codelineno-8-8 name=__codelineno-8-8></a>-------------------------------
+<a id=__codelineno-8-9 name=__codelineno-8-9></a>|   3 |           srx4600_all | 
+<a id=__codelineno-8-10 name=__codelineno-8-10></a>-------------------------------
+</code></pre></div></td></tr></table></div> <p>Example of push profile below defines name of bulk config push profile, devices where to template applies (maps to Netconf authentication profile not described here), device type (different Jinja2 template inputs), sequence (if applicable) and referral to Jinja2 template itself:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1>1</a></span>
+<span class=normal><a href=#__codelineno-9-2>2</a></span>
+<span class=normal><a href=#__codelineno-9-3>3</a></span>
+<span class=normal><a href=#__codelineno-9-4>4</a></span>
+<span class=normal><a href=#__codelineno-9-5>5</a></span>
+<span class=normal><a href=#__codelineno-9-6>6</a></span>
+<span class=normal><a href=#__codelineno-9-7>7</a></span>
+<span class=normal><a href=#__codelineno-9-8>8</a></span>
+<span class=normal><a href=#__codelineno-9-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf show-profile srx4600_local 
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>|   push target profile |    device     | device-type | sequence |         template          | 
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-9-5 name=__codelineno-9-5></a>|         srx4600_local |        srx-07 |     srx4600 |        7 |          01-srx4600-local | 
+<a id=__codelineno-9-6 name=__codelineno-9-6></a>|                       |        srx-08 |     srx4600 |        8 |          01-srx4600-local | 
+<a id=__codelineno-9-7 name=__codelineno-9-7></a>|                       |        srx-09 |     srx4600 |        9 |          01-srx4600-local | 
+<a id=__codelineno-9-8 name=__codelineno-9-8></a>|                       |        srx-10 |     srx4600 |       10 |          01-srx4600-local | 
+<a id=__codelineno-9-9 name=__codelineno-9-9></a>----------------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>Note: it is perfectly possible to mix in the above profile different device types and templates, e.g., bulk push to mixed SRX4600/vSRX scale-out swarm.</p> <p>Finally, result of bulk configuration push to multiple devices in a multi-threaded operation which takes in the specific setup less than 10 seconds:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1> 1</a></span>
+<span class=normal><a href=#__codelineno-10-2> 2</a></span>
+<span class=normal><a href=#__codelineno-10-3> 3</a></span>
+<span class=normal><a href=#__codelineno-10-4> 4</a></span>
+<span class=normal><a href=#__codelineno-10-5> 5</a></span>
+<span class=normal><a href=#__codelineno-10-6> 6</a></span>
+<span class=normal><a href=#__codelineno-10-7> 7</a></span>
+<span class=normal><a href=#__codelineno-10-8> 8</a></span>
+<span class=normal><a href=#__codelineno-10-9> 9</a></span>
+<span class=normal><a href=#__codelineno-10-10>10</a></span>
+<span class=normal><a href=#__codelineno-10-11>11</a></span>
+<span class=normal><a href=#__codelineno-10-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf push-target-profile srx4600_local                      
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-10-3 name=__codelineno-10-3></a>|    device    |                      template operation status message                      | 
+<a id=__codelineno-10-4 name=__codelineno-10-4></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-10-5 name=__codelineno-10-5></a>|    srx-07    |                                   01-srx4600-local template commit complete | 
+<a id=__codelineno-10-6 name=__codelineno-10-6></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-10-7 name=__codelineno-10-7></a>|    srx-08    |                                   01-srx4600-local template commit complete | 
+<a id=__codelineno-10-8 name=__codelineno-10-8></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-10-9 name=__codelineno-10-9></a>|    srx-09    |                                   01-srx4600-local template commit complete | 
+<a id=__codelineno-10-10 name=__codelineno-10-10></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-10-11 name=__codelineno-10-11></a>|    srx-10    |                                   01-srx4600-local template commit complete | 
+<a id=__codelineno-10-12 name=__codelineno-10-12></a>----------------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>Bulk changes to NAT pool size result -- increase from /26 to /25 on remaining devices seen using Auto-FBF nat-info tool:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1> 1</a></span>
+<span class=normal><a href=#__codelineno-11-2> 2</a></span>
+<span class=normal><a href=#__codelineno-11-3> 3</a></span>
+<span class=normal><a href=#__codelineno-11-4> 4</a></span>
+<span class=normal><a href=#__codelineno-11-5> 5</a></span>
+<span class=normal><a href=#__codelineno-11-6> 6</a></span>
+<span class=normal><a href=#__codelineno-11-7> 7</a></span>
+<span class=normal><a href=#__codelineno-11-8> 8</a></span>
+<span class=normal><a href=#__codelineno-11-9> 9</a></span>
+<span class=normal><a href=#__codelineno-11-10>10</a></span>
+<span class=normal><a href=#__codelineno-11-11>11</a></span>
+<span class=normal><a href=#__codelineno-11-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>root@mx304-20-re0&gt; op auto-fbf srx-nat-info all                                    
+<a id=__codelineno-11-2 name=__codelineno-11-2></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>|  instance   |   pool name   |               range               |  IPs  |   usage    | peak usage |     peak usage time      | % failed session |
+<a id=__codelineno-11-4 name=__codelineno-11-4></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>|   srx-07    |        pool-1 |               3.0.7.0 - 3.0.7.127 |   128 |        36% |        42% |  2023-12-29 02:09:53 CET |            0.000 |
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-11-7 name=__codelineno-11-7></a>|   srx-08    |        pool-1 |               3.0.8.0 - 3.0.8.127 |   128 |        37% |        41% |  2023-12-29 02:21:30 CET |            0.000 |
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-11-9 name=__codelineno-11-9></a>|   srx-09    |        pool-1 |               3.0.9.0 - 3.0.9.127 |   128 |        37% |        42% |  2023-12-29 02:21:30 CET |            0.000 |
+<a id=__codelineno-11-10 name=__codelineno-11-10></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+<a id=__codelineno-11-11 name=__codelineno-11-11></a>|   srx-10    |        pool-1 |             3.0.10.0 - 3.0.10.127 |   128 |        36% |        41% |  2023-12-29 02:21:30 CET |            0.000 |
+<a id=__codelineno-11-12 name=__codelineno-11-12></a>---------------------------------------------------------------------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>The tool also features optional archival of Jinja2 template and/or the pushed set commands upon commit, for both prototype device and bulk operations. Filename format is timestamp, template name, target device and appropriate suffix in specified folders which could be either the same or different for template and resulting set commands:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1>1</a></span>
+<span class=normal><a href=#__codelineno-12-2>2</a></span>
+<span class=normal><a href=#__codelineno-12-3>3</a></span>
+<span class=normal><a href=#__codelineno-12-4>4</a></span>
+<span class=normal><a href=#__codelineno-12-5>5</a></span>
+<span class=normal><a href=#__codelineno-12-6>6</a></span>
+<span class=normal><a href=#__codelineno-12-7>7</a></span>
+<span class=normal><a href=#__codelineno-12-8>8</a></span>
+<span class=normal><a href=#__codelineno-12-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>root@mx304-20-re0:/var/db/scripts/op/gen-dev-archive # ls -ltr
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>-rw-r--r--  1 root  wheel  13615 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-09.j2
+<a id=__codelineno-12-3 name=__codelineno-12-3></a>-rw-r--r--  1 root  wheel  13540 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-09.set
+<a id=__codelineno-12-4 name=__codelineno-12-4></a>-rw-r--r--  1 root  wheel  13615 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-10.j2
+<a id=__codelineno-12-5 name=__codelineno-12-5></a>-rw-r--r--  1 root  wheel  13542 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-10.set
+<a id=__codelineno-12-6 name=__codelineno-12-6></a>-rw-r--r--  1 root  wheel  13615 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-07.j2
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>-rw-r--r--  1 root  wheel  13535 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-07.set
+<a id=__codelineno-12-8 name=__codelineno-12-8></a>-rw-r--r--  1 root  wheel  13615 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-08.j2
+<a id=__codelineno-12-9 name=__codelineno-12-9></a>-rw-r--r--  1 root  wheel  13535 Jan 28 10:18 20240128-101827__tc-02-srx4600-all__srx-08.set
+</code></pre></div></td></tr></table></div> <p>If both Jinja2 template and resulting set commands are archived, output of push-target-profile informs about the operation accordingly:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1> 1</a></span>
+<span class=normal><a href=#__codelineno-13-2> 2</a></span>
+<span class=normal><a href=#__codelineno-13-3> 3</a></span>
+<span class=normal><a href=#__codelineno-13-4> 4</a></span>
+<span class=normal><a href=#__codelineno-13-5> 5</a></span>
+<span class=normal><a href=#__codelineno-13-6> 6</a></span>
+<span class=normal><a href=#__codelineno-13-7> 7</a></span>
+<span class=normal><a href=#__codelineno-13-8> 8</a></span>
+<span class=normal><a href=#__codelineno-13-9> 9</a></span>
+<span class=normal><a href=#__codelineno-13-10>10</a></span>
+<span class=normal><a href=#__codelineno-13-11>11</a></span>
+<span class=normal><a href=#__codelineno-13-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf push-target-profile srx4600_local    
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>|    device    |                      template operation status message                      | 
+<a id=__codelineno-13-4 name=__codelineno-13-4></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>|    srx-07    |              01-srx4600-local template commit complete, j2+set-cmd archived | 
+<a id=__codelineno-13-6 name=__codelineno-13-6></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-13-7 name=__codelineno-13-7></a>|    srx-08    |              01-srx4600-local template commit complete, j2+set-cmd archived | 
+<a id=__codelineno-13-8 name=__codelineno-13-8></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-13-9 name=__codelineno-13-9></a>|    srx-09    |              01-srx4600-local template commit complete, j2+set-cmd archived | 
+<a id=__codelineno-13-10 name=__codelineno-13-10></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-13-11 name=__codelineno-13-11></a>|    srx-10    |              01-srx4600-local template commit complete, j2+set-cmd archived | 
+<a id=__codelineno-13-12 name=__codelineno-13-12></a>----------------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>Then the applied templates and configuration can be tracked in time by MD5 checksum which is part of logging and available in template listing.</p> <h2 id=troubleshooting>Troubleshooting<a class=headerlink href=#troubleshooting title="Permanent link">&para;</a></h2> <p>In case of issues like with template rendering, by default only high-level error message occurs:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1>1</a></span>
+<span class=normal><a href=#__codelineno-14-2>2</a></span>
+<span class=normal><a href=#__codelineno-14-3>3</a></span>
+<span class=normal><a href=#__codelineno-14-4>4</a></span>
+<span class=normal><a href=#__codelineno-14-5>5</a></span>
+<span class=normal><a href=#__codelineno-14-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf device-type srx4600 template 01-srx4600-local seq 7         
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-14-3 name=__codelineno-14-3></a>|    device    |                      template operation status message                      | 
+<a id=__codelineno-14-4 name=__codelineno-14-4></a>----------------------------------------------------------------------------------------------
+<a id=__codelineno-14-5 name=__codelineno-14-5></a>|     N/A      |             Error rendering template 01-srx4600-local, use debug on/see log | 
+<a id=__codelineno-14-6 name=__codelineno-14-6></a>----------------------------------------------------------------------------------------------
+</code></pre></div></td></tr></table></div> <p>With debug flag on, output reveals in a verbose output misplaced "!" character on the 5th template line:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1> 1</a></span>
+<span class=normal><a href=#__codelineno-15-2> 2</a></span>
+<span class=normal><a href=#__codelineno-15-3> 3</a></span>
+<span class=normal><a href=#__codelineno-15-4> 4</a></span>
+<span class=normal><a href=#__codelineno-15-5> 5</a></span>
+<span class=normal><a href=#__codelineno-15-6> 6</a></span>
+<span class=normal><a href=#__codelineno-15-7> 7</a></span>
+<span class=normal><a href=#__codelineno-15-8> 8</a></span>
+<span class=normal><a href=#__codelineno-15-9> 9</a></span>
+<span class=normal><a href=#__codelineno-15-10>10</a></span>
+<span class=normal><a href=#__codelineno-15-11>11</a></span>
+<span class=normal><a href=#__codelineno-15-12>12</a></span>
+<span class=normal><a href=#__codelineno-15-13>13</a></span>
+<span class=normal><a href=#__codelineno-15-14>14</a></span>
+<span class=normal><a href=#__codelineno-15-15>15</a></span>
+<span class=normal><a href=#__codelineno-15-16>16</a></span>
+<span class=normal><a href=#__codelineno-15-17>17</a></span>
+<span class=normal><a href=#__codelineno-15-18>18</a></span>
+<span class=normal><a href=#__codelineno-15-19>19</a></span>
+<span class=normal><a href=#__codelineno-15-20>20</a></span>
+<span class=normal><a href=#__codelineno-15-21>21</a></span>
+<span class=normal><a href=#__codelineno-15-22>22</a></span>
+<span class=normal><a href=#__codelineno-15-23>23</a></span>
+<span class=normal><a href=#__codelineno-15-24>24</a></span>
+<span class=normal><a href=#__codelineno-15-25>25</a></span>
+<span class=normal><a href=#__codelineno-15-26>26</a></span>
+<span class=normal><a href=#__codelineno-15-27>27</a></span>
+<span class=normal><a href=#__codelineno-15-28>28</a></span>
+<span class=normal><a href=#__codelineno-15-29>29</a></span>
+<span class=normal><a href=#__codelineno-15-30>30</a></span>
+<span class=normal><a href=#__codelineno-15-31>31</a></span>
+<span class=normal><a href=#__codelineno-15-32>32</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf device-type srx4600 template 01-srx4600-local seq 7 debug on 
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>Traceback (most recent call last):
+<a id=__codelineno-15-3 name=__codelineno-15-3></a>  File "/var/db/scripts/op/auto-fbf-gen-dev.py", line 454, in template_thread
+<a id=__codelineno-15-4 name=__codelineno-15-4></a>    template = templateEnv.get_template(template_file)
+<a id=__codelineno-15-5 name=__codelineno-15-5></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/environment.py", line 830, in get_template
+<a id=__codelineno-15-6 name=__codelineno-15-6></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/environment.py", line 804, in _load_template
+<a id=__codelineno-15-7 name=__codelineno-15-7></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/loaders.py", line 125, in load
+<a id=__codelineno-15-8 name=__codelineno-15-8></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/environment.py", line 591, in compile
+<a id=__codelineno-15-9 name=__codelineno-15-9></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/environment.py", line 780, in handle_exception
+<a id=__codelineno-15-10 name=__codelineno-15-10></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/_compat.py", line 37, in reraise
+<a id=__codelineno-15-11 name=__codelineno-15-11></a>  File "/var/db/scripts/op/template/01-srx4600-local.j2", line 12, in template
+<a id=__codelineno-15-12 name=__codelineno-15-12></a>    set groups auto-fbf security nat source pool pool-1 address 3.0.{{ seq }!}.0/25
+<a id=__codelineno-15-13 name=__codelineno-15-13></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/environment.py", line 497, in _parse
+<a id=__codelineno-15-14 name=__codelineno-15-14></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 901, in parse
+<a id=__codelineno-15-15 name=__codelineno-15-15></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 875, in subparse
+<a id=__codelineno-15-16 name=__codelineno-15-16></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 620, in parse_tuple
+<a id=__codelineno-15-17 name=__codelineno-15-17></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 432, in parse_expression
+<a id=__codelineno-15-18 name=__codelineno-15-18></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 437, in parse_condexpr
+<a id=__codelineno-15-19 name=__codelineno-15-19></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 450, in parse_or
+<a id=__codelineno-15-20 name=__codelineno-15-20></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 459, in parse_and
+<a id=__codelineno-15-21 name=__codelineno-15-21></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 470, in parse_not
+<a id=__codelineno-15-22 name=__codelineno-15-22></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 474, in parse_compare
+<a id=__codelineno-15-23 name=__codelineno-15-23></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 496, in parse_math1
+<a id=__codelineno-15-24 name=__codelineno-15-24></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 507, in parse_concat
+<a id=__codelineno-15-25 name=__codelineno-15-25></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 517, in parse_math2
+<a id=__codelineno-15-26 name=__codelineno-15-26></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 528, in parse_pow
+<a id=__codelineno-15-27 name=__codelineno-15-27></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 546, in parse_unary
+<a id=__codelineno-15-28 name=__codelineno-15-28></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/parser.py", line 562, in parse_primary
+<a id=__codelineno-15-29 name=__codelineno-15-29></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/lexer.py", line 359, in __next__
+<a id=__codelineno-15-30 name=__codelineno-15-30></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/lexer.py", line 562, in wrap
+<a id=__codelineno-15-31 name=__codelineno-15-31></a>  File "../../../../../../../../src/dist/python-add-ons/jinja2/jinja2/lexer.py", line 683, in tokeniter
+<a id=__codelineno-15-32 name=__codelineno-15-32></a>jinja2.exceptions.TemplateSyntaxError: unexpected '}'
+</code></pre></div></td></tr></table></div> <h2 id=tool-help>Tool Help<a class=headerlink href=#tool-help title="Permanent link">&para;</a></h2> <p>As a last item, here is entire tool help screen when executed with no arguments (or incorrect arguments) with self-explanatory descriptions and recommended workflow described in this TechPost:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-16-1> 1</a></span>
+<span class=normal><a href=#__codelineno-16-2> 2</a></span>
+<span class=normal><a href=#__codelineno-16-3> 3</a></span>
+<span class=normal><a href=#__codelineno-16-4> 4</a></span>
+<span class=normal><a href=#__codelineno-16-5> 5</a></span>
+<span class=normal><a href=#__codelineno-16-6> 6</a></span>
+<span class=normal><a href=#__codelineno-16-7> 7</a></span>
+<span class=normal><a href=#__codelineno-16-8> 8</a></span>
+<span class=normal><a href=#__codelineno-16-9> 9</a></span>
+<span class=normal><a href=#__codelineno-16-10>10</a></span>
+<span class=normal><a href=#__codelineno-16-11>11</a></span>
+<span class=normal><a href=#__codelineno-16-12>12</a></span>
+<span class=normal><a href=#__codelineno-16-13>13</a></span>
+<span class=normal><a href=#__codelineno-16-14>14</a></span>
+<span class=normal><a href=#__codelineno-16-15>15</a></span>
+<span class=normal><a href=#__codelineno-16-16>16</a></span>
+<span class=normal><a href=#__codelineno-16-17>17</a></span>
+<span class=normal><a href=#__codelineno-16-18>18</a></span>
+<span class=normal><a href=#__codelineno-16-19>19</a></span>
+<span class=normal><a href=#__codelineno-16-20>20</a></span>
+<span class=normal><a href=#__codelineno-16-21>21</a></span>
+<span class=normal><a href=#__codelineno-16-22>22</a></span>
+<span class=normal><a href=#__codelineno-16-23>23</a></span>
+<span class=normal><a href=#__codelineno-16-24>24</a></span>
+<span class=normal><a href=#__codelineno-16-25>25</a></span>
+<span class=normal><a href=#__codelineno-16-26>26</a></span>
+<span class=normal><a href=#__codelineno-16-27>27</a></span>
+<span class=normal><a href=#__codelineno-16-28>28</a></span>
+<span class=normal><a href=#__codelineno-16-29>29</a></span>
+<span class=normal><a href=#__codelineno-16-30>30</a></span>
+<span class=normal><a href=#__codelineno-16-31>31</a></span>
+<span class=normal><a href=#__codelineno-16-32>32</a></span>
+<span class=normal><a href=#__codelineno-16-33>33</a></span>
+<span class=normal><a href=#__codelineno-16-34>34</a></span>
+<span class=normal><a href=#__codelineno-16-35>35</a></span>
+<span class=normal><a href=#__codelineno-16-36>36</a></span>
+<span class=normal><a href=#__codelineno-16-37>37</a></span>
+<span class=normal><a href=#__codelineno-16-38>38</a></span>
+<span class=normal><a href=#__codelineno-16-39>39</a></span>
+<span class=normal><a href=#__codelineno-16-40>40</a></span>
+<span class=normal><a href=#__codelineno-16-41>41</a></span>
+<span class=normal><a href=#__codelineno-16-42>42</a></span>
+<span class=normal><a href=#__codelineno-16-43>43</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-16-1 name=__codelineno-16-1></a>root@mx304-20-re0&gt; op device-gen-auto-fbf 
+<a id=__codelineno-16-2 name=__codelineno-16-2></a>
+<a id=__codelineno-16-3 name=__codelineno-16-3></a>  device-gen-auto-fbf is a simple yet powerfull tool for rendering and uploading Jinja2 templates,
+<a id=__codelineno-16-4 name=__codelineno-16-4></a>  designed for auto-fbf, but with general use-case in mind.
+<a id=__codelineno-16-5 name=__codelineno-16-5></a>
+<a id=__codelineno-16-6 name=__codelineno-16-6></a>  arguments:  
+<a id=__codelineno-16-7 name=__codelineno-16-7></a>
+<a id=__codelineno-16-8 name=__codelineno-16-8></a>    device-type            device type [vsrx|srx4600|mx|ptx] 
+<a id=__codelineno-16-9 name=__codelineno-16-9></a>    seq                    device sequence number 1-n for template seeding 
+<a id=__codelineno-16-10 name=__codelineno-16-10></a>    template               name of j2 template
+<a id=__codelineno-16-11 name=__codelineno-16-11></a>    push-target            SRX device name for template push
+<a id=__codelineno-16-12 name=__codelineno-16-12></a>    diff-target            SRX device name to retrieve diff between candidate and running config
+<a id=__codelineno-16-13 name=__codelineno-16-13></a>    push-target-profile    push to multiple SRX devices using profile
+<a id=__codelineno-16-14 name=__codelineno-16-14></a>    list-profile           list push target profiles from auto_fbf_gen_dev_conf.py (any argument)
+<a id=__codelineno-16-15 name=__codelineno-16-15></a>    show-profile           show details of push target profile [all|profile-name|# from list]
+<a id=__codelineno-16-16 name=__codelineno-16-16></a>    list-template          list available Jinja2 template files (any argument)
+<a id=__codelineno-16-17 name=__codelineno-16-17></a>    show-template          show contents of specific template [template-name|# from list ]
+<a id=__codelineno-16-18 name=__codelineno-16-18></a>    debug                  [on] enable verbose output related to template rendering   
+<a id=__codelineno-16-19 name=__codelineno-16-19></a>
+<a id=__codelineno-16-20 name=__codelineno-16-20></a>  device-type, seq and template must be used together, push/diff-target is optional
+<a id=__codelineno-16-21 name=__codelineno-16-21></a>  push-target-profile is used as the only argument for bulk operation
+<a id=__codelineno-16-22 name=__codelineno-16-22></a>
+<a id=__codelineno-16-23 name=__codelineno-16-23></a>  The idea is to preview the template first in a form of set commands:
+<a id=__codelineno-16-24 name=__codelineno-16-24></a>
+<a id=__codelineno-16-25 name=__codelineno-16-25></a>  &gt; op device-gen-auto-fbf device-type srx4600 template srx4600-local-01 seq 10
+<a id=__codelineno-16-26 name=__codelineno-16-26></a>
+<a id=__codelineno-16-27 name=__codelineno-16-27></a>  Then optionally diff the configuration against running config:
+<a id=__codelineno-16-28 name=__codelineno-16-28></a>
+<a id=__codelineno-16-29 name=__codelineno-16-29></a>  &gt; op device-gen-auto-fbf device-type srx4600 template srx4600-local-01 seq 10 diff-target srx-10
+<a id=__codelineno-16-30 name=__codelineno-16-30></a>
+<a id=__codelineno-16-31 name=__codelineno-16-31></a>  Finaly push to single device and validate:
+<a id=__codelineno-16-32 name=__codelineno-16-32></a>
+<a id=__codelineno-16-33 name=__codelineno-16-33></a>  &gt; op device-gen-auto-fbf device-type srx4600 template srx4600-local-01 seq 10 push-target srx-10
+<a id=__codelineno-16-34 name=__codelineno-16-34></a>
+<a id=__codelineno-16-35 name=__codelineno-16-35></a>  where srx-10 is defined along with push-target-profile(s) below in auto_fbf_gen_dev_conf.py
+<a id=__codelineno-16-36 name=__codelineno-16-36></a>
+<a id=__codelineno-16-37 name=__codelineno-16-37></a>  Finally to upload proven template to multiple devices:
+<a id=__codelineno-16-38 name=__codelineno-16-38></a>
+<a id=__codelineno-16-39 name=__codelineno-16-39></a>  &gt; op device-gen-auto-fbf push-target-profile p1 
+<a id=__codelineno-16-40 name=__codelineno-16-40></a>
+<a id=__codelineno-16-41 name=__codelineno-16-41></a>  Templates are located in /var/db/scripts/op/template folder. 
+<a id=__codelineno-16-42 name=__codelineno-16-42></a>
+<a id=__codelineno-16-43 name=__codelineno-16-43></a>  Both profiles and templates can be listed and viewed using corresponding list and show commands.
+</code></pre></div></td></tr></table></div> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">&para;</a></h2> <h3 id=availability>Availability<a class=headerlink href=#availability title="Permanent link">&para;</a></h3> <p>At the time of TechPost release (2024/02), the tool is not available publicly, feedback is still being collected within controlled group. Please reach out to the author in case of interest in test-driving (LinkedIn, feedback email).</p> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">&para;</a></h2> <ul> <li>Previous Auto-FBF TechPosts <a href=https://techpost.hpe.com/articles/scale-out-security-services-with-Auto-FBF/article>https://techpost.hpe.com/articles/scale-out-security-services-with-Auto-FBF/article</a> <a href=https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article>https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article</a></li> <li>PyEZ developer guide https://www.juniper.net/documentation/us/en/software/junos-pyez/junos-pyez-developer/index.html</li> <li>Junos event options https://www.juniper.net/documentation/us/en/software/junos/automation-scripting/topics/ref/statement/event-options-edit.html</li> <li>Ephemeral Configuration Database https://www.juniper.net/documentation/us/en/software/junos/junos-xml-protocol/topics/concept/ephemeral-configuration-database-overview.html</li> </ul> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">&para;</a></h2> <ul> <li>ASN: Autonomous System Number</li> <li>APN: Access Point Name</li> <li>BGP: Border Gateway Protocol</li> <li>CLI: Command Line Interface</li> <li>FBF: Firewall-Based Forwarding</li> <li>NAT: Network Address Translation</li> </ul> <h2 id=acknowledgments>Acknowledgments<a class=headerlink href=#acknowledgments title="Permanent link">&para;</a></h2> <p>Juniper account teams pushing the envelope and supporting related activities. Then all the people I have the pleasure to work with - my manager Dirk Van den Borne, colleagues Steven Jacques, Mark Barrett, Pawel Rabiej, Javier Grizzuti, Dezso Csonka, Theodore Jenks, Akram Hentati, Matthijs Nagel and the entire Amsterdam POC crew providing equipment and support.</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>

@@ -1,0 +1,494 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Adaptive Resource Control in TE Networks - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Adaptive Resource Control in TE Networks"><meta property=og:image content=https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#adaptive-resource-control-in-te-networks class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Adaptive Resource Control in TE Networks </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#auto-bandwidth-overview class=md-nav__link> <span class=md-ellipsis> Auto-Bandwidth Overview </span> </a> </li> <li class=md-nav__item> <a href=#handling-sudden-changes-in-bandwidth class=md-nav__link> <span class=md-ellipsis> Handling Sudden Changes in Bandwidth </span> </a> </li> <li class=md-nav__item> <a href=#adjusting-faster class=md-nav__link> <span class=md-ellipsis> Adjusting "faster" </span> </a> </li> <li class=md-nav__item> <a href=#avoiding-unnecessary-lsp-re-signaling class=md-nav__link> <span class=md-ellipsis> Avoiding Unnecessary LSP Re-Signaling </span> </a> </li> <li class=md-nav__item> <a href=#advantages-of-in-place-lsp-bandwidth-update class=md-nav__link> <span class=md-ellipsis> Advantages of in-place-lsp-bandwidth-update </span> </a> </li> <li class=md-nav__item> <a href=#optimize-timer class=md-nav__link> <span class=md-ellipsis> Optimize Timer </span> </a> </li> <li class=md-nav__item> <a href=#rsvp-te-node-link-protection-and-bandwidth-aware-bypass-lsps class=md-nav__link> <span class=md-ellipsis> RSVP-TE Node-Link Protection and Bandwidth-Aware Bypass LSPs </span> </a> </li> <li class=md-nav__item> <a href=#rsvp-threshold-update class=md-nav__link> <span class=md-ellipsis> RSVP Threshold Update </span> </a> </li> <li class=md-nav__item> <a href=#putting-everything-together class=md-nav__link> <span class=md-ellipsis> Putting Everything Together </span> </a> <nav class=md-nav aria-label="Putting Everything Together"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#lsp-config class=md-nav__link> <span class=md-ellipsis> LSP Config </span> </a> </li> <li class=md-nav__item> <a href=#rsvp-config class=md-nav__link> <span class=md-ellipsis> RSVP Config </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#test-execution class=md-nav__link> <span class=md-ellipsis> Test Execution </span> </a> <nav class=md-nav aria-label="Test Execution"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#testbed-details class=md-nav__link> <span class=md-ellipsis> Testbed Details </span> </a> </li> <li class=md-nav__item> <a href=#test-summary class=md-nav__link> <span class=md-ellipsis> Test Summary </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> </li> <li class=md-nav__item> <a href=#acknowledgments class=md-nav__link> <span class=md-ellipsis> Acknowledgments </span> </a> </li> <li class=md-nav__item> <a href=#glossary class=md-nav__link> <span class=md-ellipsis> Glossary </span> </a> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=adaptive-resource-control-in-te-networks>Adaptive Resource Control in TE Networks<a class=headerlink href=#adaptive-resource-control-in-te-networks title="Permanent link">&para;</a></h1> <p><strong>Kashif Nawaz - 07/05/2025</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/adaptive-resource-control-in-te-networks.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/adaptive-resource-control-in-te-networks.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <p>In modern MPLS networks, managing traffic flows with precision is essential for maintaining performance and reliability. RSVP-TE provides a robust framework for establishing traffic-engineered paths that align with specific resource requirements. As network conditions fluctuate, static bandwidth reservations often fall short. To address this, dynamic mechanisms like auto-bandwidth allow the network to adapt in real time, ensuring efficient use of available capacity.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">&para;</a></h2> <p>RSVP-TE is a powerful protocol suite used in MPLS networks to establish and manage Label Switched Paths (LSPs) with specific Traffic Engineering (TE) requirements. Its capabilities are so extensive that a comprehensive exploration would require a short novel. One of the most compelling features of RSVP-TE is its ability to signal and reserve bandwidth across each physical link that an LSP traverses. This ensures that network resources are allocated efficiently and that traffic flows are predictable and manageable.</p> <p>To prevent over-subscription of link bandwidth during LSP setup, RSVP-TE includes mechanisms to reserve bandwidth from the total available physical bandwidth on each link. However, static bandwidth reservations are often unsuitable for production environments, where traffic patterns are dynamic and unpredictable. Static configurations fail to adapt to fluctuations in traffic volume, leading to either underutilization or congestion. This is where** auto-bandwidth** comes into play. Auto-bandwidth enables the dynamic adjustment of an LSP's bandwidth reservation based on real-time incoming load. By periodically measuring traffic and adjusting reservations accordingly, auto-bandwidth ensures optimal utilization of RSVP-enabled links in an MPLS network.</p> <h2 id=auto-bandwidth-overview>Auto-Bandwidth Overview<a class=headerlink href=#auto-bandwidth-overview title="Permanent link">&para;</a></h2> <p>Real-time bandwidth/resource management is crucial in modern networks to maximize available resources and adapt to changing traffic patterns. As opposed to over-provisioning and/or static bandwidth allocations techniques.</p> <p>The MPLS Auto-Bandwidth feature enables an RSVP signaled label-switched path (LSP) to automatically adjust its signaled bandwidth based on the volume of traffic flowing through it. Auto-bandwidth consists of three major building blocks:</p> <ul> <li><strong>1 - Statistics Collection</strong>: The Routing Protocols Daemon (RPD) periodically requests traffic statistics about all RSVP sessions from each Packet Forwarding Engine (PFE) in the system. RPD sends the stats request to Kstat (Kernel Statistics). Kstat sends the request to each PFE through the kernel and collects the responses back from all PFEs, then sends the responses back to RPD. In Junos OS Evolved, only sensor-based-stats are supported. In Junos OS Evolved, similarly, RPD sends the requests to Agentd , which sends the request to each PFE through the Evo infrastructure (Distributed Data eXchange or DDX) and collects the responses back from all PFEs. Response may be optionally recorded via a log file if defined. Figure 1 illustrates these interactions for both Junos OS and Junos OS Evolved.</li> </ul> <p><img alt="Statistics Collection in Junos OS and Junos OS Evolved" src=../images/picture3.png></p> <ul> <li><strong>2 - Bandwidth Estimation</strong>: At the end of a collection period (adjust-interval), the maximum average value is recorded from the set of collected statistics. Figure 2 provides a simple illustration of periodic statistics collection, followed by re-signaling of bandwidth using the Maximum Average Bandwidth (Max AvgBW) value from the previous collection period after each adjustment interval.</li> </ul> <p><img alt="Maximum Average Illustration" src=../images/picture4.png></p> <ul> <li><strong>3 - Path Placement</strong>: An attempt is made to signal a new path for an LSP with the preceding sample periods Max AvgBW at the end of an adjustment interval. If the new path is successfully established, the original path is removed and the LSP is switched over to the new path. If a new path is not created, the LSP continues to use its current path until the end of the next adjustment interval, when another attempt is made to establish a new path.</li> </ul> <p>Here is a <em>minimal configuration example</em> in Junos:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span>
+<span class=normal><a href=#__codelineno-0-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>protocols {
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>    mpls {
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>        statistics {
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>            interval 50;
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>            auto-bandwidth;
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>        }
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>        label-switched-path A-B {
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>            to 172.172.172.2;
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>            auto-bandwidth {
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>                adjust-interval 900;
+<a id=__codelineno-0-11 name=__codelineno-0-11></a>                adjust-threshold 3;
+</code></pre></div></td></tr></table></div> <p>With the above configuration, BW (bps) statistics will be collected for the LSP A-B every 50 seconds and RPD calculates a BW value. After 900 sec (adjust-interval), 18 samples will have been collected, and the largest value (max_avg) will be selected. If the max_avg value differs by more than 3% (adjust-threshold) of the current signaled BW, the max_avg value will be used to find a new path for LSP A-B that satisfies the new requested BW. Stats collection then begins for the new LSP and the cycle repeats. In this way, LSPs are adapting to the demands of the network. (For example, if adjust-threshold is set to 3 and the current LSP bandwidth is 100 Mbps, then the LSP will be resized only if the following conditions are met.</p> <p>In Juniper ACX 7K series routers which are based on Broadcom DNX chip, LSP statistics collection needs to be enabled at the PFE level. Configuring / deleting LSP statistics at PFE level results in a PFE restart.</p> <p>Ingress LSP statistics:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>set system packet-forwarding-options mpls lsp-ingress-stats-enable
+</code></pre></div></td></tr></table></div> <p>Transit LSP statistics:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>set system packet-forwarding-options mpls lsp-transit-stats-enable
+</code></pre></div></td></tr></table></div> <h2 id=handling-sudden-changes-in-bandwidth>Handling Sudden Changes in Bandwidth<a class=headerlink href=#handling-sudden-changes-in-bandwidth title="Permanent link">&para;</a></h2> <p>Considering the above configuration, the ingress LER will only evaluate and potentially resize the LSP after each adjust-interval i.e 900 seconds (15 minutes) based on the maximum average bandwidth (MaxAvg BW) observed during that time. However, this approach may not be responsive enough to handle sudden increases in ingress load that occur within the 15-minute window. To enable auto-bw to better adapt to such occurrences more quickly, the stats collection and bandwidth estimation components of auto-bw provide additional parameters that enable more responsive and intelligent bandwidth adjustments.</p> <ul> <li>The adjust-threshold-overflow-limit defines how many consecutive BW samples within the same adjust-interval greater than the configured adjust-threshold to trigger LSP BW adjustment and path re-optimization</li> <li>The adjust-threshold-underflow-limit defines how many consecutive BW samples within the same adjust-interval less than the configured adjust-threshold to trigger LSP BW adjustment and path re-optimization</li> </ul> <p>For example, if an LSP has a signaled bandwidth of 100 Mbps and for 3 consecutive statistical samples (i.e. 150 seconds), the calculated MaxAvg bandwidth is greater than 3% of 100Mbps (i.e. 103 Mbps or more) which matches the configured adjust-threshold overflow will be triggered. Thus, instead of waiting 900 seconds, the LSP will be reoptimized after 150 seconds. As a result, the LSP adapts to sudden increases in traffic demand with minimal delay, improving responsiveness, thus avoiding potential congestion.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1>1</a></span>
+<span class=normal><a href=#__codelineno-3-2>2</a></span>
+<span class=normal><a href=#__codelineno-3-3>3</a></span>
+<span class=normal><a href=#__codelineno-3-4>4</a></span>
+<span class=normal><a href=#__codelineno-3-5>5</a></span>
+<span class=normal><a href=#__codelineno-3-6>6</a></span>
+<span class=normal><a href=#__codelineno-3-7>7</a></span>
+<span class=normal><a href=#__codelineno-3-8>8</a></span>
+<span class=normal><a href=#__codelineno-3-9>9</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>protocols {
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>    mpls {
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>        label-switched-path A-B {
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>            to 172.172.172.2;
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>            auto-bandwidth {
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>                adjust-interval 900;
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>                adjust-threshold 3;
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>                adjust-threshold-overflow-limit 3;
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>                adjust-threshold-underflow-limit 5;
+</code></pre></div></td></tr></table></div> <p>Figure below expands from the previous example, figure 2, to include overflow and underflow triggered BW adjustments</p> <p><img alt="Overflow/underflow illustration" src=../images/picture5.png></p> <h2 id=adjusting-faster>Adjusting "faster"<a class=headerlink href=#adjusting-faster title="Permanent link">&para;</a></h2> <p>Currently, the minimum allowed value for the adjust-interval is 300 seconds and the product of the statistics interval x overflow/underflow limit must be &gt;= 150 seconds. Beginning in JunOS 25.4R1, an LSP may be associated with a custom polling profile.</p> <p>When a custom polling profile is used, RPD can request statistics for each LSP using unique intervals. For example, statistics collection may be requested every 10 seconds for LSP A and every 30 sec for LSP B. Furthermore, when a custom polling profile is associated with an LSP, the rules for minimum adjust-interval and overflow/underflow products are relaxed. Thus, enabling the potential for very fast LSP bandwidth adjustments. Custom polling profiles can be created using the following CLI:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1>1</a></span>
+<span class=normal><a href=#__codelineno-4-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>set protocols mpls statistics auto-bandwidth polling-profile &lt;profile-name&gt; interval &lt;sec&gt;
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>set protocols mpls label-switched-path &lt;lsp-name&gt; auto-bandwidth polling-profile &lt;profile-name&gt;
+</code></pre></div></td></tr></table></div> <h2 id=avoiding-unnecessary-lsp-re-signaling>Avoiding Unnecessary LSP Re-Signaling<a class=headerlink href=#avoiding-unnecessary-lsp-re-signaling title="Permanent link">&para;</a></h2> <p>The adjust-threshold-activate-bandwidth parameter in auto-bandwidth configuration acts as an additional safeguard to prevent unnecessary LSP bandwidth adjustments triggered by minor or operationally insignificant traffic variations. While the adjust-threshold defines a percentage-based trigger for initiating a bandwidth adjustment, the adjust-threshold-activate-bandwidth introduces an absolute threshold specified in bits per second which must also be exceeded for the adjustment to occur.</p> <p>For example, if an LSP is configured with a 3% adjust-threshold and adjust-threshold-activate-bandwidth is configured to 8 Mbps. Then both of the following conditions must be met for a bandwidth adjustment trigger.</p> <p><strong>MaxAvg BW &gt;= 103 of current LSP BW AND the change &gt;= 8 Mbps</strong></p> <p>This dual-trigger mechanism ensures that auto-bandwidth adjustments are not made in response to insignificant changes, which is important in high-bandwidth networks where small percentage shifts in load can represent large absolute values, thus enhancing the traffic engineering recipe with the following ingredients.</p> <ul> <li>Improves network stability</li> <li>Reduces unnecessary LSP re-signaling</li> <li>Helps prevent control plane overhead caused by reacting to short-lived bandwidth fluctuations</li> </ul> <p>When used in conjunction with other tuning parameters such as adjust-threshold-overflow-limit and adjust-threshold-underflow-limit, it provides fine-grained control over auto-bandwidth behavior.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1> 1</a></span>
+<span class=normal><a href=#__codelineno-5-2> 2</a></span>
+<span class=normal><a href=#__codelineno-5-3> 3</a></span>
+<span class=normal><a href=#__codelineno-5-4> 4</a></span>
+<span class=normal><a href=#__codelineno-5-5> 5</a></span>
+<span class=normal><a href=#__codelineno-5-6> 6</a></span>
+<span class=normal><a href=#__codelineno-5-7> 7</a></span>
+<span class=normal><a href=#__codelineno-5-8> 8</a></span>
+<span class=normal><a href=#__codelineno-5-9> 9</a></span>
+<span class=normal><a href=#__codelineno-5-10>10</a></span>
+<span class=normal><a href=#__codelineno-5-11>11</a></span>
+<span class=normal><a href=#__codelineno-5-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>protocols {
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>    mpls {
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>        statistics {
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>            interval 50;
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>            auto-bandwidth;
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>        }
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>        label-switched-path A-B {
+<a id=__codelineno-5-8 name=__codelineno-5-8></a>            to 172.172.172.2;
+<a id=__codelineno-5-9 name=__codelineno-5-9></a>            auto-bandwidth {
+<a id=__codelineno-5-10 name=__codelineno-5-10></a>                adjust-interval 900;
+<a id=__codelineno-5-11 name=__codelineno-5-11></a>                adjust-threshold 3;
+<a id=__codelineno-5-12 name=__codelineno-5-12></a>                adjust-threshold-activate-bandwidth 8m;
+</code></pre></div></td></tr></table></div> <h2 id=advantages-of-in-place-lsp-bandwidth-update>Advantages of in-place-lsp-bandwidth-update<a class=headerlink href=#advantages-of-in-place-lsp-bandwidth-update title="Permanent link">&para;</a></h2> <p>The in-place-lsp-bandwidth-update feature in RSVP-TE provides several operational advantages, particularly in dynamic MPLS environments. Its primary benefit is that it allows LSP bandwidth to be adjusted without changing the LSP ID. With out this knob whenever auto-bandwidth adjusts the bandwidth for a path, a new LSP is signaled with a different LSP ID followed by a make-before-brake (MBB) procedure to switch traffic to the new LSP and tear down the old LSP. With this feature enabled, the same LSP ID is retained throughout the adjustment process, eliminating MBB, simplifying network operations, and preserving LSP continuity.</p> <p>This reduces control plane overhead by avoiding full LSP teardown and re-signaling, thereby minimizing RSVP signaling messages and reducing router processing load, which is important in large-scale networks with frequent LSP resizing. By enabling in-place bandwidth adjustment, service routes on the ingress LER can continue utilizing the existing LSP and thereby providing a more stable and efficient mechanism to accommodate dynamic bandwidth demands.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span>
+<span class=normal><a href=#__codelineno-6-3>3</a></span>
+<span class=normal><a href=#__codelineno-6-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>protocols {
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>    mpls {
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>        label-switched-path A-B {
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>            in-place-lsp-bandwidth-update;
+</code></pre></div></td></tr></table></div> <h2 id=optimize-timer>Optimize Timer<a class=headerlink href=#optimize-timer title="Permanent link">&para;</a></h2> <p>The optimize-timer determines how frequently the CSPF (Constrained Shortest Path First) algorithm is periodically executed to optimize existing LSPs. This timer may play a role in balancing responsiveness to network changes, such as topological events, with control plane stability when changes in bandwidth, due to the auto-bandwidth policy configuration, do not trigger CSPF. The auto-bandwidth adjust-interval defines how frequently max_avg is evaluated, possibly resulting in an LSP's bandwidth being adjusted. In contrast, the optimize-timer controls how frequently CSPF is re-computed to potentially re-signal an LSP to a better path (shortest IGP metric). It is recommended to configure conservative values for optimize-timer, ideally as a multiple of the adjust-interval as this will help to ensure network stability and predictable LSP behavior at scale.</p> <h2 id=rsvp-te-node-link-protection-and-bandwidth-aware-bypass-lsps>RSVP-TE Node-Link Protection and Bandwidth-Aware Bypass LSPs<a class=headerlink href=#rsvp-te-node-link-protection-and-bandwidth-aware-bypass-lsps title="Permanent link">&para;</a></h2> <p>RSVP-TE node-link protection, as defined in RFC 4090, is a Fast Reroute (FRR) mechanism that provides local protection for LSPs against link or node failures. Routers precompute and install bypass LSPs, which can be immediately activated by the Point of Local Repair (PLR) to forward transit traffic upon failure detection. Protection is applied at the link level (interface failure) or node level (next-hop router failure).</p> <p>In core and aggregation networks, node-link protection is critical for high availability. Combined with features like auto-bandwidth. It enables a dynamic and resilient MPLS infrastructure.</p> <p>Starting with Junos OS Evolved 23.4R1, Juniper introduced bandwidth-aware bypass selection, enabled via the optimize-bandwidth option under RSVP interface configuration.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
+<span class=normal><a href=#__codelineno-7-2>2</a></span>
+<span class=normal><a href=#__codelineno-7-3>3</a></span>
+<span class=normal><a href=#__codelineno-7-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>[edit protocols rsvp]
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>interface ge-0/0/1.0 {
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>    link-protection {
+<a id=__codelineno-7-4 name=__codelineno-7-4></a>        optimize bandwidth;
+</code></pre></div></td></tr></table></div> <p>This instructs CSPF to use bandwidth as an optimization objective, thus resulting in bypass LSPs being set up along paths with the maximum unreserved bandwidth, rather than shortest path alone. The result is:</p> <ul> <li>Better bandwidth utilization during failover</li> <li>Less congested, more resilient backup paths</li> <li>Improved alignment with TE and SLA policies</li> </ul> <p>This enhancement complements facility backup by ensuring that bypass LSPs are not just available but also optimized in terms of capacity. Together, these features deliver fast, scalable, and efficient protection for modern MPLS networks.</p> <h2 id=rsvp-threshold-update>RSVP Threshold Update<a class=headerlink href=#rsvp-threshold-update title="Permanent link">&para;</a></h2> <p>In RSVP-TE deployments, maintaining an up-to-date Traffic Engineering Database (TED) is essential for accurate Constrained Shortest Path First (CSPF) calculations. RSVP achieves this by tracking reserved bandwidth on each link and triggering IGP updates when changes occur.</p> <p>However, in large-scale or dynamic networks, frequent bandwidth fluctuations can cause RSVP to generate excessive IGP updates, placing unnecessary load on the control plane. To mitigate this, Junos provides the update-threshold knob, which determines when RSVP should trigger an IGP update due to changes in reserved bandwidth.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1>1</a></span>
+<span class=normal><a href=#__codelineno-8-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>[edit protocols rsvp interface interface-name]
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>   update-threshold percentage;
+</code></pre></div></td></tr></table></div> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1>1</a></span>
+<span class=normal><a href=#__codelineno-9-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>[edit protocols rsvp interface interface-name]
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>        update-threshold threshold-value value;
+</code></pre></div></td></tr></table></div> <p>The update-threshold can be configured using either threshold-percent or threshold-value. These two options are mutually exclusive. The threshold-percent option allows operators to define the percentage change in reserved bandwidth that should trigger an update. Its default value is 10%, with a configurable range from 0.001% to 20%. When this option is set, Junos automatically calculates and displays the corresponding threshold-value.</p> <p>Alternatively, the threshold-value option specifies an absolute bandwidth delta in bits per second, capped at 20% of the interface's bandwidth. If the configured value exceeds this limit, it is automatically scaled down by the system, and the CLI will display the equivalent threshold-percent.</p> <p>For example, on a 1 Gbps link, configuring threshold-percent to 5% results in a computed threshold-value of 50 Mbps. Similarly, if the threshold-value is set to 200 Mbps, the corresponding threshold-percent shown would be 20%.</p> <p>While static thresholds are effective in many scenarios, they can be suboptimal in highly dynamic environments. A threshold set too low may result in excessive IGP flooding, while a threshold set too high can delay critical updates, leading to stale TED information and suboptimal path selection. To address this, Junos offers an adaptive update-threshold capability. This allows operators to define bandwidth ranges and associated sensitivity thresholds.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1>1</a></span>
+<span class=normal><a href=#__codelineno-10-2>2</a></span>
+<span class=normal><a href=#__codelineno-10-3>3</a></span>
+<span class=normal><a href=#__codelineno-10-4>4</a></span>
+<span class=normal><a href=#__codelineno-10-5>5</a></span>
+<span class=normal><a href=#__codelineno-10-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>[edit protocols rsvp interface interface-name]
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>   update-threshold {
+<a id=__codelineno-10-3 name=__codelineno-10-3></a>       adaptive {
+<a id=__codelineno-10-4 name=__codelineno-10-4></a>           limit 10g threshold-percent 0.5;
+<a id=__codelineno-10-5 name=__codelineno-10-5></a>           limit 20g threshold-percent 1;
+<a id=__codelineno-10-6 name=__codelineno-10-6></a>           limit 400g threshold-percent 20;
+</code></pre></div></td></tr></table></div> <p>For instance, an adaptive configuration might define a 0.5% threshold for available bandwidth below 10 Gbps, a 1% threshold for available bandwidth between 10 and 20 Gbps, and a 20% threshold for available bandwidth above 20 Gbps. This graded response ensures more frequent updates during constrained conditions and suppresses updates when bandwidth availability is high, thereby improving control plane scalability without compromising path accuracy.</p> <p><img alt="RSVP Adaptive Update-Threshold vs RSVP Threshold-Update" src=../images/picture6.png></p> <p>A real-world example illustrates this advantage. Consider a 100 Gbps link with 90 RSVP LSPs, each reserving approximately 1.01 Gbps. With a static threshold-percent of 1%, nearly every LSP setup or teardown would exceed the threshold, triggering an IGP update. This could result in 180 updates during churn. Using adaptive thresholds in the same scenario could reduce the number of updates to just 27, significantly lightening control plane load. In conclusion, update-threshold, especially in its adaptive form; is a critical tool for balancing IGP update sensitivity and control plane efficiency in large-scale MPLS networks. It enables network operators to maintain accurate TED information while avoiding excessive signaling, improving both scalability and LSP placement effectiveness.</p> <h2 id=putting-everything-together>Putting Everything Together<a class=headerlink href=#putting-everything-together title="Permanent link">&para;</a></h2> <h3 id=lsp-config>LSP Config<a class=headerlink href=#lsp-config title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1> 1</a></span>
+<span class=normal><a href=#__codelineno-11-2> 2</a></span>
+<span class=normal><a href=#__codelineno-11-3> 3</a></span>
+<span class=normal><a href=#__codelineno-11-4> 4</a></span>
+<span class=normal><a href=#__codelineno-11-5> 5</a></span>
+<span class=normal><a href=#__codelineno-11-6> 6</a></span>
+<span class=normal><a href=#__codelineno-11-7> 7</a></span>
+<span class=normal><a href=#__codelineno-11-8> 8</a></span>
+<span class=normal><a href=#__codelineno-11-9> 9</a></span>
+<span class=normal><a href=#__codelineno-11-10>10</a></span>
+<span class=normal><a href=#__codelineno-11-11>11</a></span>
+<span class=normal><a href=#__codelineno-11-12>12</a></span>
+<span class=normal><a href=#__codelineno-11-13>13</a></span>
+<span class=normal><a href=#__codelineno-11-14>14</a></span>
+<span class=normal><a href=#__codelineno-11-15>15</a></span>
+<span class=normal><a href=#__codelineno-11-16>16</a></span>
+<span class=normal><a href=#__codelineno-11-17>17</a></span>
+<span class=normal><a href=#__codelineno-11-18>18</a></span>
+<span class=normal><a href=#__codelineno-11-19>19</a></span>
+<span class=normal><a href=#__codelineno-11-20>20</a></span>
+<span class=normal><a href=#__codelineno-11-21>21</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>  groups {
+<a id=__codelineno-11-2 name=__codelineno-11-2></a>    MPLS_BACKBONE {
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>        protocols {
+<a id=__codelineno-11-4 name=__codelineno-11-4></a>            mpls {
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>                statistics {
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>                   file auto-bw;
+<a id=__codelineno-11-7 name=__codelineno-11-7></a>                    interval 60;
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>                    auto-bandwidth;
+<a id=__codelineno-11-9 name=__codelineno-11-9></a>                }
+<a id=__codelineno-11-10 name=__codelineno-11-10></a>                optimize-timer 3600;
+<a id=__codelineno-11-11 name=__codelineno-11-11></a>                adaptive;
+<a id=__codelineno-11-12 name=__codelineno-11-12></a>                label-switched-path &lt;*&gt; {
+<a id=__codelineno-11-13 name=__codelineno-11-13></a>                     node-link-protection;
+<a id=__codelineno-11-14 name=__codelineno-11-14></a>                     in-place-lsp-bandwidth-update;
+<a id=__codelineno-11-15 name=__codelineno-11-15></a>                     auto-bandwidth {    
+<a id=__codelineno-11-16 name=__codelineno-11-16></a>                        adjust-interval 900;
+<a id=__codelineno-11-17 name=__codelineno-11-17></a>                        adjust-threshold 3;
+<a id=__codelineno-11-18 name=__codelineno-11-18></a>                        adjust-threshold-activate-bandwidth 25m;
+<a id=__codelineno-11-19 name=__codelineno-11-19></a>                        maximum-bandwidth 100g;
+<a id=__codelineno-11-20 name=__codelineno-11-20></a>                        adjust-threshold-overflow-limit 3;
+<a id=__codelineno-11-21 name=__codelineno-11-21></a>                        adjust-threshold-underflow-limit 5;
+</code></pre></div></td></tr></table></div> <h3 id=rsvp-config>RSVP Config<a class=headerlink href=#rsvp-config title="Permanent link">&para;</a></h3> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1> 1</a></span>
+<span class=normal><a href=#__codelineno-12-2> 2</a></span>
+<span class=normal><a href=#__codelineno-12-3> 3</a></span>
+<span class=normal><a href=#__codelineno-12-4> 4</a></span>
+<span class=normal><a href=#__codelineno-12-5> 5</a></span>
+<span class=normal><a href=#__codelineno-12-6> 6</a></span>
+<span class=normal><a href=#__codelineno-12-7> 7</a></span>
+<span class=normal><a href=#__codelineno-12-8> 8</a></span>
+<span class=normal><a href=#__codelineno-12-9> 9</a></span>
+<span class=normal><a href=#__codelineno-12-10>10</a></span>
+<span class=normal><a href=#__codelineno-12-11>11</a></span>
+<span class=normal><a href=#__codelineno-12-12>12</a></span>
+<span class=normal><a href=#__codelineno-12-13>13</a></span>
+<span class=normal><a href=#__codelineno-12-14>14</a></span>
+<span class=normal><a href=#__codelineno-12-15>15</a></span>
+<span class=normal><a href=#__codelineno-12-16>16</a></span>
+<span class=normal><a href=#__codelineno-12-17>17</a></span>
+<span class=normal><a href=#__codelineno-12-18>18</a></span>
+<span class=normal><a href=#__codelineno-12-19>19</a></span>
+<span class=normal><a href=#__codelineno-12-20>20</a></span>
+<span class=normal><a href=#__codelineno-12-21>21</a></span>
+<span class=normal><a href=#__codelineno-12-22>22</a></span>
+<span class=normal><a href=#__codelineno-12-23>23</a></span>
+<span class=normal><a href=#__codelineno-12-24>24</a></span>
+<span class=normal><a href=#__codelineno-12-25>25</a></span>
+<span class=normal><a href=#__codelineno-12-26>26</a></span>
+<span class=normal><a href=#__codelineno-12-27>27</a></span>
+<span class=normal><a href=#__codelineno-12-28>28</a></span>
+<span class=normal><a href=#__codelineno-12-29>29</a></span>
+<span class=normal><a href=#__codelineno-12-30>30</a></span>
+<span class=normal><a href=#__codelineno-12-31>31</a></span>
+<span class=normal><a href=#__codelineno-12-32>32</a></span>
+<span class=normal><a href=#__codelineno-12-33>33</a></span>
+<span class=normal><a href=#__codelineno-12-34>34</a></span>
+<span class=normal><a href=#__codelineno-12-35>35</a></span>
+<span class=normal><a href=#__codelineno-12-36>36</a></span>
+<span class=normal><a href=#__codelineno-12-37>37</a></span>
+<span class=normal><a href=#__codelineno-12-38>38</a></span>
+<span class=normal><a href=#__codelineno-12-39>39</a></span>
+<span class=normal><a href=#__codelineno-12-40>40</a></span>
+<span class=normal><a href=#__codelineno-12-41>41</a></span>
+<span class=normal><a href=#__codelineno-12-42>42</a></span>
+<span class=normal><a href=#__codelineno-12-43>43</a></span>
+<span class=normal><a href=#__codelineno-12-44>44</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>[edit groups] 
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>RSVP-DEFAULT {
+<a id=__codelineno-12-3 name=__codelineno-12-3></a>    protocols {
+<a id=__codelineno-12-4 name=__codelineno-12-4></a>        rsvp {
+<a id=__codelineno-12-5 name=__codelineno-12-5></a>            interface &lt;et-*&gt; {
+<a id=__codelineno-12-6 name=__codelineno-12-6></a>                subscription 90;
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>                update-threshold {
+<a id=__codelineno-12-8 name=__codelineno-12-8></a>                    adaptive {
+<a id=__codelineno-12-9 name=__codelineno-12-9></a>                        limit 10g threshold-percent 0.5;
+<a id=__codelineno-12-10 name=__codelineno-12-10></a>                        limit 20g threshold-percent 1;
+<a id=__codelineno-12-11 name=__codelineno-12-11></a>                        limit 800g threshold-percent 20;
+<a id=__codelineno-12-12 name=__codelineno-12-12></a>                    }
+<a id=__codelineno-12-13 name=__codelineno-12-13></a>
+<a id=__codelineno-12-14 name=__codelineno-12-14></a>                }
+<a id=__codelineno-12-15 name=__codelineno-12-15></a>                link-protection {
+<a id=__codelineno-12-16 name=__codelineno-12-16></a>                    optimize-timer 3600;
+<a id=__codelineno-12-17 name=__codelineno-12-17></a>                    optimize bandwidth;
+<a id=__codelineno-12-18 name=__codelineno-12-18></a>                }
+<a id=__codelineno-12-19 name=__codelineno-12-19></a>            }
+<a id=__codelineno-12-20 name=__codelineno-12-20></a>            interface &lt;xe-*&gt; {
+<a id=__codelineno-12-21 name=__codelineno-12-21></a>                subscription 90;
+<a id=__codelineno-12-22 name=__codelineno-12-22></a>                update-threshold {
+<a id=__codelineno-12-23 name=__codelineno-12-23></a>                    adaptive {
+<a id=__codelineno-12-24 name=__codelineno-12-24></a>                        limit 1g threshold-percent 0.5;
+<a id=__codelineno-12-25 name=__codelineno-12-25></a>                        limit 2g threshold-percent 1;
+<a id=__codelineno-12-26 name=__codelineno-12-26></a>                        limit 10g threshold-percent 20;
+<a id=__codelineno-12-27 name=__codelineno-12-27></a>                    }
+<a id=__codelineno-12-28 name=__codelineno-12-28></a>                }
+<a id=__codelineno-12-29 name=__codelineno-12-29></a>                link-protection {
+<a id=__codelineno-12-30 name=__codelineno-12-30></a>                    optimize-timer 3600;
+<a id=__codelineno-12-31 name=__codelineno-12-31></a>                    optimize bandwidth;
+<a id=__codelineno-12-32 name=__codelineno-12-32></a>                }
+<a id=__codelineno-12-33 name=__codelineno-12-33></a>            }
+<a id=__codelineno-12-34 name=__codelineno-12-34></a>            interface &lt;ae*&gt; {
+<a id=__codelineno-12-35 name=__codelineno-12-35></a>                subscription 90;
+<a id=__codelineno-12-36 name=__codelineno-12-36></a>                update-threshold {
+<a id=__codelineno-12-37 name=__codelineno-12-37></a>                    adaptive {
+<a id=__codelineno-12-38 name=__codelineno-12-38></a>                        limit 10g threshold-percent 0.5;
+<a id=__codelineno-12-39 name=__codelineno-12-39></a>                        limit 20g threshold-percent 1;
+<a id=__codelineno-12-40 name=__codelineno-12-40></a>                        limit 1600g threshold-percent 20;
+<a id=__codelineno-12-41 name=__codelineno-12-41></a>                    }
+<a id=__codelineno-12-42 name=__codelineno-12-42></a>                 }
+<a id=__codelineno-12-43 name=__codelineno-12-43></a>                link-protection;
+<a id=__codelineno-12-44 name=__codelineno-12-44></a>                optimize bandwidth;
+</code></pre></div></td></tr></table></div> <h2 id=test-execution>Test Execution<a class=headerlink href=#test-execution title="Permanent link">&para;</a></h2> <h3 id=testbed-details>Testbed Details<a class=headerlink href=#testbed-details title="Permanent link">&para;</a></h3> <p>The configurations described in this write-up are validated using Juniper PTX10001-36MR (23.4R2-S4.11-EVO) and MX10003 (23.4R2-S4.11).</p> <p><img alt=Testbed src=../images/picture7.png></p> <p>All links operate at 100 Gbps and RSVP bandwidth subscription set to 90%. RSVP allows network operators to subscribe to a percentage of the physical link bandwidth for RSVP-signaled LSPs. This mechanism ensures that RSVP does not over-allocate bandwidth beyond what the operator intends to reserve for traffic-engineered paths, thus protecting the link from over-subscription.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1>1</a></span>
+<span class=normal><a href=#__codelineno-13-2>2</a></span>
+<span class=normal><a href=#__codelineno-13-3>3</a></span>
+<span class=normal><a href=#__codelineno-13-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a>[edit protocols]
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>rsvp {
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>    interface et-0/0/2.0 {
+<a id=__codelineno-13-4 name=__codelineno-13-4></a>        subscription 90;
+</code></pre></div></td></tr></table></div> <p>Above configuration sets the RSVP subscription to 90% of the physical bandwidth on interface et-0/0/2.0.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-14-1>1</a></span>
+<span class=normal><a href=#__codelineno-14-2>2</a></span>
+<span class=normal><a href=#__codelineno-14-3>3</a></span>
+<span class=normal><a href=#__codelineno-14-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-14-1 name=__codelineno-14-1></a>show rsvp interface 
+<a id=__codelineno-14-2 name=__codelineno-14-2></a>RSVP interface: 5 active
+<a id=__codelineno-14-3 name=__codelineno-14-3></a>Interface        State  resv    iption   BW          BW              BW            mark
+<a id=__codelineno-14-4 name=__codelineno-14-4></a>et-0/0/2.0          Up       2    90%   100Gbps  90Gbps      1000bps     1000bps 
+</code></pre></div></td></tr></table></div> <ul> <li><strong>Static BW</strong>: Total physical bandwidth (10Gbps).</li> <li><strong>Subscription</strong>: 90% static BW = 9Gbps.</li> <li><strong>Available BW</strong>: Remaining bandwidth after current reservations.</li> <li><strong>Reserved BW</strong>: Currently reserved bandwidth (1000bps).</li> <li><strong>Highwater Mark</strong>: Peak reservation observed on the interface.</li> </ul> <p>The following output highlights the operation of the adaptive threshold update mechanism. On a 100G interface with a 90% RSVP subscription, the maximum available bandwidth (Max-Avail BW) is 90G. At the time this output was captured, the interface was operating within the 20% adaptive threshold-update region. The next IGP update will be triggered only if the reserved bandwidth changes to 18 Gbps or more (i.e 20% of 90G MaxAvail BW).</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-15-1> 1</a></span>
+<span class=normal><a href=#__codelineno-15-2> 2</a></span>
+<span class=normal><a href=#__codelineno-15-3> 3</a></span>
+<span class=normal><a href=#__codelineno-15-4> 4</a></span>
+<span class=normal><a href=#__codelineno-15-5> 5</a></span>
+<span class=normal><a href=#__codelineno-15-6> 6</a></span>
+<span class=normal><a href=#__codelineno-15-7> 7</a></span>
+<span class=normal><a href=#__codelineno-15-8> 8</a></span>
+<span class=normal><a href=#__codelineno-15-9> 9</a></span>
+<span class=normal><a href=#__codelineno-15-10>10</a></span>
+<span class=normal><a href=#__codelineno-15-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-15-1 name=__codelineno-15-1></a>show rsvp interface et-0/0/2.0 extensive
+<a id=__codelineno-15-2 name=__codelineno-15-2></a>et-0/0/2.0 Index 95, State Ena/Up
+<a id=__codelineno-15-3 name=__codelineno-15-3></a> NoAuthentication, Aggregate, Reliable, LinkProtection
+<a id=__codelineno-15-4 name=__codelineno-15-4></a> HelloInterval 9(second)
+<a id=__codelineno-15-5 name=__codelineno-15-5></a> Address 10.20.49.1
+<a id=__codelineno-15-6 name=__codelineno-15-6></a> ActiveResv 43, PreemptionCnt 25, MaxResvTh 0bps, 0% 
+<a id=__codelineno-15-7 name=__codelineno-15-7></a> Update threshold 20.000%, UpdateThresholdValue 18Gbps
+<a id=__codelineno-15-8 name=__codelineno-15-8></a> Subscription 90%, Actual 90%
+<a id=__codelineno-15-9 name=__codelineno-15-9></a> bc0 = ct0, StaticBW 100Gbps
+<a id=__codelineno-15-10 name=__codelineno-15-10></a> ct0: StaticBW 100Gbps, AvailableBW 36.716Gbps
+<a id=__codelineno-15-11 name=__codelineno-15-11></a>   MaxAvailableBW 90Gbps = (bc0*subscription)
+</code></pre></div></td></tr></table></div> <h3 id=test-summary>Test Summary<a class=headerlink href=#test-summary title="Permanent link">&para;</a></h3> <p>The following graph and device outputs indicate that the test lasted for approximately two adjust-intervals, with each interval set to 900 seconds. During the first interval, which ended at the timestamp ~10:44:56, the MaxAvg bandwidth remained above the adjust-threshold, but did not meet the adjust-threshold-activate-bandwidth value (i.e 25Mbps). In the second adjust-interval, both the adjust-threshold and adjust-threshold-activate-bandwidth conditions were satisfied.</p> <p>The first occurrence of this condition was between 10:47:01 and 10:48:12, although the output was not captured at that time. However, during timestamps 10:48:53 and 10:49:28, the criteria defined by the formula statistical-interval x adjust-threshold-overflow-limit (i.e., 60 x 3 = 180 seconds) to exceed adjust-threshold and adjust-threshold-activate-bandwidth were met. As a result, the LSP bandwidth was adjusted to the current MaxAvg value of 27.4122 Mbps with in-place manner.</p> <p><img alt="Lab Results Graph" src=../images/picture8.png></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-16-1> 1</a></span>
+<span class=normal><a href=#__codelineno-16-2> 2</a></span>
+<span class=normal><a href=#__codelineno-16-3> 3</a></span>
+<span class=normal><a href=#__codelineno-16-4> 4</a></span>
+<span class=normal><a href=#__codelineno-16-5> 5</a></span>
+<span class=normal><a href=#__codelineno-16-6> 6</a></span>
+<span class=normal><a href=#__codelineno-16-7> 7</a></span>
+<span class=normal><a href=#__codelineno-16-8> 8</a></span>
+<span class=normal><a href=#__codelineno-16-9> 9</a></span>
+<span class=normal><a href=#__codelineno-16-10>10</a></span>
+<span class=normal><a href=#__codelineno-16-11>11</a></span>
+<span class=normal><a href=#__codelineno-16-12>12</a></span>
+<span class=normal><a href=#__codelineno-16-13>13</a></span>
+<span class=normal><a href=#__codelineno-16-14>14</a></span>
+<span class=normal><a href=#__codelineno-16-15>15</a></span>
+<span class=normal><a href=#__codelineno-16-16>16</a></span>
+<span class=normal><a href=#__codelineno-16-17>17</a></span>
+<span class=normal><a href=#__codelineno-16-18>18</a></span>
+<span class=normal><a href=#__codelineno-16-19>19</a></span>
+<span class=normal><a href=#__codelineno-16-20>20</a></span>
+<span class=normal><a href=#__codelineno-16-21>21</a></span>
+<span class=normal><a href=#__codelineno-16-22>22</a></span>
+<span class=normal><a href=#__codelineno-16-23>23</a></span>
+<span class=normal><a href=#__codelineno-16-24>24</a></span>
+<span class=normal><a href=#__codelineno-16-25>25</a></span>
+<span class=normal><a href=#__codelineno-16-26>26</a></span>
+<span class=normal><a href=#__codelineno-16-27>27</a></span>
+<span class=normal><a href=#__codelineno-16-28>28</a></span>
+<span class=normal><a href=#__codelineno-16-29>29</a></span>
+<span class=normal><a href=#__codelineno-16-30>30</a></span>
+<span class=normal><a href=#__codelineno-16-31>31</a></span>
+<span class=normal><a href=#__codelineno-16-32>32</a></span>
+<span class=normal><a href=#__codelineno-16-33>33</a></span>
+<span class=normal><a href=#__codelineno-16-34>34</a></span>
+<span class=normal><a href=#__codelineno-16-35>35</a></span>
+<span class=normal><a href=#__codelineno-16-36>36</a></span>
+<span class=normal><a href=#__codelineno-16-37>37</a></span>
+<span class=normal><a href=#__codelineno-16-38>38</a></span>
+<span class=normal><a href=#__codelineno-16-39>39</a></span>
+<span class=normal><a href=#__codelineno-16-40>40</a></span>
+<span class=normal><a href=#__codelineno-16-41>41</a></span>
+<span class=normal><a href=#__codelineno-16-42>42</a></span>
+<span class=normal><a href=#__codelineno-16-43>43</a></span>
+<span class=normal><a href=#__codelineno-16-44>44</a></span>
+<span class=normal><a href=#__codelineno-16-45>45</a></span>
+<span class=normal><a href=#__codelineno-16-46>46</a></span>
+<span class=normal><a href=#__codelineno-16-47>47</a></span>
+<span class=normal><a href=#__codelineno-16-48>48</a></span>
+<span class=normal><a href=#__codelineno-16-49>49</a></span>
+<span class=normal><a href=#__codelineno-16-50>50</a></span>
+<span class=normal><a href=#__codelineno-16-51>51</a></span>
+<span class=normal><a href=#__codelineno-16-52>52</a></span>
+<span class=normal><a href=#__codelineno-16-53>53</a></span>
+<span class=normal><a href=#__codelineno-16-54>54</a></span>
+<span class=normal><a href=#__codelineno-16-55>55</a></span>
+<span class=normal><a href=#__codelineno-16-56>56</a></span>
+<span class=normal><a href=#__codelineno-16-57>57</a></span>
+<span class=normal><a href=#__codelineno-16-58>58</a></span>
+<span class=normal><a href=#__codelineno-16-59>59</a></span>
+<span class=normal><a href=#__codelineno-16-60>60</a></span>
+<span class=normal><a href=#__codelineno-16-61>61</a></span>
+<span class=normal><a href=#__codelineno-16-62>62</a></span>
+<span class=normal><a href=#__codelineno-16-63>63</a></span>
+<span class=normal><a href=#__codelineno-16-64>64</a></span>
+<span class=normal><a href=#__codelineno-16-65>65</a></span>
+<span class=normal><a href=#__codelineno-16-66>66</a></span>
+<span class=normal><a href=#__codelineno-16-67>67</a></span>
+<span class=normal><a href=#__codelineno-16-68>68</a></span>
+<span class=normal><a href=#__codelineno-16-69>69</a></span>
+<span class=normal><a href=#__codelineno-16-70>70</a></span>
+<span class=normal><a href=#__codelineno-16-71>71</a></span>
+<span class=normal><a href=#__codelineno-16-72>72</a></span>
+<span class=normal><a href=#__codelineno-16-73>73</a></span>
+<span class=normal><a href=#__codelineno-16-74>74</a></span>
+<span class=normal><a href=#__codelineno-16-75>75</a></span>
+<span class=normal><a href=#__codelineno-16-76>76</a></span>
+<span class=normal><a href=#__codelineno-16-77>77</a></span>
+<span class=normal><a href=#__codelineno-16-78>78</a></span>
+<span class=normal><a href=#__codelineno-16-79>79</a></span>
+<span class=normal><a href=#__codelineno-16-80>80</a></span>
+<span class=normal><a href=#__codelineno-16-81>81</a></span>
+<span class=normal><a href=#__codelineno-16-82>82</a></span>
+<span class=normal><a href=#__codelineno-16-83>83</a></span>
+<span class=normal><a href=#__codelineno-16-84>84</a></span>
+<span class=normal><a href=#__codelineno-16-85>85</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-16-1 name=__codelineno-16-1></a>show mpls lsp name site-a-wan2-pe-to-site-b-wan1-pe extensive 
+<a id=__codelineno-16-2 name=__codelineno-16-2></a>Ingress LSP: 506 sessions
+<a id=__codelineno-16-3 name=__codelineno-16-3></a>June 25 10:33:07
+<a id=__codelineno-16-4 name=__codelineno-16-4></a>
+<a id=__codelineno-16-5 name=__codelineno-16-5></a>10.187.0.76
+<a id=__codelineno-16-6 name=__codelineno-16-6></a>  From: 10.20.48.6, State: Up, ActiveRoute: 0, LSPname: site-a-wan2-pe-to-site-b-wan1-pe, LSPid: 106
+<a id=__codelineno-16-7 name=__codelineno-16-7></a>  ActivePath: primary-path (primary)
+<a id=__codelineno-16-8 name=__codelineno-16-8></a>  Node/Link protection desired
+<a id=__codelineno-16-9 name=__codelineno-16-9></a>  LSPtype: Static Configured, Penultimate hop popping
+<a id=__codelineno-16-10 name=__codelineno-16-10></a>  LoadBalance: Least-fill
+<a id=__codelineno-16-11 name=__codelineno-16-11></a>  Follow destination IGP metric
+<a id=__codelineno-16-12 name=__codelineno-16-12></a>  Autobandwidth 
+<a id=__codelineno-16-13 name=__codelineno-16-13></a>  MaxBW: 100Gbps
+<a id=__codelineno-16-14 name=__codelineno-16-14></a>  AdjustTimer: 900 secs AdjustThreshold: 3% 
+<a id=__codelineno-16-15 name=__codelineno-16-15></a>  Adjust Threshold Activate Bandwidth: 25Mbps
+<a id=__codelineno-16-16 name=__codelineno-16-16></a>  Max AvgBW util: 0bps, Bandwidth Adjustment in 716 second(s).
+<a id=__codelineno-16-17 name=__codelineno-16-17></a>  Overflow limit: 3, Overflow sample count: 0
+<a id=__codelineno-16-18 name=__codelineno-16-18></a>  Underflow limit: 3, Underflow sample count: 0, Underflow Max AvgBW: 0bps
+<a id=__codelineno-16-19 name=__codelineno-16-19></a>  Encoding type: Packet, Switching type: Packet, GPID: IPv4
+<a id=__codelineno-16-20 name=__codelineno-16-20></a>  LSP Self-ping Status : Enabled
+<a id=__codelineno-16-21 name=__codelineno-16-21></a> *Primary   primary-path     State: Up
+<a id=__codelineno-16-22 name=__codelineno-16-22></a>    Priorities: 2 2
+<a id=__codelineno-16-23 name=__codelineno-16-23></a>    OptimizeTimer: 60
+<a id=__codelineno-16-24 name=__codelineno-16-24></a>    SmartOptimizeTimer: 180
+<a id=__codelineno-16-25 name=__codelineno-16-25></a>    Flap Count: 1
+<a id=__codelineno-16-26 name=__codelineno-16-26></a>    MBB Count: 1
+<a id=__codelineno-16-27 name=__codelineno-16-27></a>    In-place Update Count: 0 (bandwidth), 0 (hold-priority)
+<a id=__codelineno-16-28 name=__codelineno-16-28></a>
+<a id=__codelineno-16-29 name=__codelineno-16-29></a>show mpls lsp name site-a-wan2-pe-to-site-b-wan1-pe extensive 
+<a id=__codelineno-16-30 name=__codelineno-16-30></a>Aug 23 10:49:10
+<a id=__codelineno-16-31 name=__codelineno-16-31></a>Ingress LSP: 506 sessions
+<a id=__codelineno-16-32 name=__codelineno-16-32></a>
+<a id=__codelineno-16-33 name=__codelineno-16-33></a>10.187.0.76
+<a id=__codelineno-16-34 name=__codelineno-16-34></a>  From: 10.20.48.6, State: Up, ActiveRoute: 0, LSPname: site-a-wan2-pe-to-site-b-wan1-pe, LSPid: 106
+<a id=__codelineno-16-35 name=__codelineno-16-35></a>  ActivePath: primary-path (primary)
+<a id=__codelineno-16-36 name=__codelineno-16-36></a>  Node/Link protection desired
+<a id=__codelineno-16-37 name=__codelineno-16-37></a>  LSPtype: Static Configured, Penultimate hop popping
+<a id=__codelineno-16-38 name=__codelineno-16-38></a>  LoadBalance: Least-fill
+<a id=__codelineno-16-39 name=__codelineno-16-39></a>  Follow destination IGP metric
+<a id=__codelineno-16-40 name=__codelineno-16-40></a>  Autobandwidth 
+<a id=__codelineno-16-41 name=__codelineno-16-41></a>  MaxBW: 100Gbps
+<a id=__codelineno-16-42 name=__codelineno-16-42></a>  AdjustTimer: 900 secs AdjustThreshold: 3% 
+<a id=__codelineno-16-43 name=__codelineno-16-43></a>  Adjust Threshold Activate Bandwidth: 25Mbps
+<a id=__codelineno-16-44 name=__codelineno-16-44></a>  Max AvgBW util: 27.4122Mbps, Bandwidth Adjustment in 650 second(s).
+<a id=__codelineno-16-45 name=__codelineno-16-45></a>  Overflow limit: 3, Overflow sample count: 2
+<a id=__codelineno-16-46 name=__codelineno-16-46></a>  Underflow limit: 3, Underflow sample count: 0, Underflow Max AvgBW: 0bps
+<a id=__codelineno-16-47 name=__codelineno-16-47></a>  Encoding type: Packet, Switching type: Packet, GPID: IPv4
+<a id=__codelineno-16-48 name=__codelineno-16-48></a>  LSP Self-ping Status : Enabled
+<a id=__codelineno-16-49 name=__codelineno-16-49></a> *Primary   primary-path     State: Up
+<a id=__codelineno-16-50 name=__codelineno-16-50></a>    Priorities: 2 2
+<a id=__codelineno-16-51 name=__codelineno-16-51></a>    OptimizeTimer: 60
+<a id=__codelineno-16-52 name=__codelineno-16-52></a>    SmartOptimizeTimer: 180
+<a id=__codelineno-16-53 name=__codelineno-16-53></a>    Flap Count: 1
+<a id=__codelineno-16-54 name=__codelineno-16-54></a>    MBB Count: 1
+<a id=__codelineno-16-55 name=__codelineno-16-55></a>    In-place Update Count: 0 (bandwidth), 0 (hold-priority)
+<a id=__codelineno-16-56 name=__codelineno-16-56></a>    Reoptimization in 50 second(s).
+<a id=__codelineno-16-57 name=__codelineno-16-57></a>
+<a id=__codelineno-16-58 name=__codelineno-16-58></a>show mpls lsp name site-a-wan2-pe-to-site-b-wan1-pe extensive 
+<a id=__codelineno-16-59 name=__codelineno-16-59></a>Aug 23 10:49:28
+<a id=__codelineno-16-60 name=__codelineno-16-60></a>Ingress LSP: 506 sessions
+<a id=__codelineno-16-61 name=__codelineno-16-61></a>
+<a id=__codelineno-16-62 name=__codelineno-16-62></a>10.187.0.76
+<a id=__codelineno-16-63 name=__codelineno-16-63></a>  From: 10.20.48.6, State: Up, ActiveRoute: 0, LSPname: site-a-wan2-pe-to-site-b-wan1-pe, LSPid: 106
+<a id=__codelineno-16-64 name=__codelineno-16-64></a>  ActivePath: primary-path (primary)
+<a id=__codelineno-16-65 name=__codelineno-16-65></a>  Node/Link protection desired
+<a id=__codelineno-16-66 name=__codelineno-16-66></a>  LSPtype: Static Configured, Penultimate hop popping
+<a id=__codelineno-16-67 name=__codelineno-16-67></a>  LoadBalance: Least-fill
+<a id=__codelineno-16-68 name=__codelineno-16-68></a>  Follow destination IGP metric
+<a id=__codelineno-16-69 name=__codelineno-16-69></a>  Autobandwidth 
+<a id=__codelineno-16-70 name=__codelineno-16-70></a>  MaxBW: 100Gbps
+<a id=__codelineno-16-71 name=__codelineno-16-71></a>  AdjustTimer: 900 secs AdjustThreshold: 3% 
+<a id=__codelineno-16-72 name=__codelineno-16-72></a>  Adjust Threshold Activate Bandwidth: 25Mbps
+<a id=__codelineno-16-73 name=__codelineno-16-73></a>  Max AvgBW util: 27.4122Mbps, Bandwidth Adjustment in 889 second(s).
+<a id=__codelineno-16-74 name=__codelineno-16-74></a>  Overflow limit: 3, Overflow sample count: 0
+<a id=__codelineno-16-75 name=__codelineno-16-75></a>  Underflow limit: 3, Underflow sample count: 0, Underflow Max AvgBW: 0bps
+<a id=__codelineno-16-76 name=__codelineno-16-76></a>  Encoding type: Packet, Switching type: Packet, GPID: IPv4
+<a id=__codelineno-16-77 name=__codelineno-16-77></a>  LSP Self-ping Status : Enabled
+<a id=__codelineno-16-78 name=__codelineno-16-78></a> *Primary   primary-path     State: Up
+<a id=__codelineno-16-79 name=__codelineno-16-79></a>    Priorities: 2 2
+<a id=__codelineno-16-80 name=__codelineno-16-80></a>    Bandwidth: 27.4122Mbps
+<a id=__codelineno-16-81 name=__codelineno-16-81></a>    OptimizeTimer: 60
+<a id=__codelineno-16-82 name=__codelineno-16-82></a>    SmartOptimizeTimer: 180
+<a id=__codelineno-16-83 name=__codelineno-16-83></a>    Flap Count: 1
+<a id=__codelineno-16-84 name=__codelineno-16-84></a>    MBB Count: 1
+<a id=__codelineno-16-85 name=__codelineno-16-85></a>    In-place Update Count: 1 (bandwidth), 0 (hold-priority)
+</code></pre></div></td></tr></table></div> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">&para;</a></h2> <p>RSVP-TE with auto-bandwidth is a vital component of dynamic traffic engineering in MPLS networks. It automatically adjusts LSP bandwidth based on real-time traffic, enhancing responsiveness and link utilization while reducing congestion. Key features such as in-place bandwidth updates, fine-grained control through adjust-threshold parameters (including overflow and underflow limits), and bandwidth-aware bypass LSPs; improve operational efficiency and resiliency. Additionally, RSVP adaptive update-thresholds help minimize unnecessary IGP updates, supporting scalability and control-plane stability. Together, these capabilities enable a self-optimizing MPLS control plane aligned with demanding SLA and performance objectives.</p> <h2 id=acknowledgments>Acknowledgments<a class=headerlink href=#acknowledgments title="Permanent link">&para;</a></h2> <p>A heartfelt thank you to Colby Barth, Juniper Distinguished Engineer RSVP-TE, for his meticulous review of each section, thoughtful corrections, and the insightful material he shared to clarify complex RSVP-TE concepts. His contributions were instrumental in ensuring the technical accuracy and depth of this document. Special appreciation is also extended to Hafiz Balal Ahmad, Test Engineer in the Software Testing Organization, for conducting critical lab validations and sharing detailed outputs. His hands-on efforts were vital in reinforcing the practical relevance and reliability of the conclusions presented.</p> <h2 id=glossary>Glossary<a class=headerlink href=#glossary title="Permanent link">&para;</a></h2> <ul> <li>Adaptive: Refers to dynamic behavior that adjusts thresholds or actions based on real-time network conditions.</li> <li>Adaptive Update-Threshold: A dynamic mechanism that adjusts the sensitivity of IGP updates based on available bandwidth.</li> <li>Adjust-Interval: The time period (in seconds) after which the system evaluates whether to adjust the LSP bandwidth.</li> <li>Adjust-Threshold: The percentage change in bandwidth required to trigger an adjustment.</li> <li>Adjust-Threshold-Activate-Bandwidth: The minimum bandwidth value that must be exceeded before any adjustment is considered.</li> <li>Adjust-Threshold-Overflow-Limit: The number of consecutive intervals the threshold must be exceeded before adjustment occurs.</li> <li>Agentd: A Junos background process that facilitates communication between the Junos OS and various management and telemetry agents, enabling automation and monitoring.</li> <li>Auto-Bandwidth: A feature that automatically adjusts the bandwidth reservation of an LSP based on observed traffic.</li> <li>IGP (Interior Gateway Protocol): A routing protocol (e.g., OSPF, IS-IS) used to exchange routing information within a domain.</li> <li>Ingress LER (Label Edge Router): The entry point of an LSP in an MPLS network, responsible for label imposition and traffic classification.</li> <li>In-Place Bandwidth Adjustment: Updating the bandwidth of an existing LSP without tearing it down and re-signaling.</li> <li>Junos EVO: The next-generation Junos OS architecture, built on a modular and cloud-optimized Linux-based platform, designed for scalability, programmability, and high availability</li> <li>Junos Kernel: The core operating system layer in Junos, responsible for managing system resources, process scheduling, memory, and hardware abstraction. In Junos EVO, it is based on a modern Linux kernel.</li> <li>Kstat (Kernel Statistics): A Junos internal mechanism that collects and reports real-time statistics from the kernel, often used for monitoring interface and traffic metrics.</li> <li>LSP (Label Switched Path): A path through an MPLS network, established by signaling protocols like RSVP.</li> <li>MaxAvg Bandwidth: The maximum average bandwidth observed during the adjust-interval.</li> <li>RPD (Routing Protocol Daemon): A core Junos process that handles routing protocols (e.g., OSPF, IS-IS, BGP) and manages the routing table and protocol interactions.Statistical-Interval: The duration over which bandwidth statistics are collected.</li> <li>RSVP (Resource Reservation Protocol): A protocol used to reserve bandwidth across a network for a specific traffic flow.TED (Traffic Engineering Database): A database used by IGPs to store information about network topology and available resources.</li> <li>Sensor-Based Stats: A telemetry feature in Junos that collects real-time operational data (e.g., interface stats, queue depth) and streams it to external collectors for analytics and automation.</li> <li>Update-Threshold: A configuration that controls when RSVP triggers an IGP update based on bandwidth changes.</li> <li>EVO DDx (Distributed Data Exchange): A subsystem in Junos EVO that includes the Distributed Data Store (DDS) and supporting components like the distributor and ZooKeeper. It enables real-time, consistent state sharing across distributed processes and nodes in the system</li> </ul> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">&para;</a></h2> <ul> <li><a href=https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/rsvp-overview.html>https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/rsvp-overview.html</a></li> <li><a href=https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/auto-bandwidth-edit-protocols-mpls.html>https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/auto-bandwidth-edit-protocols-mpls.html</a></li> <li><a href=https://ippoint.wordpress.com/2010/11/18/advanced-mpls-from-junos/ >https://ippoint.wordpress.com/2010/11/18/advanced-mpls-from-junos/ </a></li> <li><a href="https://supportportal.juniper.net/s/article/Junos-RSVP-adaptive-update-threshold-Complete-details?language=en_US#:~:text=The%20update%2Dthreshold%20is%20set,new%20IGP%20Link%20state%20update">https://supportportal.juniper.net/s/article/Junos-RSVP-adaptive-update-threshold-Complete-details?language=en_US#:~:text=The%20update%2Dthreshold%20is%20set,new%20IGP%20Link%20state%20update</a></li> <li><a href=https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/update-threshold-edit-protocols-rsvp.html>https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/update-threshold-edit-protocols-rsvp.html</a></li> </ul> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>

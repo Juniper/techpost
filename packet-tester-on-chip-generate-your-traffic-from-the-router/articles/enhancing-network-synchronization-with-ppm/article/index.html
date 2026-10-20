@@ -1,0 +1,237 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/enhancing-network-synchronization-with-ppm/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Enhancing Network Synchronization with Passive Port Monitoring - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Enhancing Network Synchronization with Passive Port Monitoring"><meta property=og:image content=https://techpost.hpe.com/articles/enhancing-network-synchronization-with-ppm/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/enhancing-network-synchronization-with-ppm/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#enhancing-network-synchronization-with-passive-port-monitoring class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Enhancing Network Synchronization with Passive Port Monitoring </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#why-synchronization-matters class=md-nav__link> <span class=md-ellipsis> Why Synchronization Matters </span> </a> </li> <li class=md-nav__item> <a href=#introduction-to-passive-port-monitoring class=md-nav__link> <span class=md-ellipsis> Introduction to Passive Port Monitoring </span> </a> </li> <li class=md-nav__item> <a href=#use-cases-for-ppm class=md-nav__link> <span class=md-ellipsis> Use Cases for PPM </span> </a> </li> <li class=md-nav__item> <a href=#provisioning class=md-nav__link> <span class=md-ellipsis> Provisioning </span> </a> </li> <li class=md-nav__item> <a href=#monitoring class=md-nav__link> <span class=md-ellipsis> Monitoring </span> </a> </li> <li class=md-nav__item> <a href=#steps-for-provisioning-asymmetry-compensation class=md-nav__link> <span class=md-ellipsis> Steps for Provisioning Asymmetry Compensation </span> </a> </li> <li class=md-nav__item> <a href=#steps-for-provisioning class=md-nav__link> <span class=md-ellipsis> Steps for Provisioning </span> </a> </li> <li class=md-nav__item> <a href=#monitoring-clock-quality-in-service-provider-networks class=md-nav__link> <span class=md-ellipsis> Monitoring Clock Quality in Service Provider Networks </span> </a> </li> <li class=md-nav__item> <a href=#technical-insights class=md-nav__link> <span class=md-ellipsis> Technical Insights </span> </a> </li> <li class=md-nav__item> <a href=#switchover-confidence class=md-nav__link> <span class=md-ellipsis> Switchover Confidence </span> </a> <nav class=md-nav aria-label="Switchover Confidence"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#emea-service-provider-using-ppm-to-measure-and-compensate-asymmetry class=md-nav__link> <span class=md-ellipsis> EMEA Service Provider using PPM to measure and compensate asymmetry </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#conclusion class=md-nav__link> <span class=md-ellipsis> Conclusion </span> </a> </li> <li class=md-nav__item> <a href=#references class=md-nav__link> <span class=md-ellipsis> References </span> </a> </li> <li class=md-nav__item> <a href=#acknowledgments class=md-nav__link> <span class=md-ellipsis> Acknowledgments </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=enhancing-network-synchronization-with-passive-port-monitoring>Enhancing Network Synchronization with Passive Port Monitoring<a class=headerlink href=#enhancing-network-synchronization-with-passive-port-monitoring title="Permanent link">&para;</a></h1> <p><strong>Kamatchi Gopalakrishnan - 10/10/2025</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/enhancing-network-synchronization-with-ppm.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/enhancing-network-synchronization-with-ppm.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <h2 id=why-synchronization-matters>Why Synchronization Matters<a class=headerlink href=#why-synchronization-matters title="Permanent link">&para;</a></h2> <p>In the era of 5G, CRAN, cloud-native infrastructure, and ultra-low latency applications, precise time synchronization is foundational. Juniper Networks introduces a powerful tool to elevate the visibility, accuracy, and security of synchronization networks: <strong>Passive Port Monitoring (PPM)</strong>.</p> <h2 id=introduction-to-passive-port-monitoring>Introduction to Passive Port Monitoring<a class=headerlink href=#introduction-to-passive-port-monitoring title="Permanent link">&para;</a></h2> <p>In modern synchronization networks, ensuring precise timing is critical. Passive Port Monitoring (PPM) plays a major role in enhancing visibility and control over synchronization accuracy. Defined in <a href=https://www.itu.int/rec/t-rec-g.8275.1/en><strong>Annex G of ITU-T G.8275.1</strong></a>, PPM enables the monitoring of PTP phase/time differences between passive and timeReceiver (slave) ports in T-BC/T-TSC nodes.</p> <p>A distinctive feature introduced by Juniper is the "Measure-Only" port mode, which enables ports to remain in a passive state solely for monitoring purposes. This mode ensures that the ports do not transition to either master or slave roles.</p> <h2 id=use-cases-for-ppm>Use Cases for PPM<a class=headerlink href=#use-cases-for-ppm title="Permanent link">&para;</a></h2> <h2 id=provisioning>Provisioning<a class=headerlink href=#provisioning title="Permanent link">&para;</a></h2> <ul> <li>Measure and compensate for <strong>asymmetry</strong> in network nodes.</li> <li>Validate timing paths before activating them.</li> </ul> <h2 id=monitoring>Monitoring<a class=headerlink href=#monitoring title="Permanent link">&para;</a></h2> <ul> <li>Continuously track time error differences across multiple network paths.</li> <li>Compare PTP phase/time differences between ports on a T-BC/T-TSC node from different upstream sources.</li> <li>Detect clock degradation or security anomalies in real time.</li> </ul> <h2 id=steps-for-provisioning-asymmetry-compensation>Steps for Provisioning Asymmetry Compensation<a class=headerlink href=#steps-for-provisioning-asymmetry-compensation title="Permanent link">&para;</a></h2> <p>Figure 1 shows a topology model of how the PPM feature can be used to determine the 800ns asymmetry introduced by the DWDM network between T-GM2 and T-BC.</p> <p><img alt="Figure-1: PPM for Provisioning" src=../images/picture3.png></p> <h2 id=steps-for-provisioning>Steps for Provisioning<a class=headerlink href=#steps-for-provisioning title="Permanent link">&para;</a></h2> <ul> <li>Step 1. <strong>Lock</strong> the Boundary Clock (T-BC) to T-GM1 via port P1 and start 1PPS measurement.</li> <li>Step 2. <strong>Measure</strong> 1PPS, determine offset error, and apply as asymmetry compensation on port P1.</li> <li>Step 3. <strong>Check</strong> that offset error is zero or close to zero on 1PPS measured output.</li> <li>Step 4. <strong>Enable</strong> port P2 in Measure-Only mode with PPM feature.</li> <li>Step 5. <strong>Wait 5 minutes</strong> to get the port P2 Phase Offset relative to port P1 at T-BC. See the "PhaseOffsetFromMaster" field in the "Sample output of PPM feature" provided in the later part of this blog.</li> <li>Step 6.** Apply compensation** for the offset on port P2.</li> <li>Step 7. <strong>Verify</strong> the offset is near zero after another 5 minutes wait.</li> <li>Step 8. <strong>Remove Measure-Only</strong> mode on P2 and switchover from P1 to P2.</li> <li>Step 9. <strong>Check</strong> that 1 PPS measured at the measurement device shows no significant change in Time Error (TE).</li> <li>Step 10. <strong>Sample Output of PPM feature:</strong></li> </ul> <p>PTP Passive Port Interface Details:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span>
+<span class=normal><a href=#__codelineno-0-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>PPM monitor status        : Enabled
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>Local interface           : et-0/0/16:1.0
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>Source port ID            : 00:00:00:00:00:00:00:01 port-num: 4
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>Port state                : Passive
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>Configured role           : Measure-only
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>Measurement status        : Valid
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>Timestamp                 : 2023-09-19 10:53:35 PDT
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>PhaseOffsetFromMaster(ns) : -391 / -385 / -380 (min/mean/max)
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>Master-&gt;slave delay(ns)   : -3446 / -3443 / -3441 (min/mean/max)
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>Slave-&gt;master delay(ns)   : 2663 / 2672 / 2680 (min/mean/max)
+<a id=__codelineno-0-11 name=__codelineno-0-11></a>Mean path delay(ns).      : 3057
+</code></pre></div></td></tr></table></div> <h2 id=monitoring-clock-quality-in-service-provider-networks>Monitoring Clock Quality in Service Provider Networks<a class=headerlink href=#monitoring-clock-quality-in-service-provider-networks title="Permanent link">&para;</a></h2> <p><img alt="The synchronization network monitoring using PPM feature" src=../images/picture4.png></p> <p>PPM is a valuable tool for <strong>end-to-end clock quality monitoring</strong> across the network,Äîfrom the <strong>core</strong> to the <strong>cell site</strong>. It helps:</p> <ul> <li>Identify devices degrading clock quality.</li> <li>Detect <strong>asymmetric delays</strong> and <strong>path drift</strong>.</li> <li>Detect and mitigate <strong>security attacks</strong> targeting synchronization.</li> </ul> <p>Sample Configuration of the T-BC-3 in Figure 2 is shown below before compensating for the phase offset:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1> 1</a></span>
+<span class=normal><a href=#__codelineno-1-2> 2</a></span>
+<span class=normal><a href=#__codelineno-1-3> 3</a></span>
+<span class=normal><a href=#__codelineno-1-4> 4</a></span>
+<span class=normal><a href=#__codelineno-1-5> 5</a></span>
+<span class=normal><a href=#__codelineno-1-6> 6</a></span>
+<span class=normal><a href=#__codelineno-1-7> 7</a></span>
+<span class=normal><a href=#__codelineno-1-8> 8</a></span>
+<span class=normal><a href=#__codelineno-1-9> 9</a></span>
+<span class=normal><a href=#__codelineno-1-10>10</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>set protocols ptp clock-mode boundary
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>set protocols ptp profile-type g.8275.1
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>set protocols ptp performance-monitor passive-port delay-request-rate -4
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>set protocols ptp slave hybrid
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>set protocols ptp master interface et-0/0/19.0 multicast-mode transport ieee-802.3
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>set protocols ptp stateful interface et-0/0/16:0.0 multicast-mode transport ieee-802.3
+<a id=__codelineno-1-7 name=__codelineno-1-7></a>set protocols ptp stateful interface et-0/0/16:0.0 not-master
+<a id=__codelineno-1-8 name=__codelineno-1-8></a>set protocols ptp stateful interface et-0/0/16:0.0 passive-port-monitor
+<a id=__codelineno-1-9 name=__codelineno-1-9></a>set protocols ptp stateful interface et-0/0/16:1.0 multicast-mode transport ieee-802.3
+<a id=__codelineno-1-10 name=__codelineno-1-10></a>set protocols ptp stateful interface et-0/0/16:1.0 passive-port-monitor measure-only
+</code></pre></div></td></tr></table></div> <p>Sample configuration for Sync-E</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1> 1</a></span>
+<span class=normal><a href=#__codelineno-2-2> 2</a></span>
+<span class=normal><a href=#__codelineno-2-3> 3</a></span>
+<span class=normal><a href=#__codelineno-2-4> 4</a></span>
+<span class=normal><a href=#__codelineno-2-5> 5</a></span>
+<span class=normal><a href=#__codelineno-2-6> 6</a></span>
+<span class=normal><a href=#__codelineno-2-7> 7</a></span>
+<span class=normal><a href=#__codelineno-2-8> 8</a></span>
+<span class=normal><a href=#__codelineno-2-9> 9</a></span>
+<span class=normal><a href=#__codelineno-2-10>10</a></span>
+<span class=normal><a href=#__codelineno-2-11>11</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>set chassis synchronization network-option option-1
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>set chassis synchronization selection-mode received-quality
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>set chassis synchronization quality-mode-enable
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>set chassis synchronization enable-extended-ql-tlv
+<a id=__codelineno-2-5 name=__codelineno-2-5></a>set chassis synchronization source interfaces et-0/0/16:0 priority 1
+<a id=__codelineno-2-6 name=__codelineno-2-6></a>set chassis synchronization source interfaces et-0/0/16:0 wait-to-restore 0
+<a id=__codelineno-2-7 name=__codelineno-2-7></a>set chassis synchronization source interfaces et-0/0/16:0 quality-level prc
+<a id=__codelineno-2-8 name=__codelineno-2-8></a>set chassis synchronization source interfaces et-0/0/16:1 priority 2
+<a id=__codelineno-2-9 name=__codelineno-2-9></a>set chassis synchronization source interfaces et-0/0/16:1 wait-to-restore 0
+<a id=__codelineno-2-10 name=__codelineno-2-10></a>set chassis synchronization source interfaces et-0/0/16:1 quality-level prc
+<a id=__codelineno-2-11 name=__codelineno-2-11></a>set chassis synchronization esmc-transmit interfaces et-0/0/19
+</code></pre></div></td></tr></table></div> <h2 id=technical-insights>Technical Insights<a class=headerlink href=#technical-insights title="Permanent link">&para;</a></h2> <ul> <li><strong>Measure-Only Mode</strong>: Prevents port role transitions into slave or master role, ensuring passive state.</li> <li><strong>Not-master</strong>: Prevents port role transitions into the master role.</li> <li><strong>Phase Offset Analysis</strong>: Enables precise asymmetry compensation on various synchronization paths.</li> <li><strong>Security Monitoring</strong>: Detects spoofed or manipulated time sources by comparing multiple upstream references.</li> </ul> <h2 id=switchover-confidence>Switchover Confidence<a class=headerlink href=#switchover-confidence title="Permanent link">&para;</a></h2> <p>With PPM and Measure-Only mode, switchover between time sources can be executed with minimal impact on synchronization accuracy - ensuring <strong>network stability and performance.</strong></p> <h3 id=emea-service-provider-using-ppm-to-measure-and-compensate-asymmetry>EMEA Service Provider using PPM to measure and compensate asymmetry<a class=headerlink href=#emea-service-provider-using-ppm-to-measure-and-compensate-asymmetry title="Permanent link">&para;</a></h3> <p>An EMEA-based Service Provider has been deploying network time synchronization for its 5G infrastructure using the ITU-T G.8275.1 profile, which incorporates both Synchronous Ethernet (SyncE) and Precision Time Protocol (PTP). In this deployment, routers configured as Boundary Clocks are interconnected via a Dense Wavelength Division Multiplexing (DWDM) transport network. While DWDM offers high-capacity and long-distance connectivity, it can introduce asymmetry in the timing path, which adversely affects synchronization accuracy.</p> <p>Traditionally, detecting and measuring this asymmetry requires on-site testing with specialized equipment,Äîa process that is both time-consuming and costly. To address this challenge, the Service Provider has adopted the PPM feature, which enables remote detection and compensation of asymmetry directly from the Boundary Clock.</p> <p>This approach allows for continuous monitoring. To validate the accuracy of the PPM feature, the Service Provider conducted a comparative analysis between asymmetry measurements obtained via test equipment and those derived from the PPM-enabled Boundary Clock. The results demonstrated a strong correlation between the two methods, confirming the reliability of PPM as a remote diagnostic and compensation tool for timing asymmetry in DWDM-based transport networks.</p> <p>The following topology and measurement results were obtained using the test equipment. The system states are as follows:</p> <ul> <li><strong>T-BC-2</strong> is SyncE-locked and PTP phase-aligned to <strong>T-GM-1</strong>.</li> <li><strong>T-BC-1</strong> is SyncE-locked and PTP phase-aligned to <strong>T-GM-2</strong>.</li> <li><strong>T-BC-3</strong> is SyncE-locked and PTP phase-aligned to <strong>T-BC-2</strong> via a link that exhibits no asymmetry.</li> </ul> <p><img alt="The topology model used by the EMEA Service Provider for the PPM feature" src=../images/picture5.png></p> <p><img alt="The 1PPS measurement output at T-BC-3" src=../images/picture6.png></p> <p>The Figure 4 above, captured from the test equipment, indicates a current Two-Way Time Error of 5 nanoseconds. This minimal deviation confirms that no asymmetry has been introduced on the interface between T-BC-3 and T-BC-2.</p> <p>The interface between T-BC-3 (AE1) and T-BC-1 (AE19) is identified as the source of asymmetry and requires further measurement. On T-BC-1, PPM is configured on both AE19 and AE3 interfaces.</p> <p>The CLI output below presents the PPM measurement results for these interfaces:</p> <ul> <li>AE19 shows an offset of 6165 nanoseconds, indicating significant asymmetry on the link between T-BC-1 and T-BC-3.</li> <li>AE3 shows an offset of 8 nanoseconds, confirming that there is no notable asymmetry on the link between T-BC-1and T-BC-2.</li> </ul> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1> 1</a></span>
+<span class=normal><a href=#__codelineno-3-2> 2</a></span>
+<span class=normal><a href=#__codelineno-3-3> 3</a></span>
+<span class=normal><a href=#__codelineno-3-4> 4</a></span>
+<span class=normal><a href=#__codelineno-3-5> 5</a></span>
+<span class=normal><a href=#__codelineno-3-6> 6</a></span>
+<span class=normal><a href=#__codelineno-3-7> 7</a></span>
+<span class=normal><a href=#__codelineno-3-8> 8</a></span>
+<span class=normal><a href=#__codelineno-3-9> 9</a></span>
+<span class=normal><a href=#__codelineno-3-10>10</a></span>
+<span class=normal><a href=#__codelineno-3-11>11</a></span>
+<span class=normal><a href=#__codelineno-3-12>12</a></span>
+<span class=normal><a href=#__codelineno-3-13>13</a></span>
+<span class=normal><a href=#__codelineno-3-14>14</a></span>
+<span class=normal><a href=#__codelineno-3-15>15</a></span>
+<span class=normal><a href=#__codelineno-3-16>16</a></span>
+<span class=normal><a href=#__codelineno-3-17>17</a></span>
+<span class=normal><a href=#__codelineno-3-18>18</a></span>
+<span class=normal><a href=#__codelineno-3-19>19</a></span>
+<span class=normal><a href=#__codelineno-3-20>20</a></span>
+<span class=normal><a href=#__codelineno-3-21>21</a></span>
+<span class=normal><a href=#__codelineno-3-22>22</a></span>
+<span class=normal><a href=#__codelineno-3-23>23</a></span>
+<span class=normal><a href=#__codelineno-3-24>24</a></span>
+<span class=normal><a href=#__codelineno-3-25>25</a></span>
+<span class=normal><a href=#__codelineno-3-26>26</a></span>
+<span class=normal><a href=#__codelineno-3-27>27</a></span>
+<span class=normal><a href=#__codelineno-3-28>28</a></span>
+<span class=normal><a href=#__codelineno-3-29>29</a></span>
+<span class=normal><a href=#__codelineno-3-30>30</a></span>
+<span class=normal><a href=#__codelineno-3-31>31</a></span>
+<span class=normal><a href=#__codelineno-3-32>32</a></span>
+<span class=normal><a href=#__codelineno-3-33>33</a></span>
+<span class=normal><a href=#__codelineno-3-34>34</a></span>
+<span class=normal><a href=#__codelineno-3-35>35</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>lab@T-BC1-re0&gt; show ptp passive-port-monitor-status
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>PTP Passive Port Interface Details:
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>PPM monitor status       : Enabled 
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>PPM delay request rate   : -4 (16 packets per second)
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>Actively monitored PTP ports data   :
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>Local interface          : ae19.0(et-0/0/3 primary)
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>Clock stream             : 7    
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>Source port ID           : aa:bb:7a:ee:aa:86:a0:8d:8a port-num: 2
+<a id=__codelineno-3-10 name=__codelineno-3-10></a>Port state               : Passive              
+<a id=__codelineno-3-11 name=__codelineno-3-11></a>Monitor mode             : Enabled  
+<a id=__codelineno-3-12 name=__codelineno-3-12></a>PhaseOffsetThreshold(ns) : 200          
+<a id=__codelineno-3-13 name=__codelineno-3-13></a>Configured role          : Measure-only
+<a id=__codelineno-3-14 name=__codelineno-3-14></a>Measurement status       : Valid    
+<a id=__codelineno-3-15 name=__codelineno-3-15></a>Latest measurement data  :
+<a id=__codelineno-3-16 name=__codelineno-3-16></a>Timestamp                : 2025-09-08 12:56:52 CEST
+<a id=__codelineno-3-17 name=__codelineno-3-17></a>PhaseOffsetFromMaster(ns): 6153     / 6165     / 6173      (min/mean/max)
+<a id=__codelineno-3-18 name=__codelineno-3-18></a>Master-&gt;slave delay(ns)  : -140     / -130     / -121      (min/mean/max)
+<a id=__codelineno-3-19 name=__codelineno-3-19></a>Slave-&gt;master delay(ns)  : 12446    / 12460    / 12468     (min/mean/max)
+<a id=__codelineno-3-20 name=__codelineno-3-20></a>Mean path delay(ns)      : 6295      (mean)
+<a id=__codelineno-3-21 name=__codelineno-3-21></a>
+<a id=__codelineno-3-22 name=__codelineno-3-22></a>Local interface          : ae3.0(et-1/0/2 primary)
+<a id=__codelineno-3-23 name=__codelineno-3-23></a>Clock stream             : 5    
+<a id=__codelineno-3-24 name=__codelineno-3-24></a>Source port ID           : 12:34:8d:aa:bb:0a:a1:ca port-num: 2
+<a id=__codelineno-3-25 name=__codelineno-3-25></a>Port state               : Passive              
+<a id=__codelineno-3-26 name=__codelineno-3-26></a>Monitor mode             : Enabled  
+<a id=__codelineno-3-27 name=__codelineno-3-27></a>PhaseOffsetThreshold(ns) : 200          
+<a id=__codelineno-3-28 name=__codelineno-3-28></a>Configured role          : Measure-only
+<a id=__codelineno-3-29 name=__codelineno-3-29></a>Measurement status       : Valid    
+<a id=__codelineno-3-30 name=__codelineno-3-30></a>Latest measurement data  :
+<a id=__codelineno-3-31 name=__codelineno-3-31></a>Timestamp                : 2025-09-08 12:56:52 CEST
+<a id=__codelineno-3-32 name=__codelineno-3-32></a>PhaseOffsetFromMaster(ns): 1        / 8        / 19        (min/mean/max)
+<a id=__codelineno-3-33 name=__codelineno-3-33></a>Master-&gt;slave delay(ns)  : 120      / 126      / 133       (min/mean/max)
+<a id=__codelineno-3-34 name=__codelineno-3-34></a>Slave-&gt;master delay(ns)  : -117     / -109     / -95       (min/mean/max)
+<a id=__codelineno-3-35 name=__codelineno-3-35></a>Mean path delay(ns)      : 117       (mean)
+</code></pre></div></td></tr></table></div> <p>To compensate for the asymmetry observed on the AE19 interface of T-BC-1 towards T-BC-3, the following command can be used. This configuration adjusts the timing offset to correct the measured deviation and restore phase alignment across the link:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>lab@T-BC1-re0#set protocols ptp stateful interface ae19.0 multicast-mode asymmetry -12330
+</code></pre></div></td></tr></table></div> <blockquote> <p>Note: Asymmetry is always twice the measured offset, with the opposite sign. In this case, the measured offset is +6165 <strong>nanoseconds</strong>; therefore, the required asymmetry compensation is ,àí12,330 nanoseconds to correct it.</p> </blockquote> <p>The output below, obtained from the CLI command on <strong>T-BC-1</strong>, displays the PPM measurement for the <strong>AE19</strong> interface <strong>after asymmetry compensation</strong> has been applied. This data confirms the effectiveness of the correction and reflects the updated timing offset across the link:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1> 1</a></span>
+<span class=normal><a href=#__codelineno-5-2> 2</a></span>
+<span class=normal><a href=#__codelineno-5-3> 3</a></span>
+<span class=normal><a href=#__codelineno-5-4> 4</a></span>
+<span class=normal><a href=#__codelineno-5-5> 5</a></span>
+<span class=normal><a href=#__codelineno-5-6> 6</a></span>
+<span class=normal><a href=#__codelineno-5-7> 7</a></span>
+<span class=normal><a href=#__codelineno-5-8> 8</a></span>
+<span class=normal><a href=#__codelineno-5-9> 9</a></span>
+<span class=normal><a href=#__codelineno-5-10>10</a></span>
+<span class=normal><a href=#__codelineno-5-11>11</a></span>
+<span class=normal><a href=#__codelineno-5-12>12</a></span>
+<span class=normal><a href=#__codelineno-5-13>13</a></span>
+<span class=normal><a href=#__codelineno-5-14>14</a></span>
+<span class=normal><a href=#__codelineno-5-15>15</a></span>
+<span class=normal><a href=#__codelineno-5-16>16</a></span>
+<span class=normal><a href=#__codelineno-5-17>17</a></span>
+<span class=normal><a href=#__codelineno-5-18>18</a></span>
+<span class=normal><a href=#__codelineno-5-19>19</a></span>
+<span class=normal><a href=#__codelineno-5-20>20</a></span>
+<span class=normal><a href=#__codelineno-5-21>21</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>lab@T-BC1-re0&gt; show ptp passive-port-monitor-status
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>PTP Passive Port Interface Details:
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>PPM monitor status       : Enabled 
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>PPM delay request rate   : -4 (16 packets per second)
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>Actively monitored PTP ports data   :
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>
+<a id=__codelineno-5-8 name=__codelineno-5-8></a>Local interface          : ae19.0(et-0/0/3 primary)
+<a id=__codelineno-5-9 name=__codelineno-5-9></a>Clock stream             : 7    
+<a id=__codelineno-5-10 name=__codelineno-5-10></a>Source port ID           : aa:bb:7a:ee:aa:86:a0:8d:8a port-num: 2
+<a id=__codelineno-5-11 name=__codelineno-5-11></a>Port state               : Passive              
+<a id=__codelineno-5-12 name=__codelineno-5-12></a>Monitor mode             : Enabled  
+<a id=__codelineno-5-13 name=__codelineno-5-13></a>PhaseOffsetThreshold(ns) : 200          
+<a id=__codelineno-5-14 name=__codelineno-5-14></a>Configured role          : Measure-only
+<a id=__codelineno-5-15 name=__codelineno-5-15></a>Measurement status       : Valid    
+<a id=__codelineno-5-16 name=__codelineno-5-16></a>Latest measurement data  :
+<a id=__codelineno-5-17 name=__codelineno-5-17></a>Timestamp                : 2025-09-08 13:06:52 CEST
+<a id=__codelineno-5-18 name=__codelineno-5-18></a>PhaseOffsetFromMaster(ns): -12      / 0        / 8         (min/mean/max)
+<a id=__codelineno-5-19 name=__codelineno-5-19></a>Master-&gt;slave delay(ns)  : -6304    / -6294    / -6286     (min/mean/max)
+<a id=__codelineno-5-20 name=__codelineno-5-20></a>Slave-&gt;master delay(ns)  : 6279     / 6295     / 6303      (min/mean/max)
+<a id=__codelineno-5-21 name=__codelineno-5-21></a>Mean path delay(ns)      : 6294      (mean)
+</code></pre></div></td></tr></table></div> <h2 id=conclusion>Conclusion<a class=headerlink href=#conclusion title="Permanent link">&para;</a></h2> <p>Juniper's Passive Port Monitoring (PPM) is a <strong>great tool</strong> for service providers and enterprises seeking <strong>high-precision, secure, and resilient synchronization</strong>. Whether you're provisioning new paths or monitoring live networks, PPM delivers the insights needed to maintain timing integrity.</p> <h2 id=references>References<a class=headerlink href=#references title="Permanent link">&para;</a></h2> <ul> <li><a href=https://www.itu.int/rec/t-rec-g.8275.1/en>ITU-T G.8275.1 (2022)</a> Amendment 2 (08/24): Precision time protocol telecom profile for phase/time synchronization with full timing support from network.</li> </ul> <h2 id=acknowledgments>Acknowledgments<a class=headerlink href=#acknowledgments title="Permanent link">&para;</a></h2> <p>Thanks to Shankar Ganesan, Staff Engineer, and Rafik P, Sr. Product Manager</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>

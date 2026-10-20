@@ -1,0 +1,613 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Deploying and Using vJunos in a Bare Metal EVE-NG server - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Deploying and Using vJunos in a Bare Metal EVE-NG server"><meta property=og:image content=https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#deploying-and-using-vjunos-in-a-bare-metal-eve-ng-server class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Deploying and Using vJunos in a Bare Metal EVE-NG server </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> <nav class=md-nav aria-label=Introduction> <ul class=md-nav__list> <li class=md-nav__item> <a href=#what-is-eve-ng-and-vjunos-switchvjunosevolved class=md-nav__link> <span class=md-ellipsis> What is EVE-NG and vJunos-switch/vJunosEvolved? </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#installing-eve-ng-on-a-bare-metal-ubuntu-server class=md-nav__link> <span class=md-ellipsis> Installing EVE-NG on a Bare Metal Ubuntu Server </span> </a> <nav class=md-nav aria-label="Installing EVE-NG on a Bare Metal Ubuntu Server"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#deploying-vjunos-switch-and-vjunosevolved-in-eve-ng class=md-nav__link> <span class=md-ellipsis> Deploying vJunos-switch and vJunosEvolved in EVE-NG </span> </a> </li> <li class=md-nav__item> <a href=#deploying-juniper-apstra-in-eve-ng class=md-nav__link> <span class=md-ellipsis> Deploying Juniper Apstra in EVE-NG </span> </a> </li> <li class=md-nav__item> <a href=#deploying-a-vjunosevolved-and-vjunos-switch-based-fabric-in-juniper-apstra class=md-nav__link> <span class=md-ellipsis> Deploying a vJunosEvolved and vJunos-switch based fabric in Juniper Apstra </span> </a> </li> <li class=md-nav__item> <a href=#shutting-down-vjunos-switch-in-eve-ng class=md-nav__link> <span class=md-ellipsis> Shutting down vJunos-switch in EVE-NG </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#summary class=md-nav__link> <span class=md-ellipsis> Summary </span> </a> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#acknowledgments class=md-nav__link> <span class=md-ellipsis> Acknowledgments </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=deploying-and-using-vjunos-in-a-bare-metal-eve-ng-server>Deploying and Using vJunos in a Bare Metal EVE-NG server<a class=headerlink href=#deploying-and-using-vjunos-in-a-bare-metal-eve-ng-server title="Permanent link">&para;</a></h1> <p><strong>Shalini Mukherjee - 05/11/2023</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/deploying-vjunos-in-a-bare-metal-eve-ng-server.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/deploying-vjunos-in-a-bare-metal-eve-ng-server.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <p>vJunos-switch and vJunosEvolved deployed on EVE-NG and integrated with Juniper Apstra to build a complete Data Center fabric. Article co-written with Aninda Chatterjee and Shalini Mukherjee, TME in Juniper Networks Cloud-Ready Data Center team.</p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">&para;</a></h2> <p>In this article, we will look at how vJunos-switch and vJunosEvolved is deployed on a bare metal install of EVE-NG. This deployment will then be used to integrate with Juniper Apstra and build a complete Data Center fabric.</p> <p>We'll start with instructions on how to deploy EVE-NG as a bare metal install on an Ubuntu server and run through the EVE-NG installation itself as an example of how this can be done. Once EVE-NG is setup, we'll show how vJunos-switch and vJunosEvolved can be added to EVE-NG as a deployable node and the EVE-NG template that is needed for this to work.</p> <p>Finally, we'll wrap this up by onboarding vJunos-switch and vJunosEvolved devices in Juniper Apstra and building a simple Data Center fabric to show that these devices work seamlessly with Apstra as well.</p> <blockquote> <p>Note that another post on <a href=https://techpost.hpe.com/articles/vjunos-deployment-on-kvm/article>vJunos installation on KVM</a> has been published too.</p> </blockquote> <h3 id=what-is-eve-ng-and-vjunos-switchvjunosevolved>What is EVE-NG and vJunos-switch/vJunosEvolved?<a class=headerlink href=#what-is-eve-ng-and-vjunos-switchvjunosevolved title="Permanent link">&para;</a></h3> <p>EVE-NG is a popular network emulation software that offers multivendor support. It allows a user to build network topologies on a blank canvas, providing means to test and simulate various network technologies and features across different network operating systems and products.</p> <p>EVE-NG has various deployment options:</p> <ul> <li>as a VM on top of a hypervisor like ESXi</li> <li>over a bare metal server</li> <li>cloud deployment options (like GCP)</li> </ul> <p>vJunos-switch and vJunosEvolved are two new virtual software offerings from Juniper Networks. vJunos-switch emulates the software functionality of Junos OS while vJunosEvolved emulates the software functionality of Junos EVO.</p> <p>Since vJunos-switch is only supported on a bare metal install of EVE-NG, that is the deployment option we'll be going through in this blog post.</p> <h2 id=installing-eve-ng-on-a-bare-metal-ubuntu-server>Installing EVE-NG on a Bare Metal Ubuntu Server<a class=headerlink href=#installing-eve-ng-on-a-bare-metal-ubuntu-server title="Permanent link">&para;</a></h2> <p>EVE-NG comes in two flavors: a community (free) edition, and a professional (paid) edition. We'll take a look at how to do a bare metal EVE-NG community edition install in this post, since that is more complicated. The .iso file for the community edition can be downloaded from the EVE-NG website - <a href=https://www.eve-ng.net/index.php/download/ >https://www.eve-ng.net/index.php/download/</a></p> <p>Once this file is downloaded, mount the .iso file on your local machine. For example, on a MAC, you can simply double click the file to mount it. This should create a new drive, whose contents can be accessed now:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1> 1</a></span>
+<span class=normal><a href=#__codelineno-0-2> 2</a></span>
+<span class=normal><a href=#__codelineno-0-3> 3</a></span>
+<span class=normal><a href=#__codelineno-0-4> 4</a></span>
+<span class=normal><a href=#__codelineno-0-5> 5</a></span>
+<span class=normal><a href=#__codelineno-0-6> 6</a></span>
+<span class=normal><a href=#__codelineno-0-7> 7</a></span>
+<span class=normal><a href=#__codelineno-0-8> 8</a></span>
+<span class=normal><a href=#__codelineno-0-9> 9</a></span>
+<span class=normal><a href=#__codelineno-0-10>10</a></span>
+<span class=normal><a href=#__codelineno-0-11>11</a></span>
+<span class=normal><a href=#__codelineno-0-12>12</a></span>
+<span class=normal><a href=#__codelineno-0-13>13</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>anindac@ubuntu EVE-NG Community % ls -l
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>total 216
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>dr-xr-xr-x  3 aninchat  staff   2048 Feb 23  2022 EFI
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>dr-xr-xr-x  3 aninchat  staff   2048 Feb 23  2022 boot
+<a id=__codelineno-0-5 name=__codelineno-0-5></a>dr-xr-xr-x  3 aninchat  staff   2048 Feb 23  2022 casper
+<a id=__codelineno-0-6 name=__codelineno-0-6></a>dr-xr-xr-x  3 aninchat  staff   2048 Feb 23  2022 dists
+<a id=__codelineno-0-7 name=__codelineno-0-7></a>dr-xr-xr-x  2 aninchat  staff   2048 Feb 23  2022 install
+<a id=__codelineno-0-8 name=__codelineno-0-8></a>dr-xr-xr-x  2 aninchat  staff  36864 Feb 23  2022 isolinux
+<a id=__codelineno-0-9 name=__codelineno-0-9></a>-r--r--r--  1 aninchat  staff  27257 May 21  2022 md5sum.txt
+<a id=__codelineno-0-10 name=__codelineno-0-10></a>-r--r--r--  1 aninchat  staff  27389 Feb 23  2022 md5sum.txt.orig
+<a id=__codelineno-0-11 name=__codelineno-0-11></a>dr-xr-xr-x  3 aninchat  staff   2048 Feb 23  2022 pool
+<a id=__codelineno-0-12 name=__codelineno-0-12></a>dr-xr-xr-x  2 aninchat  staff   2048 Feb 23  2022 preseed
+<a id=__codelineno-0-13 name=__codelineno-0-13></a>dr-xr-xr-x  2 aninchat  staff   2048 May 20  2022 server
+</code></pre></div></td></tr></table></div> <p>Here, should see a folder titled 'server'. This has a shell script that installs EVE-NG as a bare metal install. The script is as follows:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1> 1</a></span>
+<span class=normal><a href=#__codelineno-1-2> 2</a></span>
+<span class=normal><a href=#__codelineno-1-3> 3</a></span>
+<span class=normal><a href=#__codelineno-1-4> 4</a></span>
+<span class=normal><a href=#__codelineno-1-5> 5</a></span>
+<span class=normal><a href=#__codelineno-1-6> 6</a></span>
+<span class=normal><a href=#__codelineno-1-7> 7</a></span>
+<span class=normal><a href=#__codelineno-1-8> 8</a></span>
+<span class=normal><a href=#__codelineno-1-9> 9</a></span>
+<span class=normal><a href=#__codelineno-1-10>10</a></span>
+<span class=normal><a href=#__codelineno-1-11>11</a></span>
+<span class=normal><a href=#__codelineno-1-12>12</a></span>
+<span class=normal><a href=#__codelineno-1-13>13</a></span>
+<span class=normal><a href=#__codelineno-1-14>14</a></span>
+<span class=normal><a href=#__codelineno-1-15>15</a></span>
+<span class=normal><a href=#__codelineno-1-16>16</a></span>
+<span class=normal><a href=#__codelineno-1-17>17</a></span>
+<span class=normal><a href=#__codelineno-1-18>18</a></span>
+<span class=normal><a href=#__codelineno-1-19>19</a></span>
+<span class=normal><a href=#__codelineno-1-20>20</a></span>
+<span class=normal><a href=#__codelineno-1-21>21</a></span>
+<span class=normal><a href=#__codelineno-1-22>22</a></span>
+<span class=normal><a href=#__codelineno-1-23>23</a></span>
+<span class=normal><a href=#__codelineno-1-24>24</a></span>
+<span class=normal><a href=#__codelineno-1-25>25</a></span>
+<span class=normal><a href=#__codelineno-1-26>26</a></span>
+<span class=normal><a href=#__codelineno-1-27>27</a></span>
+<span class=normal><a href=#__codelineno-1-28>28</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>anindac@ubuntu EVE-NG Community % cd server
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>anindac@ubuntu server % ls -l
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>total 8
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>-r-xr-xr-x  1 aninchat  staff  802 May 20  2022 eve-setup.sh
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>-r--r--r--  1 aninchat  staff    0 May 14  2022 meta-data
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>-r--r--r--  1 aninchat  staff  956 May 20  2022 user-data
+<a id=__codelineno-1-7 name=__codelineno-1-7></a>
+<a id=__codelineno-1-8 name=__codelineno-1-8></a>anindac@ubuntu server % cat eve-setup.sh
+<a id=__codelineno-1-9 name=__codelineno-1-9></a>#!/bin/sh
+<a id=__codelineno-1-10 name=__codelineno-1-10></a>#Modify /etc/ssh/sshd_config with: PermitRootLogin yes
+<a id=__codelineno-1-11 name=__codelineno-1-11></a>sed -i -e "s/.*PermitRootLogin .*/PermitRootLogin yes/" /etc/ssh/sshd_config
+<a id=__codelineno-1-12 name=__codelineno-1-12></a>sed -i -e 's/.*DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=5s/' /etc/systemd/system.conf
+<a id=__codelineno-1-13 name=__codelineno-1-13></a>systemctl restart ssh
+<a id=__codelineno-1-14 name=__codelineno-1-14></a>apt-get update
+<a id=__codelineno-1-15 name=__codelineno-1-15></a>apt-get -y install software-properties-common
+<a id=__codelineno-1-16 name=__codelineno-1-16></a>wget -O - http://www.eve-ng.net/focal/eczema@ecze.com.gpg.key | sudo apt-key add -
+<a id=__codelineno-1-17 name=__codelineno-1-17></a>sudo add-apt-repository "deb [arch=amd64]  http://www.eve-ng.net/focal focal main"
+<a id=__codelineno-1-18 name=__codelineno-1-18></a>apt-get update
+<a id=__codelineno-1-19 name=__codelineno-1-19></a>DEBIAN_FRONTEND=noninteractive apt-get -y install eve-ng
+<a id=__codelineno-1-20 name=__codelineno-1-20></a>/etc/init.d/mysql restart
+<a id=__codelineno-1-21 name=__codelineno-1-21></a>DEBIAN_FRONTEND=noninteractive apt-get -y install eve-ng
+<a id=__codelineno-1-22 name=__codelineno-1-22></a>echo root:eve | chpasswd
+<a id=__codelineno-1-23 name=__codelineno-1-23></a>ROOTLV=$(mount | grep ' / ' | awk '{print $1}')
+<a id=__codelineno-1-24 name=__codelineno-1-24></a>echo $ROOTLV
+<a id=__codelineno-1-25 name=__codelineno-1-25></a>lvextend -l +100%FREE $ROOTLV
+<a id=__codelineno-1-26 name=__codelineno-1-26></a>echo Resizing ROOT FS
+<a id=__codelineno-1-27 name=__codelineno-1-27></a>resize2fs $ROOTLV
+<a id=__codelineno-1-28 name=__codelineno-1-28></a>reboot
+</code></pre></div></td></tr></table></div> <p>On your Ubuntu 20.04 server, simply run through these steps one by one. Once you reboot (the final step of the script), and the server comes back online, you should be able to SSH into the device with the default credentials of root/eve.</p> <p>Once you've logged in, the actual EVE-NG installation is kicked off -- this includes providing a hostname, IP address and gateway, primary and secondary DNS servers, NTP servers and so on. When this finishes, EVE-NG should be up and running, and accessible via both the CLI and UI (default credentials for UI login is admin/eve).</p> <p>To deploy the professional version of EVE-NG, similar steps can be followed. Alternatively, the .iso file can be mounted directly as a virtual drive and you can boot from it to start both the Ubuntu and the EVE-NG installation together.</p> <h3 id=deploying-vjunos-switch-and-vjunosevolved-in-eve-ng>Deploying vJunos-switch and vJunosEvolved in EVE-NG<a class=headerlink href=#deploying-vjunos-switch-and-vjunosevolved-in-eve-ng title="Permanent link">&para;</a></h3> <p>EVE-NG uses templates to boot various operating systems it supports -- these templates are pre-built and come packaged within the installation of EVE-NG. They contain instructions on how to boot the devices, including how many interfaces to assign to the device, the kind of CPU/memory the device needs and so on.</p> <p>The templates are stored in the path '<em>/opt/unetlab/html/templates/intel/</em>' and are written in YAML format, as seen below:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1> 1</a></span>
+<span class=normal><a href=#__codelineno-2-2> 2</a></span>
+<span class=normal><a href=#__codelineno-2-3> 3</a></span>
+<span class=normal><a href=#__codelineno-2-4> 4</a></span>
+<span class=normal><a href=#__codelineno-2-5> 5</a></span>
+<span class=normal><a href=#__codelineno-2-6> 6</a></span>
+<span class=normal><a href=#__codelineno-2-7> 7</a></span>
+<span class=normal><a href=#__codelineno-2-8> 8</a></span>
+<span class=normal><a href=#__codelineno-2-9> 9</a></span>
+<span class=normal><a href=#__codelineno-2-10>10</a></span>
+<span class=normal><a href=#__codelineno-2-11>11</a></span>
+<span class=normal><a href=#__codelineno-2-12>12</a></span>
+<span class=normal><a href=#__codelineno-2-13>13</a></span>
+<span class=normal><a href=#__codelineno-2-14>14</a></span>
+<span class=normal><a href=#__codelineno-2-15>15</a></span>
+<span class=normal><a href=#__codelineno-2-16>16</a></span>
+<span class=normal><a href=#__codelineno-2-17>17</a></span>
+<span class=normal><a href=#__codelineno-2-18>18</a></span>
+<span class=normal><a href=#__codelineno-2-19>19</a></span>
+<span class=normal><a href=#__codelineno-2-20>20</a></span>
+<span class=normal><a href=#__codelineno-2-21>21</a></span>
+<span class=normal><a href=#__codelineno-2-22>22</a></span>
+<span class=normal><a href=#__codelineno-2-23>23</a></span>
+<span class=normal><a href=#__codelineno-2-24>24</a></span>
+<span class=normal><a href=#__codelineno-2-25>25</a></span>
+<span class=normal><a href=#__codelineno-2-26>26</a></span>
+<span class=normal><a href=#__codelineno-2-27>27</a></span>
+<span class=normal><a href=#__codelineno-2-28>28</a></span>
+<span class=normal><a href=#__codelineno-2-29>29</a></span>
+<span class=normal><a href=#__codelineno-2-30>30</a></span>
+<span class=normal><a href=#__codelineno-2-31>31</a></span>
+<span class=normal><a href=#__codelineno-2-32>32</a></span>
+<span class=normal><a href=#__codelineno-2-33>33</a></span>
+<span class=normal><a href=#__codelineno-2-34>34</a></span>
+<span class=normal><a href=#__codelineno-2-35>35</a></span>
+<span class=normal><a href=#__codelineno-2-36>36</a></span>
+<span class=normal><a href=#__codelineno-2-37>37</a></span>
+<span class=normal><a href=#__codelineno-2-38>38</a></span>
+<span class=normal><a href=#__codelineno-2-39>39</a></span>
+<span class=normal><a href=#__codelineno-2-40>40</a></span>
+<span class=normal><a href=#__codelineno-2-41>41</a></span>
+<span class=normal><a href=#__codelineno-2-42>42</a></span>
+<span class=normal><a href=#__codelineno-2-43>43</a></span>
+<span class=normal><a href=#__codelineno-2-44>44</a></span>
+<span class=normal><a href=#__codelineno-2-45>45</a></span>
+<span class=normal><a href=#__codelineno-2-46>46</a></span>
+<span class=normal><a href=#__codelineno-2-47>47</a></span>
+<span class=normal><a href=#__codelineno-2-48>48</a></span>
+<span class=normal><a href=#__codelineno-2-49>49</a></span>
+<span class=normal><a href=#__codelineno-2-50>50</a></span>
+<span class=normal><a href=#__codelineno-2-51>51</a></span>
+<span class=normal><a href=#__codelineno-2-52>52</a></span>
+<span class=normal><a href=#__codelineno-2-53>53</a></span>
+<span class=normal><a href=#__codelineno-2-54>54</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>root@eve-ng:/opt/unetlab/html/templates/intel# ls -l
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>total 588
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>-rw-r--r-- 1 root root   10 Jan 31 07:15 '*.yml'
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>-rw-r--r-- 1 root root 1944 May 14  2022  128T.yml
+<a id=__codelineno-2-5 name=__codelineno-2-5></a>-rw-r--r-- 1 root root 1853 May 14  2022  a10.yml
+<a id=__codelineno-2-6 name=__codelineno-2-6></a>-rw-r--r-- 1 root root 1897 May 14  2022  acs.yml
+<a id=__codelineno-2-7 name=__codelineno-2-7></a>-rw-r--r-- 1 root root 1913 May 14  2022  alienvault.yml
+<a id=__codelineno-2-8 name=__codelineno-2-8></a>-rw-r--r-- 1 root root 1911 May 14  2022  alteon.yml
+<a id=__codelineno-2-9 name=__codelineno-2-9></a>-rw-r--r-- 1 root root 1848 May 14  2022  ampcloud.yml
+<a id=__codelineno-2-10 name=__codelineno-2-10></a>-rw-r--r-- 1 root root 1885 May 14  2022  android.yml
+<a id=__codelineno-2-11 name=__codelineno-2-11></a>-rw-r--r-- 1 root root 1921 Jan 31 07:15  aos.yml
+<a id=__codelineno-2-12 name=__codelineno-2-12></a>-rw-r--r-- 1 root root 1890 May 14  2022  apicem.yml
+<a id=__codelineno-2-13 name=__codelineno-2-13></a>-rw-r--r-- 1 root root 1952 May 14  2022  apstra-aos.yml
+<a id=__codelineno-2-14 name=__codelineno-2-14></a>-rw-r--r-- 1 root root 1951 May 14  2022  apstra-ztp.yml
+<a id=__codelineno-2-15 name=__codelineno-2-15></a>-rw-r--r-- 1 root root 1950 May 14  2022  aruba.yml
+<a id=__codelineno-2-16 name=__codelineno-2-16></a>-rw-r--r-- 1 root root 1919 May 14  2022  arubaamp.yml
+<a id=__codelineno-2-17 name=__codelineno-2-17></a>-rw-r--r-- 1 root root 2002 May 14  2022  arubacx.yml
+<a id=__codelineno-2-18 name=__codelineno-2-18></a>-rw-r--r-- 1 root root 1930 May 14  2022  arubanet.yml
+<a id=__codelineno-2-19 name=__codelineno-2-19></a>-rw-r--r-- 1 root root 1971 May 14  2022  asa.yml
+<a id=__codelineno-2-20 name=__codelineno-2-20></a>-rw-r--r-- 1 root root 1950 May 14  2022  asav.yml
+<a id=__codelineno-2-21 name=__codelineno-2-21></a>-rw-r--r-- 1 root root 1899 May 14  2022  barracuda.yml
+<a id=__codelineno-2-22 name=__codelineno-2-22></a>-rw-r--r-- 1 root root 1930 May 14  2022  bigip.yml
+<a id=__codelineno-2-23 name=__codelineno-2-23></a>-rw-r--r-- 1 root root 1915 May 14  2022  brocadevadx.yml
+<a id=__codelineno-2-24 name=__codelineno-2-24></a>-rw-r--r-- 1 root root 1829 May 14  2022  c1710.yml
+<a id=__codelineno-2-25 name=__codelineno-2-25></a>-rw-r--r-- 1 root root 1931 May 14  2022  c3725.yml
+<a id=__codelineno-2-26 name=__codelineno-2-26></a>-rw-r--r-- 1 root root 1993 May 14  2022  c7200.yml
+<a id=__codelineno-2-27 name=__codelineno-2-27></a>-rw-r--r-- 1 root root 2017 May 14  2022  c8000v.yml
+<a id=__codelineno-2-28 name=__codelineno-2-28></a>-rw-r--r-- 1 root root 1944 May 14  2022  c9800cl.yml
+<a id=__codelineno-2-29 name=__codelineno-2-29></a>-rw-r--r-- 1 root root 1839 May 14  2022  cda.yml
+<a id=__codelineno-2-30 name=__codelineno-2-30></a>-rw-r--r-- 1 root root 1981 May 14  2022  cexpresw.yml
+<a id=__codelineno-2-31 name=__codelineno-2-31></a>-rw-r--r-- 1 root root 1973 May 14  2022  cips.yml
+<a id=__codelineno-2-32 name=__codelineno-2-32></a>-rw-r--r-- 1 root root 1974 Jul  8  2022  clavisterc.yml
+<a id=__codelineno-2-33 name=__codelineno-2-33></a>-rw-r--r-- 1 root root 1925 May 14  2022  clearpass.yml
+<a id=__codelineno-2-34 name=__codelineno-2-34></a>-rw-r--r-- 1 root root 1917 May 14  2022  cms.yml
+<a id=__codelineno-2-35 name=__codelineno-2-35></a>-rw-r--r-- 1 root root 1862 May 14  2022  coeus.yml
+<a id=__codelineno-2-36 name=__codelineno-2-36></a>-rw-r--r-- 1 root root 1935 May 14  2022  cpsg.yml
+<a id=__codelineno-2-37 name=__codelineno-2-37></a>-rw-r--r-- 1 root root 1938 May 14  2022  csr1000v.yml
+<a id=__codelineno-2-38 name=__codelineno-2-38></a>-rw-r--r-- 1 root root 1967 May 14  2022  csr1000vng.yml
+<a id=__codelineno-2-39 name=__codelineno-2-39></a>-rw-r--r-- 1 root root 1997 May 14  2022  ctxsdw.yml
+<a id=__codelineno-2-40 name=__codelineno-2-40></a>-rw-r--r-- 1 root root 1966 May 14  2022  cuc.yml
+<a id=__codelineno-2-41 name=__codelineno-2-41></a>-rw-r--r-- 1 root root 1931 May 14  2022  cucm.yml
+<a id=__codelineno-2-42 name=__codelineno-2-42></a>-rw-r--r-- 1 root root 1909 May 14  2022  cue.yml
+<a id=__codelineno-2-43 name=__codelineno-2-43></a>-rw-r--r-- 1 root root 1870 May 14  2022  cumulus.yml
+<a id=__codelineno-2-44 name=__codelineno-2-44></a>-rw-r--r-- 1 root root 1998 May 14  2022  cup.yml
+<a id=__codelineno-2-45 name=__codelineno-2-45></a>-rw-r--r-- 1 root root 1955 May 14  2022  cvp.yml
+<a id=__codelineno-2-46 name=__codelineno-2-46></a>-rw-r--r-- 1 root root 1878 May 14  2022  cyberoam.yml
+<a id=__codelineno-2-47 name=__codelineno-2-47></a>-rw-r--r-- 1 root root 1957 May 14  2022  dcnm.yml
+<a id=__codelineno-2-48 name=__codelineno-2-48></a>-rw-r--r-- 1 root root 1969 May 14  2022  dellos10.yml
+<a id=__codelineno-2-49 name=__codelineno-2-49></a>-rw-r--r-- 1 root root 1769 May 14  2022  docker.yml
+<a id=__codelineno-2-50 name=__codelineno-2-50></a>-rw-r--r-- 1 root root 1920 May 14  2022  esxi.yml
+<a id=__codelineno-2-51 name=__codelineno-2-51></a>-rw-r--r-- 1 root root 1862 May 14  2022  extremexos.yml
+<a id=__codelineno-2-52 name=__codelineno-2-52></a>-rw-r--r-- 1 root root 1898 May 14  2022  firepower.yml
+<a id=__codelineno-2-53 name=__codelineno-2-53></a>
+<a id=__codelineno-2-54 name=__codelineno-2-54></a>*snip*
+</code></pre></div></td></tr></table></div> <p>Since vJunos-switch and vJunosEvolved are entirely new offerings, there is no pre-built template for this. The template must be created manually. The following templates can be used for vJunos-switch and vJunosEvolved:</p> <p>vJunosEvolved:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1> 1</a></span>
+<span class=normal><a href=#__codelineno-3-2> 2</a></span>
+<span class=normal><a href=#__codelineno-3-3> 3</a></span>
+<span class=normal><a href=#__codelineno-3-4> 4</a></span>
+<span class=normal><a href=#__codelineno-3-5> 5</a></span>
+<span class=normal><a href=#__codelineno-3-6> 6</a></span>
+<span class=normal><a href=#__codelineno-3-7> 7</a></span>
+<span class=normal><a href=#__codelineno-3-8> 8</a></span>
+<span class=normal><a href=#__codelineno-3-9> 9</a></span>
+<span class=normal><a href=#__codelineno-3-10>10</a></span>
+<span class=normal><a href=#__codelineno-3-11>11</a></span>
+<span class=normal><a href=#__codelineno-3-12>12</a></span>
+<span class=normal><a href=#__codelineno-3-13>13</a></span>
+<span class=normal><a href=#__codelineno-3-14>14</a></span>
+<span class=normal><a href=#__codelineno-3-15>15</a></span>
+<span class=normal><a href=#__codelineno-3-16>16</a></span>
+<span class=normal><a href=#__codelineno-3-17>17</a></span>
+<span class=normal><a href=#__codelineno-3-18>18</a></span>
+<span class=normal><a href=#__codelineno-3-19>19</a></span>
+<span class=normal><a href=#__codelineno-3-20>20</a></span>
+<span class=normal><a href=#__codelineno-3-21>21</a></span>
+<span class=normal><a href=#__codelineno-3-22>22</a></span>
+<span class=normal><a href=#__codelineno-3-23>23</a></span>
+<span class=normal><a href=#__codelineno-3-24>24</a></span>
+<span class=normal><a href=#__codelineno-3-25>25</a></span>
+<span class=normal><a href=#__codelineno-3-26>26</a></span>
+<span class=normal><a href=#__codelineno-3-27>27</a></span>
+<span class=normal><a href=#__codelineno-3-28>28</a></span>
+<span class=normal><a href=#__codelineno-3-29>29</a></span>
+<span class=normal><a href=#__codelineno-3-30>30</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>root@eve-ng:/opt/unetlab/html/templates/intel# cat vJunosEVO.yml 
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>---
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>type: qemu
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>description: vJunosEvolved
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>name: vJunosEvolved
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>cpulimit: 4
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>icon: JunipervQFXre.png
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>cpu: 4
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>ram: 8192
+<a id=__codelineno-3-10 name=__codelineno-3-10></a>shutdown: 1
+<a id=__codelineno-3-11 name=__codelineno-3-11></a>eth_name:
+<a id=__codelineno-3-12 name=__codelineno-3-12></a>        - re0:mgmt-0
+<a id=__codelineno-3-13 name=__codelineno-3-13></a>        - et-0/0/0
+<a id=__codelineno-3-14 name=__codelineno-3-14></a>        - et-0/0/1
+<a id=__codelineno-3-15 name=__codelineno-3-15></a>        - et-0/0/2
+<a id=__codelineno-3-16 name=__codelineno-3-16></a>        - et-0/0/3
+<a id=__codelineno-3-17 name=__codelineno-3-17></a>        - et-0/0/4
+<a id=__codelineno-3-18 name=__codelineno-3-18></a>        - et-0/0/5
+<a id=__codelineno-3-19 name=__codelineno-3-19></a>        - et-0/0/6
+<a id=__codelineno-3-20 name=__codelineno-3-20></a>        - et-0/0/7
+<a id=__codelineno-3-21 name=__codelineno-3-21></a>        - et-0/0/8
+<a id=__codelineno-3-22 name=__codelineno-3-22></a>        - et-0/0/9
+<a id=__codelineno-3-23 name=__codelineno-3-23></a>        - et-0/0/10
+<a id=__codelineno-3-24 name=__codelineno-3-24></a>        - et-0/0/11
+<a id=__codelineno-3-25 name=__codelineno-3-25></a>ethernet: 13
+<a id=__codelineno-3-26 name=__codelineno-3-26></a>console: telnet
+<a id=__codelineno-3-27 name=__codelineno-3-27></a>qemu_arch: x86_64
+<a id=__codelineno-3-28 name=__codelineno-3-28></a>qemu_version: 4.1.0
+<a id=__codelineno-3-29 name=__codelineno-3-29></a>qemu_nic: virtio-net-pci
+<a id=__codelineno-3-30 name=__codelineno-3-30></a>qemu_options: -machine type=pc,accel=kvm -serial mon:stdio -nographic -smbios type=0,vendor=Bochs,version=Bochs -smbios type=3,manufacturer=Bochs -smbios type=1,product=Bochs,manufacturer=Bochs,serial=chassis_no=0:slot=0:type=1:assembly_id=0x0D20:platform=251:master=0:channelized=no -cpu IvyBridge,ibpb=on,md-clear=on,spec-ctrl=on,ssbd=on
+</code></pre></div></td></tr></table></div> <p>vJunos-switch:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1> 1</a></span>
+<span class=normal><a href=#__codelineno-4-2> 2</a></span>
+<span class=normal><a href=#__codelineno-4-3> 3</a></span>
+<span class=normal><a href=#__codelineno-4-4> 4</a></span>
+<span class=normal><a href=#__codelineno-4-5> 5</a></span>
+<span class=normal><a href=#__codelineno-4-6> 6</a></span>
+<span class=normal><a href=#__codelineno-4-7> 7</a></span>
+<span class=normal><a href=#__codelineno-4-8> 8</a></span>
+<span class=normal><a href=#__codelineno-4-9> 9</a></span>
+<span class=normal><a href=#__codelineno-4-10>10</a></span>
+<span class=normal><a href=#__codelineno-4-11>11</a></span>
+<span class=normal><a href=#__codelineno-4-12>12</a></span>
+<span class=normal><a href=#__codelineno-4-13>13</a></span>
+<span class=normal><a href=#__codelineno-4-14>14</a></span>
+<span class=normal><a href=#__codelineno-4-15>15</a></span>
+<span class=normal><a href=#__codelineno-4-16>16</a></span>
+<span class=normal><a href=#__codelineno-4-17>17</a></span>
+<span class=normal><a href=#__codelineno-4-18>18</a></span>
+<span class=normal><a href=#__codelineno-4-19>19</a></span>
+<span class=normal><a href=#__codelineno-4-20>20</a></span>
+<span class=normal><a href=#__codelineno-4-21>21</a></span>
+<span class=normal><a href=#__codelineno-4-22>22</a></span>
+<span class=normal><a href=#__codelineno-4-23>23</a></span>
+<span class=normal><a href=#__codelineno-4-24>24</a></span>
+<span class=normal><a href=#__codelineno-4-25>25</a></span>
+<span class=normal><a href=#__codelineno-4-26>26</a></span>
+<span class=normal><a href=#__codelineno-4-27>27</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>root@eve-ng:/opt/unetlab/html/templates/intel# cat vJunosswitch.yml 
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>---
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>type: qemu
+<a id=__codelineno-4-4 name=__codelineno-4-4></a>description: vJunos-switch
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>name: vJunos-switch
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>cpulimit: 4
+<a id=__codelineno-4-7 name=__codelineno-4-7></a>icon: JunipervQFXre.png
+<a id=__codelineno-4-8 name=__codelineno-4-8></a>cpu: 4
+<a id=__codelineno-4-9 name=__codelineno-4-9></a>ram: 5120
+<a id=__codelineno-4-10 name=__codelineno-4-10></a>eth_name:
+<a id=__codelineno-4-11 name=__codelineno-4-11></a>- fxp0
+<a id=__codelineno-4-12 name=__codelineno-4-12></a>- ge-0/0/0
+<a id=__codelineno-4-13 name=__codelineno-4-13></a>- ge-0/0/1
+<a id=__codelineno-4-14 name=__codelineno-4-14></a>- ge-0/0/2
+<a id=__codelineno-4-15 name=__codelineno-4-15></a>- ge-0/0/3
+<a id=__codelineno-4-16 name=__codelineno-4-16></a>- ge-0/0/4
+<a id=__codelineno-4-17 name=__codelineno-4-17></a>- ge-0/0/5
+<a id=__codelineno-4-18 name=__codelineno-4-18></a>- ge-0/0/6
+<a id=__codelineno-4-19 name=__codelineno-4-19></a>- ge-0/0/7
+<a id=__codelineno-4-20 name=__codelineno-4-20></a>- ge-0/0/8
+<a id=__codelineno-4-21 name=__codelineno-4-21></a>- ge-0/0/9
+<a id=__codelineno-4-22 name=__codelineno-4-22></a>ethernet: 11
+<a id=__codelineno-4-23 name=__codelineno-4-23></a>console: telnet
+<a id=__codelineno-4-24 name=__codelineno-4-24></a>qemu_arch: x86_64
+<a id=__codelineno-4-25 name=__codelineno-4-25></a>qemu_version: 4.1.0
+<a id=__codelineno-4-26 name=__codelineno-4-26></a>qemu_nic: virtio-net-pci
+<a id=__codelineno-4-27 name=__codelineno-4-27></a>qemu_options: -machine type=pc,accel=kvm -serial mon:stdio -nographic -smbios type=1,product=VM-VEX -cpu IvyBridge,ibpb=on,md-clear=on,spec-ctrl=on,ssbd=on,vmx=on
+</code></pre></div></td></tr></table></div> <p>The next step is to create a new directory for this device and copy the image to this directory. We'll create a directory with the prefix 'vJunosEVO' and 'vJunos-switch' followed by a suffix which specifies the version of the software image. The prefix naming convention is important -- it must match the name of the template that exists for the device. EVE-NG uses this name to determine which template must be used to boot the device (hence, the need for them to match).</p> <p>The images (and their directories) are stored under '<em>/opt/unetlab/addons/qemu/</em>'.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1>1</a></span>
+<span class=normal><a href=#__codelineno-5-2>2</a></span>
+<span class=normal><a href=#__codelineno-5-3>3</a></span>
+<span class=normal><a href=#__codelineno-5-4>4</a></span>
+<span class=normal><a href=#__codelineno-5-5>5</a></span>
+<span class=normal><a href=#__codelineno-5-6>6</a></span>
+<span class=normal><a href=#__codelineno-5-7>7</a></span>
+<span class=normal><a href=#__codelineno-5-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>root@eve-ng:/opt/unetlab/addons/qemu# pwd
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>/opt/unetlab/addons/qemu
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>root@eve-ng:/opt/unetlab/addons/qemu# mkdir vJunosEVO-23.2R1
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>root@eve-ng:/opt/unetlab/addons/qemu# cd vJunosEVO-23.2R1/
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>root@eve-ng:/opt/unetlab/addons/qemu/vJunosEVO-23.2R1# ls -l
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>total 1714308
+<a id=__codelineno-5-8 name=__codelineno-5-8></a>-rw-r--r-- 1 root root 1755447296 Mar 14 00:14 virtioa.qcow2
+</code></pre></div></td></tr></table></div> <p>and</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1>1</a></span>
+<span class=normal><a href=#__codelineno-6-2>2</a></span>
+<span class=normal><a href=#__codelineno-6-3>3</a></span>
+<span class=normal><a href=#__codelineno-6-4>4</a></span>
+<span class=normal><a href=#__codelineno-6-5>5</a></span>
+<span class=normal><a href=#__codelineno-6-6>6</a></span>
+<span class=normal><a href=#__codelineno-6-7>7</a></span>
+<span class=normal><a href=#__codelineno-6-8>8</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>root@eve-ng:/opt/unetlab/addons/qemu# pwd
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>/opt/unetlab/addons/qemu
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>root@eve-ng:/opt/unetlab/addons/qemu# mkdir vJunosswitch-23.2R1
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>root@eve-ng:/opt/unetlab/addons/qemu# cd vJunosswitch-23.2R1/
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>root@eve-ng:/opt/unetlab/addons/qemu/vJunosswitch-23.2R1# ls -l
+<a id=__codelineno-6-7 name=__codelineno-6-7></a>total 3850436
+<a id=__codelineno-6-8 name=__codelineno-6-8></a>-rw-r--r-- 1 root root 3942842368 Feb 25 11:15 vjunos-switch-23.2R1.qcow2
+</code></pre></div></td></tr></table></div> <p>Once the image is copied into the folder, it must be renamed to 'virtioa.qcow2' as per EVE-NGs naming convention. Finally, EVE-NG requires you to fix some permissions to use the image - they have a pre-built script for this which can be invoked using '<em>/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</em>' as seen below:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
+<span class=normal><a href=#__codelineno-7-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>root@eve-ng:/opt/unetlab/addons/qemu/vJunosEVO-23.2R1# mv vjunosEVO-23.2R1.qcow2 virtioa.qcow2
+<a id=__codelineno-7-2 name=__codelineno-7-2></a>root@eve-ng:/opt/unetlab/addons/qemu/vJunosEVO-23.2R1# /opt/unetlab/wrappers/unl_wrapper -a fixpermissions
+</code></pre></div></td></tr></table></div> <p>and</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1>1</a></span>
+<span class=normal><a href=#__codelineno-8-2>2</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>root@eve-ng:/opt/unetlab/addons/qemu/vJunosswitch-23.2R1# mv vjunos-switch-23.2R1.qcow2 virtioa.qcow2
+<a id=__codelineno-8-2 name=__codelineno-8-2></a>root@eve-ng:/opt/unetlab/addons/qemu/vJunosswitch-23.2R1# /opt/unetlab/wrappers/unl_wrapper -a fixpermissions
+</code></pre></div></td></tr></table></div> <p>On the EVE-NG UI, you should see 'vJunosEvolved' and 'vJunos-switch' as a device available to use and deploy:</p> <p>vJunosEvolved:</p> <p><img alt src=../images/picture3.jpeg></p> <p>vJunos-switch:</p> <p><img alt src=../images/picture4.jpeg></p> <p>These devices can now be deployed and interconnected. To interconnect two devices, simply click on the orange icon seen when you hover over a node, as seen below:</p> <p><img alt src=../images/picture5.jpeg></p> <p>Once clicked, you can drag it to the destination node and let the connector go, which then gives you a pop-up to choose which interface is being connected on each side, like below:</p> <p><img alt src=../images/picture6.jpeg></p> <p>To demonstrate the use of vJunos-switch and vJunosEvolved, we've built the following topology on EVE-NG, respectively:</p> <p>For vJunosEvolved:</p> <p><img alt src=../images/picture7.png></p> <p>The topology is a typical 3-stage Clos fabric, with two spines and three leafs. Two leafs (leaf1 and leaf2) are ESI peers and connect down to the same host, h1. The end goal is to manage these devices via Juniper Apstra and use Apstra to deploy all the necessary configuration to build a fabric and provide reachability between hosts h1 and h2, which are in the same subnet.</p> <p>vJunos-switch:</p> <p><img alt src=../images/picture8.jpeg></p> <p>This topology also is with two spines and 3 leafs. Two leafs (leaf2 and leaf3) are ESI peers and connect down to the same host, h2.</p> <h3 id=deploying-juniper-apstra-in-eve-ng>Deploying Juniper Apstra in EVE-NG<a class=headerlink href=#deploying-juniper-apstra-in-eve-ng title="Permanent link">&para;</a></h3> <p>As seen in the topology above, we also have Juniper Apstra deployed within EVE-NG itself. For the sake of completeness, we'll also document how this is done.</p> <p>The Juniper Apstra KVM image can be downloaded from the Juniper software downloads page - <a href=https://support.juniper.net/support/downloads/ >https://support.juniper.net/support/downloads/</a></p> <p>The image is zipped with an extension of gz. Once unzipped, move the file to a folder created with the EVE-NG naming convention for Apstra -- the directory must start with the prefix 'aos' and you can include the Apstra version as a suffix for easy identification of the image version. For example, we have created a folder named 'aos-4.1.2-269' and the image is under that. The image is finally renamed to 'hda.qcow2':</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1>1</a></span>
+<span class=normal><a href=#__codelineno-9-2>2</a></span>
+<span class=normal><a href=#__codelineno-9-3>3</a></span>
+<span class=normal><a href=#__codelineno-9-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>root@eve-ng:/opt/unetlab/addons/qemu# cd aos-4.1.2-269/
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>root@eve-ng:/opt/unetlab/addons/qemu/aos-4.1.2-269# ls -l
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>total 2762612
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>-rw-r--r-- 1 root root 2828908544 Feb 25 12:14 hda.qcow2
+</code></pre></div></td></tr></table></div> <p>The following template can be used for Apstra:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1> 1</a></span>
+<span class=normal><a href=#__codelineno-10-2> 2</a></span>
+<span class=normal><a href=#__codelineno-10-3> 3</a></span>
+<span class=normal><a href=#__codelineno-10-4> 4</a></span>
+<span class=normal><a href=#__codelineno-10-5> 5</a></span>
+<span class=normal><a href=#__codelineno-10-6> 6</a></span>
+<span class=normal><a href=#__codelineno-10-7> 7</a></span>
+<span class=normal><a href=#__codelineno-10-8> 8</a></span>
+<span class=normal><a href=#__codelineno-10-9> 9</a></span>
+<span class=normal><a href=#__codelineno-10-10>10</a></span>
+<span class=normal><a href=#__codelineno-10-11>11</a></span>
+<span class=normal><a href=#__codelineno-10-12>12</a></span>
+<span class=normal><a href=#__codelineno-10-13>13</a></span>
+<span class=normal><a href=#__codelineno-10-14>14</a></span>
+<span class=normal><a href=#__codelineno-10-15>15</a></span>
+<span class=normal><a href=#__codelineno-10-16>16</a></span>
+<span class=normal><a href=#__codelineno-10-17>17</a></span>
+<span class=normal><a href=#__codelineno-10-18>18</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>root@eve-ng:/opt/unetlab/html/templates/intel# cat aos.yml 
+<a id=__codelineno-10-2 name=__codelineno-10-2></a>---
+<a id=__codelineno-10-3 name=__codelineno-10-3></a>type: qemu
+<a id=__codelineno-10-4 name=__codelineno-10-4></a>name: AOS
+<a id=__codelineno-10-5 name=__codelineno-10-5></a>description: Apstra AOS Server
+<a id=__codelineno-10-6 name=__codelineno-10-6></a>cpulimit: 1
+<a id=__codelineno-10-7 name=__codelineno-10-7></a>icon: apstra.png
+<a id=__codelineno-10-8 name=__codelineno-10-8></a>cpu: 8
+<a id=__codelineno-10-9 name=__codelineno-10-9></a>ram: 16384
+<a id=__codelineno-10-10 name=__codelineno-10-10></a>ethernet: 1
+<a id=__codelineno-10-11 name=__codelineno-10-11></a>eth_format: eth{0}
+<a id=__codelineno-10-12 name=__codelineno-10-12></a>console: telnet
+<a id=__codelineno-10-13 name=__codelineno-10-13></a>shutdown: 1
+<a id=__codelineno-10-14 name=__codelineno-10-14></a>qemu_arch: x86_64
+<a id=__codelineno-10-15 name=__codelineno-10-15></a>qemu_version: 2.12.0
+<a id=__codelineno-10-16 name=__codelineno-10-16></a>qemu_nic: virtio-net-pci
+<a id=__codelineno-10-17 name=__codelineno-10-17></a>qemu_options: -machine type=pc,accel=kvm -vga std -usbdevice tablet -boot order=cd
+<a id=__codelineno-10-18 name=__codelineno-10-18></a>...
+</code></pre></div></td></tr></table></div> <p>The Apstra server can now be started, and some basic bootstrapping is needed -- the Apstra service needs to be started, along with setting a password for the CLI and UI. Apstra allows you to pull an IP address via DHCP or set one up manually as well.</p> <h3 id=deploying-a-vjunosevolved-and-vjunos-switch-based-fabric-in-juniper-apstra>Deploying a vJunosEvolved and vJunos-switch based fabric in Juniper Apstra<a class=headerlink href=#deploying-a-vjunosevolved-and-vjunos-switch-based-fabric-in-juniper-apstra title="Permanent link">&para;</a></h3> <p>Now that we have all our pieces in EVE-NG, we can start to build the fabric. Nodes can be started from the EVE-NG UI by right-clicking on them and simply choosing 'Start'. Once the spines and the leafs are assigned IP addresses via DHCP, we can onboard them into Apstra.</p> <p>Since the current version of Apstra has not been updated with the vJunos-switch or vJunosEvolved versions, we need to make some adjustments. We will create a new 'Device Profile' for vJunosEvolved by simply cloning the Juniper PTX10001-36MR device profile and for vJunos-switch, we'll clone the Juniper vEX device profile.</p> <p>For vJunosEvolved:</p> <p><img alt src=../images/picture9.jpeg></p> <p>For vJunos-switch:</p> <p><img alt src=../images/picture10.jpeg></p> <p>The important change in these device profiles is to extend selector to include version '23' like below:</p> <p>For vJunos-switch:</p> <p><img alt src=../images/picture11.jpeg></p> <p>For vJunosEvolved:</p> <p><img alt src=../images/picture12.jpeg></p> <p>The next step is to create a 'Logical Device' and 'Interface Map' in Apstra for these devices. The Logical Device simply creates the port grouping as below:</p> <p>For vJunos-switch:</p> <p><img alt src=../images/picture13.jpeg></p> <p>For vJunosEvolved:</p> <p><img alt src=../images/picture14.jpeg></p> <p>The Interface Map creates the appropriate transformation (naming convention for interfaces, speed, port breakouts and so on) and glues together a logical device and a device profile:</p> <p>For vJunos-switch:</p> <p><img alt src=../images/picture15.jpeg></p> <p>For vJunosEvolved:</p> <p><img alt src=../images/picture16.jpeg></p> <p>Once all of this is configured, we can start building our racks and templates. The template is finally fed into a blueprint, an example of which we've deployed below:</p> <p>For vJunos-switch:</p> <p><img alt src=../images/picture17.jpeg></p> <p>This blueprint includes host h1 which is single attached to leaf1 and host h2 which is dual homed to leaf2 and leaf3.</p> <p>For vJunosEvolved:</p> <p><img alt src=../images/picture18.jpeg></p> <p>This blueprint includes host h1 which is dual-homed to leaf1 and leaf2 and host h2 which is attached to leaf3, configuration for which is fully automated and deployed by Apstra (ESI LAG on the leafs).</p> <p>For vJunosEvolved, we need a specific knob for tunnel termination ('set forwarding-options tunnel-termination') for EVPN VXLAN from release 23.1 onwards. In Apstra, this is created via a configlet and imported into to the leafs.</p> <p>The configlet can be created as follows:</p> <p><img alt src=../images/picture19.jpeg></p> <p>To import the configlet into the blueprint and apply it to the leafs, the following is done:</p> <p><img alt src=../images/picture20.jpeg></p> <p>At the end of this, we have our inet (IPv4) as well as the BGP EVPN peering up between the leafs and spines. For the sake of brevity, outputs are shown from the vJunosEvolved deployment only:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1> 1</a></span>
+<span class=normal><a href=#__codelineno-11-2> 2</a></span>
+<span class=normal><a href=#__codelineno-11-3> 3</a></span>
+<span class=normal><a href=#__codelineno-11-4> 4</a></span>
+<span class=normal><a href=#__codelineno-11-5> 5</a></span>
+<span class=normal><a href=#__codelineno-11-6> 6</a></span>
+<span class=normal><a href=#__codelineno-11-7> 7</a></span>
+<span class=normal><a href=#__codelineno-11-8> 8</a></span>
+<span class=normal><a href=#__codelineno-11-9> 9</a></span>
+<span class=normal><a href=#__codelineno-11-10>10</a></span>
+<span class=normal><a href=#__codelineno-11-11>11</a></span>
+<span class=normal><a href=#__codelineno-11-12>12</a></span>
+<span class=normal><a href=#__codelineno-11-13>13</a></span>
+<span class=normal><a href=#__codelineno-11-14>14</a></span>
+<span class=normal><a href=#__codelineno-11-15>15</a></span>
+<span class=normal><a href=#__codelineno-11-16>16</a></span>
+<span class=normal><a href=#__codelineno-11-17>17</a></span>
+<span class=normal><a href=#__codelineno-11-18>18</a></span>
+<span class=normal><a href=#__codelineno-11-19>19</a></span>
+<span class=normal><a href=#__codelineno-11-20>20</a></span>
+<span class=normal><a href=#__codelineno-11-21>21</a></span>
+<span class=normal><a href=#__codelineno-11-22>22</a></span>
+<span class=normal><a href=#__codelineno-11-23>23</a></span>
+<span class=normal><a href=#__codelineno-11-24>24</a></span>
+<span class=normal><a href=#__codelineno-11-25>25</a></span>
+<span class=normal><a href=#__codelineno-11-26>26</a></span>
+<span class=normal><a href=#__codelineno-11-27>27</a></span>
+<span class=normal><a href=#__codelineno-11-28>28</a></span>
+<span class=normal><a href=#__codelineno-11-29>29</a></span>
+<span class=normal><a href=#__codelineno-11-30>30</a></span>
+<span class=normal><a href=#__codelineno-11-31>31</a></span>
+<span class=normal><a href=#__codelineno-11-32>32</a></span>
+<span class=normal><a href=#__codelineno-11-33>33</a></span>
+<span class=normal><a href=#__codelineno-11-34>34</a></span>
+<span class=normal><a href=#__codelineno-11-35>35</a></span>
+<span class=normal><a href=#__codelineno-11-36>36</a></span>
+<span class=normal><a href=#__codelineno-11-37>37</a></span>
+<span class=normal><a href=#__codelineno-11-38>38</a></span>
+<span class=normal><a href=#__codelineno-11-39>39</a></span>
+<span class=normal><a href=#__codelineno-11-40>40</a></span>
+<span class=normal><a href=#__codelineno-11-41>41</a></span>
+<span class=normal><a href=#__codelineno-11-42>42</a></span>
+<span class=normal><a href=#__codelineno-11-43>43</a></span>
+<span class=normal><a href=#__codelineno-11-44>44</a></span>
+<span class=normal><a href=#__codelineno-11-45>45</a></span>
+<span class=normal><a href=#__codelineno-11-46>46</a></span>
+<span class=normal><a href=#__codelineno-11-47>47</a></span>
+<span class=normal><a href=#__codelineno-11-48>48</a></span>
+<span class=normal><a href=#__codelineno-11-49>49</a></span>
+<span class=normal><a href=#__codelineno-11-50>50</a></span>
+<span class=normal><a href=#__codelineno-11-51>51</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>root@spine1&gt; show bgp summary 
+<a id=__codelineno-11-2 name=__codelineno-11-2></a>
+<a id=__codelineno-11-3 name=__codelineno-11-3></a>Warning: License key missing; requires 'bgp' license
+<a id=__codelineno-11-4 name=__codelineno-11-4></a>
+<a id=__codelineno-11-5 name=__codelineno-11-5></a>Threading mode: BGP I/O
+<a id=__codelineno-11-6 name=__codelineno-11-6></a>Default eBGP mode: advertise - accept, receive - accept
+<a id=__codelineno-11-7 name=__codelineno-11-7></a>Groups: 2 Peers: 6 Down peers: 0
+<a id=__codelineno-11-8 name=__codelineno-11-8></a>Table          Tot Paths  Act Paths Suppressed    History Damp State    Pending
+<a id=__codelineno-11-9 name=__codelineno-11-9></a>inet.0               
+<a id=__codelineno-11-10 name=__codelineno-11-10></a>                      12          9          0          0          0          0
+<a id=__codelineno-11-11 name=__codelineno-11-11></a>bgp.evpn.0           
+<a id=__codelineno-11-12 name=__codelineno-11-12></a>                      19         19          0          0          0          0
+<a id=__codelineno-11-13 name=__codelineno-11-13></a>Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
+<a id=__codelineno-11-14 name=__codelineno-11-14></a>10.1.1.1              64514        147        147       0       0     1:05:18 Establ
+<a id=__codelineno-11-15 name=__codelineno-11-15></a>  inet.0: 3/4/4/0
+<a id=__codelineno-11-16 name=__codelineno-11-16></a>10.1.1.3              64515        148        148       0       0     1:05:27 Establ
+<a id=__codelineno-11-17 name=__codelineno-11-17></a>  inet.0: 3/4/4/0
+<a id=__codelineno-11-18 name=__codelineno-11-18></a>10.1.1.5              64516        148        148       0       0     1:05:34 Establ
+<a id=__codelineno-11-19 name=__codelineno-11-19></a>  inet.0: 3/4/4/0
+<a id=__codelineno-11-20 name=__codelineno-11-20></a>172.16.1.2            64514        155        153       0       0     1:05:11 Establ
+<a id=__codelineno-11-21 name=__codelineno-11-21></a>  bgp.evpn.0: 8/8/8/0
+<a id=__codelineno-11-22 name=__codelineno-11-22></a>172.16.1.3            64515        154        155       0       0     1:05:19 Establ
+<a id=__codelineno-11-23 name=__codelineno-11-23></a>  bgp.evpn.0: 8/8/8/0
+<a id=__codelineno-11-24 name=__codelineno-11-24></a>172.16.1.4            64516        148        161       0       0     1:05:15 Establ
+<a id=__codelineno-11-25 name=__codelineno-11-25></a>  bgp.evpn.0: 3/3/3/0
+<a id=__codelineno-11-26 name=__codelineno-11-26></a>
+<a id=__codelineno-11-27 name=__codelineno-11-27></a>root@spine2&gt; show bgp summary 
+<a id=__codelineno-11-28 name=__codelineno-11-28></a>
+<a id=__codelineno-11-29 name=__codelineno-11-29></a>Warning: License key missing; requires 'bgp' license
+<a id=__codelineno-11-30 name=__codelineno-11-30></a>
+<a id=__codelineno-11-31 name=__codelineno-11-31></a>Threading mode: BGP I/O
+<a id=__codelineno-11-32 name=__codelineno-11-32></a>Default eBGP mode: advertise - accept, receive - accept
+<a id=__codelineno-11-33 name=__codelineno-11-33></a>Groups: 2 Peers: 6 Down peers: 0
+<a id=__codelineno-11-34 name=__codelineno-11-34></a>Table          Tot Paths  Act Paths Suppressed    History Damp State    Pending
+<a id=__codelineno-11-35 name=__codelineno-11-35></a>inet.0               
+<a id=__codelineno-11-36 name=__codelineno-11-36></a>                      12          6          0          0          0          0
+<a id=__codelineno-11-37 name=__codelineno-11-37></a>bgp.evpn.0           
+<a id=__codelineno-11-38 name=__codelineno-11-38></a>                      19         19          0          0          0          0
+<a id=__codelineno-11-39 name=__codelineno-11-39></a>Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
+<a id=__codelineno-11-40 name=__codelineno-11-40></a>10.1.1.7              64514        149        149       0       0     1:05:45 Establ
+<a id=__codelineno-11-41 name=__codelineno-11-41></a>  inet.0: 2/4/4/0
+<a id=__codelineno-11-42 name=__codelineno-11-42></a>10.1.1.9              64515        149        149       0       0     1:06:04 Establ
+<a id=__codelineno-11-43 name=__codelineno-11-43></a>  inet.0: 2/4/4/0
+<a id=__codelineno-11-44 name=__codelineno-11-44></a>10.1.1.11             64516        149        149       0       0     1:06:12 Establ
+<a id=__codelineno-11-45 name=__codelineno-11-45></a>  inet.0: 2/4/4/0
+<a id=__codelineno-11-46 name=__codelineno-11-46></a>172.16.1.2            64514        155        154       0       0     1:05:39 Establ
+<a id=__codelineno-11-47 name=__codelineno-11-47></a>  bgp.evpn.0: 8/8/8/0
+<a id=__codelineno-11-48 name=__codelineno-11-48></a>172.16.1.3            64515        155        156       0       0     1:05:50 Establ
+<a id=__codelineno-11-49 name=__codelineno-11-49></a>  bgp.evpn.0: 8/8/8/0
+<a id=__codelineno-11-50 name=__codelineno-11-50></a>172.16.1.4            64516        150        161       0       0     1:06:10 Establ
+<a id=__codelineno-11-51 name=__codelineno-11-51></a>  bgp.evpn.0: 3/3/3/0
+</code></pre></div></td></tr></table></div> <p>LACP is up between leaf2/leaf3 and host h2:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1> 1</a></span>
+<span class=normal><a href=#__codelineno-12-2> 2</a></span>
+<span class=normal><a href=#__codelineno-12-3> 3</a></span>
+<span class=normal><a href=#__codelineno-12-4> 4</a></span>
+<span class=normal><a href=#__codelineno-12-5> 5</a></span>
+<span class=normal><a href=#__codelineno-12-6> 6</a></span>
+<span class=normal><a href=#__codelineno-12-7> 7</a></span>
+<span class=normal><a href=#__codelineno-12-8> 8</a></span>
+<span class=normal><a href=#__codelineno-12-9> 9</a></span>
+<span class=normal><a href=#__codelineno-12-10>10</a></span>
+<span class=normal><a href=#__codelineno-12-11>11</a></span>
+<span class=normal><a href=#__codelineno-12-12>12</a></span>
+<span class=normal><a href=#__codelineno-12-13>13</a></span>
+<span class=normal><a href=#__codelineno-12-14>14</a></span>
+<span class=normal><a href=#__codelineno-12-15>15</a></span>
+<span class=normal><a href=#__codelineno-12-16>16</a></span>
+<span class=normal><a href=#__codelineno-12-17>17</a></span>
+<span class=normal><a href=#__codelineno-12-18>18</a></span>
+<span class=normal><a href=#__codelineno-12-19>19</a></span>
+<span class=normal><a href=#__codelineno-12-20>20</a></span>
+<span class=normal><a href=#__codelineno-12-21>21</a></span>
+<span class=normal><a href=#__codelineno-12-22>22</a></span>
+<span class=normal><a href=#__codelineno-12-23>23</a></span>
+<span class=normal><a href=#__codelineno-12-24>24</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>root@leaf1&gt; show lacp interfaces ae1 extensive 
+<a id=__codelineno-12-2 name=__codelineno-12-2></a>Aggregated interface: ae1
+<a id=__codelineno-12-3 name=__codelineno-12-3></a>    LACP state:       Role   Exp   Def  Dist  Col  Syn  Aggr  Timeout  Activity
+<a id=__codelineno-12-4 name=__codelineno-12-4></a>      et-0/0/6       Actor    No    No   Yes  Yes  Yes   Yes     Fast    Active
+<a id=__codelineno-12-5 name=__codelineno-12-5></a>      et-0/0/6     Partner    No    No   Yes  Yes  Yes   Yes     Fast    Active
+<a id=__codelineno-12-6 name=__codelineno-12-6></a>    LACP protocol:        Receive State  Transmit State          Mux State 
+<a id=__codelineno-12-7 name=__codelineno-12-7></a>      et-0/0/6                  Current   Fast periodic Collecting distributing
+<a id=__codelineno-12-8 name=__codelineno-12-8></a>    LACP info:        Role     System             System       Port     Port    Port 
+<a id=__codelineno-12-9 name=__codelineno-12-9></a>                             priority         identifier   priority   number     key 
+<a id=__codelineno-12-10 name=__codelineno-12-10></a>      et-0/0/6       Actor        127  02:00:00:00:00:01        127        1       2
+<a id=__codelineno-12-11 name=__codelineno-12-11></a>      et-0/0/6     Partner        127  02:7b:fd:62:05:d5        127        1       2
+<a id=__codelineno-12-12 name=__codelineno-12-12></a>
+<a id=__codelineno-12-13 name=__codelineno-12-13></a>
+<a id=__codelineno-12-14 name=__codelineno-12-14></a>root@leaf2&gt; show lacp interfaces ae1 extensive 
+<a id=__codelineno-12-15 name=__codelineno-12-15></a>Aggregated interface: ae1
+<a id=__codelineno-12-16 name=__codelineno-12-16></a>    LACP state:       Role   Exp   Def  Dist  Col  Syn  Aggr  Timeout  Activity
+<a id=__codelineno-12-17 name=__codelineno-12-17></a>      et-0/0/6       Actor    No    No   Yes  Yes  Yes   Yes     Fast    Active
+<a id=__codelineno-12-18 name=__codelineno-12-18></a>      et-0/0/6     Partner    No    No   Yes  Yes  Yes   Yes     Fast    Active
+<a id=__codelineno-12-19 name=__codelineno-12-19></a>    LACP protocol:        Receive State  Transmit State          Mux State 
+<a id=__codelineno-12-20 name=__codelineno-12-20></a>      et-0/0/6                  Current   Fast periodic Collecting distributing
+<a id=__codelineno-12-21 name=__codelineno-12-21></a>    LACP info:        Role     System             System       Port     Port    Port 
+<a id=__codelineno-12-22 name=__codelineno-12-22></a>                             priority         identifier   priority   number     key 
+<a id=__codelineno-12-23 name=__codelineno-12-23></a>      et-0/0/6       Actor        127  02:00:00:00:00:01        127        1       2
+<a id=__codelineno-12-24 name=__codelineno-12-24></a>      et-0/0/6     Partner        127  02:7b:fd:62:05:d5        127        2       2
+</code></pre></div></td></tr></table></div> <p>The hosts can ping each other as well:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-13-1> 1</a></span>
+<span class=normal><a href=#__codelineno-13-2> 2</a></span>
+<span class=normal><a href=#__codelineno-13-3> 3</a></span>
+<span class=normal><a href=#__codelineno-13-4> 4</a></span>
+<span class=normal><a href=#__codelineno-13-5> 5</a></span>
+<span class=normal><a href=#__codelineno-13-6> 6</a></span>
+<span class=normal><a href=#__codelineno-13-7> 7</a></span>
+<span class=normal><a href=#__codelineno-13-8> 8</a></span>
+<span class=normal><a href=#__codelineno-13-9> 9</a></span>
+<span class=normal><a href=#__codelineno-13-10>10</a></span>
+<span class=normal><a href=#__codelineno-13-11>11</a></span>
+<span class=normal><a href=#__codelineno-13-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-13-1 name=__codelineno-13-1></a>h2&gt; ping 192.168.101.11  
+<a id=__codelineno-13-2 name=__codelineno-13-2></a>PING 192.168.101.11 (192.168.101.11) 56(84) bytes of data.
+<a id=__codelineno-13-3 name=__codelineno-13-3></a>64 bytes from 192.168.101.11: icmp_seq=1 ttl=64 time=2.89 ms
+<a id=__codelineno-13-4 name=__codelineno-13-4></a>64 bytes from 192.168.101.11: icmp_seq=2 ttl=64 time=1.21 ms
+<a id=__codelineno-13-5 name=__codelineno-13-5></a>64 bytes from 192.168.101.11: icmp_seq=3 ttl=64 time=0.474 ms
+<a id=__codelineno-13-6 name=__codelineno-13-6></a>64 bytes from 192.168.101.11: icmp_seq=4 ttl=64 time=0.519 ms
+<a id=__codelineno-13-7 name=__codelineno-13-7></a>64 bytes from 192.168.101.11: icmp_seq=5 ttl=64 time=0.535 ms
+<a id=__codelineno-13-8 name=__codelineno-13-8></a>64 bytes from 192.168.101.11: icmp_seq=6 ttl=64 time=0.752 ms
+<a id=__codelineno-13-9 name=__codelineno-13-9></a>^C
+<a id=__codelineno-13-10 name=__codelineno-13-10></a>--- 192.168.101.11 ping statistics ---
+<a id=__codelineno-13-11 name=__codelineno-13-11></a>6 packets transmitted, 6 received, 0% packet loss, time 5008ms
+<a id=__codelineno-13-12 name=__codelineno-13-12></a>rtt min/avg/max/mdev = 0.474/1.064/2.892/0.854 ms
+</code></pre></div></td></tr></table></div> <h3 id=shutting-down-vjunos-switch-in-eve-ng>Shutting down vJunos-switch in EVE-NG<a class=headerlink href=#shutting-down-vjunos-switch-in-eve-ng title="Permanent link">&para;</a></h3> <p>EVE-NG offers multiple ways to shut down a node -- this includes a graceful shutdown, a poweroff (not graceful) and a hibernate option. These options can be seen below when right-clicking on a node and clicking on 'Stop' (EVE-NG Professional shown below):</p> <p><img alt src=../images/picture21.jpeg></p> <p>It is important to shut down the device gracefully (using the 'Shutdown' option). A power off (which is not graceful) has the potential of corruption the disk, rendering the device unusable. In EVE-NG community edition, issue a 'request system poweroff' prior to shutting down the node via the UI, since these options are not available in the UI itself in this edition.</p> <h2 id=summary>Summary<a class=headerlink href=#summary title="Permanent link">&para;</a></h2> <p>Through this post, we were able to demonstrate a working deployment of Juniper's new virtual offering, vJunos-switch and vJunosEvolved, in EVE-NG and integrate it with Juniper Apstra to deploy a Data Center fabric.</p> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">&para;</a></h2> <ul> <li>vJunos-switch: <a href="https://support.juniper.net/support/downloads/?p=vjunos">https://support.juniper.net/support/downloads/?p=vjunos</a></li> <li>vJunosEvolved: <a href="https://support.juniper.net/support/downloads/?p=vjunos-evolved">https://support.juniper.net/support/downloads/?p=vjunos-evolved</a></li> <li>EVE-NG home page: <a href=https://www.eve-ng.net/ >https://www.eve-ng.net/</a></li> <li>Juniper Apstra documentation - <a href=https://www.juniper.net/documentation/product/us/en/apstra/ >https://www.juniper.net/documentation/product/us/en/apstra/</a></li> <li>vJunos Installation on KVM: <a href=https://techpost.hpe.com/articles/vjunos-deployment-on-kvm/article>https://techpost.hpe.com/articles/vjunos-deployment-on-kvm/article</a></li> </ul> <h2 id=acknowledgments>Acknowledgments<a class=headerlink href=#acknowledgments title="Permanent link">&para;</a></h2> <p>We would like to thank TME Manager Ridha Hamidi, Product Manager Yogesh Kumar, and the entire Juniper engineering staff, led by Art Stine and Kaveh Moezzi, behind this product for their guidance and help. Thanks to Christian Scholz for additional feedback provided after the publication.</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>

@@ -1,0 +1,240 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="HPE Networking Tech Post"><link href=https://techpost.hpe.com/articles/red-hat-and-juniper-merge-ansible-collections/article/ rel=canonical><link rel=icon href=../../../images/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>Red Hat and Juniper Merge Ansible Collections - Tech Post - Technical articles by HPE Networking</title><link rel=stylesheet href=../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=stylesheet href=../../../vendor/katex/katex.min.css><link rel=stylesheet href=../../../vendor/glightbox/glightbox.min.css><link rel=stylesheet href=../../../stylesheets/extra-branch.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><script id=__analytics>function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-MC1QNS9JDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-MC1QNS9JDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-MC1QNS9JDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script><script>"undefined"!=typeof __md_analytics&&__md_analytics()</script><meta property=og:title content="Red Hat and Juniper Merge Ansible Collections"><meta property=og:image content=https://techpost.hpe.com/articles/red-hat-and-juniper-merge-ansible-collections/images/logo.png><meta property=og:type content=article><meta content=https://techpost.hpe.com/articles/red-hat-and-juniper-merge-ansible-collections/article/ property=og:url><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=description content="In-depth technical articles written by engineers, for engineers, from HPE Networking."><meta name=keywords content="HPE, Juniper, networking, routing, technical articles, engineering"><meta name=hp_design_version content=hpe.1.0><meta name=lifecycle content=applied_use><meta name=robots content="follow, index"><meta name=segment content="Segment Neutral"><meta name=target_country content=ww><meta name=web_section_id content=R12412><script>
+    var tpConfiguredSiteUrl = new URL("https://techpost.hpe.com");
+    var tpSitePath = window.location.hostname === tpConfiguredSiteUrl.hostname
+      ? tpConfiguredSiteUrl.pathname.replace(/\/$/, "")
+      : "";
+    var tpSiteUrl = window.location.origin + tpSitePath;
+    var tpMenuUrl = tpSiteUrl + "/articles/menu/main/";
+
+    // Single source of truth for the article taxonomy, shared by the HFWS
+    // main-nav dropdown (below) and the menu-page category filter (js/extra.js).
+    // Mirrors admin/app/config.yml `categories`.
+    window.__TP_CATEGORIES__ = [
+      {name: "Platforms / Line Cards Deepdive", subcategories: ["ACX7000 Series", "MX Series", "PTX Series", "QFX Series"]},
+      {name: "Routing", subcategories: ["SRv6", "SR MPLS", "EVPN", "Various Routing Topics"]},
+      {name: "Multicast Routing"},
+      {name: "Scale and Convergence Tests"},
+      {name: "Silicon / PFE / Memories"},
+      {name: "JVD Juniper Validated Designs"},
+      {name: "Forwarding, Load Balancing, Filtering"},
+      {name: "Technology and Features"},
+      {name: "BNG"},
+      {name: "Security"},
+      {name: "Power Topics"},
+      {name: "Observability, Sampling, Telemetry, SNMP"},
+      {name: "Apstra"},
+      {name: "Virtual Routers"},
+      {name: "Routing Director (ex-Paragon)"},
+      {name: "AI for Networking for AI"},
+      {name: "Various Other Topics"}
+    ];
+
+    // Every category deep-links to the menu page filtered by that category.
+    var tpCategoryLinks = window.__TP_CATEGORIES__.map(function (cat) {
+      return {
+        title: cat.name,
+        href: tpMenuUrl + "?category=" + encodeURIComponent(cat.name),
+        newWindow: false,
+        dataAnalyticsRegionId: "gmenu|HPE Techpost|" + cat.name
+      };
+    });
+
+    window.HPEHF_CFG = {
+      mainNav: {
+        micrositeLogoArea: {
+          logo: {
+            href: tpSiteUrl + "/",
+            title: "HPE Techpost",
+            dataAnalyticsRegionId: "gmenu|HPE Techpost"
+          },
+          micrositeTitle: "Tech Post"
+        },
+        navLinks: [
+          {title: "All articles", href: tpMenuUrl, newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|All articles", navLinks: tpCategoryLinks},
+          {title: "About us", href: tpSiteUrl + "/about/", newWindow: false, dataAnalyticsRegionId: "gmenu|HPE Techpost|About us"}
+        ]
+      },
+      headerSearch: {
+        placeholderText: "Search HPE Techpost",
+        action: tpSiteUrl + "/search-results/",
+        inputName: "q"
+      }
+    };
+    window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
+    window.__TP_SITE_URL__ = tpSiteUrl;
+  </script><script src=https://h50007.www5.hpe.com/hfws-static/js/framework/jquery/v-3-6-0/jquery.js></script><script src="https://h50007.www5.hpe.com/hfws/us/en/hpe/latest.r/root?contentType=js&hide_country_selector=true&color_scheme=dark&hide_cart=true&hide_sign_in=true&hide_cube_menu=true&hide_sitemap=true"></script><script src=https://www.hpe.com/global/metrics/easy/basic_measurement.js></script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#red-hat-and-juniper-merge-ansible-collections class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div id=header class=hfws-header><!-- HFWS inserts its header here --></div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-header__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Tech Post - Technical articles by HPE Networking </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Red Hat and Juniper Merge Ansible Collections </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=custom data-md-color-accent=custom aria-hidden=true type=radio name=__palette id=__palette_0> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title="Tech Post - Technical articles by HPE Networking" class="md-nav__button md-logo" aria-label="Tech Post - Technical articles by HPE Networking" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> Tech Post - Technical articles by HPE Networking </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../.. class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../packet-tester-on-chip-generate-your-traffic-from-the-router/article/ class=md-nav__link> <span class=md-ellipsis> Your work-in-progress Article </span> </a> </li> <li class=md-nav__item> <a href=../../../download/packet-tester-on-chip-generate-your-traffic-from-the-router.docx class=md-nav__link> <span class=md-ellipsis> DOCX version (for review only) </span> </a> </li> <li class=md-nav__item> <a href=../../../about/ class=md-nav__link> <span class=md-ellipsis> About us </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#introduction class=md-nav__link> <span class=md-ellipsis> Introduction </span> </a> </li> <li class=md-nav__item> <a href=#the-collections-what-they-do-and-how-they-work class=md-nav__link> <span class=md-ellipsis> The Collections: What They Do, And How They Work </span> </a> <nav class=md-nav aria-label="The Collections: What They Do, And How They Work"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#picking-a-collection class=md-nav__link> <span class=md-ellipsis> Picking a Collection </span> </a> </li> <li class=md-nav__item> <a href=#enhanced-capabilities-in-the-merged-collection class=md-nav__link> <span class=md-ellipsis> Enhanced Capabilities in the Merged Collection </span> </a> </li> <li class=md-nav__item> <a href=#how-the-merged-collection-works class=md-nav__link> <span class=md-ellipsis> How The Merged Collection Works </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#differences-to-keep-in-mind class=md-nav__link> <span class=md-ellipsis> Differences to Keep in Mind </span> </a> <nav class=md-nav aria-label="Differences to Keep in Mind"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#inventory-schema class=md-nav__link> <span class=md-ellipsis> Inventory Schema </span> </a> </li> <li class=md-nav__item> <a href=#logging class=md-nav__link> <span class=md-ellipsis> Logging </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#moving-forward class=md-nav__link> <span class=md-ellipsis> Moving Forward </span> </a> <nav class=md-nav aria-label="Moving Forward"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#installation class=md-nav__link> <span class=md-ellipsis> Installation </span> </a> </li> <li class=md-nav__item> <a href=#migration class=md-nav__link> <span class=md-ellipsis> Migration </span> </a> </li> <li class=md-nav__item> <a href=#support class=md-nav__link> <span class=md-ellipsis> Support </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#useful-links class=md-nav__link> <span class=md-ellipsis> Useful links </span> </a> </li> <li class=md-nav__item> <a href=#acknowledgements class=md-nav__link> <span class=md-ellipsis> Acknowledgements </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=red-hat-and-juniper-merge-ansible-collections>Red Hat and Juniper Merge Ansible Collections<a class=headerlink href=#red-hat-and-juniper-merge-ansible-collections title="Permanent link">&para;</a></h1> <p><strong>Jessica Garrison - 10/30/2025</strong> <br><br><span style="display:inline-flex; align-items:center; gap:12px; margin-top:4px;"><a href=../../../download/red-hat-and-juniper-merge-ansible-collections.pdf target=_blank title="Download PDF" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 384 512" fill=#d32f2f><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=../../../download/red-hat-and-juniper-merge-ansible-collections.epub target=_blank title="Download ePUB" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 448 512" fill=#1565c0><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg></a><a href=mailto:techpost@hpe.com title="Contact us" style="display:inline-flex; align-items:center;"><svg xmlns=http://www.w3.org/2000/svg width=32 height=32 viewbox="0 0 512 512" fill=#616161><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></a></span></p> <p>Red Hat Ansible Automation Platform and Juniper Networks each have collections of Ansible modules for managing Junos devices. We are merging Ansible's collection into the Juniper Collection to provide a single collection of modules for our customers.</p> <p><img alt="Red Hat and Juniper Merge Ansible Collections" src=../images/picture3.png></p> <h2 id=introduction>Introduction<a class=headerlink href=#introduction title="Permanent link">&para;</a></h2> <p>The most important goal during the merger of our collections was to create a seamless customer experience. Before this merger, our distinct collections were developed with different purposes and use cases, so there was work to do so that our customers would be able to use either set of playbooks with only the change of namespace. This merged collection showcases how our collections complement each other, rather than compete, allowing us to leverage the strengths of both approaches with the Red Hat Ansible Automation Platform (AAP). The most important thing to know is that one may continue to use both sets of previously created playbooks with the merged collection, without any alterations.</p> <h2 id=the-collections-what-they-do-and-how-they-work>The Collections: What They Do, And How They Work<a class=headerlink href=#the-collections-what-they-do-and-how-they-work title="Permanent link">&para;</a></h2> <h3 id=picking-a-collection>Picking a Collection<a class=headerlink href=#picking-a-collection title="Permanent link">&para;</a></h3> <p>With the shift to Ansible Automation 2.10 and later, there have been two primary, powerful content collections for Junos OS:</p> <ul> <li>The <strong>Red Hat Ansible Juniper Networks Junos Collection</strong> (we can refer to this as the Red Hat Collection) which uses the junipernetworks.junos namespace and is maintained by Red Hat Ansible.</li> <li>The <strong>Juniper Ansible Collection for Junos</strong> (we can refer to this as the Juniper Collection) which uses the juniper.device namespace and is maintained by Juniper Networks.</li> </ul> <p>While it has always been possible to <strong>deploy both</strong>, we consistently receive questions from users trying to understand which collection best suits their needs and use cases.</p> <p><img alt="Ansible Versions" src=../images/picture4.png></p> <p>As previously stated, these collections were built with different purposes and use cases.</p> <p>The Red Hat Collection was developed using a consistent approach applied to all Red Hat maintained networking collections. The key value proposition here being the templated configurations customers are able to utilize - allowing for streamlined, repeatable configuration management.</p> <p>This design provides significant value for users because it:</p> <ul> <li>Simplifies Configuration: It removes the need for engineers to memorize or look up the specific command syntax required for different devices.</li> <li>Enables Multi-Vendor Consistency: It allows for the consistent configuration of common networking actions like Virtual Routing and Forwarding (VRFs), Access Control Lists (ACLs) and Border Gateway Protocol (BGP) across a multi-vendor environment.</li> </ul> <p>The Juniper Collection was designed to provide users with direct access to the full breadth of Junos capabilities.</p> <p>Junos is known best for its vast number of features, protocols, and use cases. However, attempting to force these differentiating features into a "least common denominator" module set, while beneficial for multi-vendor consistency, can limit the user's ability to leverage the advanced capabilities of Junos.</p> <p>Customers who utilize the features which differentiate Junos often found that the Red Hat Collection either lacked support for them or did not provide the options necessary for their deployments. The Juniper Collection solves this by giving customers the power to automate many more features and functions that Junos supports.</p> <h3 id=enhanced-capabilities-in-the-merged-collection>Enhanced Capabilities in the Merged Collection<a class=headerlink href=#enhanced-capabilities-in-the-merged-collection title="Permanent link">&para;</a></h3> <p>The merging of these two collections creates a more robust and feature-rich automation experience for users. Customers who are migrating from the previous Red Hat collection to the new merged collection will gain these significant benefits:</p> <ul> <li>Pre-Check and Post-Check Support: Validate your network state before and after configuration changes to improve operational resilience (through the JSNAPy module)</li> <li>Configuration Format Support: The merged collection supports all three native Junos configuration formats - text, JSON, and XML. The text format also includes support for set action.</li> <li>Configuration Statements Expanded: Access a wider selection of configuration statements like OpenConfig, the ephemeral DB, group configs, family and address parameters, and more.</li> </ul> <p>By combining the strength of both Red Hat Ansible and Juniper Networks, the merged collection delivers a powerful automation solution.</p> <h3 id=how-the-merged-collection-works>How The Merged Collection Works<a class=headerlink href=#how-the-merged-collection-works title="Permanent link">&para;</a></h3> <p><img alt="Netconf Details" src=../images/picture5.png></p> <p>The users may utilize the Red Hat Collection playbooks they have previously created with the new merged Juniper and Red Hat Collection without any alterations. This can be done because both collections are present in the codebase.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-0-1>1</a></span>
+<span class=normal><a href=#__codelineno-0-2>2</a></span>
+<span class=normal><a href=#__codelineno-0-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>|-- ansible_collections
+<a id=__codelineno-0-2 name=__codelineno-0-2></a>|   |-- juniper/device
+<a id=__codelineno-0-3 name=__codelineno-0-3></a>|   |-- junipernetworks/junos
+</code></pre></div></td></tr></table></div> <p>The redirect is also configured in the runtime.yml file. A snippet is shown below.</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1>1</a></span>
+<span class=normal><a href=#__codelineno-1-2>2</a></span>
+<span class=normal><a href=#__codelineno-1-3>3</a></span>
+<span class=normal><a href=#__codelineno-1-4>4</a></span>
+<span class=normal><a href=#__codelineno-1-5>5</a></span>
+<span class=normal><a href=#__codelineno-1-6>6</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>plugin_routing:
+<a id=__codelineno-1-2 name=__codelineno-1-2></a>  action:
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>  modules:
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>    junos_acl_interfaces:
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>      redirect: juniper.device.junos_acl_interfaces
+<a id=__codelineno-1-6 name=__codelineno-1-6></a>       ...
+</code></pre></div></td></tr></table></div> <p>A look within the directory shows you that the modules have kept their names. If you look into the Python files, you will also see that these modules are calling the same Python files as before, aka action plugin handling in Ansible terminology.</p> <p><strong>List of Red Hat Collection's modules:</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1> 1</a></span>
+<span class=normal><a href=#__codelineno-2-2> 2</a></span>
+<span class=normal><a href=#__codelineno-2-3> 3</a></span>
+<span class=normal><a href=#__codelineno-2-4> 4</a></span>
+<span class=normal><a href=#__codelineno-2-5> 5</a></span>
+<span class=normal><a href=#__codelineno-2-6> 6</a></span>
+<span class=normal><a href=#__codelineno-2-7> 7</a></span>
+<span class=normal><a href=#__codelineno-2-8> 8</a></span>
+<span class=normal><a href=#__codelineno-2-9> 9</a></span>
+<span class=normal><a href=#__codelineno-2-10>10</a></span>
+<span class=normal><a href=#__codelineno-2-11>11</a></span>
+<span class=normal><a href=#__codelineno-2-12>12</a></span>
+<span class=normal><a href=#__codelineno-2-13>13</a></span>
+<span class=normal><a href=#__codelineno-2-14>14</a></span>
+<span class=normal><a href=#__codelineno-2-15>15</a></span>
+<span class=normal><a href=#__codelineno-2-16>16</a></span>
+<span class=normal><a href=#__codelineno-2-17>17</a></span>
+<span class=normal><a href=#__codelineno-2-18>18</a></span>
+<span class=normal><a href=#__codelineno-2-19>19</a></span>
+<span class=normal><a href=#__codelineno-2-20>20</a></span>
+<span class=normal><a href=#__codelineno-2-21>21</a></span>
+<span class=normal><a href=#__codelineno-2-22>22</a></span>
+<span class=normal><a href=#__codelineno-2-23>23</a></span>
+<span class=normal><a href=#__codelineno-2-24>24</a></span>
+<span class=normal><a href=#__codelineno-2-25>25</a></span>
+<span class=normal><a href=#__codelineno-2-26>26</a></span>
+<span class=normal><a href=#__codelineno-2-27>27</a></span>
+<span class=normal><a href=#__codelineno-2-28>28</a></span>
+<span class=normal><a href=#__codelineno-2-29>29</a></span>
+<span class=normal><a href=#__codelineno-2-30>30</a></span>
+<span class=normal><a href=#__codelineno-2-31>31</a></span>
+<span class=normal><a href=#__codelineno-2-32>32</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1></a>junos_acl_interfaces 
+<a id=__codelineno-2-2 name=__codelineno-2-2></a>junos_acls 
+<a id=__codelineno-2-3 name=__codelineno-2-3></a>junos_banner 
+<a id=__codelineno-2-4 name=__codelineno-2-4></a>junos_bgp_address_family 
+<a id=__codelineno-2-5 name=__codelineno-2-5></a>junos_bgp_global 
+<a id=__codelineno-2-6 name=__codelineno-2-6></a>junos_hostname 
+<a id=__codelineno-2-7 name=__codelineno-2-7></a>junos_interfaces 
+<a id=__codelineno-2-8 name=__codelineno-2-8></a>junos_l2_interfaces 
+<a id=__codelineno-2-9 name=__codelineno-2-9></a>junos_l3_interfaces 
+<a id=__codelineno-2-10 name=__codelineno-2-10></a>junos_lacp_interfaces 
+<a id=__codelineno-2-11 name=__codelineno-2-11></a>junos_lacp 
+<a id=__codelineno-2-12 name=__codelineno-2-12></a>junos_lag_interfaces 
+<a id=__codelineno-2-13 name=__codelineno-2-13></a>junos_lldp_global 
+<a id=__codelineno-2-14 name=__codelineno-2-14></a>junos_lldp_interfaces 
+<a id=__codelineno-2-15 name=__codelineno-2-15></a>junos_logging_global 
+<a id=__codelineno-2-16 name=__codelineno-2-16></a>junos_netconf 
+<a id=__codelineno-2-17 name=__codelineno-2-17></a>junos_ntp_global 
+<a id=__codelineno-2-18 name=__codelineno-2-18></a>junos_ospf_interfaces 
+<a id=__codelineno-2-19 name=__codelineno-2-19></a>junos_ospfv2 
+<a id=__codelineno-2-20 name=__codelineno-2-20></a>junos_ospfv3 
+<a id=__codelineno-2-21 name=__codelineno-2-21></a>junos_package 
+<a id=__codelineno-2-22 name=__codelineno-2-22></a>junos_prefix_lists 
+<a id=__codelineno-2-23 name=__codelineno-2-23></a>junos_routing_instances 
+<a id=__codelineno-2-24 name=__codelineno-2-24></a>junos_routing_options 
+<a id=__codelineno-2-25 name=__codelineno-2-25></a>junos_security_policies_global 
+<a id=__codelineno-2-26 name=__codelineno-2-26></a>junos_security_policies 
+<a id=__codelineno-2-27 name=__codelineno-2-27></a>junos_security_zones 
+<a id=__codelineno-2-28 name=__codelineno-2-28></a>junos_snmp_server 
+<a id=__codelineno-2-29 name=__codelineno-2-29></a>junos_static_routes 
+<a id=__codelineno-2-30 name=__codelineno-2-30></a>junos_user 
+<a id=__codelineno-2-31 name=__codelineno-2-31></a>junos_vlans 
+<a id=__codelineno-2-32 name=__codelineno-2-32></a>junos_vrf
+</code></pre></div></td></tr></table></div> <p><strong>List of Juniper Collection's modules:</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-3-1> 1</a></span>
+<span class=normal><a href=#__codelineno-3-2> 2</a></span>
+<span class=normal><a href=#__codelineno-3-3> 3</a></span>
+<span class=normal><a href=#__codelineno-3-4> 4</a></span>
+<span class=normal><a href=#__codelineno-3-5> 5</a></span>
+<span class=normal><a href=#__codelineno-3-6> 6</a></span>
+<span class=normal><a href=#__codelineno-3-7> 7</a></span>
+<span class=normal><a href=#__codelineno-3-8> 8</a></span>
+<span class=normal><a href=#__codelineno-3-9> 9</a></span>
+<span class=normal><a href=#__codelineno-3-10>10</a></span>
+<span class=normal><a href=#__codelineno-3-11>11</a></span>
+<span class=normal><a href=#__codelineno-3-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1></a>command
+<a id=__codelineno-3-2 name=__codelineno-3-2></a>config
+<a id=__codelineno-3-3 name=__codelineno-3-3></a>facts
+<a id=__codelineno-3-4 name=__codelineno-3-4></a>file_copy
+<a id=__codelineno-3-5 name=__codelineno-3-5></a>Jsnapy
+<a id=__codelineno-3-6 name=__codelineno-3-6></a>ping
+<a id=__codelineno-3-7 name=__codelineno-3-7></a>pmtud
+<a id=__codelineno-3-8 name=__codelineno-3-8></a>rpc
+<a id=__codelineno-3-9 name=__codelineno-3-9></a>software
+<a id=__codelineno-3-10 name=__codelineno-3-10></a>srx_cluster
+<a id=__codelineno-3-11 name=__codelineno-3-11></a>system
+<a id=__codelineno-3-12 name=__codelineno-3-12></a>table
+</code></pre></div></td></tr></table></div> <p><strong>Dependencies:</strong></p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-4-1>1</a></span>
+<span class=normal><a href=#__codelineno-4-2>2</a></span>
+<span class=normal><a href=#__codelineno-4-3>3</a></span>
+<span class=normal><a href=#__codelineno-4-4>4</a></span>
+<span class=normal><a href=#__codelineno-4-5>5</a></span>
+<span class=normal><a href=#__codelineno-4-6>6</a></span>
+<span class=normal><a href=#__codelineno-4-7>7</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1></a>Ansible &gt;= 2.17
+<a id=__codelineno-4-2 name=__codelineno-4-2></a>Python &gt;= 3.12 
+<a id=__codelineno-4-3 name=__codelineno-4-3></a>PyEZ (junos-eznc) &gt;= 2.7.3
+<a id=__codelineno-4-4 name=__codelineno-4-4></a>Jsnapy &gt;= 1.3.7
+<a id=__codelineno-4-5 name=__codelineno-4-5></a>Jxmlease &gt;= 1.0.1
+<a id=__codelineno-4-6 name=__codelineno-4-6></a>Xmltodict &gt;= 0.13.0
+<a id=__codelineno-4-7 name=__codelineno-4-7></a>packaging
+</code></pre></div></td></tr></table></div> <h2 id=differences-to-keep-in-mind>Differences to Keep in Mind<a class=headerlink href=#differences-to-keep-in-mind title="Permanent link">&para;</a></h2> <p>As a reminder, the Red Hat Ansible Juniper Networks Junos Collection that uses the junipernetworks.junos namespace and is maintained by Red Hat Ansible will be called the <strong>Red Hat Collection</strong>. The Juniper Ansible Collection for Junos that uses the juniper.device namespace and is maintained by Juniper Networks will be called the <strong>Juniper Collection</strong>. This section assumes the Juniper Collection is using Junos PyEZ as transport.</p> <h3 id=inventory-schema>Inventory Schema<a class=headerlink href=#inventory-schema title="Permanent link">&para;</a></h3> <p>Red Hat Collection</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-5-1> 1</a></span>
+<span class=normal><a href=#__codelineno-5-2> 2</a></span>
+<span class=normal><a href=#__codelineno-5-3> 3</a></span>
+<span class=normal><a href=#__codelineno-5-4> 4</a></span>
+<span class=normal><a href=#__codelineno-5-5> 5</a></span>
+<span class=normal><a href=#__codelineno-5-6> 6</a></span>
+<span class=normal><a href=#__codelineno-5-7> 7</a></span>
+<span class=normal><a href=#__codelineno-5-8> 8</a></span>
+<span class=normal><a href=#__codelineno-5-9> 9</a></span>
+<span class=normal><a href=#__codelineno-5-10>10</a></span>
+<span class=normal><a href=#__codelineno-5-11>11</a></span>
+<span class=normal><a href=#__codelineno-5-12>12</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1></a>[junos]
+<a id=__codelineno-5-2 name=__codelineno-5-2></a>&lt;Device IP&gt;
+<a id=__codelineno-5-3 name=__codelineno-5-3></a>
+<a id=__codelineno-5-4 name=__codelineno-5-4></a>[junos:vars]
+<a id=__codelineno-5-5 name=__codelineno-5-5></a>ansible_network_os=juniper.device.junos
+<a id=__codelineno-5-6 name=__codelineno-5-6></a>ansible_user=&lt;username&gt;
+<a id=__codelineno-5-7 name=__codelineno-5-7></a>ansible_password=&lt;password&gt;
+<a id=__codelineno-5-8 name=__codelineno-5-8></a>ansible_port=22
+<a id=__codelineno-5-9 name=__codelineno-5-9></a>ansible_connection=ansible.netcommon.netconf
+<a id=__codelineno-5-10 name=__codelineno-5-10></a>
+<a id=__codelineno-5-11 name=__codelineno-5-11></a>[all:vars]
+<a id=__codelineno-5-12 name=__codelineno-5-12></a>ansible_python_interpreter=&lt;python interpreter path&gt;
+</code></pre></div></td></tr></table></div> <p>Juniper Collection</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-6-1> 1</a></span>
+<span class=normal><a href=#__codelineno-6-2> 2</a></span>
+<span class=normal><a href=#__codelineno-6-3> 3</a></span>
+<span class=normal><a href=#__codelineno-6-4> 4</a></span>
+<span class=normal><a href=#__codelineno-6-5> 5</a></span>
+<span class=normal><a href=#__codelineno-6-6> 6</a></span>
+<span class=normal><a href=#__codelineno-6-7> 7</a></span>
+<span class=normal><a href=#__codelineno-6-8> 8</a></span>
+<span class=normal><a href=#__codelineno-6-9> 9</a></span>
+<span class=normal><a href=#__codelineno-6-10>10</a></span>
+<span class=normal><a href=#__codelineno-6-11>11</a></span>
+<span class=normal><a href=#__codelineno-6-12>12</a></span>
+<span class=normal><a href=#__codelineno-6-13>13</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1></a>[junos]
+<a id=__codelineno-6-2 name=__codelineno-6-2></a>cfg_target 
+<a id=__codelineno-6-3 name=__codelineno-6-3></a>
+<a id=__codelineno-6-4 name=__codelineno-6-4></a>[junos:vars]
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>ansible_host=x.x.x.x 
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>ansible_user=&lt;user&gt; 
+<a id=__codelineno-6-7 name=__codelineno-6-7></a>ansible_password=&lt;pass&gt; 
+<a id=__codelineno-6-8 name=__codelineno-6-8></a>ansible_port=22 
+<a id=__codelineno-6-9 name=__codelineno-6-9></a>ansible_connection=juniper.device.pyez 
+<a id=__codelineno-6-10 name=__codelineno-6-10></a>ansible_command_timeout=300
+<a id=__codelineno-6-11 name=__codelineno-6-11></a>
+<a id=__codelineno-6-12 name=__codelineno-6-12></a>[all:vars]
+<a id=__codelineno-6-13 name=__codelineno-6-13></a>ansible_python_interpreter=&lt;python interpreter path&gt;
+</code></pre></div></td></tr></table></div> <h3 id=logging>Logging<a class=headerlink href=#logging title="Permanent link">&para;</a></h3> <p>Red Hat Collection module path:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>junipernetworks.junos.junos_logging_global
+</code></pre></div></td></tr></table></div> <p>Juniper Collection module path:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1></a>juniper.device.junos_logging_global
+</code></pre></div></td></tr></table></div> <p>We have additional information and extensive examples on how the playbooks vary. Both may co-exist and we recommend adopting juniper.device moving forward. For your convenience, we have provided three specific examples.</p> <ul> <li><a href=https://dineshbaburam91.github.io/posts/Ansible_Junos_Config_Example/ >Ansible Junos Configuration</a></li> <li><a href=https://dineshbaburam91.github.io/posts/Ansible_Junos_Rpc_Example/ >Ansible Junos RPC</a></li> <li><a href=https://dineshbaburam91.github.io/posts/Ansible_Junos_Facts_Examples/ >Ansible Junos Facts</a></li> </ul> <h2 id=moving-forward>Moving Forward<a class=headerlink href=#moving-forward title="Permanent link">&para;</a></h2> <h3 id=installation>Installation<a class=headerlink href=#installation title="Permanent link">&para;</a></h3> <p>Please follow the recommended steps to install the Ansible Collection (junipernetworks.junos) in the Juniper Collection (juniper.device).</p> <ol> <li>Create the virtual environment</li> </ol> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-9-1>1</a></span>
+<span class=normal><a href=#__codelineno-9-2>2</a></span>
+<span class=normal><a href=#__codelineno-9-3>3</a></span>
+<span class=normal><a href=#__codelineno-9-4>4</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1></a>mkdir ansible_modules_redirection_ansible_merger_branch_venv
+<a id=__codelineno-9-2 name=__codelineno-9-2></a>cd ansible_modules_redirection_ansible_merger_branch_venv
+<a id=__codelineno-9-3 name=__codelineno-9-3></a>python3.12 -m venv venv
+<a id=__codelineno-9-4 name=__codelineno-9-4></a>source venv/bin/activate
+</code></pre></div></td></tr></table></div> <ol> <li>Install the merged collection</li> </ol> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-10-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-10-1 name=__codelineno-10-1></a>ansible-galaxy collection install git+https://github.com/Juniper/ansible-junos-stdlib.git#/ansible_collections/juniper/device
+</code></pre></div></td></tr></table></div> <ol> <li>Install the Ansible Collection</li> </ol> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-11-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-11-1 name=__codelineno-11-1></a>ansible-galaxy collection install junipernetworks.junos
+</code></pre></div></td></tr></table></div> <ol> <li>Update the Ansible Collection Meta Runtime</li> </ol> <p>Remove existing content from the runtime.yaml file located at:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-12-1>1</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-12-1 name=__codelineno-12-1></a>/root/.ansible/collections/ansible_collections/junipernetworks/junos/meta/runtime.yml
+</code></pre></div></td></tr></table></div> <p>Add the new content from the merger branch (jnpr-ansible-merger) runtime.yaml .</p> <ol> <li>Execute your playbooks!</li> </ol> <h3 id=migration>Migration<a class=headerlink href=#migration title="Permanent link">&para;</a></h3> <p>Long term, we recommend this migration path to the Juniper Collection. Please note that the Juniper modules utilizes Ansible connections <a href=https://www.juniper.net/documentation/us/en/software/junos-ansible/ansible/topics/topic-map/junos-ansible-connection-methods.html#id-persistent-vs-local-connections>local</a> or <a href=https://www.juniper.net/documentation/us/en/software/junos-ansible/ansible/topics/topic-map/junos-ansible-connection-methods.html#id-persistent-vs-local-connections>juniper.device.pyez</a>.</p> <table> <thead> <tr> <th style="text-align: left;">Modules from the Ansible Collection</th> <th style="text-align: left;">Modules from the Juniper Collection</th> </tr> </thead> <tbody> <tr> <td style="text-align: left;">junos_command.py</td> <td style="text-align: left;">command.py</td> </tr> <tr> <td style="text-align: left;">junos_facts.py</td> <td style="text-align: left;">facts.py</td> </tr> <tr> <td style="text-align: left;">junos_package.py</td> <td style="text-align: left;">software.py</td> </tr> <tr> <td style="text-align: left;">junos_ping.py</td> <td style="text-align: left;">ping.py</td> </tr> <tr> <td style="text-align: left;">junos_rpc.py</td> <td style="text-align: left;">rpc.py</td> </tr> <tr> <td style="text-align: left;">junos_scp.py</td> <td style="text-align: left;">file_copy.py</td> </tr> <tr> <td style="text-align: left;">junos_system.py</td> <td style="text-align: left;">system.py</td> </tr> <tr> <td style="text-align: left;">All other modules</td> <td style="text-align: left;">config.py</td> </tr> </tbody> </table> <h3 id=support>Support<a class=headerlink href=#support title="Permanent link">&para;</a></h3> <ul> <li><a href=https://www.juniper.net/documentation/us/en/software/junos-ansible/ansible/topics/concept/junos-ansible-troubleshooting-error-summary.htmlhttps://www.juniper.net/documentation/us/en/software/junos-ansible/ansible/topics/concept/junos-ansible-troubleshooting-error-summary.html>Ansible for Junos Troubleshooting Summary</a></li> <li>Regression testing for all Junos releases</li> <li>Support for Junos OS and Junos OS Evolved</li> <li>Support of the physical, virtual, and containerized platforms running Junos which includes the MX, PTX, ACX, QFX, EX, and SRX series.</li> <li>GitHub issues can be used for features requests, bug, and ideas.</li> </ul> <p>Red Hat also provides support that is included with your Red Hat Ansible Automation Platform, as the merged collection juniper.device is certified and available in the Red Hat ecosystem catalog.</p> <p>In addition, the Red Hat collection junipernetworks.junos will follow the 2 year deprecation cycle and will be maintained while customers can gradually migrate to use the Juniper collection with the combined capabilities.</p> <h2 id=useful-links>Useful links<a class=headerlink href=#useful-links title="Permanent link">&para;</a></h2> <p>Red Hat Ansible Juniper Networks Junos Collection:</p> <ul> <li>Ansible Automation Hub (supported collections): <a href=https://console.redhat.com/ansible/automation-hub/repo/published/junipernetworks/junos/ >https://console.redhat.com/ansible/automation-hub/repo/published/junipernetworks/junos/</a></li> <li>Galaxy: <a href=https://galaxy.ansible.com/junipernetworks/junos>https://galaxy.ansible.com/junipernetworks/junos</a></li> <li>Source code: <a href=https://github.com/ansible-collections/junipernetworks.junos>https://github.com/ansible-collections/junipernetworks.junos</a></li> </ul> <p>Juniper Ansible Collection for Junos:</p> <ul> <li>Ansible Automation Hub (supported collections): <a href=https://console.redhat.com/ansible/automation-hub/repo/published/juniper/device/ >https://console.redhat.com/ansible/automation-hub/repo/published/juniper/device/ </a></li> <li>Galaxy: <a href=https://galaxy.ansible.com/juniper/device>https://galaxy.ansible.com/juniper/device</a></li> <li>Source code:<a href=https://github.com/Juniper/ansible-junos-stdlib> https://github.com/Juniper/ansible-junos-stdlib</a></li> </ul> <h2 id=acknowledgements>Acknowledgements<a class=headerlink href=#acknowledgements title="Permanent link">&para;</a></h2> <p>Many thanks to the Red Hat and Juniper teams that got us to this point.</p> <ul> <li>Red Hat: Dafne Mendoza, Pete Cruz, Elle Universal, Rohit Thakur</li> <li>Juniper: Chidanand Pujar, Dinesh Babu R, Dwarakanath Yadavalli, Nick Davey, Brenda Wilden</li> </ul> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg> Back to top </button> </main> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../..", "features": ["toc.follow", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy", "content.code.select", "content.action.edit", "content.tooltips", "content.footnote.tooltips"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.c8b220af.min.js></script> <script src=../../../vendor/glightbox/glightbox.min.js></script> <script src=../../../vendor/katex/katex.min.js></script> <script src=../../../vendor/katex/contrib/auto-render.min.js></script> <script src=../../../vendor/fontawesome/all.min.js></script> <script src=../../../js/math-render.js></script> <script src=../../../js/extra.js></script> <script src=../../../js/hfws-instant-guard.js></script> <script src=../../../js/search-results.js></script> <div id=footer class=hfws-footer><!-- HFWS inserts its footer here --></div> </body> </html>
