@@ -158,7 +158,7 @@ There are following areas being tracked for enhancing the solution:
 
 ## Useful links
 
-- Second part of this article - Operating 1Tbps MX304/SRX4600 Firewall Scale-Out System: [https://juniper.github.io/techposts/operating-1tbps-firewall-scale-out-system/article](https://juniper.github.io/techposts/operating-1tbps-firewall-scale-out-system/article)
+- Second part of this article - Operating 1Tbps MX304/SRX4600 Firewall Scale-Out System: [https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article](https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article)
 - PyEZ developer guide
 [https://www.juniper.net/documentation/us/en/software/junos-pyez/junos-pyez-developer/index.html](https://www.juniper.net/documentation/us/en/software/junos-pyez/junos-pyez-developer/index.html)
 - Junos event options

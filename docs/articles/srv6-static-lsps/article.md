@@ -1155,7 +1155,7 @@ Ultimately, SRv6 static TE LSPs serve as a foundational building block for advan
 ## Useful Links
 
 - SRv6 Micro-SID (uSID) Basics:
-[https://juniper.github.io/techposts/srv6-micro-sid-basics/article](https://juniper.github.io/techposts/srv6-micro-sid-basics/article)
+[https://techpost.hpe.com/articles/srv6-micro-sid-basics/article](https://techpost.hpe.com/articles/srv6-micro-sid-basics/article)
 - Service Provider SRv6 Core and Edge---Juniper Validated Design (JVD)
 [https://www.juniper.net/documentation/us/en/software/jvd/jvd-sp-core-edge-srv6-01-01/index.html](https://www.juniper.net/documentation/us/en/software/jvd/jvd-sp-core-edge-srv6-01-01/index.html)
 

@@ -8,7 +8,7 @@ Welcome back to the validation design series and today is all about that overlay
 
 ## Introduction
 
-The previous blog [*Building Border Agnostic Architectures with Seamless MPLS*](https://juniper.github.io/techposts/border-agnostic-architectures-with-seamless-mpls/article) explored the advantages of Seamless MPLS in the referenced use case for Mobile Backhaul, enabling interdomain connectivity across disparate networks referred to as *regions*. There are in fact several permutations of Seamless MPLS leveraging intra and inter-AS topologies. The major advantages, in addition to overall flexibility, include massive scalability, improved convergence, simplified troubleshooting, and optimized service provisioning.
+The previous blog [*Building Border Agnostic Architectures with Seamless MPLS*](https://techpost.hpe.com/articles/border-agnostic-architectures-with-seamless-mpls/article) explored the advantages of Seamless MPLS in the referenced use case for Mobile Backhaul, enabling interdomain connectivity across disparate networks referred to as *regions*. There are in fact several permutations of Seamless MPLS leveraging intra and inter-AS topologies. The major advantages, in addition to overall flexibility, include massive scalability, improved convergence, simplified troubleshooting, and optimized service provisioning.
 
 Even though Seamless MPLS has been around for several years now, it is still very relevant today both as a standalone systematic approach to building modern networks across multiple domains---and as a foundational building block for more advanced solutions. For instance, Seamless Segment Routing with Classful Transport or Network Slicing with Service Orchestration mandates the same common principles that services must be capable of traversing multiple domains with sophisticated performance machinery and relative simplicity.
 
@@ -18,15 +18,15 @@ The featured validation includes ACX710, ACX5448 and MX10003 as the primary DUTs
 
 This is the fourth article in the MBH series, be sure to check out earlier blogs which provide the building blocks of the featured solution:
 
-- [JVD Overview](https://juniper.github.io/techposts/introducing-the-validation-series/article)
-- [Mobile Backhaul Overview](https://juniper.github.io/techposts/jvd-mobile-backhaul-overview/article)
-- [Seamless MPLS LDP with OSPF underlay](https://juniper.github.io/techposts/seamless-mpls-ldp-with-ospf/article)
-- [Building Border Agnostic Architectures with Seamless MPLS](https://juniper.github.io/techposts/border-agnostic-architectures-with-seamless-mpls/article)
+- [JVD Overview](https://techpost.hpe.com/articles/introducing-the-validation-series/article)
+- [Mobile Backhaul Overview](https://techpost.hpe.com/articles/jvd-mobile-backhaul-overview/article)
+- [Seamless MPLS LDP with OSPF underlay](https://techpost.hpe.com/articles/seamless-mpls-ldp-with-ospf/article)
+- [Building Border Agnostic Architectures with Seamless MPLS](https://techpost.hpe.com/articles/border-agnostic-architectures-with-seamless-mpls/article)
 - Mobile Backhaul Services Overlay: present document
 
 ## Building Blocks for Overlay VPN Services
 
-Quick recap on the building blocks so far, which have enabled this step. The IGP underlay with MPLS transport was established in the second blog (*[Seamless MPLS LDP-Signaled with OSPF](https://juniper.github.io/techposts/seamless-mpls-ldp-with-ospf/article)*). It might be OSPF or ISIS, along with LDP or RSVP signaled MPLS leveraging protection mechanisms like rLFA or FRR, respectively. In the third blog (illustrated by figure 1), the MPLS domain was extended across disparate regions by stitching border nodes with BGP Labeled Unicast (BGP-LU). Each region may implement IGP and MPLS characteristics unique to that given domain.
+Quick recap on the building blocks so far, which have enabled this step. The IGP underlay with MPLS transport was established in the second blog (*[Seamless MPLS LDP-Signaled with OSPF](https://techpost.hpe.com/articles/seamless-mpls-ldp-with-ospf/article)*). It might be OSPF or ISIS, along with LDP or RSVP signaled MPLS leveraging protection mechanisms like rLFA or FRR, respectively. In the third blog (illustrated by figure 1), the MPLS domain was extended across disparate regions by stitching border nodes with BGP Labeled Unicast (BGP-LU). Each region may implement IGP and MPLS characteristics unique to that given domain.
 
 We loosely covered VPN overlay from a multiprotocol BGP perspective but let's expand on this topic to describe how each service is provisioned over the Seamless MPLS mobile backhaul architecture. In the diagram (figure 1), we can see how VPN label imposition occurs and subsequently tunneled through paths facilitated by labeled BGP and MPLS.
 

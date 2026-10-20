@@ -1358,11 +1358,11 @@ MPC10E line cards subscriber scalability is not impacted when enabling HQoS, ing
 ## Useful links
 
 - Centralized Deterministic CGNAT
-[https://juniper.github.io/techposts/centralized-deterministic-cgnat/article](https://juniper.github.io/techposts/centralized-deterministic-cgnat/article)
+[https://techpost.hpe.com/articles/centralized-deterministic-cgnat/article](https://techpost.hpe.com/articles/centralized-deterministic-cgnat/article)
 - MX Interface Module Reference
 [https://www.juniper.net/documentation/us/en/hardware/mx-module-reference/mx-module-reference.pdf](https://www.juniper.net/documentation/us/en/hardware/mx-module-reference/mx-module-reference.pdf)
 - MPC10E Deep Dive
-[https://juniper.github.io/techposts/mpc10e-deepdive/article](https://juniper.github.io/techposts/mpc10e-deepdive/article)
+[https://techpost.hpe.com/articles/mpc10e-deepdive/article](https://techpost.hpe.com/articles/mpc10e-deepdive/article)
 - Broadband Subscriber Sessions User Guide
 [https://www.juniper.net/documentation/us/en/software/junos/subscriber-mgmt-sessions/index.html](https://www.juniper.net/documentation/us/en/software/junos/subscriber-mgmt-sessions/index.html)
 - Broadband Subscriber Access Protocols User Guide

@@ -36,7 +36,7 @@ Figure 2 above illustrates this evolution over generations. The Express 5 suppor
 
 ### Express 5 High-Level Description
 
-The Express 5 is not just a single chipset but more an ASIC family. It's the first in this industry to propose a design based on chiplets. You will find more details on this blog post from Dmitry Shokarev: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+The Express 5 is not just a single chipset but more an ASIC family. It's the first in this industry to propose a design based on chiplets. You will find more details on this blog post from Dmitry Shokarev: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
 
 To keep it short, we have two main chiplets, X and F, and we can mix and match them to create different packages based on the requirements.
 
@@ -82,7 +82,7 @@ Table: Express 5 BXX Information
 
 * Tested scale, hardware capable of much more (pending software validation)
 
-**FIB compression is enabled by default**, but these numbers here represent FIB entries. In consequence, the scale could be much higher because of the compression. For more details on this technology, we invite you to check this article: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+**FIB compression is enabled by default**, but these numbers here represent FIB entries. In consequence, the scale could be much higher because of the compression. For more details on this technology, we invite you to check this article: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 
 ![Express 5 BXX Chiplets and Datapaths](images/picture7.png)
 
@@ -101,7 +101,7 @@ user@ptx10002-36qdd>
 
 We don't need to remind you that any bandwidth figure expressed in this article is Full Duplex: a 7.2Tbps datapath can receive and transmit 7.2Tbps simultaneously.
 
-For more details on the Express 5 design, capabilities, and differentiators, we invite you to check this article from Dmitry Shokarev: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+For more details on the Express 5 design, capabilities, and differentiators, we invite you to check this article from Dmitry Shokarev: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
 
 Now that we understand the forwarding engine used in this router, let's take a closer look at the PTX10002-36QDD.
 
@@ -297,7 +297,7 @@ Various Juniper software components leverage multi-core CPU capabilities. Impres
 
 Storage subsystem is comprised of solid-state drives (SSDs), two are provided for redundancy, plus reliable management of the software upgrades and rollbacks. These drives are not field-replaceable, but they can be removed from the system before shipping devices back to Juniper for service. This is to support customer's security policies where non-volatile storage may not leave customer premises. Removal of drives requires a non-standard service agreement. As an alternative to the physical removal, both SSDs support Secure Erase functionality.
 
-PTX10002-36QDD control plane is designed to host 3rd party applications: there is enough storage, DRAM capacity, and CPU power. Some of these applications may include custom Service Assurance Agents or statistics collection agents developed by Juniper partners and customers. Even full Telegraf, InfluxDB, Grafana stack can run on the router itself for data collection and visualization, check out the blog post ([https://juniper.github.io/techposts/telemetry-collector-and-dataviz-on-junos-evo/article](https://juniper.github.io/techposts/telemetry-collector-and-dataviz-on-junos-evo/article)).
+PTX10002-36QDD control plane is designed to host 3rd party applications: there is enough storage, DRAM capacity, and CPU power. Some of these applications may include custom Service Assurance Agents or statistics collection agents developed by Juniper partners and customers. Even full Telegraf, InfluxDB, Grafana stack can run on the router itself for data collection and visualization, check out the blog post ([https://techpost.hpe.com/articles/telemetry-collector-and-dataviz-on-junos-evo/article](https://techpost.hpe.com/articles/telemetry-collector-and-dataviz-on-junos-evo/article)).
 
 In terms of management plane connectivity, the CPU is directly linked to:
 
@@ -583,8 +583,8 @@ This makes it an ideal choice for a wide range of applications, including core, 
 - [The Feed] Introducing the PTX10002-36QDD Packet Transport Router: [https://www.juniper.net/us/en/the-feed/topics/400g-and-800g/introducing-the-ptx10002-36qdd-packet-transport-router.html](https://www.juniper.net/us/en/the-feed/topics/400g-and-800g/introducing-the-ptx10002-36qdd-packet-transport-router.html)
 - PTX10002-36QDD Datasheet: [https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-fixed-configuration-packet-transport-routers-datasheet.html](https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-fixed-configuration-packet-transport-routers-datasheet.html)
 - PTX10002-36QDD Specifications: [https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-36qdd-packet-transport-router/specs.html](https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-36qdd-packet-transport-router/specs.html)
-- Introduction to Express 5 TechPost blog: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- FIB Compression blog: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+- Introduction to Express 5 TechPost blog: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- FIB Compression blog: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 
 ## Glossary
 

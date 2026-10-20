@@ -6,7 +6,7 @@ A minimalistic tool for bulk config changes in the scale-out system beyond optio
 
 ## Introduction
 
-This TechPost is continuation of "[Scale-Out Security Services with Auto-FBF](https://juniper.github.io/techposts/operating-1tbps-firewall-scale-out-system/article) looking at the things more practically. Now the focus will be on a minimalistic tool for bulk config changes in the scale-out system beyond options available in Auto-FBF CLI. To a certain extent the tool could be used as a very simplistic alternative to templating features of Security Director and other external tooling. In this specific example the tool is used for controlling configuration of scaled-out SRX firewalls from MX/PTX device. Reading previous TechPosts is recommended for understanding the Auto-FBF principles. However, approaches are applicable elsewhere too due to generic nature for any Junos devices.
+This TechPost is continuation of "[Scale-Out Security Services with Auto-FBF](https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article) looking at the things more practically. Now the focus will be on a minimalistic tool for bulk config changes in the scale-out system beyond options available in Auto-FBF CLI. To a certain extent the tool could be used as a very simplistic alternative to templating features of Security Director and other external tooling. In this specific example the tool is used for controlling configuration of scaled-out SRX firewalls from MX/PTX device. Reading previous TechPosts is recommended for understanding the Auto-FBF principles. However, approaches are applicable elsewhere too due to generic nature for any Junos devices.
 
 ## The challenge
 
@@ -425,8 +425,8 @@ At the time of TechPost release (2024/02), the tool is not available publicly, f
 ## Useful links
 
 - Previous Auto-FBF TechPosts
-[https://juniper.github.io/techposts/scale-out-security-services-with-Auto-FBF/article](https://juniper.github.io/techposts/scale-out-security-services-with-Auto-FBF/article)
-[https://juniper.github.io/techposts/operating-1tbps-firewall-scale-out-system/article](https://juniper.github.io/techposts/operating-1tbps-firewall-scale-out-system/article)
+[https://techpost.hpe.com/articles/scale-out-security-services-with-Auto-FBF/article](https://techpost.hpe.com/articles/scale-out-security-services-with-Auto-FBF/article)
+[https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article](https://techpost.hpe.com/articles/operating-1tbps-firewall-scale-out-system/article)
 - PyEZ developer guide
 https://www.juniper.net/documentation/us/en/software/junos-pyez/junos-pyez-developer/index.html
 - Junos event options

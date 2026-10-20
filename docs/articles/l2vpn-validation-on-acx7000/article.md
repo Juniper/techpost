@@ -8,11 +8,11 @@ ACX7000 platform is tested with 8,000 Layer2 VPN Routing-instances for 99.9% lin
 
 This is the third article in the ACX7k Metro Validation Series.
 
-In this article, we validate the [L2VPN](https://www.juniper.net/documentation/us/en/software/junos/vpn-l2/topics/concept/vpn-layer-2-overview.html) feature scale support on the [ACX7100-32C](https://juniper.github.io/techposts/acx7100-deepdive/article) platform with 22.2R1 Junos-EVO image.
+In this article, we validate the [L2VPN](https://www.juniper.net/documentation/us/en/software/junos/vpn-l2/topics/concept/vpn-layer-2-overview.html) feature scale support on the [ACX7100-32C](https://techpost.hpe.com/articles/acx7100-deepdive/article) platform with 22.2R1 Junos-EVO image.
 
 L2VPN is a BGP or LDP MPLS Enabled Solution to connect Customer Edge Devices (CEs) across a Provider Edge Network. [RFC-6624](https://www.rfc-editor.org/rfc/rfc6624.html) supports L2VPN using BGP for auto-discovery and Signalling. The PEs provide layer 2 bridged connectivity between CEs. The PEs of the network are connected via [MPLS](https://www.juniper.net/documentation/en_US/junos/topics/concept/mpls-security-overview.html) technology with the help of LDP, [RSVP](https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/rsvp-overview.html), [SR-MPLS](https://blogs.juniper.net/en-us/industry-solutions-and-trends/segment-routing-sr-with-multiprotocol-label-switching-mpls) etc.
 
-JUNOS-EVO supports L2VPN functionality with instance type "l2vpn". 8,000 L2VPN Instances were tested on ACX7100-32C. The same scale is tested on ACX7100-48L as well as on [ACX7509](https://juniper.github.io/techposts/acx7024-deepdive/article) Scale is not covered in this article (same features but different scale are expected on this platform).
+JUNOS-EVO supports L2VPN functionality with instance type "l2vpn". 8,000 L2VPN Instances were tested on ACX7100-32C. The same scale is tested on ACX7100-48L as well as on [ACX7509](https://techpost.hpe.com/articles/acx7024-deepdive/article) Scale is not covered in this article (same features but different scale are expected on this platform).
 
 Please note that despite sharing the same ACX moniker, the ACX7000 products are different products than ACX500/710/1000/1100/2100/2200/4000/5000/5400/6000. They are powered by different Packet Forwarding Engines (PFE), and support different feature sets and scales.
 
@@ -468,8 +468,8 @@ ACX7000 (ACX7100-32C, ACX7100-48L, ACX7509) can scale to 8000 L2VPN instances an
 
 - RFC-6624 - [https://datatracker.ietf.org/doc/html/rfc6624](https://www.rfc-editor.org/rfc/rfc6624.html)
 - L2VPN - [https://www.juniper.net/documentation/us/en/software/junos/vpn-l2/topics/concept/vpn-layer-2-overview.html](https://www.juniper.net/documentation/us/en/software/junos/vpn-l2/topics/concept/vpn-layer-2-overview.html)
-- ACX7100 Deepdive: [https://juniper.github.io/techposts/acx7100-deepdive/article](https://juniper.github.io/techposts/acx7100-deepdive/article)
-- ACX7509 Deepdive: [https://juniper.github.io/techposts/acx7509-deepdive/article](https://juniper.github.io/techposts/acx7509-deepdive/article)
+- ACX7100 Deepdive: [https://techpost.hpe.com/articles/acx7100-deepdive/article](https://techpost.hpe.com/articles/acx7100-deepdive/article)
+- ACX7509 Deepdive: [https://techpost.hpe.com/articles/acx7509-deepdive/article](https://techpost.hpe.com/articles/acx7509-deepdive/article)
 
 ## Glossary
 

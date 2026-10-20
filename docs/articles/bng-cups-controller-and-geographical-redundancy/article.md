@@ -205,12 +205,12 @@ Industry References
 
 Juniper and ACG Networks References:
 
-- [Juniper BNG CUPS Architecture](https://juniper.github.io/techposts/juniper-bng-cups-architecture/article)
+- [Juniper BNG CUPS Architecture](https://techpost.hpe.com/articles/juniper-bng-cups-architecture/article)
 - [Juniper BNG CUPS Documentation](https://www.juniper.net/documentation/product/us/en/juniper-bng-cups/)
 - [Juniper Address Pool Manager Documentation](https://www.juniper.net/documentation/product/us/en/address-pool-manager-apm/)
-- [Juniper BNG CUPS Smart Load Balancing with High Availability](https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article)
-- [Juniper BNG CUPS Address Pool Management](https://juniper.github.io/techposts/juniper-bng-cups-address-pool-management/article)
-- [Juniper BNG CUPS Hitless User Plane Maintenance](https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article)
+- [Juniper BNG CUPS Smart Load Balancing with High Availability](https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article)
+- [Juniper BNG CUPS Address Pool Management](https://techpost.hpe.com/articles/juniper-bng-cups-address-pool-management/article)
+- [Juniper BNG CUPS Hitless User Plane Maintenance](https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article)
 - [ACG -- Juniper TCO Benefit for Distributed Broadband with CUPS](https://juniper.highspot.com/items/63b607f251d3ea6ca3d4bb63)
 - [Juniper MX series routers](https://www.juniper.net/us/en/products/routers/mx-series.html)
 - [Juniper ACX 7100 and 7300 series routers](https://www.juniper.net/us/en/products/routers/acx-series.html)

@@ -274,8 +274,8 @@ We notice the hardware shared for port 19 and PTP FPGA via mux section. At a sin
 
 We invite you to check the articles to learn more about the ASIC selection process and many more details on the packet forwarding ASIC.
 
-- Building the ACX7000 Series: the PFE: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
-- Let's Talk About VOQ and DNX Pipeline: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+- Building the ACX7000 Series: the PFE: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
+- Let's Talk About VOQ and DNX Pipeline: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 
 The different components can be monitored via CLI.
 
@@ -420,7 +420,7 @@ Note:
 
 If you are not familiar with the concept of MDB / Hardware profiles, please check this link first:
 
-[https://juniper.github.io/techposts/acx7000-hardware-profiles/article](https://juniper.github.io/techposts/acx7000-hardware-profiles/article)
+[https://techpost.hpe.com/articles/acx7000-hardware-profiles/article](https://techpost.hpe.com/articles/acx7000-hardware-profiles/article)
 
 Two MDB Profiles are supported: lean-edge (default) and cloud-metro. A reload is required to change the profile configuration.
 
@@ -531,9 +531,9 @@ The ACX7020 router is 1-RU, 100Gbps platform, ideally positioned for small cell 
 - ACX7020 Data sheet:
 [https://www.juniper.net/us/en/products/routers/acx-series/acx7000-family-cloud-metro-routers/acx7000-line/acx7020-cloud-metro-routers-datasheet.html](https://www.juniper.net/us/en/products/routers/acx-series/acx7000-family-cloud-metro-routers/acx7000-line/acx7020-cloud-metro-routers-datasheet.html)
 - Building the ACX7100 Series: the PFE:
-[https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+[https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 - Let's talk about VOQ and DNX Pipeline:
-[https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+[https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 - Hardware Guide:
 [https://www.juniper.net/documentation/us/en/hardware/acx7020/index.html](https://www.juniper.net/documentation/us/en/hardware/acx7020/index.html)
 - Hardware Compatibility Tool:

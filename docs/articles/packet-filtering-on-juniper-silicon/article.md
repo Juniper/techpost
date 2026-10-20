@@ -31,9 +31,9 @@ In this publication, we will present different approaches:
 
 Many excellent articles have been published on Juniper Networks TechPost, covering in-depth several of these topics. Instead of re-inventing the wheel, we will invite you to read these existing publications.
 
-- "Express 4 Filters -- Foundation" by Dmitry Bugrimenko: [https://juniper.github.io/techposts/express-4-filters-foundation/article](https://juniper.github.io/techposts/express-4-filters-foundation/article)
-- "Fast Lookup Tuple: an Innovative Filtering Feature" by David Roy: [https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article](https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article)
-- "Flex Offset Filters in Express5" by Chandrasekaran Venkatraman: [https://juniper.github.io/techposts/flex-offset-filters-in-express5/article](https://juniper.github.io/techposts/flex-offset-filters-in-express5/article)
+- "Express 4 Filters -- Foundation" by Dmitry Bugrimenko: [https://techpost.hpe.com/articles/express-4-filters-foundation/article](https://techpost.hpe.com/articles/express-4-filters-foundation/article)
+- "Fast Lookup Tuple: an Innovative Filtering Feature" by David Roy: [https://techpost.hpe.com/articles/fast-lookup-tuple-an-innovative-filtering-feature/article](https://techpost.hpe.com/articles/fast-lookup-tuple-an-innovative-filtering-feature/article)
+- "Flex Offset Filters in Express5" by Chandrasekaran Venkatraman: [https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article](https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article)
 
 ## But First, The Basics
 
@@ -85,7 +85,7 @@ The MX and PTX routers have been designed to address these challenges and stand 
 
 ## Filtering in PTX Series
 
-In this section, we will briefly describe filters on PTX series, but we invite you to read  "Express 4 Filters -- Foundation": [https://juniper.github.io/techposts/express-4-filters-foundation/article](https://juniper.github.io/techposts/express-4-filters-foundation/article)
+In this section, we will briefly describe filters on PTX series, but we invite you to read  "Express 4 Filters -- Foundation": [https://techpost.hpe.com/articles/express-4-filters-foundation/article](https://techpost.hpe.com/articles/express-4-filters-foundation/article)
 
 Dmitry Bugrimenko covered the topic in great detail.
 
@@ -125,7 +125,7 @@ The initial packet filtering implementation, and the current default behavior, i
 
 The Trio PFE is a run-to-completion Forwarding ASIC where the packet processing is handled by a matrix of parallel Packet Processing Elements (PPEs). Each PPE receives the packet, or a portion of it, and the microcode executes a series of instructions based on the configuration. It can access many different memory spaces to perform its job, including the Data Memory (DMEM).
 
-The packet walkthrough is detailed in this article: [https://juniper.github.io/techposts/trio-6-packet-walkthrough/article](https://juniper.github.io/techposts/trio-6-packet-walkthrough/article)
+The packet walkthrough is detailed in this article: [https://techpost.hpe.com/articles/trio-6-packet-walkthrough/article](https://techpost.hpe.com/articles/trio-6-packet-walkthrough/article)
 
 In this mode of operation, the filter terms are processed sequentially: each match condition is compared to the packet headers, and if it fails to match, we proceed to the next term until a match is found or until the last default term is reached.
 
@@ -146,7 +146,7 @@ As the "run-to-completion" implies, it may take more or less time to execute thi
 ### Fast Lookup Tuple
 
 This feature should not be confused with the FLT (Fast Lookup Table) block despite sharing the same three-letter acronym.
-It was introduced with Junos 24.2.R1 and has been extensively covered in the article [https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article](https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article)
+It was introduced with Junos 24.2.R1 and has been extensively covered in the article [https://techpost.hpe.com/articles/fast-lookup-tuple-an-innovative-filtering-feature/article](https://techpost.hpe.com/articles/fast-lookup-tuple-an-innovative-filtering-feature/article)
 
 Note: Fast Lookup Tuple is limited to 5-tuple lookup and only host IPv4 addresses (/32 only, no wildcard mask).
 
@@ -431,7 +431,7 @@ set firewall family inet filter foo term 1 from tcp-flags "(syn & ack) | rst"
 
 > *Note: On PTX, the protocol field with the value 'tcp' is required for configuring tcp-flags, tcp-initial, or tcp-established.*
 
-Let's move on to the second category of filtering: metadata. As mentioned earlier, the operating system attaches metadata internally during the forwarding process. Some of this metadata is added by default without any configuration (for example, the frame length, the packet's family, or the incoming interface). Still, it is also possible to leverage SCU/DCU features to insert specific tags into the packet during the lookup process. I recommend reading the dedicated techpost related to SCU/DCU for more details about these capabilities ([https://juniper.github.io/techposts/traffic-accounting-with-mx-features/article](https://juniper.github.io/techposts/traffic-accounting-with-mx-features/article))
+Let's move on to the second category of filtering: metadata. As mentioned earlier, the operating system attaches metadata internally during the forwarding process. Some of this metadata is added by default without any configuration (for example, the frame length, the packet's family, or the incoming interface). Still, it is also possible to leverage SCU/DCU features to insert specific tags into the packet during the lookup process. I recommend reading the dedicated techpost related to SCU/DCU for more details about these capabilities ([https://techpost.hpe.com/articles/traffic-accounting-with-mx-features/article](https://techpost.hpe.com/articles/traffic-accounting-with-mx-features/article))
 
 Here is below the list of supported metadata match criteria supported on MX for the 3 main families:
 
@@ -628,9 +628,9 @@ Don't hesitate to reach out if you would like us to dive deeper into one of the 
 
 ## Useful links
 
-- Express 4 Filters -- Foundation: [https://juniper.github.io/techposts/express-4-filters-foundation/article](https://juniper.github.io/techposts/express-4-filters-foundation/article)
-- Fast Lookup Tuple: an Innovative Filtering Feature: [https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article](https://juniper.github.io/techposts/fast-lookup-tuple-an-innovative-filtering-feature/article)
-- Flex Offset Filters in Express5: [https://juniper.github.io/techposts/flex-offset-filters-in-express5/article](https://juniper.github.io/techposts/flex-offset-filters-in-express5/article)
+- Express 4 Filters -- Foundation: [https://techpost.hpe.com/articles/express-4-filters-foundation/article](https://techpost.hpe.com/articles/express-4-filters-foundation/article)
+- Fast Lookup Tuple: an Innovative Filtering Feature: [https://techpost.hpe.com/articles/fast-lookup-tuple-an-innovative-filtering-feature/article](https://techpost.hpe.com/articles/fast-lookup-tuple-an-innovative-filtering-feature/article)
+- Flex Offset Filters in Express5: [https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article](https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article)
 
 ## Glossary
 

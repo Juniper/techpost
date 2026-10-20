@@ -10,15 +10,15 @@ On many aspects, the  LC4802 is comparable to the LC4800, but instead of offerin
 
 It will complete and interoperate with the existing line cards:
 
-- LC480, 48x ports SFP 1GbE/10GbE:  [https://juniper.github.io/techposts/mx10000-lc480-deepdive/article](https://juniper.github.io/techposts/mx10000-lc480-deepdive/article)
-- LC4800, 4x ports QSFP56-DD from 4x10GbE to 400GbE and 40x ports SFP56-DD from 1GbE to 100GbE:[https://juniper.github.io/techposts/mx10000-lc4800-deepdive/article](https://juniper.github.io/techposts/mx10000-lc4800-deepdive/article)
-- LC9600, 24x ports QSFP up to 400GbE:  [https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+- LC480, 48x ports SFP 1GbE/10GbE:  [https://techpost.hpe.com/articles/mx10000-lc480-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc480-deepdive/article)
+- LC4800, 4x ports QSFP56-DD from 4x10GbE to 400GbE and 40x ports SFP56-DD from 1GbE to 100GbE:[https://techpost.hpe.com/articles/mx10000-lc4800-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc4800-deepdive/article)
+- LC9600, 24x ports QSFP up to 400GbE:  [https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 LC4800, LC4802, and LC9600 leverage the power and scale of a true Run-To-Completion ASIC, the Trio 6 Packet Forwarding Engine (PFE). It offers class C timing with the appropriate Routing Engine and will support MACsec on all ports at line rate (and will support inline IPsec too).
 
 > *Note that LC480 is powered by two Trio 4.*
 
-Trio 6 and the famous life of a packet are covered in a lot of detail in David Roy's article: [https://juniper.github.io/techposts/trio-6-packet-walkthrough/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+Trio 6 and the famous life of a packet are covered in a lot of detail in David Roy's article: [https://techpost.hpe.com/articles/trio-6-packet-walkthrough/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 The new LC4802 is supported in MX10004 and MX10008 chassis with SFB2 switching fabric cards. The minimum release is Junos 25.2R1. This new line card can interoperate in the same chassis with LC480, LC4800, and LC9600. It can also interoperate with LC2101, but this last one is now EoL.
 
@@ -546,7 +546,7 @@ The number-of-ports CLI configuration can be used to specify the number of activ
 
 To support LC4802, MX10004 and MX10008 require SFB2 switch-fabric boards.  The connectivity principles have been covered in the LC9600 deepdive article, we invite you to refer to it:
 
-[https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+[https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 All six fabric boards are needed to provide 4.8Tbps of throughput. There will be a linear drop in performance in the event of fabric card failure.
 
@@ -685,8 +685,8 @@ This article is based on Eswaran Srinivasan's work, completed and formatted by N
 ## References
 
 - MX10008 Hardware Guide: [https://www.juniper.net/documentation/us/en/hardware/mx10008/index.html](https://www.juniper.net/documentation/us/en/hardware/mx10008/index.html)
-- LC4800 Deepdive: [https://juniper.github.io/techposts/mx10000-lc4800-deepdive/article](https://juniper.github.io/techposts/mx10000-lc4800-deepdive/article)
-- LC9600 Deepdive: [https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
-- Deepdive and Packet walkthrough in Trio6: [https://juniper.github.io/techposts/trio-6-packet-walkthrough/article](https://juniper.github.io/techposts/trio-6-packet-walkthrough/article)
+- LC4800 Deepdive: [https://techpost.hpe.com/articles/mx10000-lc4800-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc4800-deepdive/article)
+- LC9600 Deepdive: [https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
+- Deepdive and Packet walkthrough in Trio6: [https://techpost.hpe.com/articles/trio-6-packet-walkthrough/article](https://techpost.hpe.com/articles/trio-6-packet-walkthrough/article)
 - LC4800 on Juniper.net pathfinder: [https://apps.juniper.net/hct/model/?component=MX10K-LC4800](https://apps.juniper.net/hct/model/?component=MX10K-LC4800)
 - FPC Error Management: [https://www.juniper.net/documentation/us/en/software/junos/chassis/topics/topic-map/chassis-guide-tm-fpc-error-config.html](https://www.juniper.net/documentation/us/en/software/junos/chassis/topics/topic-map/chassis-guide-tm-fpc-error-config.html)

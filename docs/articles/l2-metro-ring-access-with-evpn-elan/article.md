@@ -2318,7 +2318,7 @@ Many thanks to Gobi (Gobinath Muniyasamy) for this specific feature and to our e
 
 ## Useful links
 
-- EVPN MAC-VRF Validation on ACX7000: [https://juniper.github.io/techposts/evpn-mac-vrf-validation-on-acx7000/article](https://juniper.github.io/techposts/evpn-mac-vrf-validation-on-acx7000/article)
+- EVPN MAC-VRF Validation on ACX7000: [https://techpost.hpe.com/articles/evpn-mac-vrf-validation-on-acx7000/article](https://techpost.hpe.com/articles/evpn-mac-vrf-validation-on-acx7000/article)
 - EVPN E-LINE/E-LAN Service on ACX7000 Series: [https://www.juniper.net/documentation/us/en/software/nce/nce-501-evpn-e-line-e-lan-acx/nce-501-evpn-e-line-e-lan-acx.pdf](https://www.juniper.net/documentation/us/en/software/nce/nce-501-evpn-e-line-e-lan-acx/nce-501-evpn-e-line-e-lan-acx.pdf)
 - Understanding Ethernet Ring Protection Switching: [https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/ethernet-ring-protection-switching-understanding.html](https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/ethernet-ring-protection-switching-understanding.html)
 - Configuring Ethernet Ring Protection Switching on Switches (CLI Procedure): [https://www.juniper.net/documentation/en_US/junos/topics/task/configuration/ethernet-ring-protection-cli.html](https://www.juniper.net/documentation/en_US/junos/topics/task/configuration/ethernet-ring-protection-cli.html)

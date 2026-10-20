@@ -21,7 +21,7 @@ This document explains:
 - Why all nine SIBs are required to carry the LC's full 43.2T
 - How to read the chassis CLI fabric-topology to confirm link health and capacity at multiple aggregation levels.
 
-We invite you to read the article [Rethinking Fabric Redundancy](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article)
+We invite you to read the article [Rethinking Fabric Redundancy](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article)
 
 ## System Overview
 
@@ -468,7 +468,7 @@ In contrast, the PTX12008 architecture allocates 6 links from DP0 and DP1 to eve
 
 Each line card incorporates three BXF chips, and with nine SIB cards, it delivers support for 54 x  800G ports per line card.
 
-More details can be found in this article: [Introducing the PTX12000 Chassis](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article).
+More details can be found in this article: [Introducing the PTX12000 Chassis](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article).
 
 ## Conclusion
 
@@ -476,9 +476,9 @@ The PTX12008 chassis uses a fully distributed and highly parallelized switching 
 
 ## Useful Links
 
-- Rethinking Fabric Redundancy: [https://juniper.github.io/techposts/rethinking-fabric-redundancy/article](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article)
-- Introducing the PTX12000 Chassis: [https://juniper.github.io/techposts/introducing-ptx12000-chassis/article](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article)
-- Fabric Self Healing and Recovery: [https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article](https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article)
+- Rethinking Fabric Redundancy: [https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article)
+- Introducing the PTX12000 Chassis: [https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article)
+- Fabric Self Healing and Recovery: [https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article](https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article)
 
 ## Glossary
 

@@ -21,7 +21,7 @@ You can test yourself all the concepts described in this article, we created lab
 
 ## SRv6 SID Composition
 
-As discussed in the [1st SRv6 blog](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article), SRv6 SID (Segment Identifier) is composed of LOCATOR:FUNCTION:ARGUMENT parts, where LOCATOR can be further decomposed to Locator Block and Locator Node. The general SRv6 SID structure is outlined in Figure 1.
+As discussed in the [1st SRv6 blog](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article), SRv6 SID (Segment Identifier) is composed of LOCATOR:FUNCTION:ARGUMENT parts, where LOCATOR can be further decomposed to Locator Block and Locator Node. The general SRv6 SID structure is outlined in Figure 1.
 
 ![image](images/picture3.png)
 
@@ -32,13 +32,13 @@ The length of each part can be changed if the Junos defaults are not suitable fo
 - FL, Function Length (Junos default 16)
 - AL, Argument Length (Junos default 0)
 
-For example, Figure 1 shows Junos non-default values for the BL, NL and AL. Up to Junos release 22.2, this strict SID segmentation was not enforced. If you check CLI-Output 1 in the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article), you can observe that BL/NL/FL/AL values are all 0: there is no specific enforcement there.
+For example, Figure 1 shows Junos non-default values for the BL, NL and AL. Up to Junos release 22.2, this strict SID segmentation was not enforced. If you check CLI-Output 1 in the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), you can observe that BL/NL/FL/AL values are all 0: there is no specific enforcement there.
 
-In this article we are using the same topology and the same VPNs (Virtual Private Networks) as in the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article), with slight changes in the addressing, particularly in the SRv6 locator addressing, as outlined in Figure 2.
+In this article we are using the same topology and the same VPNs (Virtual Private Networks) as in the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), with slight changes in the addressing, particularly in the SRv6 locator addressing, as outlined in Figure 2.
 
 ![image](images/picture4.png)
 
-Consequently, comparing to the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article), different SRv6 SIDs are configured for each VPN:
+Consequently, comparing to the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), different SRv6 SIDs are configured for each VPN:
 
 - VPN 20:
     - end-dt4-sid fc01:0:11:0420::
@@ -126,15 +126,15 @@ Now, let's check, what is advertised by PE11 to the route reflector P1:
 
 CLI-Output 1: Advertising L3VPN Service Prefix with End.DT4 or End.DT6 SRv6 SID
 
-If you compare this output with the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article), there are couple of differences.
+If you compare this output with the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), there are couple of differences.
 
-First of all, from Junos 22.3 onwards there is no need to set the BGP (Border Gateway Protocol) protocol next-hop to SRv6 locator or SRv6 SID. Keeping it to the default (i.e. 'self', which is typically loopback when iBGP session is used, see lines 9, 20, 31, 45, 56, 68) is fully OK, as from Junos 22.3, for service prefixes with SRv6 SID, not a BGP protocol next-hop, but SRv6 SID is used for next-hop resolution. Therefore, Configuration 4 from the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article), is no longer required, and is omitted in this blog.
+First of all, from Junos 22.3 onwards there is no need to set the BGP (Border Gateway Protocol) protocol next-hop to SRv6 locator or SRv6 SID. Keeping it to the default (i.e. 'self', which is typically loopback when iBGP session is used, see lines 9, 20, 31, 45, 56, 68) is fully OK, as from Junos 22.3, for service prefixes with SRv6 SID, not a BGP protocol next-hop, but SRv6 SID is used for next-hop resolution. Therefore, Configuration 4 from the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), is no longer required, and is omitted in this blog.
 
-Secondly, lengths of each part (BL/NL/FL/AL) in SRv6 SID are now reported (lines 14, 25, 37, 50, 62, 73) with some meaningful values. In the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article) all these lengths were reported as '0'.
+Secondly, lengths of each part (BL/NL/FL/AL) in SRv6 SID are now reported (lines 14, 25, 37, 50, 62, 73) with some meaningful values. In the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article) all these lengths were reported as '0'.
 
-Thirdly, the advertised SRv6 SIDs (lines 14, 25, 37, 50, 62, 73) show only SRv6 locator portion (in the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article) we have seen full SRv6 SID advertisements). Where are our configured END.DT4/END.DT6 (fc01:0:11:420::, fc01:0:11:620::) values?
+Thirdly, the advertised SRv6 SIDs (lines 14, 25, 37, 50, 62, 73) show only SRv6 locator portion (in the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article) we have seen full SRv6 SID advertisements). Where are our configured END.DT4/END.DT6 (fc01:0:11:420::, fc01:0:11:620::) values?
 
-And, finally, there are some 'strange' VPN labels advertised (lines 8, 19, 30, 44, 55, 67). At the first look, these VPN labels show some sort of randomness, as they are not allocated sequentially, the label values are not even close to each other. This is very suspicious! In the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article) our VPN labels were set to '3' (implicit null), given the fact SRv6 doesn't use MPLS, so there is no need for a meaningful VPN label. Moreover, checking the label table (LIB, Label Information Base), we don't even see these labels (CLI-Output 2)!
+And, finally, there are some 'strange' VPN labels advertised (lines 8, 19, 30, 44, 55, 67). At the first look, these VPN labels show some sort of randomness, as they are not allocated sequentially, the label values are not even close to each other. This is very suspicious! In the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article) our VPN labels were set to '3' (implicit null), given the fact SRv6 doesn't use MPLS, so there is no need for a meaningful VPN label. Moreover, checking the label table (LIB, Label Information Base), we don't even see these labels (CLI-Output 2)!
 
 ```
        root@PE11> show route table mpls.0
@@ -404,7 +404,7 @@ The BGP packet might contain multiple BGP Update messages in a single packet. Fo
 - Lines 3-127, announcing 198.51.100.11:20:192.168.20.91/120 prefix (CE91 loopback within VPN20 --> lines 122-127)
 - Lines 128-238, announcing 198.51.100.11:20:20.11.91.0/112 prefix (CE91-PE11 link within VPN20) and 198.51.100.11:20:192.168.20.11/120 prefix (PE11 loopback within VPN20: lines 228-238)
 
-Next-hop in both updates is the loopback of PE11 (lines 118 and 224). This is expected, since as mentioned earlier, from Junos 22.3 there is no need to set the BGP next-hop to SRv6 locator or SRv6 SID, hence configuration to set BGP next-hop to SRv6 locator, used in the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article), is not used here.
+Next-hop in both updates is the loopback of PE11 (lines 118 and 224). This is expected, since as mentioned earlier, from Junos 22.3 there is no need to set the BGP next-hop to SRv6 locator or SRv6 SID, hence configuration to set BGP next-hop to SRv6 locator, used in the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), is not used here.
 
 Lengths of SRv6 parts are advertised via additional Sub-Sub-TLV (Type-Length-Value), called 'SRv6 SID Structure' (lines 98-106, and 204-212). Support for this Sub-Sub-TLV ([RFC 9252, Section 3.2.1](https://datatracker.ietf.org/doc/html/rfc9252#section-3.2.1)) was introduced in Junos 22.3.
 
@@ -422,7 +422,7 @@ But, what we do with the variable part of SRv6 SID, i.e. Function part? In fact,
 
 SRv6 is reusing exactly the same NLRI (SAFI=128), to advertise VPN prefixes, with additional SRv6 information carried in some additional attributes (i.e., SRv6 SID). So, the label field (20 bits, [RFC 8277, Section 2.2](https://datatracker.ietf.org/doc/html/rfc8277/#section-2.2)) is there in the NLRI, even if not exactly useful in the SRv6 context, as SRv6 doesn't utilize MPLS.
 
-But, wait a minute, is it really not useful for SRv6? In fact, instead of wasting these 20 bits (do you recall the [2nd SRv6 blog](https://juniper.github.io/techposts/l3vpn-over-srv6/article), where always value '3' was carried in these 20 bits?), we can actually exploit this space in the NLRI, to carry variable part of SRv6 SID (i.e., Function) in it, and carry only the fixed, constant part of SRv6 SID (i.e., Locator) in the BGP Prefix SID attribute. In this way, we make BGP Prefix SID attribute to be the same for all NLRIs, thus allowing efficient BGP packing.
+But, wait a minute, is it really not useful for SRv6? In fact, instead of wasting these 20 bits (do you recall the [2nd SRv6 blog](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), where always value '3' was carried in these 20 bits?), we can actually exploit this space in the NLRI, to carry variable part of SRv6 SID (i.e., Function) in it, and carry only the fixed, constant part of SRv6 SID (i.e., Locator) in the BGP Prefix SID attribute. In this way, we make BGP Prefix SID attribute to be the same for all NLRIs, thus allowing efficient BGP packing.
 
 Let's quickly check all labels advertised by PE11:
 
@@ -662,10 +662,10 @@ In the next blog we will show an interesting use case, showing guaranteed link s
 
 - RFC 9252: BGP Overlay Services Based on Segment Routing over IPv6 (SRv6): [https://datatracker.ietf.org/doc/html/rfc9252](https://datatracker.ietf.org/doc/html/rfc9252)
 - SRv6 in Junos: [https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html](https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html)
-- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)
-- TechPost 2: L3VPN on SRv6 - [https://juniper.github.io/techposts/l3vpn-over-srv6/article](https://juniper.github.io/techposts/l3vpn-over-srv6/article)
-- TechPost 3: SRv6 Summarisation - [https://juniper.github.io/techposts/srv6-summarization/article](https://juniper.github.io/techposts/srv6-summarization/article)
-- TechPost 4: SRv6 SID Encoding and Transposition - [https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)
+- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)
+- TechPost 2: L3VPN on SRv6 - [https://techpost.hpe.com/articles/l3vpn-over-srv6/article](https://techpost.hpe.com/articles/l3vpn-over-srv6/article)
+- TechPost 3: SRv6 Summarisation - [https://techpost.hpe.com/articles/srv6-summarization/article](https://techpost.hpe.com/articles/srv6-summarization/article)
+- TechPost 4: SRv6 SID Encoding and Transposition - [https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)
 
 ## Glossary
 

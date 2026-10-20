@@ -12,7 +12,7 @@ Every network environment is unique and has different requirements and caveats. 
 - Monitoring/Failover scenarios
 - MNHA functionality and traffic flows (with hybrid deployments)
 
-Steven Jacques' post, [Multi-Node High Availability](https://juniper.github.io/techposts/multi-node-high-availability-basics/article) is an excellent post covering the basics and MNHA and Layer 3 (L3) implementations.
+Steven Jacques' post, [Multi-Node High Availability](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article) is an excellent post covering the basics and MNHA and Layer 3 (L3) implementations.
 
 ### Objectives
 
@@ -1039,7 +1039,7 @@ Once decided, it's just a matter of testing and configuring your deployment.
 ## Useful links
 
 - Multi-Node High Availability Basics
-[https://juniper.github.io/techposts/multi-node-high-availability-basics/article](https://juniper.github.io/techposts/multi-node-high-availability-basics/article)
+[https://techpost.hpe.com/articles/multi-node-high-availability-basics/article](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article)
 - Multi-Node High Availability: public documentation
 [https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/mnha-introduction.html ](https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/mnha-introduction.html)
 - BFD Liveliness Detection (BGP)

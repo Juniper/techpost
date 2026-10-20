@@ -8,9 +8,9 @@ The Junos 25.4R1 release expanded the list of SRX platforms supporting MPLS L3 V
 
 ## Introduction
 
-Prerequisite: read the [SRX MPLS in Flow post](https://juniper.github.io/techposts/srx-mpls-in-flow/article) for a thorough introduction.
+Prerequisite: read the [SRX MPLS in Flow post](https://techpost.hpe.com/articles/srx-mpls-in-flow/article) for a thorough introduction.
 
-In 25.4R1, in addition to [new platform support](https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/topics/new-features/feature-descriptions/mpls-4.html), Junos adds the ability [to bind VRFs to zones](https://www.juniper.net/documentation/us/en/software/junos/security-policies/topics/topic-map/security-policies-vrf-aware-zone-based-routing-instances.html), simplifying policy constructs by setting VRF context by zone instead of by rule match criteria. For NAT use cases the VRF-groups approach still applies as of 25.4R1. The VRF-to-zone-mapping topic is also covered more broadly in the [SRX Secure Fabric Entry Point write-up](https://juniper.github.io/techposts/srx-secure-fabric-entry-point/article) (focused on EVPN/VXLAN T5 type VRFs).
+In 25.4R1, in addition to [new platform support](https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/topics/new-features/feature-descriptions/mpls-4.html), Junos adds the ability [to bind VRFs to zones](https://www.juniper.net/documentation/us/en/software/junos/security-policies/topics/topic-map/security-policies-vrf-aware-zone-based-routing-instances.html), simplifying policy constructs by setting VRF context by zone instead of by rule match criteria. For NAT use cases the VRF-groups approach still applies as of 25.4R1. The VRF-to-zone-mapping topic is also covered more broadly in the [SRX Secure Fabric Entry Point write-up](https://techpost.hpe.com/articles/srx-secure-fabric-entry-point/article) (focused on EVPN/VXLAN T5 type VRFs).
 
 The SRX4600 and SRX4700, equipped with HPE Juniper's in house Packet Forwarding Engine (PFE), handle MPLS traffic with up to 16 labels. Traffic is hashed using inner L4 headers to distribute load across SPU resources (SPU refers to the Security Processing Unit; both SRX4600 and SRX4700 use two physical CPUs and these constitute the single platform SPU). As of 25.4R1, MPLS traffic is not subject to Express Path acceleration, but the hardware PFE does SPU load balancing by ignoring MPLS headers and using the inner IP headers. Relying on MPLS labels for traffic distribution alone would produce uneven CPU-core utilization resulting in some cores idle and others overloaded.
 
@@ -22,7 +22,7 @@ The demo topology is similar to the original article but for performance testing
 
 ## Configuration Break-down
 
-Let's break down the nuances of the SRX4600-5 configuration compared to vSRX-left from [the original Tech Post](https://juniper.github.io/techposts/srx-mpls-in-flow/article). The SRX4600-6 is essentially identical to the SRX4600-5, differing only in IP addressing. The same applies to the MX204 compared with the vSRX-router. Complete configuration files are available in Appendix 1.
+Let's break down the nuances of the SRX4600-5 configuration compared to vSRX-left from [the original Tech Post](https://techpost.hpe.com/articles/srx-mpls-in-flow/article). The SRX4600-6 is essentially identical to the SRX4600-5, differing only in IP addressing. The same applies to the MX204 compared with the vSRX-router. Complete configuration files are available in Appendix 1.
 
 Internal zones are essentially the same; only the interface-zone mapping differs because the lab setup uses VLAN units on the et-1/0/1 physical interface. The mpls zone binding the underlay MPLS interface is intended only for protocol signalling and is no longer used in transit policies:
 
@@ -532,9 +532,9 @@ The SRX4600 and SRX4700 in Junos 25.4R1 supports MPLS L3 VPN with VRF-to-zone ma
 
 - [https://www.juniper.net/us/en/products/security/srx-series/compare.html?p=SRX4600,SRX4700](https://www.juniper.net/us/en/products/security/srx-series/compare.html?p=SRX4600,SRX4700)
 - [https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/topics/new-features/feature-descriptions/mpls-4.html](https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/topics/new-features/feature-descriptions/mpls-4.html)
-- [https://juniper.github.io/techposts/srx-mpls-in-flow/article](https://juniper.github.io/techposts/srx-mpls-in-flow/article)
-- [https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article](https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article)
-- [https://juniper.github.io/techposts/srx-secure-fabric-entry-point/article](https://juniper.github.io/techposts/srx-secure-fabric-entry-point/article)
+- [https://techpost.hpe.com/articles/srx-mpls-in-flow/article](https://techpost.hpe.com/articles/srx-mpls-in-flow/article)
+- [https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article](https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article)
+- [https://techpost.hpe.com/articles/srx-secure-fabric-entry-point/article](https://techpost.hpe.com/articles/srx-secure-fabric-entry-point/article)
 - [https://www.debian.org/](https://www.debian.org/)
 
 ## Glossary

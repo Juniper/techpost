@@ -163,7 +163,7 @@ Port speed information:
 regress@acx7024x-01> 
 ```
 
-You can refer to the previous techpost article from Pankaj on ACX7024 for more details: [https://juniper.github.io/techposts/acx7024-deepdive/article](https://juniper.github.io/techposts/acx7024-deepdive/article)
+You can refer to the previous techpost article from Pankaj on ACX7024 for more details: [https://techpost.hpe.com/articles/acx7024-deepdive/article](https://techpost.hpe.com/articles/acx7024-deepdive/article)
 
 ### Other Differences?
 
@@ -257,7 +257,7 @@ The ACX7024X is a very competitive 360Gbps router with 24x SFP, 1GE, 10GE or 25G
 
 ## Useful links
 
-- ACX7024 Deepdive article: [https://juniper.github.io/techposts/acx7024-deepdive/article](https://juniper.github.io/techposts/acx7024-deepdive/article)
+- ACX7024 Deepdive article: [https://techpost.hpe.com/articles/acx7024-deepdive/article](https://techpost.hpe.com/articles/acx7024-deepdive/article)
 
 ## Glossary
 

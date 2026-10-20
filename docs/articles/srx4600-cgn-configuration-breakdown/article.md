@@ -327,7 +327,7 @@ The chapter "Applicable Junos Features Post 22.2" describes enhancements to fire
 
 ### Monitoring
 
-As the deployment is based on Junos prior to 23.4, where PBA SNMP resource monitoring was introduced, [a custom utility MIB script](https://github.com/JNPRAutomate/srx-pba-utility-mib/tree/main) had to be used. The generic concept of the Junos SNMP utility MIB is [described here](https://juniper.github.io/techposts/using-junos-snmp-utility-mib-on-juniper-srx/article).
+As the deployment is based on Junos prior to 23.4, where PBA SNMP resource monitoring was introduced, [a custom utility MIB script](https://github.com/JNPRAutomate/srx-pba-utility-mib/tree/main) had to be used. The generic concept of the Junos SNMP utility MIB is [described here](https://techpost.hpe.com/articles/using-junos-snmp-utility-mib-on-juniper-srx/article).
 
 Otherwise, nearly all system KPIs can be monitored using the comprehensive Junos SNMP MIB, with some having an option for telemetry (emerging sensors over Junos releases).
 
@@ -787,7 +787,7 @@ Match User archival
 - [https://www.juniper.net/documentation/us/en/software/junos/security-policies/security-policies.pdf](https://www.juniper.net/documentation/us/en/software/junos/security-policies/security-policies.pdf)
 - [https://www.juniper.net/documentation/us/en/software/junos/flow-packet-processing/flow-packet-processing.pdf](https://www.juniper.net/documentation/us/en/software/junos/flow-packet-processing/flow-packet-processing.pdf)
 - [https://apps.juniper.net/port-checker/mx204/](https://apps.juniper.net/port-checker/mx204/)
-- [https://juniper.github.io/techposts/using-junos-snmp-utility-mib-on-juniper-srx/article](https://juniper.github.io/techposts/using-junos-snmp-utility-mib-on-juniper-srx/article)
+- [https://techpost.hpe.com/articles/using-junos-snmp-utility-mib-on-juniper-srx/article](https://techpost.hpe.com/articles/using-junos-snmp-utility-mib-on-juniper-srx/article)
 - [https://github.com/JNPRAutomate/srx-pba-stat](https://github.com/JNPRAutomate/srx-pba-stat)
 - [https://github.com/JNPRAutomate/srx-pba-utility-mib](https://github.com/JNPRAutomate/srx-pba-utility-mib)
 

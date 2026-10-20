@@ -222,9 +222,9 @@ For L3VPN traffic, PE routers perform MPLS lookup by default under the default l
 ## Useful links
 
 - Mastering BGP PIC on JUNOS:
-[https://juniper.github.io/techposts/mastering-bgp-pic-on-junos/article](https://juniper.github.io/techposts/mastering-bgp-pic-on-junos/article)
+[https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article](https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article)
 - BGP Link-Bandwidth with JunOS:
-[https://juniper.github.io/techposts/bgp-link-bandwidth-with-junos/article](https://juniper.github.io/techposts/bgp-link-bandwidth-with-junos/article)
+[https://techpost.hpe.com/articles/bgp-link-bandwidth-with-junos/article](https://techpost.hpe.com/articles/bgp-link-bandwidth-with-junos/article)
 
 ## Acknowledgments
 

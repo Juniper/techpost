@@ -10,7 +10,7 @@ People say there are no greenfield service providers (SPs). Some networks grow o
 
 Many SPs already moved to SR-MPLS or are in the process of transition. Now is the time to use the advantages of this technology, for example one or multiple flavors of traffic engineering (SR-TE). In this TechPost, we will see how to map virtual private networks (VPNs) or plain IPv4/IPv6 prefixes to colored traffic-engineered paths in an MPLS network.
 
-Junos is doing great job in helping network operators to change a technology. To name just one example: coexistence of VPLS and EVPN, allowing for site-by-site migration and saving the investments in VPLS. Check this [post](https://juniper.github.io/techposts/vpls-to-evpn-vpls-seamless-migration-on-mx-routers/article) for more details.
+Junos is doing great job in helping network operators to change a technology. To name just one example: coexistence of VPLS and EVPN, allowing for site-by-site migration and saving the investments in VPLS. Check this [post](https://techpost.hpe.com/articles/vpls-to-evpn-vpls-seamless-migration-on-mx-routers/article) for more details.
 
 The same applies to migration between different transport protocols. Junos allows mapping of new (for example EVPN) and old (for example LDP-based) services to traffic-engineered transport paths established by RSVP, SR-TE, BGP-CT or Flex-Algo.
 
@@ -188,7 +188,7 @@ source-routing-path SP-PE1 {
 }
 ```
 
-Above LSPs do not have strict path or other constraints, and Junos will calculate the path - provided that the TED is populated by IGP. More on TED can be found in [this techpost](https://juniper.github.io/techposts/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article).
+Above LSPs do not have strict path or other constraints, and Junos will calculate the path - provided that the TED is populated by IGP. More on TED can be found in [this techpost](https://techpost.hpe.com/articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article).
 
 ## Mapping LDP-based VPNs to colored transport tunnels
 

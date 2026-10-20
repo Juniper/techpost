@@ -6,16 +6,16 @@ Second part of the Series on the Context-Files and JMCP, covering tokens, data f
 
 Series Navigation:
 
-- [Part 1: Introduction & Basics](https://juniper.github.io/techposts/managing-junos-devices-with-context-file/article)
-- [Part 2: Tokens & Memory](https://juniper.github.io/techposts/context-file-basics-tokens-and-memory-management/article) <- You are here
-- [Part 3: Optimization & Alerting](https://juniper.github.io/techposts/context-file-optimization-and-alerting-strategies/article)
-- [Part 4: File Management](https://juniper.github.io/techposts/file-management-and-data-collection-strategies/article)
-- [Part 5: Redis & Performance](https://juniper.github.io/techposts/context-file-redis-and-high-performance-storage/article)
+- [Part 1: Introduction & Basics](https://techpost.hpe.com/articles/managing-junos-devices-with-context-file/article)
+- [Part 2: Tokens & Memory](https://techpost.hpe.com/articles/context-file-basics-tokens-and-memory-management/article) <- You are here
+- [Part 3: Optimization & Alerting](https://techpost.hpe.com/articles/context-file-optimization-and-alerting-strategies/article)
+- [Part 4: File Management](https://techpost.hpe.com/articles/file-management-and-data-collection-strategies/article)
+- [Part 5: Redis & Performance](https://techpost.hpe.com/articles/context-file-redis-and-high-performance-storage/article)
 - Part 6: Hybrid Architecture
 
 ## Introduction
 
-In [Part 1](https://juniper.github.io/techposts/managing-junos-devices-with-context-file/article), we covered the fundamentals of context files: their basic structure, how to use variables, and what target sizes are practical and desirable. In this Part 2, we'll dive deep into tokens, data formats, memory management, and strategies for working within the constraints of LLM context windows.
+In [Part 1](https://techpost.hpe.com/articles/managing-junos-devices-with-context-file/article), we covered the fundamentals of context files: their basic structure, how to use variables, and what target sizes are practical and desirable. In this Part 2, we'll dive deep into tokens, data formats, memory management, and strategies for working within the constraints of LLM context windows.
 
 ## Token - What's it?
 

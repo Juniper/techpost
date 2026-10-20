@@ -6,8 +6,8 @@ From Kernel Networking to DPU: Evolution of Data Processing and Gateway Tunnelin
 
 Cloud providers run huge numbers of concurrent AI workloads across shared infrastructure without them stepping on each other. How? Network overlay tunnels create isolated virtual networks, and DPUs handle all that tunnel processing so your host CPU can focus on actual workloads. The industry evolved through four generations to get here: kernel networking (slow, ate 20-30% of CPU), DPDK (faster user space processing), SmartNICs (hardware offload), and now DPUs (dedicated processors). Here's why each transition happened and what it means for AI infrastructure
 
-This is the first article of a series of three. Part2 - [Juniper PTX Routers in Front-End Network](https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article) and
-Part3 - [DCI Edge for AI Front End Clusters with Juniper PTX](https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article).
+This is the first article of a series of three. Part2 - [Juniper PTX Routers in Front-End Network](https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article) and
+Part3 - [DCI Edge for AI Front End Clusters with Juniper PTX](https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article).
 
 ## The Evolution of Network Processing
 
@@ -150,9 +150,9 @@ Let's dive in.
 - [4]: Corigine Inc., "Accelerating Contrail vRouter - White Paper," August 2021.
 [https://www.corigine.com/UploadFiles/pdf/2021-08-04/153018875976334.pdf](https://www.corigine.com/UploadFiles/pdf/2021-08-04/153018875976334.pdf)
 Performance testing shows Agilio CX SmartNIC achieving 20-23 Mpps with vRouter offload using 1 CPU core, compared to 6 Mpps for DPDK vRouter using 4 cores, and 70-84 microseconds VM-to-VM latency.
-- Intro - Overlay Networking in AI Era: [https://juniper.github.io/techposts/overlay-networking-in-ai-era/article](https://juniper.github.io/techposts/overlay-networking-in-ai-era/article)
-- Part2 - Juniper PTX Routers in Front-End Network: [https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article](https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article)
-- Part3 - DCI Edge for AI Front End Clusters with Juniper PTX: [https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article](https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article)
+- Intro - Overlay Networking in AI Era: [https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article](https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article)
+- Part2 - Juniper PTX Routers in Front-End Network: [https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article](https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article)
+- Part3 - DCI Edge for AI Front End Clusters with Juniper PTX: [https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article](https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article)
 
 ## Glossary
 

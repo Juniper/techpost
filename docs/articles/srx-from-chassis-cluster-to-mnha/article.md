@@ -6,8 +6,8 @@ A simple guide for understanding the differences between Chassis Cluster (origin
 
 Existing Techpost articles cover the method to understand MNHA:
 
-- [Multi-Node High Availability Basics](https://juniper.github.io/techposts/multi-node-high-availability-basics/article) (techpost from Steven Jacques)
-- [Hybrid MNHA with eBGP](https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article) (techpost from James Rathburn)
+- [Multi-Node High Availability Basics](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article) (techpost from Steven Jacques)
+- [Hybrid MNHA with eBGP](https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article) (techpost from James Rathburn)
 
 ## Introduction
 
@@ -463,8 +463,8 @@ If you want to see the processus, just follow one of those other Tech Posts from
 
 Other Juniper Techposts on this topic:
 
-- [Multi-Node High Availability Basics](https://juniper.github.io/techposts/multi-node-high-availability-basics/article) (techpost from Steven Jacques)
-- [Hybrid MNHA with eBGP](https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article) (techpost from James Rathburn)
+- [Multi-Node High Availability Basics](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article) (techpost from Steven Jacques)
+- [Hybrid MNHA with eBGP](https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article) (techpost from James Rathburn)
 
 High Availability = Chassis Cluster:
 

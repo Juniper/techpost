@@ -6,7 +6,7 @@ GPU cluster scale, model partitioning, and traffic patterns between the GPUs for
 
 *Article initially published on LinkedIn at: [https://www.linkedin.com/pulse/gpu-fabrics-genai-workloads-sharada-yeluri-j8ghc/ ](https://www.linkedin.com/pulse/gpu-fabrics-genai-workloads-sharada-yeluri-j8ghc/)*
 
-This article is a sequel to "[Large Language Models - The Hardware Connection](https://juniper.github.io/techposts/large-language-models-the-hardware-connection/article)"
+This article is a sequel to "[Large Language Models - The Hardware Connection](https://techpost.hpe.com/articles/large-language-models-the-hardware-connection/article)"
 
 ## Introduction
 

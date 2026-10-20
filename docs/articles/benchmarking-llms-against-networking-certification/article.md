@@ -62,11 +62,11 @@ LLMs have improved greatly at networking tasks over the last few months and have
 
 ## Useful links
 
-- https://juniper.github.io/techposts/testing-bgp-roles-rfc-9234-with-the-jmcp-server/article
+- https://techpost.hpe.com/articles/testing-bgp-roles-rfc-9234-with-the-jmcp-server/article
 - JNCIE-SP lab exam objectives: https://learningportal.juniper.net/juniper/user_activity_info.aspx?id=14337
 - Junos MCP Server: 
     - https://github.com/Juniper/junos-mcp-server
-    - https://juniper.github.io/techposts/network-automation-with-ai-and-junos-mcp-server/article
+    - https://techpost.hpe.com/articles/network-automation-with-ai-and-junos-mcp-server/article
 - JNCIE Self-Study Bundle: https://learningportal.juniper.net/juniper/user_activity_info.aspx?id=EDU-JUN-WBT-SSB-JNCIE-SP
 
 ## Acknowledgments

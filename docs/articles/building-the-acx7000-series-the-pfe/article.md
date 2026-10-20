@@ -10,7 +10,7 @@ With the introduction of the ACX7100 routers (-32C and -48L), we initiated the i
 
 In these articles, we will detail the routers' key components, what differentiates them and why we selected them. We start today with the heart of the router: the Packet Forwarding Engine (PFE).
 
-The second article dedicated to VOQ and life of a packet in DNX PFEs is available here: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+The second article dedicated to VOQ and life of a packet in DNX PFEs is available here: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 
 > Note: in this post, we are interchanging PFE/NPU/ASIC/Chipset/Processor to limit repetitions (at the risk of horrifying purists ;)
 
@@ -284,7 +284,7 @@ In the next articles, we will detail the hardware design decisions enabling uniq
 
 ## Useful links
 
-Second article on VOQ and Life of a packet in DNX chipset: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+Second article on VOQ and Life of a packet in DNX chipset: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 
 BCM88280 - Qumran2u
 

@@ -6,7 +6,7 @@ Summary of the Juniper Validated Design series dedicated to 5G xHaul reference a
 
 Welcome to the Juniper Validated Design (JVD) series.
 
-The motivation behind JVD has been detailed in this previous article: [https://juniper.github.io/techposts/introducing-the-validation-series/article](https://juniper.github.io/techposts/introducing-the-validation-series/article)
+The motivation behind JVD has been detailed in this previous article: [https://techpost.hpe.com/articles/introducing-the-validation-series/article](https://techpost.hpe.com/articles/introducing-the-validation-series/article)
 
 For this validation blog, our team selected a profile out of the 5G xHaul reference architecture, which consists of Fronthaul, Midhaul, and Backhaul network segments. Today we'll focus on the backhaul portion to deliver 4G/5G Layer 2 and Layer 3 services over an inter-domain Seamless MPLS infrastructure. The mobile backhaul (MBH) encompasses the technologies required to provide connectivity from cell sites to the mobile packet core segment, spanning the fronthaul and midhaul domains. The MBH use case presents unique complexities due to requirements to support legacy and next-generation technologies simultaneously.
 
@@ -122,6 +122,6 @@ From here, we will see how BGP Labeled Unicast provides the stitching mechanisms
 
 The Juniper Validated Design series are organised as:
 
-- [JVD Overview](https://juniper.github.io/techposts/introducing-the-validation-series/article)
-- [Seamless MPLS LDP with OSPF underlay](https://juniper.github.io/techposts/seamless-mpls-ldp-with-ospf/article)
-- [Building Border Agnostic Architectures with Seamless MPLS](https://juniper.github.io/techposts/border-agnostic-architectures-with-seamless-mpls/article)
+- [JVD Overview](https://techpost.hpe.com/articles/introducing-the-validation-series/article)
+- [Seamless MPLS LDP with OSPF underlay](https://techpost.hpe.com/articles/seamless-mpls-ldp-with-ospf/article)
+- [Building Border Agnostic Architectures with Seamless MPLS](https://techpost.hpe.com/articles/border-agnostic-architectures-with-seamless-mpls/article)

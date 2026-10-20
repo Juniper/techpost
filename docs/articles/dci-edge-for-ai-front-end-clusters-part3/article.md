@@ -6,7 +6,7 @@ How Juniper PTX routers consolidate tunnel aggregation, DCI, and secure internet
 
 ## Introduction
 
-In the [first part of this series](https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article) was dedicated to architecture and implementation details to build large scale EVPN Type-5 tunnel aggregation solution using Juniper PTX Series Router. In last article of the series, we will detail the remaining parts of the solution, i.e.
+In the [first part of this series](https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article) was dedicated to architecture and implementation details to build large scale EVPN Type-5 tunnel aggregation solution using Juniper PTX Series Router. In last article of the series, we will detail the remaining parts of the solution, i.e.
 
 - East-West Connectivity
 - North Bound Connectivity
@@ -19,7 +19,7 @@ We will use different terms during the solution description, so let's agree at h
 
 ![image](images/picture3.png)
 
-As per our experience with different customers, majority (~ 80-85%) of overall traffic is East-West between data centers while ~15-20% traffic volumes belong to North-South flows. All these traffic flows, i.e. North-South and East-West, are routed/controlled via Juniper PTX based Tunnel Aggregator, reinforcing our notion of dual-role purpose that we explored in [Part 2.](https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article)
+As per our experience with different customers, majority (~ 80-85%) of overall traffic is East-West between data centers while ~15-20% traffic volumes belong to North-South flows. All these traffic flows, i.e. North-South and East-West, are routed/controlled via Juniper PTX based Tunnel Aggregator, reinforcing our notion of dual-role purpose that we explored in [Part 2.](https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article)
 
 ## North-South Flows
 
@@ -53,7 +53,7 @@ Network firewall placement is a design choice where different scenarios have bee
 - Firewall placement in NET WAN PoPs allows one firewall cluster to serve the entire geographical region, thus saving infrastructural cost.
 - Firewall placement in each data center / compute facility provides better scalability and control.
 
-Juniper SRX series is an industry leading firewall which offers carrier grade routing, with all required security features. To learn more about SRX security features, please visit our public [documentation](https://www.juniper.net/documentation/us/en/software/junos/security-policies/topics/topic-map/security-zone-configuration.html). It also supports [EVPN Type-5 signaling and VxLAN](https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article) forwarding which is an important construct for firewall integration with DCI edge router (to be discussed in the upcoming section).
+Juniper SRX series is an industry leading firewall which offers carrier grade routing, with all required security features. To learn more about SRX security features, please visit our public [documentation](https://www.juniper.net/documentation/us/en/software/junos/security-policies/topics/topic-map/security-zone-configuration.html). It also supports [EVPN Type-5 signaling and VxLAN](https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article) forwarding which is an important construct for firewall integration with DCI edge router (to be discussed in the upcoming section).
 
 Besides securing network perimeter and compute facilities using network firewalls and DDoS mitigation, MACSec is an important feature for securing data transportation in both directions (East-West and North-South flows). To learn about MACSec implementation in Junos/EVO, we invite you to check the public [documentation](https://www.juniper.net/documentation/us/en/software/junos/security-services/topics/task/macsec.html).
 
@@ -240,11 +240,11 @@ Complementing auto-bandwidth, Container LSPs automate the creation and pruning o
 
 All these topics require a complete book to cover all the theoretical base and implementation details. Fortunately, I have written 5 detailed articles on each of these topics.
 
-- [Large Enterprises WAN Landscape in AI Era](https://juniper.github.io/techposts/large-enterprises-wan-landscape-in-ai-era/article)
-- [Adaptive Resource Control in TE Networks](https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article)
-- [Adaptive Resource Control with Container LSPs](https://juniper.github.io/techposts/adaptive-resource-control-with-container-lsps/article)
-- [Wholistic Design Approach for MPLS Backbone CoS](https://juniper.github.io/techposts/wholistic-design-approach-for-mpls-backbone-cos/article)
-- [Class-Based Forwarding over RSVP LSPs Design](https://juniper.github.io/techposts/class-based-forwarding-over-rsvp-lsps-design/article)
+- [Large Enterprises WAN Landscape in AI Era](https://techpost.hpe.com/articles/large-enterprises-wan-landscape-in-ai-era/article)
+- [Adaptive Resource Control in TE Networks](https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article)
+- [Adaptive Resource Control with Container LSPs](https://techpost.hpe.com/articles/adaptive-resource-control-with-container-lsps/article)
+- [Wholistic Design Approach for MPLS Backbone CoS](https://techpost.hpe.com/articles/wholistic-design-approach-for-mpls-backbone-cos/article)
+- [Class-Based Forwarding over RSVP LSPs Design](https://techpost.hpe.com/articles/class-based-forwarding-over-rsvp-lsps-design/article)
 
 ## Resiliency and Redundancy
 
@@ -361,7 +361,7 @@ inet.0: 61 destinations, 61 routes (59 active, 0 holddown, 2 hidden)
                         >  to 10.10.10.0 via et-0/0/0.0
 ```
 
-In forwarding plane, a unilist (**ulst**) next-hop (NH) with index 8586 is created which consists of 2 composite NHs, each pointing to one of the remote PE via an indirect (**indr**) NH. In Junos/EVO, unlist NH is used for traffic load balancing purposes. To read more about different next-hop types, please read [the blog here](https://juniper.github.io/techposts/mastering-bgp-pic-on-junos/article).
+In forwarding plane, a unilist (**ulst**) next-hop (NH) with index 8586 is created which consists of 2 composite NHs, each pointing to one of the remote PE via an indirect (**indr**) NH. In Junos/EVO, unlist NH is used for traffic load balancing purposes. To read more about different next-hop types, please read [the blog here](https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article).
 
 ```
 DUT>  show route forwarding-table destination 172.172.0.0/16  vpn TAN_1_FE_VRF    
@@ -421,7 +421,7 @@ As discussed above, for North-Bound connectivity we don't require unequal cost m
 
 BGP Prefix-Independent Convergence (PIC) feature allows the computation and installation of backup paths in RIB and FIB with higher weight. These higher weight NHs (**Weight: 0x4000**) will not be used for active forwarding until lower weight, or primary NHs (**Weight: 0x1**) are available for traffic forwarding. But as soon as primary NHs go down due to any reason, the higher weight NHs will become new primary NH.
 
-To learn more about BGP PIC, [please read this blog](https://juniper.github.io/techposts/mastering-bgp-pic-on-junos/article).
+To learn more about BGP PIC, [please read this blog](https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article).
 
 ```
 routing-instances { 
@@ -503,9 +503,9 @@ In this tech post we have elaborated different design choices for North-South an
 
 ## Useful Links
 
-- Intro - Overlay Networking in AI Era: [https://juniper.github.io/techposts/overlay-networking-in-ai-era/article](https://juniper.github.io/techposts/overlay-networking-in-ai-era/article)
-- Part2 - Juniper PTX Routers in Front-End Network: [https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article](https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article)
-- Part3 - DCI Edge for AI Front End Clusters with Juniper PTX: [https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article](https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article)
+- Intro - Overlay Networking in AI Era: [https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article](https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article)
+- Part2 - Juniper PTX Routers in Front-End Network: [https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article](https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article)
+- Part3 - DCI Edge for AI Front End Clusters with Juniper PTX: [https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article](https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article)
 
 ## Glossary
 

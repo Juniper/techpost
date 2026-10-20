@@ -964,7 +964,7 @@ SR-TE LSPs are a powerful and alternative option to migrate traffic from LDP to 
 - Day One: Migrating to Segment Routing:
 [https://www.juniper.net/documentation/en_US/day-one-books/DO_MigrateSR.pdf](https://www.juniper.net/documentation/en_US/day-one-books/DO_MigrateSR.pdf)
 - Service Mapping to Colored MPLS Paths:
-[https://juniper.github.io/techposts/service-mapping-to-colored-mpls-paths/article](https://juniper.github.io/techposts/service-mapping-to-colored-mpls-paths/article)
+[https://techpost.hpe.com/articles/service-mapping-to-colored-mpls-paths/article](https://techpost.hpe.com/articles/service-mapping-to-colored-mpls-paths/article)
 
 ## Glossary
 

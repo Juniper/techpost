@@ -6,7 +6,7 @@ Holistic design considerations for Large-Scale Enterprise WAN backbone networks,
 
 ## Introduction
 
-Previous blog posts covered several key design aspects of MPLS backbone networks, including [a holistic approach to Class of Service](https://juniper.github.io/techposts/adaptive-resource-control-with-container-lsps/article). While writing those posts, I started thinking about how to conclude the series meaningfully. Later, it became clear that the final blog post should focus on holistic design considerations for Large-Scale Enterprise WAN backbone networks, especially in the context of the evolving landscape shaped by connecting AI Clusters over the WAN Backbone.
+Previous blog posts covered several key design aspects of MPLS backbone networks, including [a holistic approach to Class of Service](https://techpost.hpe.com/articles/adaptive-resource-control-with-container-lsps/article). While writing those posts, I started thinking about how to conclude the series meaningfully. Later, it became clear that the final blog post should focus on holistic design considerations for Large-Scale Enterprise WAN backbone networks, especially in the context of the evolving landscape shaped by connecting AI Clusters over the WAN Backbone.
 
 In a Large-Scale Enterprise, a Wide Area Network (WAN) backbone serves as the foundational infrastructure interconnecting various types of computational and data storage facilities, such as AI clusters, corporate data centers, and private cloud environments. Private WAN Backbone plays a critical role in enabling broader connectivity across geographically distributed regions.
 
@@ -220,7 +220,7 @@ ABC Corporation's WAN backbone is built using Wavelength circuits and Dark Fiber
 - **ECMP Over Diverse Paths**: Parallel LSPs should be spawned across multiple available paths to maximize throughput and fault tolerance.
 - **LSP Auto Creation and Pruning**: Elastic scaling of LSPs is required to match dynamic bandwidth demands.
 
-All of the above stated requirements can be best fulfilled by RSV-TE and Container LSP (TE++) so it will be adapted as a transport mechanism.  To learn more about adaptive resource control and Container LSP architecture, refer to my earlier blog on [Adaptive Resource Control](https://juniper.github.io/techposts/adaptive-resource-control-with-container-lsps/article).
+All of the above stated requirements can be best fulfilled by RSV-TE and Container LSP (TE++) so it will be adapted as a transport mechanism.  To learn more about adaptive resource control and Container LSP architecture, refer to my earlier blog on [Adaptive Resource Control](https://techpost.hpe.com/articles/adaptive-resource-control-with-container-lsps/article).
 
 ### Preferred Local Traffic Paths with Cross-Regional Redundancy
 
@@ -260,7 +260,7 @@ Despite deploying well-defined traffic classification, prioritization policies, 
 
 After evaluating multiple technologies such as Filter-Based Forwarding, BGP Classful Transport (BGP-CT), and Class-Based Forwarding (CBF), ABC Corporation has chosen to implement CBF to meet its selective traffic forwarding needs. CBF enables traffic to be forwarded based on predefined classes, allowing granular control over path selection according to application requirements.
 
-To learn more about CBF and its implementation, please refer to [my dedicated blog post on the topic](https://juniper.github.io/techposts/class-based-forwarding-over-rsvp-lsps-design/article).
+To learn more about CBF and its implementation, please refer to [my dedicated blog post on the topic](https://techpost.hpe.com/articles/class-based-forwarding-over-rsvp-lsps-design/article).
 
 ### Traffic Classification and Prioritization
 
@@ -273,7 +273,7 @@ Traffic entering the network at the edges should be classified and forwarded via
 - Traffic from corporate to internet or cloud destinations will be assigned a higher packet loss priority and will be served by best-effort queue.
 - Voice traffic within corporate networks will also be served by high priority queue while any video traffic within corporate network will be served by medium priority queue.
 
-Multifield or behavior aggregated classifiers can be applied on WAN backbone edges to segregate traffic flows based on prefixes/ port or DSCP values.  To learn more about Class of Service in WAN Backbone, [please refer to my previous blog post.](https://juniper.github.io/techposts/wholistic-design-approach-for-mpls-backbone-cos/article)
+Multifield or behavior aggregated classifiers can be applied on WAN backbone edges to segregate traffic flows based on prefixes/ port or DSCP values.  To learn more about Class of Service in WAN Backbone, [please refer to my previous blog post.](https://techpost.hpe.com/articles/wholistic-design-approach-for-mpls-backbone-cos/article)
 
 ### Scaling Considerations for PE Routers
 
@@ -476,10 +476,10 @@ WAN backbone design in scaled environments requires a comprehensive approach tha
 
 ## References
 
-- [https://juniper.github.io/techposts/wholistic-design-approach-for-mpls-backbone-cos/article](https://juniper.github.io/techposts/wholistic-design-approach-for-mpls-backbone-cos/article)
-- [https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article](https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article)
-- [https://juniper.github.io/techposts/adaptive-resource-control-with-container-lsps/article](https://juniper.github.io/techposts/adaptive-resource-control-with-container-lsps/article)
-- [https://juniper.github.io/techposts/class-based-forwarding-over-rsvp-lsps-design/article](https://juniper.github.io/techposts/class-based-forwarding-over-rsvp-lsps-design/article)
+- [https://techpost.hpe.com/articles/wholistic-design-approach-for-mpls-backbone-cos/article](https://techpost.hpe.com/articles/wholistic-design-approach-for-mpls-backbone-cos/article)
+- [https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article](https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article)
+- [https://techpost.hpe.com/articles/adaptive-resource-control-with-container-lsps/article](https://techpost.hpe.com/articles/adaptive-resource-control-with-container-lsps/article)
+- [https://techpost.hpe.com/articles/class-based-forwarding-over-rsvp-lsps-design/article](https://techpost.hpe.com/articles/class-based-forwarding-over-rsvp-lsps-design/article)
 
 ## Acknowledgments
 

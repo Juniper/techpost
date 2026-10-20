@@ -25,9 +25,9 @@ Focus will be centric considering flows and impacts incorporating diverse upstre
 
 This post assumes familiarity with MNHA fundamentals. If you're new to MNHA or need a refresher, do yourself a favor and read these first, in order:
 
-- 1. [Multi-Node High Availability Basics](https://juniper.github.io/techposts/multi-node-high-availability-basics/article): Steven Jacques covers the foundational concepts: ICL mechanics, SRG0, Active/Warm session synchronization, and config sync via Junos groups. If those terms aren't familiar, start here.
-- 2. [Hybrid MNHA with eBGP](https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article): covers hybrid deployment mode, BFD-driven failover, signal routes, and MED-based BGP traffic engineering. The topology in this post builds directly on those concepts.
-- 3. [SRX clustering: from Chassis Cluster to MultiNode High Availability](https://juniper.github.io/techposts/srx-from-chassis-cluster-to-mnha/article): Laurent Paumelle's architectural overview of MNHA modes, SRG taxonomy, and platform support. Good context if you're evaluating MNHA or migrating from Chassis Cluster.
+- 1. [Multi-Node High Availability Basics](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article): Steven Jacques covers the foundational concepts: ICL mechanics, SRG0, Active/Warm session synchronization, and config sync via Junos groups. If those terms aren't familiar, start here.
+- 2. [Hybrid MNHA with eBGP](https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article): covers hybrid deployment mode, BFD-driven failover, signal routes, and MED-based BGP traffic engineering. The topology in this post builds directly on those concepts.
+- 3. [SRX clustering: from Chassis Cluster to MultiNode High Availability](https://techpost.hpe.com/articles/srx-from-chassis-cluster-to-mnha/article): Laurent Paumelle's architectural overview of MNHA modes, SRG taxonomy, and platform support. Good context if you're evaluating MNHA or migrating from Chassis Cluster.
 
 This post doesn't repeat what those cover. The intent is to build on them, not restate them. Consider this your homework assignment before diving in.
 
@@ -1479,10 +1479,10 @@ Don't add complexity for the sake of it. Reference organizational security polic
 - Multi-Node High Availability: public documentation
 [https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/mnha-introduction.html ](https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/mnha-introduction.html)
 - Multi-Node High Availability Basics
-[https://juniper.github.io/techposts/multi-node-high-availability-basics/article](https://juniper.github.io/techposts/multi-node-high-availability-basics/article)
+[https://techpost.hpe.com/articles/multi-node-high-availability-basics/article](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article)
 - Hybrid MNHA with eBGP
-[https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article](https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article)
-- SRX clustering: from Chassis Cluster to MultiNode High Availability [https://juniper.github.io/techposts/srx-from-chassis-cluster-to-mnha/article](https://juniper.github.io/techposts/srx-from-chassis-cluster-to-mnha/article)
+[https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article](https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article)
+- SRX clustering: from Chassis Cluster to MultiNode High Availability [https://techpost.hpe.com/articles/srx-from-chassis-cluster-to-mnha/article](https://techpost.hpe.com/articles/srx-from-chassis-cluster-to-mnha/article)
 - Flow-Based and Packet-Based Processing User Guide for Security Devices
  [https://www.juniper.net/documentation/us/en/software/junos/flow-packet-processing/topics/topic-map/security-srx-devices-processing-overview.html](https://www.juniper.net/documentation/us/en/software/junos/flow-packet-processing/topics/topic-map/security-srx-devices-processing-overview.html)
 - Chassis Cluster Fabric Interfaces

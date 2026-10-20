@@ -47,7 +47,7 @@ In this case, 400GE ZR provides solutions with higher performance to address a m
 
 ## ACX7100 Series Routers
 
-ACX7100 routers exist in two versions---ACX7100-32C and ACX7100-48L--- and detailed specifications are mentioned in ACX7100 Deepdive ([https://juniper.github.io/techposts/acx7100-deepdive/article](https://juniper.github.io/techposts/acx7100-deepdive/article)), here we will focus on the ACX7100-32C router with 400GE ZR and 100GE ZR4 optics.
+ACX7100 routers exist in two versions---ACX7100-32C and ACX7100-48L--- and detailed specifications are mentioned in ACX7100 Deepdive ([https://techpost.hpe.com/articles/acx7100-deepdive/article](https://techpost.hpe.com/articles/acx7100-deepdive/article)), here we will focus on the ACX7100-32C router with 400GE ZR and 100GE ZR4 optics.
 
 ACX7100-32C offers:
 

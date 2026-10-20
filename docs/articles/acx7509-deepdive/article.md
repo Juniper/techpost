@@ -394,7 +394,7 @@ The PFE0 is connected to slots 0 to 3, while PFE1 is connected to slots 4 to 7.
 
 Slots 1 and 5 are connected via PM50, also other slots are linked with PM25.
 
-We invite you to read more on the Port Macros in this TechPost: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+We invite you to read more on the Port Macros in this TechPost: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 
 In a nutshell:
 
@@ -701,7 +701,7 @@ So, why two J2c at 2.4Tbps instead of a single Jericho2 at 4.8Tbps?
 
 This dual ASIC approach offers multiple advantages, but the two major ones are:
 
-- A mix of PM25 and PM50 allowing ports from 1GE to 400GE in the same chassis J2 only offers PM50s, check [the link for more details](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+- A mix of PM25 and PM50 allowing ports from 1GE to 400GE in the same chassis J2 only offers PM50s, check [the link for more details](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 - Higher scalability in queues and counters
 
 The two J2c ASICs are connected via 48x SERDES 50Gbps. The traffic "cellification" between ingress and egress pipelines and the internal headers added to each packet/cell (traffic management, packet processing and fabric headers), reduces this theorical 2.4Tbps connection to 2.15Tbps in the best case. Let's say it's "more or less 2Tbps" to simplify the discussion.
@@ -796,9 +796,9 @@ Next article on ACX7509 will be dedicated to the High-Availability testing, stay
 - Datasheet: [https://www.juniper.net/content/dam/www/assets/datasheets/us/en/routers/acx7509-cloud-metro-router-datasheet.pdf](https://www.juniper.net/content/dam/www/assets/datasheets/us/en/routers/acx7509-cloud-metro-router-datasheet.pdf)
 - Port checker: [https://apps.juniper.net/home/port-checker/index.html](https://apps.juniper.net/home/port-checker/index.html)
 - Power calculator: [https://apps.juniper.net/power-calculator/?view=calculate&pdt=10107509&type=2](https://apps.juniper.net/power-calculator/?view=calculate&pdt=10107509&type=2)
-- EVPN MAC VRF Metro Validation: [https://juniper.github.io/techposts/evpn-mac-vrf-validation-on-acx7000/article](https://juniper.github.io/techposts/evpn-mac-vrf-validation-on-acx7000/article)
-- EVPN VPWS Metro Validation: [https://juniper.github.io/techposts/evpn-vpws-validation-on-acx7000/article](https://juniper.github.io/techposts/evpn-vpws-validation-on-acx7000/article)
-- L3VPN and 6PE Metro Validation: [https://juniper.github.io/techposts/l3vpn-validation-on-acx7000/article](https://juniper.github.io/techposts/l3vpn-validation-on-acx7000/article)
+- EVPN MAC VRF Metro Validation: [https://techpost.hpe.com/articles/evpn-mac-vrf-validation-on-acx7000/article](https://techpost.hpe.com/articles/evpn-mac-vrf-validation-on-acx7000/article)
+- EVPN VPWS Metro Validation: [https://techpost.hpe.com/articles/evpn-vpws-validation-on-acx7000/article](https://techpost.hpe.com/articles/evpn-vpws-validation-on-acx7000/article)
+- L3VPN and 6PE Metro Validation: [https://techpost.hpe.com/articles/l3vpn-validation-on-acx7000/article](https://techpost.hpe.com/articles/l3vpn-validation-on-acx7000/article)
 
 ## Glossary
 

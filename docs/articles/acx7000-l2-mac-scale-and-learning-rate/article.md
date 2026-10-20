@@ -8,16 +8,16 @@ We verify ACX7000 platforms support 700,000 MAC addresses with a learning rate o
 
 This is the sixth and last article in the ACX7k Metro Validation Series:
 
-- [1. EVPN MAC-VRF (E-LAN)](https://juniper.github.io/techposts/evpn-mac-vrf-validation-on-acx7000/article)
-- [2. EVPN VPWS](https://juniper.github.io/techposts/evpn-vpws-validation-on-acx7000/article)
-- [3. L3VPN, 6VPE](https://juniper.github.io/techposts/l3vpn-validation-on-acx7000/article)
-- [4. L2VPN](https://juniper.github.io/techposts/l2vpn-validation-on-acx7000/article)
-- [5. VPLS](https://juniper.github.io/techposts/acx7000-vpls-validation/article)
-- [6. L2 MAC Scale and Learning Rate](https://juniper.github.io/techposts/acx7000-l2-mac-scale-and-learning-rate/article)
+- [1. EVPN MAC-VRF (E-LAN)](https://techpost.hpe.com/articles/evpn-mac-vrf-validation-on-acx7000/article)
+- [2. EVPN VPWS](https://techpost.hpe.com/articles/evpn-vpws-validation-on-acx7000/article)
+- [3. L3VPN, 6VPE](https://techpost.hpe.com/articles/l3vpn-validation-on-acx7000/article)
+- [4. L2VPN](https://techpost.hpe.com/articles/l2vpn-validation-on-acx7000/article)
+- [5. VPLS](https://techpost.hpe.com/articles/acx7000-vpls-validation/article)
+- [6. L2 MAC Scale and Learning Rate](https://techpost.hpe.com/articles/acx7000-l2-mac-scale-and-learning-rate/article)
 
-In this article, we validate the MAC address scale and its learning rate on the [ACX7100-32C](https://juniper.github.io/techposts/acx7100-deepdive/article) platform with 22.2R1 Junos-EVO build.
+In this article, we validate the MAC address scale and its learning rate on the [ACX7100-32C](https://techpost.hpe.com/articles/acx7100-deepdive/article) platform with 22.2R1 Junos-EVO build.
 
-ACX7100-32C is tested for 700,000 MAC addresses with a learning rate of 14,000 MACs per second. The same is tested on ACX7100-48L as well as on [ACX7509](https://juniper.github.io/techposts/acx7024-deepdive/article) scale is not covered in this article, and is expected to be lower than the numbers presented here.
+ACX7100-32C is tested for 700,000 MAC addresses with a learning rate of 14,000 MACs per second. The same is tested on ACX7100-48L as well as on [ACX7509](https://techpost.hpe.com/articles/acx7024-deepdive/article) scale is not covered in this article, and is expected to be lower than the numbers presented here.
 
 Please note that despite sharing the same ACX moniker, the ACX7000 products are different products than ACX500/710/1000/1100/2100/2200/4000/5000/5400/6000. They are powered by different Packet Forwarding Engines (PFE), and support different feature sets and scales.
 

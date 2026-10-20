@@ -453,7 +453,7 @@ Oops, wait a minute! We exchanged only loopbacks and SRv6 locators. And, our pin
 
 *CLI-Output 6: Ping from PE22 to PE11 (second try)*
 
-Fortunately, sourcing the ping from the local loopback solves the issue. Both remote loopback and remote SRv6 locator (or, remote SRv6 END SID, to be more precise -- check [SRv6 Basics: Locator and End SIDs blog post](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article) for more details) are reachable (lines 7 and 14).
+Fortunately, sourcing the ping from the local loopback solves the issue. Both remote loopback and remote SRv6 locator (or, remote SRv6 END SID, to be more precise -- check [SRv6 Basics: Locator and End SIDs blog post](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article) for more details) are reachable (lines 7 and 14).
 
 ### Base Configuration for exchanging L3VPN prefixes
 
@@ -707,7 +707,7 @@ Well, there is something wrong with the protocol next hop (line 7). Protocol nex
 
 Well, remote loopback is there. And we can ping remote loopback (as we checked earlier, when discussing transport connectivity between AS-es -- CLI-Output 6).
 
-But, looking from L3VPN perspective, the problem is that the remote loopback is only in inet6.0, but not in inet6.3. For L3VPN next-hop resolution, next-hops must be in inet6.3. Saying that, we are now looking at L3VPN over SRv6, so as discussed in [SRv6 SID Encoding and Transposition blog post](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article) the next-hop resolution happens via SRv6 SID announced together with L3VPN prefix, and not via NEXT_HOP attribute. Therefore, we should rather look for SRv6 SIDs, and not NEXT_HOP attributes, if there is some problem with L3VPN next-hop resolution.
+But, looking from L3VPN perspective, the problem is that the remote loopback is only in inet6.0, but not in inet6.3. For L3VPN next-hop resolution, next-hops must be in inet6.3. Saying that, we are now looking at L3VPN over SRv6, so as discussed in [SRv6 SID Encoding and Transposition blog post](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article) the next-hop resolution happens via SRv6 SID announced together with L3VPN prefix, and not via NEXT_HOP attribute. Therefore, we should rather look for SRv6 SIDs, and not NEXT_HOP attributes, if there is some problem with L3VPN next-hop resolution.
 
 So, let's see, what SRv6 SIDs we are receiving from remote PE (CLI-Output 8). Ooooops! We don't receive any (CLI-Output 8)! Does remote PE send at all SRv6 SID (CLI-Output 11)?
 
@@ -768,7 +768,7 @@ So, let's see, what SRv6 SIDs we are receiving from remote PE (CLI-Output 8). Oo
 
 Well, it doesn't.
 
-The problem is, that by default, for increased security, BGP Prefix SID (which includes SRv6 SID -- please check lines 181-212 in Packet Capture 1 of [SRv6 SID Encoding and Transposition blog post](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)) is neither advertised, nor accepted over eBGP session. Advertising/accepting BGP Prefix SID requires explicit configuration, as outlined in Configuration 5.
+The problem is, that by default, for increased security, BGP Prefix SID (which includes SRv6 SID -- please check lines 181-212 in Packet Capture 1 of [SRv6 SID Encoding and Transposition blog post](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)) is neither advertised, nor accepted over eBGP session. Advertising/accepting BGP Prefix SID requires explicit configuration, as outlined in Configuration 5.
 
 ```
     protocols {
@@ -848,7 +848,7 @@ Now, checking again one of the remote prefixes (CLI-Output 13 and CLI-Output 14)
 
 *CLI-Output 14: Detailed view of remote L3VPN prefix on PE11*
 
-BGP NEXT_HOP attribute is still remote loopback (CLI-Output 13, line 8). However, next-hop resolution is based on SRv6 SID (CLI-Output 13, line 12, and CLI-Output 14, lines 19 and 26), not on the NEXT_HOP attribute. Why it is like that was explained in [SRv6 SID Encoding and Transposition blog post](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article). These are good news.
+BGP NEXT_HOP attribute is still remote loopback (CLI-Output 13, line 8). However, next-hop resolution is based on SRv6 SID (CLI-Output 13, line 12, and CLI-Output 14, lines 19 and 26), not on the NEXT_HOP attribute. Why it is like that was explained in [SRv6 SID Encoding and Transposition blog post](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article). These are good news.
 
 ### Troubleshooting of L3VPN Next-Hop Resolution
 
@@ -872,7 +872,7 @@ However, the bad news is, the next-hop is still not resolved (CLI-Output 14, lin
 
 *CLI-Output 15: PE22 SRv6 Locator visibility on PE11*
 
-Remote PE SRv6 locator is present only in inet6.0 RIB (Routing Information Base). For L3VPN next-hop resolution to work, the next-hop must be present in inet6.3 RIB, inet6.0 is not sufficient. As you probably remember from the very first SRv6 blog post ([SRv6 Basics: Locator and End SID](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)), SRv6 from local domain are distributed via IS-IS using two TLVs (Type-Length-Value): IPv6 prefix (IS-IS TLV 236: IPv6 IP Reachability), as well as SRv6 locator (IS-IS TLV 27: SRv6 Locator). First TLV is used to install the SRv6 locator into inet6.0 RIB as "normal" IPv6 prefix, while second TLV is used for inet6.3 RIB installation. With BGP, we are distributing both IPv6 loopbacks and SRv6 locators as "normal" IPv6 prefixes. So, what do we do? Let's keep remote IPv6 loopbacks in inet6.0 RIB only, while install SRv6 locators into both inet6.0 and inet6.3 with a RIB group (Configuration 6).
+Remote PE SRv6 locator is present only in inet6.0 RIB (Routing Information Base). For L3VPN next-hop resolution to work, the next-hop must be present in inet6.3 RIB, inet6.0 is not sufficient. As you probably remember from the very first SRv6 blog post ([SRv6 Basics: Locator and End SID](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)), SRv6 from local domain are distributed via IS-IS using two TLVs (Type-Length-Value): IPv6 prefix (IS-IS TLV 236: IPv6 IP Reachability), as well as SRv6 locator (IS-IS TLV 27: SRv6 Locator). First TLV is used to install the SRv6 locator into inet6.0 RIB as "normal" IPv6 prefix, while second TLV is used for inet6.3 RIB installation. With BGP, we are distributing both IPv6 loopbacks and SRv6 locators as "normal" IPv6 prefixes. So, what do we do? Let's keep remote IPv6 loopbacks in inet6.0 RIB only, while install SRv6 locators into both inet6.0 and inet6.3 with a RIB group (Configuration 6).
 
 ```
     policy-options {
@@ -1337,7 +1337,7 @@ Now, packet with destination address fc01:200:21:420:: (END.DT4 SID on PE21) is 
 
 The instruction is to send the packet via SRv6 tunnel to the SRv6 END SID of P1 (line 8). This is what can be seen in Figure 5 -- router P2 pushes additional header. Why is this instruction? You probably still remember, this is the result of Configuration 7.
 
-Now, such packet arrives to P1. Destination address of the packet is END SID of P1, which means packet is subject to local consumption, and not forwarded further (please check [SRv6 Basics: Locator and End SIDs blog post](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)). And exactly this happens on P1 -- packet is not forwarded.
+Now, such packet arrives to P1. Destination address of the packet is END SID of P1, which means packet is subject to local consumption, and not forwarded further (please check [SRv6 Basics: Locator and End SIDs blog post](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)). And exactly this happens on P1 -- packet is not forwarded.
 
 So, what can we do? END SIDs can be advertised with different flavors ([draft-ietf-lsr-isis-srv6-extensions](https://datatracker.ietf.org/doc/html/draft-ietf-lsr-isis-srv6-extensions/), [RFC8986](https://datatracker.ietf.org/doc/html/rfc8986)):
 
@@ -1408,12 +1408,12 @@ In the next blog post we will show an interesting use case, showing guaranteed l
 - [RFC8986](https://datatracker.ietf.org/doc/html/rfc8986): Segment Routing over IPv6 (SRv6) Network Programming
 - [draft-ietf-lsr-isis-srv6-extensions](https://datatracker.ietf.org/doc/html/draft-ietf-lsr-isis-srv6-extensions/): IS-IS Extensions to Support Segment Routing over IPv6 Dataplane
 - SRv6 in Junos: [https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html](https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html)
-- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)
-- TechPost 2: L3VPN on SRv6 - [https://juniper.github.io/techposts/l3vpn-over-srv6/article](https://juniper.github.io/techposts/l3vpn-over-srv6/article)
-- TechPost 3: SRv6 Summarisation - [https://juniper.github.io/techposts/srv6-summarization/article](https://juniper.github.io/techposts/srv6-summarization/article)
-- TechPost 4: SRv6 SID Encoding and Transposition - [https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)
-- TechPost 5: SRv6 L3VPN Inter-AS Option-C - [https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article](https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article)
-- TechPost 6: Link Slicing with MPLS and SRv6 Underlays - [https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article)
+- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)
+- TechPost 2: L3VPN on SRv6 - [https://techpost.hpe.com/articles/l3vpn-over-srv6/article](https://techpost.hpe.com/articles/l3vpn-over-srv6/article)
+- TechPost 3: SRv6 Summarisation - [https://techpost.hpe.com/articles/srv6-summarization/article](https://techpost.hpe.com/articles/srv6-summarization/article)
+- TechPost 4: SRv6 SID Encoding and Transposition - [https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)
+- TechPost 5: SRv6 L3VPN Inter-AS Option-C - [https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article](https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article)
+- TechPost 6: Link Slicing with MPLS and SRv6 Underlays - [https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article)
 
 ## Glossary
 

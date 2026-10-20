@@ -6,7 +6,7 @@ How we can significantly reduce the power usage of the ACX7000 routers with basi
 
 ## Introduction
 
-Power saving and carbon footprint reduction are top of mind topics in our discussions with customers. We recently published a couple of posts on energy usage optimization on PTX ([https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article)) and we continue the series with a TechPost article dedicated to the ACX7000 routers.
+Power saving and carbon footprint reduction are top of mind topics in our discussions with customers. We recently published a couple of posts on energy usage optimization on PTX ([https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article)) and we continue the series with a TechPost article dedicated to the ACX7000 routers.
 
 In this publication, we will detail the behavior inside the routers and highlight the differences with the PTX/MX Series. We will demonstrate the power savings you can achieve with a simple configuration. To measure the potential gains, we used power meters available in our lab racks PDUs (Power Distribution Units) and we also streamed counters from the routers themselves. We will conclude the article with a series of simple recommendations / best practices.
 
@@ -123,13 +123,13 @@ In this section, we will carry out tests on systems with all revenue ports empty
 
 Let's with routers without Reverse Gear Box first:
 
-- ACX7100-48L: [a deepdive on the platform is available here.](https://juniper.github.io/techposts/acx7100-deepdive/article)
-- ACX7024: [a deepdive on the platform is available here.](https://juniper.github.io/techposts/acx7024-deepdive/article)
+- ACX7100-48L: [a deepdive on the platform is available here.](https://techpost.hpe.com/articles/acx7100-deepdive/article)
+- ACX7024: [a deepdive on the platform is available here.](https://techpost.hpe.com/articles/acx7024-deepdive/article)
 
 and then we will study systems with RGBs:
 
-- ACX7100-32C : [a deepdive on the platform is available here](https://juniper.github.io/techposts/acx7100-deepdive/article).
-- the different FPCs of an ACX7509: [a deepdive on the platform is available here.](https://juniper.github.io/techposts/acx7509-deepdive/article)
+- ACX7100-32C : [a deepdive on the platform is available here](https://techpost.hpe.com/articles/acx7100-deepdive/article).
+- the different FPCs of an ACX7509: [a deepdive on the platform is available here.](https://techpost.hpe.com/articles/acx7509-deepdive/article)
 
 The future ACX7348 and ACX7332 are also using RGB on the SFP ports and on all the FPC cards.
 
@@ -373,12 +373,12 @@ It's also possible to consider configuring ports "unused" for slots populated wi
 
 ## Useful links
 
-- [https://juniper.github.io/techposts/acx7100-deepdive/article](https://juniper.github.io/techposts/acx7100-deepdive/article)
-- [https://juniper.github.io/techposts/acx7024-deepdive/article](https://juniper.github.io/techposts/acx7024-deepdive/article)
-- [https://juniper.github.io/techposts/acx7509-deepdive/article](https://juniper.github.io/techposts/acx7509-deepdive/article)
-- [https://juniper.github.io/techposts/optimizing-power-consumption-in-high-end-routers/article](https://juniper.github.io/techposts/optimizing-power-consumption-in-high-end-routers/article)
-- [https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article)
-- [https://juniper.github.io/techposts/ptx10000-power-optimization/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article)
+- [https://techpost.hpe.com/articles/acx7100-deepdive/article](https://techpost.hpe.com/articles/acx7100-deepdive/article)
+- [https://techpost.hpe.com/articles/acx7024-deepdive/article](https://techpost.hpe.com/articles/acx7024-deepdive/article)
+- [https://techpost.hpe.com/articles/acx7509-deepdive/article](https://techpost.hpe.com/articles/acx7509-deepdive/article)
+- [https://techpost.hpe.com/articles/optimizing-power-consumption-in-high-end-routers/article](https://techpost.hpe.com/articles/optimizing-power-consumption-in-high-end-routers/article)
+- [https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article)
+- [https://techpost.hpe.com/articles/ptx10000-power-optimization/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article)
 
 ## Glossary
 

@@ -6,9 +6,9 @@ Second part of the 3-article series on BIER, detailing how is performed the look
 
 The series is composed of the following posts:
 
-- [Introduction to BIER and BIER Underlay](https://juniper.github.io/techposts/bier-introduction-and-underlay/article)
+- [Introduction to BIER and BIER Underlay](https://techpost.hpe.com/articles/bier-introduction-and-underlay/article)
 - BIER Table Lookup (present article)
-- [BIER Overlay](https://juniper.github.io/techposts/bier-overlay/article)
+- [BIER Overlay](https://techpost.hpe.com/articles/bier-overlay/article)
 
 In this TechPost, we talk in deeper detail about the different tables such as the BIRT (Bit Index Routing Table) and the BIFT (Bit Index Forwarding Table), the FBM (Forwarind BitMap) representation, but also the BIER Layer and the BIFT lookup.
 
@@ -449,16 +449,16 @@ RFC/Drafts
 
 PTX10002-36QDD:
 
-- [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
-- [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+- [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
+- [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
 - [https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-36qdd-packet-transport-router.html](https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-36qdd-packet-transport-router.html)
 
 BIER TechPost Articles
 
-- [https://juniper.github.io/techposts/bier-introduction-and-underlay/article](https://juniper.github.io/techposts/bier-introduction-and-underlay/article)
-- [https://juniper.github.io/techposts/bier-overlay/article](https://juniper.github.io/techposts/bier-overlay/article)
-- [https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article](https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article)
-- [https://juniper.github.io/techposts/eantc-bier-interop-testing-on-ptx10002-36qdd/article](https://juniper.github.io/techposts/eantc-bier-interop-testing-on-ptx10002-36qdd/article)
+- [https://techpost.hpe.com/articles/bier-introduction-and-underlay/article](https://techpost.hpe.com/articles/bier-introduction-and-underlay/article)
+- [https://techpost.hpe.com/articles/bier-overlay/article](https://techpost.hpe.com/articles/bier-overlay/article)
+- [https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article](https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article)
+- [https://techpost.hpe.com/articles/eantc-bier-interop-testing-on-ptx10002-36qdd/article](https://techpost.hpe.com/articles/eantc-bier-interop-testing-on-ptx10002-36qdd/article)
 
 EANTC 2024 InterOP Report
 

@@ -327,5 +327,5 @@ On ACX7K, mirroring is a set of tools, not just one feature. Using the right too
 ## Useful links
 
 1.  [Sample configuration of port mirroring on ACX Series (Junos EVO) - Juniper KB](https://supportportal.juniper.net/s/article/Sample-configuration-of-port-mirroring-on-ACX-Series-JUNOS-EVO)
-2.  [ACX7000 ERSPAN and Port Mirroring - Juniper TechPost](https://juniper.github.io/techposts/acx7000-erspan-and-port-mirroring/article)
+2.  [ACX7000 ERSPAN and Port Mirroring - Juniper TechPost](https://techpost.hpe.com/articles/acx7000-erspan-and-port-mirroring/article)
 3.  [Port Mirroring and Analyzers - Juniper Documentation](https://www.juniper.net/documentation/us/en/software/junos/network-mgmt/topics/topic-map/port-mirroring-and-analyzers.html)

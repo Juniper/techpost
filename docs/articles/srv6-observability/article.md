@@ -8,14 +8,14 @@ How can we monitor the SRv6 data plane, and collect statistics on the SRv6 SRH a
 
 At Juniper, we have observed increasing customer interest in the SRv6 standard over recent years. This Techpost isn't focused on the SRv6 technology itself. It's something we've already explored in-depth in multiple previous articles:
 
-- SRv6 Basics: Locator and End SIDs: [https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)
-- L3VPN over SRv6: [https://juniper.github.io/techposts/l3vpn-over-srv6/article](https://juniper.github.io/techposts/l3vpn-over-srv6/article)
-- SRv6 Summarization: [https://juniper.github.io/techposts/srv6-summarization/article](https://juniper.github.io/techposts/srv6-summarization/article)
-- SRv6 SID Encoding and Transposition: [https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)
-- SRv6 L3VPN Inter-AS Option-C: [https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article](https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article)
-- Link Slicing with MPLS and SRv6 Underlays: [https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article)
-- Link Slicing with MPLS and SRv6 Underlays Part 2: [https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays-part-2/article](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays-part-2/article)
-- SRv6 in PTX Express 5: [https://juniper.github.io/techposts/srv6-in-ptx-express-5/article](https://juniper.github.io/techposts/srv6-in-ptx-express-5/article)
+- SRv6 Basics: Locator and End SIDs: [https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)
+- L3VPN over SRv6: [https://techpost.hpe.com/articles/l3vpn-over-srv6/article](https://techpost.hpe.com/articles/l3vpn-over-srv6/article)
+- SRv6 Summarization: [https://techpost.hpe.com/articles/srv6-summarization/article](https://techpost.hpe.com/articles/srv6-summarization/article)
+- SRv6 SID Encoding and Transposition: [https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)
+- SRv6 L3VPN Inter-AS Option-C: [https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article](https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article)
+- Link Slicing with MPLS and SRv6 Underlays: [https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article)
+- Link Slicing with MPLS and SRv6 Underlays Part 2: [https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays-part-2/article](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays-part-2/article)
+- SRv6 in PTX Express 5: [https://techpost.hpe.com/articles/srv6-in-ptx-express-5/article](https://techpost.hpe.com/articles/srv6-in-ptx-express-5/article)
 
 Today, we'll discuss SRv6 Observability and we'll try to answer these questions.
 
@@ -51,7 +51,7 @@ To address the SRH case, a recent RFC, RFC 9487 [3], has defined a new IPFIX tem
 
 ## One Juniper Solution
 
-To address our goals, outlined in the introduction, Juniper offers a solution that meets all our requirements: Inline Monitoring, or IMON, also referred to as IPFIX Information Elements ID 315. This is a familiar topic, as we've discussed this flexible and highly scalable solution several times before ([https://juniper.github.io/techposts/from-sflow-to-imon-sampling-on-mx10k-platforms/article](https://juniper.github.io/techposts/from-sflow-to-imon-sampling-on-mx10k-platforms/article)).
+To address our goals, outlined in the introduction, Juniper offers a solution that meets all our requirements: Inline Monitoring, or IMON, also referred to as IPFIX Information Elements ID 315. This is a familiar topic, as we've discussed this flexible and highly scalable solution several times before ([https://techpost.hpe.com/articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article](https://techpost.hpe.com/articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article)).
 
 In short, IMON is a sampling solution implemented in hardware on TRIO and EXPRESS chipsets. Thanks to IPFIX, it exposes the first bytes of layer-2 frames along with some additional metadata. No aggregation or enrichment is done on the device itself; these functions are handled externally, typically by the IPFIX collector or a separate off-box software solution.
 
@@ -372,10 +372,10 @@ I'd also like to emphasize the flexibility of Goflow2 and its new custom mapping
 
 ## Useful links
 
-- [1] [https://juniper.github.io/techposts/srv6-in-ptx-express-5/article](https://juniper.github.io/techposts/srv6-in-ptx-express-5/article)
-- [2] [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
+- [1] [https://techpost.hpe.com/articles/srv6-in-ptx-express-5/article](https://techpost.hpe.com/articles/srv6-in-ptx-express-5/article)
+- [2] [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
 - [3] [https://datatracker.ietf.org/doc/rfc9487/](https://datatracker.ietf.org/doc/rfc9487/)
-- [4] [https://juniper.github.io/techposts/from-sflow-to-imon-sampling-on-mx10k-platforms/article](https://juniper.github.io/techposts/from-sflow-to-imon-sampling-on-mx10k-platforms/article)
+- [4] [https://techpost.hpe.com/articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article](https://techpost.hpe.com/articles/from-sflow-to-imon-sampling-on-mx10k-platforms/article)
 - [5] [https://github.com/netsampler/goflow2](https://github.com/netsampler/goflow2)
 
 ## Glossary

@@ -30,7 +30,7 @@ MPC10E family of line cards runs on the fifth generation of Trio. Each line card
 
 Trio5 is a 500Gbps chipset in 16nm design. Just like previous generations, Trio5 is optimized for edge deployments. The built-in crypto engine is introduced for the first time in the Trio family. This enables inline MACSec at all port speeds starting from 10GE to 100GE. 400GE MACSec is possible through Trio6. Please refer to my blog on LC9600 to get more details.
 
-Trio5 continues to support a large scale of advanced edge features supported in the previous revisions of Trio. The same has been discussed in detail in the [LC480 TechPost](https://juniper.github.io/techposts/mx10000-lc480-deepdive/article). It supports a high number of queues and virtually unlimited firewall filters along with prefix lists and tunnels. It supports HQoS, Inline services such as NAT, 6RD, MAP-E, and Jflow/NetFlow along with telemetry, flex-filters and up to 16 label depth to enable advanced use cases of traffic engineering with segment routing (SR/SRv6).
+Trio5 continues to support a large scale of advanced edge features supported in the previous revisions of Trio. The same has been discussed in detail in the [LC480 TechPost](https://techpost.hpe.com/articles/mx10000-lc480-deepdive/article). It supports a high number of queues and virtually unlimited firewall filters along with prefix lists and tunnels. It supports HQoS, Inline services such as NAT, 6RD, MAP-E, and Jflow/NetFlow along with telemetry, flex-filters and up to 16 label depth to enable advanced use cases of traffic engineering with segment routing (SR/SRv6).
 
 Trio5 is the packet forwarding engine or PFE in the MPC10E family of line cards. To optimize power and space many design considerations have been taken into account. First and foremost is the memory. Trio5 replaces the Hybrid Memory Cube (HMC) and in-house high-performance memory with High Bandwidth Memory (HBM), which is used for packet processing and WAN queuing systems. Another important difference from the previous version is the inclusion of HBM memory and Trio ASIC via a silicon interposer in 2.5D packaging design. This design reduces the bus length enabling better power performance and minimizes board area on the line cards. It helps in packing more Trio5 ASICS on a single-line card, thus improving the per-slot throughput by more than three times compared to line cards based on previous versions.
 
@@ -51,7 +51,7 @@ Each Trio5 has the following main components:
 
 ### Life of Packet inside Trio5
 
-The life of the packet inside Trio5 is similar to the one described in [Trio6 TechPost](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+The life of the packet inside Trio5 is similar to the one described in [Trio6 TechPost](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 ![Trio5 Life of a Packet](images/picture6.png)
 

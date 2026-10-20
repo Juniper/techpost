@@ -270,7 +270,7 @@ This feature is supported only on PTX10001-36MR and currently not LC1202. It's n
 Next element in the chain of operation: the Packet Forwarding Engine.
 
 It's possible to shut down and restart smoothly the Express4 without impacting the other Forwarding ASICs in the system or on the line card. Ramdas described extensively the power saving achieved with this feature in the following TechPost article:
-[https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article)
+[https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article)
 
 ![Soft Power Off of the PFE1](images/picture12.png)
 
@@ -407,9 +407,9 @@ At Juniper Networks, we understand that power optimization is a top priority for
 
 ## Useful links
 
-- Ramdas' article: [https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article)
+- Ramdas' article: [https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article)
 - Power calculator: [https://apps.juniper.net/power-calculator/?view=calculate&pdt=51610008&type=1](https://apps.juniper.net/power-calculator/?view=calculate&pdt=51610008&type=1) (login required)
-- PTX10001-36MR Introduction: [https://juniper.github.io/techposts/ptx10001-36mr-introduction/article](https://juniper.github.io/techposts/ptx10001-36mr-introduction/article)
+- PTX10001-36MR Introduction: [https://techpost.hpe.com/articles/ptx10001-36mr-introduction/article](https://techpost.hpe.com/articles/ptx10001-36mr-introduction/article)
 
 ## Glossary
 

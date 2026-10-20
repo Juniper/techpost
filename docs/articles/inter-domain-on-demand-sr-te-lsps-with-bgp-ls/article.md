@@ -700,7 +700,7 @@ With older resolution-maps, it is required to apply them in BGP import policy - 
 
 Transport-classes (TC) are a more modern way of service mapping (introduced in Junos 21.2R1) and have a larger service type coverage compared to resolution-maps. TC requires neither "resolution-map", nor special ECMP policy applied on RIBs, but only `set routing-options resolution preserve-nexthop-hierarchy`
 
-More details can be found in this follow-up article: [Service Mapping to Colored MPLS Paths](https://juniper.github.io/techposts/service-mapping-to-colored-mpls-paths/article)
+More details can be found in this follow-up article: [Service Mapping to Colored MPLS Paths](https://techpost.hpe.com/articles/service-mapping-to-colored-mpls-paths/article)
 
 ## Useful links
 

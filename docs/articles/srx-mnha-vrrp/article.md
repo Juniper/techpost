@@ -25,10 +25,10 @@ This article does not aim to provide any sort of qualification for specific plat
 
 Besides the official MNHA [documentation](https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/concept/mnha-overview.html), related reading includes:
 
-- [Multi-Node High Availability Basics(https://juniper.github.io/techposts/dhcp-on-mnha-back-to-basics/article)] by Steven Jacques
-- DHCP on MNHA: [Back to Basics](https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article)
-- [Hybrid MNHA with eBGP](https://juniper.github.io/techposts/mnha-ipsec-and-multiple-routing-instances/article) and  by James Rathbun
-- SRX clustering: from [Chassis Cluster to MultiNode High Availability](https://juniper.github.io/techposts/srx-from-chassis-cluster-to-mnha/article) by Laurent Paumelle
+- [Multi-Node High Availability Basics(https://techpost.hpe.com/articles/dhcp-on-mnha-back-to-basics/article)] by Steven Jacques
+- DHCP on MNHA: [Back to Basics](https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article)
+- [Hybrid MNHA with eBGP](https://techpost.hpe.com/articles/mnha-ipsec-and-multiple-routing-instances/article) and  by James Rathbun
+- SRX clustering: from [Chassis Cluster to MultiNode High Availability](https://techpost.hpe.com/articles/srx-from-chassis-cluster-to-mnha/article) by Laurent Paumelle
 
 ## Design Principles
 
@@ -1895,11 +1895,11 @@ All the brilliant people involved in exploring SRX MNHA/VRRP: Steven Jacques, Ma
 
 - https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/concept/mnha-overview.html
 - https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/vrrp-understanding.html
-- https://juniper.github.io/techposts/multi-node-high-availability-basics/article
-- https://juniper.github.io/techposts/dhcp-on-mnha-back-to-basics/article
-- https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article
-- https://juniper.github.io/techposts/mnha-ipsec-and-multiple-routing-instances/article
-- https://juniper.github.io/techposts/srx-from-chassis-cluster-to-mnha/article
+- https://techpost.hpe.com/articles/multi-node-high-availability-basics/article
+- https://techpost.hpe.com/articles/dhcp-on-mnha-back-to-basics/article
+- https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article
+- https://techpost.hpe.com/articles/mnha-ipsec-and-multiple-routing-instances/article
+- https://techpost.hpe.com/articles/srx-from-chassis-cluster-to-mnha/article
 
 ## Glossary
 

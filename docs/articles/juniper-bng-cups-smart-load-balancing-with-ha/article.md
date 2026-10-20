@@ -39,7 +39,7 @@ Juniper makes it possible to manage IP address pools as a shared resource, and a
 - Improve operational efficiency by automatically adding IP addresses when needed: APM delegates IP address pools across all integrated BNG and CUPS Controller entities in the network, as required, on a need basis. If a control plane crosses a predefined utilization threshold, the CUPS controller raises an apportionment alarm to APM that automatically provides a new address pool. You get the IP address resources you need, where and when you need them, without having to manage address pools manually or build and maintain homegrown tools.
 - Lower costs by maximizing IP address utilization: CUPS Controllers automatically release the unused address pools and APM can re-allocate them as required. In a traditional network, those unused (and expensive) addresses would sit idle. APM automatically reclaims and redistributes them across the network where needed, optimizing operational costs for public IPv4 address management.
 
-Read more in this article: [https://juniper.github.io/techposts/juniper-bng-cups-address-pool-management/article](https://juniper.github.io/techposts/juniper-bng-cups-address-pool-management/article)
+Read more in this article: [https://techpost.hpe.com/articles/juniper-bng-cups-address-pool-management/article](https://techpost.hpe.com/articles/juniper-bng-cups-address-pool-management/article)
 
 ### 3. Hitless User Plane Maintenance
 
@@ -52,7 +52,7 @@ In traditional vertically integrated networks, most maintenance tasks, changing 
 
 The whole procedure can be handled in a streamlined, low-risk way during normal business hours, with subscribers never noticing a thing. This means you can continually update your network more easily and inexpensively, while improving customer satisfaction and supporting more stringent, and profitable, SLAs.
 
-You can find more details in this techpost:[https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article](https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article)
+You can find more details in this techpost:[https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article](https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article)
 
 ### 4. BNG User Plane Redundancy
 
@@ -317,9 +317,9 @@ up:up2-mx-a:ae1             0           no                            0         
 
 ### Juniper and ACG Networks References:
 
-- [Juniper BNG CUPS Architecture](https://juniper.github.io/techposts/juniper-bng-cups-architecture/article)
+- [Juniper BNG CUPS Architecture](https://techpost.hpe.com/articles/juniper-bng-cups-architecture/article)
 - [Juniper BNG CUPS Documentation](https://www.juniper.net/documentation/product/us/en/juniper-bng-cups/)
-- [Juniper BNG CUPS Hitless User Plane Maintenance](https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article)
+- [Juniper BNG CUPS Hitless User Plane Maintenance](https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article)
 - Juniper BNG CUPS Address Pool Management (coming soon)
 - [Juniper Address Pool Manager Documentation](https://www.juniper.net/documentation/product/us/en/address-pool-manager-apm/)
 - [ACG -- Juniper TCO Benefit for Distributed Broadband with CUPS](https://juniper.highspot.com/items/63b607f251d3ea6ca3d4bb63)

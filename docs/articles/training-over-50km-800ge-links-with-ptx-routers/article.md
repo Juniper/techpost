@@ -132,7 +132,7 @@ In the following sections, you will find practical configuration examples of the
 
 ## Packet Spraying on a PTX Router
 
-This [article](https://juniper.github.io/techposts/to-spray-or-not-to-spray/article) explains in detail the principle of the adaptive routing in Nvidia's implementation from the network perspective.
+This [article](https://techpost.hpe.com/articles/to-spray-or-not-to-spray/article) explains in detail the principle of the adaptive routing in Nvidia's implementation from the network perspective.
 
 In this implementation, Connect X behavior has minimal deviations from the standard Infiniband transport specification, the NICs only use different RDMA write op-code that includes the additional header with the target memory address.
 
@@ -184,7 +184,7 @@ groups {
 apply-groups gpu-intf;
 ```
 
-Another interesting tidbit, GPU interface addresses are allocated from the same subnet, this is to conserve address space, but at the same time we are not creating a L2 bridge domain, and we use proxy-arp instead. This simplifies router's configuration, management and troubleshooting, similar idea is presented [in our CDN solution](https://juniper.github.io/techposts/layer-3-solution-for-the-cdn-gateway/article).
+Another interesting tidbit, GPU interface addresses are allocated from the same subnet, this is to conserve address space, but at the same time we are not creating a L2 bridge domain, and we use proxy-arp instead. This simplifies router's configuration, management and troubleshooting, similar idea is presented [in our CDN solution](https://techpost.hpe.com/articles/layer-3-solution-for-the-cdn-gateway/article).
 
 Now, the spraying instance has a copy of all routes (for simplicity, ISIS routes in our case).
 
@@ -267,8 +267,8 @@ Practically, this means there must be a Nvidia switching layer between the NIC a
 
 ## Useful links
 
-- [To Spray or Not to Spray](https://juniper.github.io/techposts/to-spray-or-not-to-spray/article)
-- [Layer 3 solution for CDN gateway](https://juniper.github.io/techposts/layer-3-solution-for-the-cdn-gateway/article)
+- [To Spray or Not to Spray](https://techpost.hpe.com/articles/to-spray-or-not-to-spray/article)
+- [Layer 3 solution for CDN gateway](https://techpost.hpe.com/articles/layer-3-solution-for-the-cdn-gateway/article)
 
 ## Glossary
 

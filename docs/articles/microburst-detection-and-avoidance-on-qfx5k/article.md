@@ -166,7 +166,7 @@ Queue: 0, Forwarding classes: best-effort
     Total-dropped bytes  :         7909120322048                     0 bps
 ```
 
-Refer to the blog post for QFX5K buffer architecture in detail for different platforms: [https://juniper.github.io/techposts/qfx5k-series-switches-packet-buffer-architecture/article](https://juniper.github.io/techposts/qfx5k-series-switches-packet-buffer-architecture/article)
+Refer to the blog post for QFX5K buffer architecture in detail for different platforms: [https://techpost.hpe.com/articles/qfx5k-series-switches-packet-buffer-architecture/article](https://techpost.hpe.com/articles/qfx5k-series-switches-packet-buffer-architecture/article)
 
 ## Identifying Microburst Scenario
 
@@ -440,7 +440,7 @@ set class-of-service shared-buffer egress buffer-partition multicast percent 5
 ## Useful links
 
 - Traffic Management User Guide (QFX Series Switches and EX4600 Switches) - Understanding CoS Buffer Configuration: [https://www.juniper.net/documentation/us/en/software/junos/traffic-mgmt-qfx/topics/concept/cos-qfx-series-buffer-configuration-understanding.html](https://www.juniper.net/documentation/us/en/software/junos/traffic-mgmt-qfx/topics/concept/cos-qfx-series-buffer-configuration-understanding.html)
-- [https://juniper.github.io/techposts/qfx5k-series-switches-packet-buffer-architecture/article](https://juniper.github.io/techposts/qfx5k-series-switches-packet-buffer-architecture/article)
+- [https://techpost.hpe.com/articles/qfx5k-series-switches-packet-buffer-architecture/article](https://techpost.hpe.com/articles/qfx5k-series-switches-packet-buffer-architecture/article)
 - Junos CLI Reference - shared-buffer: [https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/shared-buffer-edit-class-of-service-qfx-series.html](https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/shared-buffer-edit-class-of-service-qfx-series.html)
 
 ## Glossary

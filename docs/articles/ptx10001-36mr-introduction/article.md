@@ -189,7 +189,7 @@ Storage subsystem is comprised of solid-state drives (SSDs), two are provided fo
 
 PTX10001-36MR control plane is designed to host 3rd party applications -- there is enough storage and DRAM capacity, and CPU power. Some of these applications may include custom Service Assurance Agents or statistics collection agents developed by Juniper partners and customers.
 
-Even full Telegraf, InfluxDB, Grafana stack can run on the router itself for data collection and visualization, check out the [blog post](https://juniper.github.io/techposts/telemetry-collector-and-dataviz-on-junos-evo/article).
+Even full Telegraf, InfluxDB, Grafana stack can run on the router itself for data collection and visualization, check out the [blog post](https://techpost.hpe.com/articles/telemetry-collector-and-dataviz-on-junos-evo/article).
 
 ### Timing
 
@@ -328,7 +328,7 @@ It is not uncommon to occasionally provision services to enterprise customers on
 PTX10001-36MR has these capabilities too:
 
 - Supports up to 4K L3 VPNs
-- [Supports up to 32K L2 Circuits](https://juniper.github.io/techposts/ptx10001-36mr-l2-circuit-scale/article)
+- [Supports up to 32K L2 Circuits](https://techpost.hpe.com/articles/ptx10001-36mr-l2-circuit-scale/article)
 - Supports up to 3.3K EVPN instances
 
 L2 and L3 services can be provisioned on the same physical interface with VLAN stacking/tagging and VLAN manipulation options for L2 traffic. L2 transparency is also fully supported, so LACP / LFM frames may traverse the network in full compliance with MEF standards.
@@ -397,7 +397,7 @@ It is ready for the unknown challenges.
 ## Useful links
 
 - PTX10001-36MR Packet Transport Router [Product Page](https://www.juniper.net/us/en/products/routers/ptx-series/ptx10001-36mr-packet-transport-router.html).
-- FIB Compression,[https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+- FIB Compression,[https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 
 ## Glossary
 

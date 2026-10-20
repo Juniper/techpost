@@ -6,12 +6,12 @@ Sixth and last part of the Series on the Context-Files and JMCP, covering hybrid
 
 Series Navigation:
 
-- [Part 1: Introduction & Basics](https://juniper.github.io/techposts/managing-junos-devices-with-context-file/article)
-- [Part 2: Tokens & Memory](https://juniper.github.io/techposts/context-file-basics-tokens-and-memory-management/article)
-- [Part 3: Optimization & Alerting](https://juniper.github.io/techposts/context-file-optimization-and-alerting-strategies/article)
-- [Part 4: File Management](https://juniper.github.io/techposts/file-management-and-data-collection-strategies/article)
-- [Part 5: Redis & Performance](https://juniper.github.io/techposts/context-file-redis-and-high-performance-storage/article)
-- [Part 6: Hybrid Architecture](https://juniper.github.io/techposts/hybrid-llm-python-architecture/article) <- You are here
+- [Part 1: Introduction & Basics](https://techpost.hpe.com/articles/managing-junos-devices-with-context-file/article)
+- [Part 2: Tokens & Memory](https://techpost.hpe.com/articles/context-file-basics-tokens-and-memory-management/article)
+- [Part 3: Optimization & Alerting](https://techpost.hpe.com/articles/context-file-optimization-and-alerting-strategies/article)
+- [Part 4: File Management](https://techpost.hpe.com/articles/file-management-and-data-collection-strategies/article)
+- [Part 5: Redis & Performance](https://techpost.hpe.com/articles/context-file-redis-and-high-performance-storage/article)
+- [Part 6: Hybrid Architecture](https://techpost.hpe.com/articles/hybrid-llm-python-architecture/article) <- You are here
 
 ## Introduction
 

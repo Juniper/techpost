@@ -8,8 +8,8 @@ This article has been initially published on LinkedIn at: [https://www.linkedin.
 
 It's part of a series on Express5, PTX Routers and 800Gbps interfaces:
 
-- Express5 Overview: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- Introducing PTX10002-36QDD: [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
+- Express5 Overview: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- Introducing PTX10002-36QDD: [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
 
 ## Introduction
 
@@ -222,4 +222,4 @@ Next-generation architectures could further exploit increasing the average packe
 
 ## Resources
 
-- Express5 Overview: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+- Express5 Overview: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)

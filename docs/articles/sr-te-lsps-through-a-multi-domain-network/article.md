@@ -4,7 +4,7 @@
 
 Establishing SR-TE (CSPF) LSPs through inter OSPF areas is a challenge, as these LSPs rely on TED, and this TED is per OSPF area or IS-IS level.
 
-In our previous tech post "[Migrating from OSPF/LDP to OSPF/SR-MPLS](https://juniper.github.io/techposts/migrating-from-ospf-ldp-to-ospf-sr-mpls/article)", we explored how to transition from OSPF/LDP to OSPF/SR-MPLS for SR and the associated benefits it brings to modern networks.
+In our previous tech post "[Migrating from OSPF/LDP to OSPF/SR-MPLS](https://techpost.hpe.com/articles/migrating-from-ospf-ldp-to-ospf-sr-mpls/article)", we explored how to transition from OSPF/LDP to OSPF/SR-MPLS for SR and the associated benefits it brings to modern networks.
 
 In this post, we will explore how to create four types of SR-TE LSPs across an inter-OSPF areas network. Specifically, we will focus on the process of establishing SR-TE LSPs across multiple OSPF areas, with particular emphasis on the reliance of these LSPs on the TED.
 
@@ -1271,7 +1271,7 @@ SR-TE (CSPF) LSPs can calculate their dynamic paths across a multi-domain networ
 - Day One: Migrating to Segment Routing:
 [https://www.juniper.net/documentation/en_US/day-one-books/DO_MigrateSR.pdf](https://www.juniper.net/documentation/en_US/day-one-books/DO_MigrateSR.pdf)
 - Service Mapping to Colored MPLS Paths:
-[https://juniper.github.io/techposts/service-mapping-to-colored-mpls-paths/article](https://juniper.github.io/techposts/service-mapping-to-colored-mpls-paths/article)
+[https://techpost.hpe.com/articles/service-mapping-to-colored-mpls-paths/article](https://techpost.hpe.com/articles/service-mapping-to-colored-mpls-paths/article)
 - Link-State Distribution Using BGP
 [https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/link-state-distribution-using-bgp.html](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/link-state-distribution-using-bgp.html)
 - OSPF Support for Traffic Engineering
@@ -1281,7 +1281,7 @@ SR-TE (CSPF) LSPs can calculate their dynamic paths across a multi-domain networ
 - How to Enable Link Delay Measurement and Advertising in IS-IS
 [https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/enable-link-delay-advertise-in-is-is.html](https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/enable-link-delay-advertise-in-is-is.html)
 - Inter-domain On-demand SR-TE LSPs with BGP-LS
-[https://juniper.github.io/techposts/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article](https://juniper.github.io/techposts/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article)
+[https://techpost.hpe.com/articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article](https://techpost.hpe.com/articles/inter-domain-on-demand-sr-te-lsps-with-bgp-ls/article)
 
 ## Glossary
 

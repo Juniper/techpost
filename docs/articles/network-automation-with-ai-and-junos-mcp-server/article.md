@@ -494,7 +494,7 @@ NOTE: this paper was written by a human, not AI
 - [5] "Agentic AI and MCP for Routing Director" -  by Mohan Raj Davala
 [https://junipernetworks.sharepoint.com/sites/apacseblog/SitePages/Agentic-AI-and-MCP-for-Routing-Director.aspx](https://junipernetworks.sharepoint.com/sites/apacseblog/SitePages/Agentic-AI-and-MCP-for-Routing-Director.aspx)
 - [6] Reimagining Network Operations with AI - Juniper Techpost
-[https://juniper.github.io/techposts/reimagining-network-operations-with-ai/article](https://juniper.github.io/techposts/reimagining-network-operations-with-ai/article)
+[https://techpost.hpe.com/articles/reimagining-network-operations-with-ai/article](https://techpost.hpe.com/articles/reimagining-network-operations-with-ai/article)
 - [7] MCP Client and Server Marketplace - [https://mcp.so/](https://mcp.so/)
 - [8] LinkedIn Learning - MCP Hands On example
 [https://www.linkedin.com/learning/model-context-protocol-mcp-hands-on-with-agentic-ai/using-mcp-servers-in-cursor](https://www.linkedin.com/learning/model-context-protocol-mcp-hands-on-with-agentic-ai/using-mcp-servers-in-cursor)

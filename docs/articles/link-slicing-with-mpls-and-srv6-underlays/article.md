@@ -33,11 +33,11 @@ VPN (Virtual Private Network) Loopbacks (CE/PE):
 
 ## Architecture Introduction
 
-The network topology and initial configuration used for this blog post is based on the network topology and configuration discussed in the [SRv6 L3VPN Inter-AS Option-C blog post](https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article). That is, we have multi-domain network architecture with VRFs placed on the PE routers, and L3VPN over SRv6 Inter-AS Option-C framework to provide L3VPN connectivity between VRFs on the PEs in different domains. In addition to SRv6 Inter-AS Option-C, SR-MPLS Inter-AS Option-C has been added, so that link slicing for both MPLS and SRv6 underlays can be demonstrated. This is outlined in Figure 1.
+The network topology and initial configuration used for this blog post is based on the network topology and configuration discussed in the [SRv6 L3VPN Inter-AS Option-C blog post](https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article). That is, we have multi-domain network architecture with VRFs placed on the PE routers, and L3VPN over SRv6 Inter-AS Option-C framework to provide L3VPN connectivity between VRFs on the PEs in different domains. In addition to SRv6 Inter-AS Option-C, SR-MPLS Inter-AS Option-C has been added, so that link slicing for both MPLS and SRv6 underlays can be demonstrated. This is outlined in Figure 1.
 
 ![Inter-AS Topology with slicing on Inter-AS links](images/picture3.png)
 
-PE routers have multiple L3VPNs. Some of these VPNs use SRv6 as underlay (see the [SRv6 SID Encoding and Transposition blog post](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article) for more details about L3VPN over SRv6), and some of these VPNs use SR-MPLS as underlay. Thus, both underlay types (SR-MPLS and SRv6) are used concurrently. This is a realistic scenario and might occur, for example, during migration from MPLS to SRv6 underlay.
+PE routers have multiple L3VPNs. Some of these VPNs use SRv6 as underlay (see the [SRv6 SID Encoding and Transposition blog post](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article) for more details about L3VPN over SRv6), and some of these VPNs use SR-MPLS as underlay. Thus, both underlay types (SR-MPLS and SRv6) are used concurrently. This is a realistic scenario and might occur, for example, during migration from MPLS to SRv6 underlay.
 
 Nevertheless, focus of this blog post is not the discussion about nuances of concurrent running of SR-MPLS or SRv6 underlays. Focus of this blog post is link slicing, and both underlays are simply used to illustrate that link slicing can work with both MPLS (any type of MPLS, not only SR-MPLS) and SRv6.
 
@@ -718,7 +718,7 @@ Now, let's add some more traffic to the picture.
 
 This time, let's add SRv6 traffic. And yes, the same link slice can carry different traffic types. We can mix both MPLS and SRv6 flows within the same slice, and apply common QoS guarantees and constraints for such mixed slice. Junos link slicing framework is very flexible.
 
-The process of assigning traffic to slices is similar to MPLS at the high-level. However, this time we don't have MPLS labels, but SRv6 SIDs ([see SRv6 SID Encoding and Transposition blog post](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article) (and earlier SRv6 blog posts), SRv6 SID is a 128-bit long data structure, divided into Locator:Function:Argument fields. The division is flexible, and each field can be further decomposed to carry various information.
+The process of assigning traffic to slices is similar to MPLS at the high-level. However, this time we don't have MPLS labels, but SRv6 SIDs ([see SRv6 SID Encoding and Transposition blog post](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article) (and earlier SRv6 blog posts), SRv6 SID is a 128-bit long data structure, divided into Locator:Function:Argument fields. The division is flexible, and each field can be further decomposed to carry various information.
 
 One example of the of SRv6 SID allocation scheme, used in this blog post, is presented in Figure 5.
 
@@ -1174,13 +1174,13 @@ In the next blog post we will show another slicing use case with lookup entry as
 - Firewall Filter Flexible Match Conditions: [https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/concept/firewall-filter-flexible-match-conditions-overview.html](https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/concept/firewall-filter-flexible-match-conditions-overview.html)
 - Slice (firewall filter action): [https://www.juniper.net/documentation/us/en/software/junos/cos-hierarchical/cos/topics/ref/statement/slice(firewallfilteraction).html](https://www.juniper.net/documentation/us/en/software/junos/cos-hierarchical/cos/topics/ref/statement/slice(firewallfilteraction).html)
 - Slice-aware H-QoS: [https://www.juniper.net/documentation/us/en/software/junos/cos-hierarchical/cos/topics/topic-map/HierarchicalCoSqueuingforsliceper-hop-behavior.html](https://www.juniper.net/documentation/us/en/software/junos/cos-hierarchical/cos/topics/topic-map/HierarchicalCoSqueuingforsliceper-hop-behavior.html)
-- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)
-- TechPost 2: L3VPN on SRv6 - [https://juniper.github.io/techposts/l3vpn-over-srv6/article](https://juniper.github.io/techposts/l3vpn-over-srv6/article)
-- TechPost 3: SRv6 Summarisation - [https://juniper.github.io/techposts/srv6-summarization/article](https://juniper.github.io/techposts/srv6-summarization/article)
-- TechPost 4: SRv6 SID Encoding and Transposition - [https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)
-- TechPost 5: SRv6 L3VPN Inter-AS Option-C - [https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article](https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article)
-- TechPost 6: Link Slicing with MPLS and SRv6 Underlays - [https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article)
-- TechPost 7: Link Slicing with MPLS and SRv6 Underlays Part 2 - [https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays-part-2/article](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays-part-2/article)
+- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)
+- TechPost 2: L3VPN on SRv6 - [https://techpost.hpe.com/articles/l3vpn-over-srv6/article](https://techpost.hpe.com/articles/l3vpn-over-srv6/article)
+- TechPost 3: SRv6 Summarisation - [https://techpost.hpe.com/articles/srv6-summarization/article](https://techpost.hpe.com/articles/srv6-summarization/article)
+- TechPost 4: SRv6 SID Encoding and Transposition - [https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)
+- TechPost 5: SRv6 L3VPN Inter-AS Option-C - [https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article](https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article)
+- TechPost 6: Link Slicing with MPLS and SRv6 Underlays - [https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article)
+- TechPost 7: Link Slicing with MPLS and SRv6 Underlays Part 2 - [https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays-part-2/article](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays-part-2/article)
 
 ## Glossary
 

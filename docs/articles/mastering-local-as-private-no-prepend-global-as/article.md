@@ -10,11 +10,11 @@ This series of techpost will provide a comprehensive overview of the various BGP
 
 Five local AS options are available, each catering to a range of use cases, from seamless network migrations to complex multi-homing scenarios:
 
-- [Default](https://juniper.github.io/techposts/mastering-local-as-alias-mode/article)
-- [Alias](https://juniper.github.io/techposts/mastering-local-as-alias-mode/article)
-- [Private](https://juniper.github.io/techposts/mastering-local-as-private-mode/article)
-- [No-Prepend-Global-AS](https://juniper.github.io/techposts/mastering-local-as-no-prepend-global-as/article)
-- [Private No-Prepend-Global-AS (focus of this article)](https://juniper.github.io/techposts/mastering-local-as-private-no-prepend-global-as/article)
+- [Default](https://techpost.hpe.com/articles/mastering-local-as-alias-mode/article)
+- [Alias](https://techpost.hpe.com/articles/mastering-local-as-alias-mode/article)
+- [Private](https://techpost.hpe.com/articles/mastering-local-as-private-mode/article)
+- [No-Prepend-Global-AS](https://techpost.hpe.com/articles/mastering-local-as-no-prepend-global-as/article)
+- [Private No-Prepend-Global-AS (focus of this article)](https://techpost.hpe.com/articles/mastering-local-as-private-no-prepend-global-as/article)
 
 These options allow network operators to modify AS path information, influencing how routes are perceived and propagated within and beyond their autonomous system. The following sections provide an in-depth exploration of the Private No-prepend-global-AS option, highlighting its strengths and limitations.
 
@@ -632,11 +632,11 @@ This article covered the details of **Private No-prepend-global-AS Local AS opti
 
 Local-AS options articles:
 
-- [Default](https://juniper.github.io/techposts/mastering-local-as-alias-mode/article)
-- [Alias](https://juniper.github.io/techposts/mastering-local-as-alias-mode/article)
-- [Private](https://juniper.github.io/techposts/mastering-local-as-private-mode/article)
-- [No-Prepend-Global-AS](https://juniper.github.io/techposts/mastering-local-as-no-prepend-global-as/article)
-- [Private No-Prepend-Global-AS](https://juniper.github.io/techposts/mastering-local-as-private-no-prepend-global-as/article)
+- [Default](https://techpost.hpe.com/articles/mastering-local-as-alias-mode/article)
+- [Alias](https://techpost.hpe.com/articles/mastering-local-as-alias-mode/article)
+- [Private](https://techpost.hpe.com/articles/mastering-local-as-private-mode/article)
+- [No-Prepend-Global-AS](https://techpost.hpe.com/articles/mastering-local-as-no-prepend-global-as/article)
+- [Private No-Prepend-Global-AS](https://techpost.hpe.com/articles/mastering-local-as-private-no-prepend-global-as/article)
 
 ## Glossary
 

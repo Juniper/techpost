@@ -746,7 +746,7 @@ As shown below traffic flows at 99.9% of 100G links over 5 CE bound interfaces a
 
 ## Conclusion
 
-ACX7000 Family platforms (ACX7100-32C, ACX7100-48L, ACX7509) with this tested scale are ready for the Metro deployments. This article demonstrate the MAC VRF scale reachable in architecture based on these routers. The EVPN services capabilities are paramount for the next generation Metro Solution requirements. Next TechPost article will be dedicated to the [EVPN VPWS scale validation](https://juniper.github.io/techposts/evpn-vpws-validation-on-acx7000/article).
+ACX7000 Family platforms (ACX7100-32C, ACX7100-48L, ACX7509) with this tested scale are ready for the Metro deployments. This article demonstrate the MAC VRF scale reachable in architecture based on these routers. The EVPN services capabilities are paramount for the next generation Metro Solution requirements. Next TechPost article will be dedicated to the [EVPN VPWS scale validation](https://techpost.hpe.com/articles/evpn-vpws-validation-on-acx7000/article).
 
 ## References
 

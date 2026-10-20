@@ -106,7 +106,7 @@ If you are a previous user of Apstra, you may be familiar with the term Group Ba
 
 Apstra's Policy Assurance framework provides a fully automated solution for macro segmentation, integrating policy assurance directly into its platform. This approach ensures consistent policy implementation and simplifies operations through automated validation and continuous assurance. On the other hand, VXLAN GBP, which is the focus of this document, offers a different approach to network segmentation. It uses scalable group tags (SGTs) within the VXLAN header to apply detailed security policies dynamically, providing fine-grained control and flexibility in diverse network environments. While Apstra's Policy Assurance excels in automated macro segmentation, VXLAN GBP is ideal for precise and dynamic micro-segmentation needs in the fabric. It's crucial to understand that VXLAN GBP is not built into the Apstra UI and requires the use of configlets for implementation.
 
-For more information on Apstra's Policy Assurance framework, refer to [this blog post on the Juniper site](https://juniper.github.io/techposts/using-apstra-policy-assurance/article).
+For more information on Apstra's Policy Assurance framework, refer to [this blog post on the Juniper site](https://techpost.hpe.com/articles/using-apstra-policy-assurance/article).
 
 This document focuses specifically on VXLAN GBP, its implementation, and use cases, and will not be covering Apstra's built-in Policy Assurance feature.
 
@@ -646,7 +646,7 @@ This action is supported only for MAC-based and IP-based GBP policy entries, in 
 - [https://www.juniper.net/documentation/us/en/software/junos/evpn-vxlan/topics/example/micro-segmentation-using-group-based-policy.html ](https://www.juniper.net/documentation/us/en/software/junos/evpn-vxlan/topics/example/micro-segmentation-using-group-based-policy.html)
 - [https://apps.juniper.net/feature-explorer/feature-info.html?fKey=11807&fn=VXLAN+group-based+policy+with+ingress+and+egress+configuration ](https://apps.juniper.net/feature-explorer/feature-info.html?fKey=11807&fn=VXLAN+group-based+policy+with+ingress+and+egress+configuration)
 - [https://www.juniper.net/documentation/us/en/software/junos/evpn-vxlan/topics/example/micro-segmentation-using-group-based-policy.html ](https://www.juniper.net/documentation/us/en/software/junos/evpn-vxlan/topics/example/micro-segmentation-using-group-based-policy.html)
-- [https://juniper.github.io/techposts/using-apstra-policy-assurance/article](https://juniper.github.io/techposts/using-apstra-policy-assurance/article)
+- [https://techpost.hpe.com/articles/using-apstra-policy-assurance/article](https://techpost.hpe.com/articles/using-apstra-policy-assurance/article)
 - [https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/vxlan-gbp-profile.html ](https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/vxlan-gbp-profile.html)
 - [https://github.com/Juniper-SE/Apstra-configlets/tree/main/Juniper/JUNOS/VXLAN_Interface_Based_GBP](https://github.com/Juniper-SE/Apstra-configlets/tree/main/Juniper/JUNOS/VXLAN_Interface_Based_GBP)
 

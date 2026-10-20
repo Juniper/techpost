@@ -6,7 +6,7 @@ BIER Interoperability testing verified between PTX10002-36QDD and other vendors 
 
 ## Introduction
 
-BIER -- Bit Index Explicit Replication provides a multicast architecture with no per-tree multicast states in the core, by having the information of the destination multicast routers within the packet.  The architecture details of BIER are captured in the RFC-8279. BIER is supported on Juniper Networks PTX10002-36QDD platform (Jeffrey Zhang posted an article recently on the support brought by Express5 Forwarding ASIC: [https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article](https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article)) and Interop testing is successfully completed with Nokia and Huawei as part of the EANTC Interop event in Berlin and a demonstration of the interop is performed during the MPLS World Congress-2024 in Paris. This article discusses the interop test cases we performed on PTX10002-36QDD.
+BIER -- Bit Index Explicit Replication provides a multicast architecture with no per-tree multicast states in the core, by having the information of the destination multicast routers within the packet.  The architecture details of BIER are captured in the RFC-8279. BIER is supported on Juniper Networks PTX10002-36QDD platform (Jeffrey Zhang posted an article recently on the support brought by Express5 Forwarding ASIC: [https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article](https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article)) and Interop testing is successfully completed with Nokia and Huawei as part of the EANTC Interop event in Berlin and a demonstration of the interop is performed during the MPLS World Congress-2024 in Paris. This article discusses the interop test cases we performed on PTX10002-36QDD.
 
 In the EANTC-2024 Interop event, there were three participants: Nokia 7750 SR-1, Huawei 8000 F8, and Juniper Networks PTX10002-36QDD. In the MPLS World Congress 2024 Nokia 7750 SR-1 and Juniper Networks PTX10002-36QDD BIER interop capabilities were demonstrated.
 
@@ -377,9 +377,9 @@ PTX10002-36QDD demonstrated its BIER interop capability on multicast replication
 
 - [https://eantc.de/wp-content/uploads/2023/12/EANTC-MPLSSDNInterop2024-TestReport-v1.3.pdf](https://eantc.de/wp-content/uploads/2023/12/EANTC-MPLSSDNInterop2024-TestReport-v1.3.pdf)
 - [https://datatracker.ietf.org/wg/bier/documents/](https://datatracker.ietf.org/wg/bier/documents/)
-- [https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article](https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article)
-- [https://juniper.github.io/techposts/bier-for-sr-multicast-cheers/article](https://juniper.github.io/techposts/bier-for-sr-multicast-cheers/article)
-- [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
+- [https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article](https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article)
+- [https://techpost.hpe.com/articles/bier-for-sr-multicast-cheers/article](https://techpost.hpe.com/articles/bier-for-sr-multicast-cheers/article)
+- [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
 
 ## Glossary
 

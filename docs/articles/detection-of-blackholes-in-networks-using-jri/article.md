@@ -10,7 +10,7 @@ Article co-written by Julian Lucek and Chaitanya Munukutla.
 
 To address these issues, we have recently introduced a feature-set called [Juniper Resiliency Interface (JRI)[1]](https://www.juniper.net/documentation/us/en/software/junos/flow-monitoring/topics/topic-map/resiliency-exception-reporting.html) in which the router proactively reports, via IPFIX, details about packets that were dropped, including why they were dropped. After all, when a packet is dropped, it is dropped for a reason, and the router knows why. JRI leverages that information and greatly increases the visibility of the black-hole. JRI is applicable regardless of the packet type: IPv4, IPv6, MPLS and Layer 2.
 
-A Deepdive dive written by Anton Elita [has been published here](https://juniper.github.io/techposts/packets-lost-in-transit/article).
+A Deepdive dive written by Anton Elita [has been published here](https://techpost.hpe.com/articles/packets-lost-in-transit/article).
 
 ## Tracking Packet Drops
 
@@ -97,7 +97,7 @@ Deployments of Juniper Resiliency Interface have paid valuable dividends, as bla
 
 - [1] Juniper Resiliency Interface in the Juniper Techpubs: [https://www.juniper.net/documentation/us/en/software/junos/flow-monitoring/topics/topic-map/resiliency-exception-reporting.html](https://www.juniper.net/documentation/us/en/software/junos/flow-monitoring/topics/topic-map/resiliency-exception-reporting.html)
 - [2] IETF draft about reporting forwarding exceptions via IPFIX: [https://datatracker.ietf.org/doc/draft-mvmd-opsawg-ipfix-fwd-exceptions/](https://datatracker.ietf.org/doc/draft-mvmd-opsawg-ipfix-fwd-exceptions/)
-- [3] Deepdive into Juniper Resiliency Interface (JRI) forwarding-plane (PFE) exceptions: Packets Lost in Transit - [https://juniper.github.io/techposts/packets-lost-in-transit/article](https://juniper.github.io/techposts/packets-lost-in-transit/article)
+- [3] Deepdive into Juniper Resiliency Interface (JRI) forwarding-plane (PFE) exceptions: Packets Lost in Transit - [https://techpost.hpe.com/articles/packets-lost-in-transit/article](https://techpost.hpe.com/articles/packets-lost-in-transit/article)
 
 ## Glossary
 

@@ -32,13 +32,13 @@ From the perspective of firewall rules, *user01* overlapping with the same usern
 
 *User02* from both domains is permitted to only SSH at the application level and ICMP echo requests (based on *t1g2* or *t2g2* groups).
 
-The tenants could include [third-party VPN clients](https://juniper.github.io/techposts/com-android-ipsec-ikev2-vs-srx/article); however, JSC--JIMS integration would need to be changed to the older SYSLOG parsing-based method, as only JSC clients are considered.
+The tenants could include [third-party VPN clients](https://techpost.hpe.com/articles/com-android-ipsec-ikev2-vs-srx/article); however, JSC--JIMS integration would need to be changed to the older SYSLOG parsing-based method, as only JSC clients are considered.
 
 ## SRX Firewall
 
 The SRX Firewall exposes the two mentioned portals for clients to connect. Each portal has its own TLS certificate issued for demo purposes by the Let's Encrypt authority using the [ACME](https://www.juniper.net/documentation/us/en/software/junos/pki/topics/topic-map/enroll-certificates.html#id_ikf_m2t_lfc) protocol. The certificate aspect, in its most simplistic form, could also be addressed by utilizing a common certificate with Subject Alternative Names (SAN) and/or by using the path attribute of the URL to distinguish tenants. For demo purposes, two distinct certificates have been selected; however, a combination of path names, SANs, and multiple certificates would also work. The certificates are also used as part of the IKE handshake with EAP-based user authentication.
 
-The certificates issued by Let's Encrypt require the SRX to be temporarily internet reachable on TCP port 80 for validating certificate requests, as well as having DNS infrastructure with records for the tenant portals. In environments where Enterprise CAs are deployed, the approaches from the PKI section of [Android/SRX dial-up VPN](https://juniper.github.io/techposts/com-android-ipsec-ikev2-vs-srx/article) article can be applied.
+The certificates issued by Let's Encrypt require the SRX to be temporarily internet reachable on TCP port 80 for validating certificate requests, as well as having DNS infrastructure with records for the tenant portals. In environments where Enterprise CAs are deployed, the approaches from the PKI section of [Android/SRX dial-up VPN](https://techpost.hpe.com/articles/com-android-ipsec-ikev2-vs-srx/article) article can be applied.
 
 The SRX can optionally impose restrictions on the connecting JSC client based on configured endpoint attributes, as described in the [JSC user guide](https://www.juniper.net/documentation/us/en/software/secure-connect/secure-connect-user-guide/secure-connect-user-guide.pdf).
 
@@ -62,7 +62,7 @@ Sidenote: The JIMS instance can merge user authentication and authorization into
 
 ## EVPN/VXLAN T5
 
-The SRX EVPN/VXLAN fabric integration, covered in this article in its most basic form between two SRX instances, is based on SRX Junos 22.4 Type 5 support, with detailed coverage available in an older [SRX EVPN/VXLAN T5 oIPSEC](https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article) Tech Post. If IPSEC is disabled in the configuration described in the referenced article, the right SRX functions as a Type 5 integrated firewall, the left SRX acts as a leaf switch, and the middle SRX serves as the spine switch, collectively forming the simplest form of a fabric.
+The SRX EVPN/VXLAN fabric integration, covered in this article in its most basic form between two SRX instances, is based on SRX Junos 22.4 Type 5 support, with detailed coverage available in an older [SRX EVPN/VXLAN T5 oIPSEC](https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article) Tech Post. If IPSEC is disabled in the configuration described in the referenced article, the right SRX functions as a Type 5 integrated firewall, the left SRX acts as a leaf switch, and the middle SRX serves as the spine switch, collectively forming the simplest form of a fabric.
 
 Similarly, this article discusses dynamic routing involved in propagating loopback addresses for VXLAN termination. However, unlike the older tech post, OSPF is used between SRX instances in the underlay for the sake of simplicity. Multi-hop BGP with EVPN signaling is configured for the EVPN overlay. Individual VRFs are distinguished by VNI, route distinguishers, and VRF targets.
 
@@ -139,7 +139,7 @@ set security log stream host category all
 set security log stream host host 10.0.10.10
 ```
 
-The next block enables application identification, which is automatically configured as part of AppID provisioning. Detailed steps to enable AppID, including licensing, are provided in Appendix 4: SRX Application Identification, in the [SRX MPLS in Flow TechPost](https://juniper.github.io/techposts/srx-mpls-in-flow/article).
+The next block enables application identification, which is automatically configured as part of AppID provisioning. Detailed steps to enable AppID, including licensing, are provided in Appendix 4: SRX Application Identification, in the [SRX MPLS in Flow TechPost](https://techpost.hpe.com/articles/srx-mpls-in-flow/article).
 
 ```
 set services application-identification
@@ -593,7 +593,7 @@ set routing-instances t1 access address-assignment pool ra-address-pool-t1 famil
 set routing-instances t1 access address-assignment pool ra-address-pool-t1 family inet xauth-attributes primary-dns 10.0.0.100/32
 ```
 
-The export policy using the ARI-TS protocol (Automatic Route Insertion: Traffic Selector) exports /32 prefixes allocated to individual clients. While a static export of a prefix matching the assignment pool could be feasible, similar configurations can apply to scenarios where a static IP address is provided by a RADIUS backend, and the client has the option of multiple entry points. In such cases, dynamic routing ensures proper reverse routing to the statically assigned IP address, regardless of the user's connection location. The tenant-specific VRF settings configure unique parameters such as the VPN, route distinguisher, and VRF target, with a detailed description provided in the previously linked [SRX EVPN/VXLAN T5 oIPSEC tech post](https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article).
+The export policy using the ARI-TS protocol (Automatic Route Insertion: Traffic Selector) exports /32 prefixes allocated to individual clients. While a static export of a prefix matching the assignment pool could be feasible, similar configurations can apply to scenarios where a static IP address is provided by a RADIUS backend, and the client has the option of multiple entry points. In such cases, dynamic routing ensures proper reverse routing to the statically assigned IP address, regardless of the user's connection location. The tenant-specific VRF settings configure unique parameters such as the VPN, route distinguisher, and VRF target, with a detailed description provided in the previously linked [SRX EVPN/VXLAN T5 oIPSEC tech post](https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article).
 
 ```
 set policy-options policy-statement export-t1 term 1 from protocol ari-ts
@@ -1721,7 +1721,7 @@ services user-identification identity-management connection primary address win2
 
 Sidenote: as of Junos 25.4, only Fully Qualified Domain Name (FQDN) format of the hostname is accepted; hostnames without a domain part cannot be committed.
 
-For lab purposes, a simple OpenSSL wrapper script like [SRX_VPN_demo_CA](https://github.com/JNPRAutomate/SRX_VPN_demo_CA) can be used, specifically by placing the FQDN of the JIMS server into the cert_list_server file and running the server certificate generation command only. An example use of the script is described in SRX IKEv2 Certificate authentication chapter of the [com.android.ipsec IKEv2 vs SRX Tech Post](https://juniper.github.io/techposts/com-android-ipsec-ikev2-vs-srx/article).
+For lab purposes, a simple OpenSSL wrapper script like [SRX_VPN_demo_CA](https://github.com/JNPRAutomate/SRX_VPN_demo_CA) can be used, specifically by placing the FQDN of the JIMS server into the cert_list_server file and running the server certificate generation command only. An example use of the script is described in SRX IKEv2 Certificate authentication chapter of the [com.android.ipsec IKEv2 vs SRX Tech Post](https://techpost.hpe.com/articles/com-android-ipsec-ikev2-vs-srx/article).
 
 Before proceeding with file replacement, it is advisable to back up existing files, stop the JIMS services (JIMS Identity Server and JIMS Identity Collector), and then restart them after the replacement has been completed.
 
@@ -1815,9 +1815,9 @@ This architecture shows how HPE Juniper Networking SRX firewalls can function as
 - [https://www.juniper.net/content/dam/www/assets/white-papers/us/en/2025/delivering-a-secure-end-to-end-ai-data-center-solution.pdf](https://www.juniper.net/content/dam/www/assets/white-papers/us/en/2025/delivering-a-secure-end-to-end-ai-data-center-solution.pdf)
 - [https://www.juniper.net/us/en/dm/download-next-gen-vsrx-firewall-trial.html](https://www.juniper.net/us/en/dm/download-next-gen-vsrx-firewall-trial.html)
 - [https://www.debian.org/distrib/](https://www.debian.org/distrib/)
-- [https://juniper.github.io/techposts/com-android-ipsec-ikev2-vs-srx/article](https://juniper.github.io/techposts/com-android-ipsec-ikev2-vs-srx/article)
-- [https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article](https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article)
-- [https://juniper.github.io/techposts/srx-mpls-in-flow/article](https://juniper.github.io/techposts/srx-mpls-in-flow/article)
+- [https://techpost.hpe.com/articles/com-android-ipsec-ikev2-vs-srx/article](https://techpost.hpe.com/articles/com-android-ipsec-ikev2-vs-srx/article)
+- [https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article](https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article)
+- [https://techpost.hpe.com/articles/srx-mpls-in-flow/article](https://techpost.hpe.com/articles/srx-mpls-in-flow/article)
 - [https://github.com/JNPRAutomate/SRX_VPN_demo_CA](https://github.com/JNPRAutomate/SRX_VPN_demo_CA)
 
 ## Glossary

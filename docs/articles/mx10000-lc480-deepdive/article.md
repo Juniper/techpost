@@ -12,7 +12,7 @@ LC480 is a 1GE/10GE optimized line card enabling the multi-service edge use case
 
 LC480 is a fixed form-factor line card delivering 480Gbps of throughput. The 48 ports accept many different SFP and SFP+ types including copper. With this new line card, we extend the MACsec support on all interfaces of an MX10008 chassis, from 1GE to 400GE, mixing LC480 and LC9600. Coupled with the next-generation Routing Engine (RE), the LC480 is Class C timing capable, meeting the stringent requirements of 5G networks.
 
-LC480 is powered by two Trio 4 Packet Forwarding Engines (PFE). The same ASIC is used in many products in the MX portfolio such as [MPC7E](https://www.juniper.net/documentation/us/en/software/junos/continuity/topics/concept/mpc7e-multi-rate.html), [MPC8E](https://www.juniper.net/documentation/us/en/software/junos/continuity/topics/concept/mpc8e.html)/[9E](https://www.juniper.net/documentation/us/en/software/junos/continuity/topics/concept/mpc9e.html), [LC2103](https://apps.juniper.net/hct/model/?component=MX10003-LC2103), [LC2101](https://apps.juniper.net/hct/model/?component=MX10K-LC2101) and [MX204](https://www.juniper.net/documentation/us/en/hardware/mx204/topics/concept/mx204-description.html). This mature ASIC/silicon supports all the use cases including, but not limited to: Business Edge, Enterprise WAN, DC Edge, Peering, Broadband Network Gateway (BNG), Mobile Backhaul and many more. It's a perfect enabler for customers looking to deploy next-gen MX10004/8/16 with low-speed access facing ports on LC480 and high-bandwidth 100G/400G uplinks using LC9600. We invite you to read the article dedicated to the LC9600 deepdive: [https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+LC480 is powered by two Trio 4 Packet Forwarding Engines (PFE). The same ASIC is used in many products in the MX portfolio such as [MPC7E](https://www.juniper.net/documentation/us/en/software/junos/continuity/topics/concept/mpc7e-multi-rate.html), [MPC8E](https://www.juniper.net/documentation/us/en/software/junos/continuity/topics/concept/mpc8e.html)/[9E](https://www.juniper.net/documentation/us/en/software/junos/continuity/topics/concept/mpc9e.html), [LC2103](https://apps.juniper.net/hct/model/?component=MX10003-LC2103), [LC2101](https://apps.juniper.net/hct/model/?component=MX10K-LC2101) and [MX204](https://www.juniper.net/documentation/us/en/hardware/mx204/topics/concept/mx204-description.html). This mature ASIC/silicon supports all the use cases including, but not limited to: Business Edge, Enterprise WAN, DC Edge, Peering, Broadband Network Gateway (BNG), Mobile Backhaul and many more. It's a perfect enabler for customers looking to deploy next-gen MX10004/8/16 with low-speed access facing ports on LC480 and high-bandwidth 100G/400G uplinks using LC9600. We invite you to read the article dedicated to the LC9600 deepdive: [https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 ![image](images/picture4.png)
 
@@ -34,7 +34,7 @@ In the LC480, the ASIC is tuned to deliver 240G performance (24x1G/10G line rate
 
 ![Trio 4 ASIC](images/picture5.png)
 
-Trio 4 contains Packet Processing Engines (PPEs) following a run-to-completion model and offers similar functions as detailed in [LC9600 article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article). Contrary to previous generations, it natively supports large-scale hierarchical queuing without requiring an external chip.
+Trio 4 contains Packet Processing Engines (PPEs) following a run-to-completion model and offers similar functions as detailed in [LC9600 article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article). Contrary to previous generations, it natively supports large-scale hierarchical queuing without requiring an external chip.
 
 On MX10004/8, Trio 4 based LC480 and LC2101 are fully interoperable with Trio 6 based line-card LC9600.
 
@@ -112,7 +112,7 @@ The LC480 on modular MX10008 chassis is fully interoperable with the older gener
 
 ## LC480 and Fabric Interconnect
 
-The line card and fabric boards have orthogonal interconnect. This chassis design has many advantages, such as better cooling and increased power efficiency (watts/gig) compared to traditional system architecture with mid-planes. This has been discussed in detail in [LC9600 Blog](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article).
+The line card and fabric boards have orthogonal interconnect. This chassis design has many advantages, such as better cooling and increased power efficiency (watts/gig) compared to traditional system architecture with mid-planes. This has been discussed in detail in [LC9600 Blog](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article).
 
 LC480 will be supported with both generations of switch fabric cards. MX10008 and MX10016 will support LC480 with JNP10008-SF and JNP10016-SF respectively. Switch fabric Board2 or SFB2 is the next-gen switch-fabric board in the MX10008 platform. The "show chassis hardware " on MX10008 will show the fabric board as follows:
 
@@ -225,7 +225,7 @@ I would like to express my gratitude to my mentor and reviewer Nicolas Fevrier, 
 
 - MX10008 Hardware Guide: [https://www.juniper.net/documentation/us/en/hardware/mx10008/index.html](https://www.juniper.net/documentation/us/en/hardware/mx10008/index.html)
 - MX10016 Hardware Guide: [https://www.juniper.net/documentation/us/en/hardware/mx10016/index.html](https://www.juniper.net/documentation/us/en/hardware/mx10016/index.html)
-- LC9600 Deepdive: [https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+- LC9600 Deepdive: [https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 ## Glossary
 

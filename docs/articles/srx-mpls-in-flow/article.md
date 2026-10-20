@@ -51,7 +51,7 @@ Platform hardening is outside the scope of this article, although basic zone hos
 
 ![Demo topology](images/picture3.png)
 
-> Note: the left and right hosts are implemented as Linux network namespaces as described in the [SRX EVPN/VXLAN T5 oIPSEC Tech Post](https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article), Appendix 2: Linux Network Namespace Sample Configurations.
+> Note: the left and right hosts are implemented as Linux network namespaces as described in the [SRX EVPN/VXLAN T5 oIPSEC Tech Post](https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article), Appendix 2: Linux Network Namespace Sample Configurations.
 
 ## Configuration Break-down
 
@@ -1162,9 +1162,9 @@ I would like to thank Nicolas Fevrier for overseeing the Tech Posts site and han
 
 ## Useful links
 
-- [https://juniper.github.io/techposts/vsrx-on-mini-pc-with-linux-kvm/article](https://juniper.github.io/techposts/vsrx-on-mini-pc-with-linux-kvm/article)
-- [https://juniper.github.io/techposts/industrial-srx-mk1-project-taco/article](https://juniper.github.io/techposts/industrial-srx-mk1-project-taco/article)
-- [https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article](https://juniper.github.io/techposts/srx-evpnvxlan-t5-oipsec/article)
+- [https://techpost.hpe.com/articles/vsrx-on-mini-pc-with-linux-kvm/article](https://techpost.hpe.com/articles/vsrx-on-mini-pc-with-linux-kvm/article)
+- [https://techpost.hpe.com/articles/industrial-srx-mk1-project-taco/article](https://techpost.hpe.com/articles/industrial-srx-mk1-project-taco/article)
+- [https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article](https://techpost.hpe.com/articles/srx-evpnvxlan-t5-oipsec/article)
 - [https://libvirt.org/formatdomain.html](https://libvirt.org/formatdomain.html)
 - [https://manpages.debian.org/buster/ifupdown/interfaces.5.en.html](https://manpages.debian.org/buster/ifupdown/interfaces.5.en.html)
 - [https://manpages.debian.org/testing/bridge-utils/bridge-utils-interfaces.5.en.html](https://manpages.debian.org/testing/bridge-utils/bridge-utils-interfaces.5.en.html)

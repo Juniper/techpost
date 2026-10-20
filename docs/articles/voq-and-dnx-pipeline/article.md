@@ -6,7 +6,7 @@ To understand the life of a packet in an ACX7000 Series router, you first need t
 
 ## Introduction
 
-Many Network Processing Unit (NPU) architectures are available on the market today. They propose different packet buffering approaches, performed in both ingress and egress datapaths (sometimes referred to as "2-stage buffering architecture") or in the ingress pipeline only. That second case includes the DNX chipsets powering Juniper ACX Series. More details on the DNX options and their architecture has been covered in the first article of the series: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+Many Network Processing Unit (NPU) architectures are available on the market today. They propose different packet buffering approaches, performed in both ingress and egress datapaths (sometimes referred to as "2-stage buffering architecture") or in the ingress pipeline only. That second case includes the DNX chipsets powering Juniper ACX Series. More details on the DNX options and their architecture has been covered in the first article of the series: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 
 In this article, we describe this packet buffering logic by following the life of a packet, and we introduce the concept of a Virtual Output Queue (VOQ).
 
@@ -123,7 +123,7 @@ On the egress side too, no difference if the request went from a distant or a lo
 
 ## Illustration with CLI
 
-You'll understand now the key concept: the queues for a specific egress port are scattered all around the router. Refer to this article to understand the different Packet Forwarding Engines (PFE) used in the different ACX7k family members: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+You'll understand now the key concept: the queues for a specific egress port are scattered all around the router. Refer to this article to understand the different Packet Forwarding Engines (PFE) used in the different ACX7k family members: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 
 If it's a single PFE device (aka SoC/RoC for System/Router on a Chip), the queues are naturally present on this single NPU, as it's the case for an ACX7100-32C or ACX7100-48L:
 
@@ -841,7 +841,7 @@ This article provided some details on the life of a unicast packet in the DNX-ba
 ## Useful links
 
 - [https://docs.broadcom.com/doc/88800-DG1-PUB](https://docs.broadcom.com/doc/88800-DG1-PUB)
-- Building the ACX7000 Series - The PFE: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+- Building the ACX7000 Series - The PFE: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 
 ## Glossary
 

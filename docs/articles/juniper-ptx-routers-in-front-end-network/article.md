@@ -4,13 +4,13 @@
 
 ## Introduction
 
-[In the previous article](https://juniper.github.io/techposts/overlay-networking-in-ai-era/article), we reviewed the evolution of overlay networks in the AI era, assessing how DPU-based architectures are reinventing the network infrastructure for AI cluster frontend traffic. We covered the journey from kernel networking to DPU/ SmartNIC-based overlay tunnels between host and gateway node.
+[In the previous article](https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article), we reviewed the evolution of overlay networks in the AI era, assessing how DPU-based architectures are reinventing the network infrastructure for AI cluster frontend traffic. We covered the journey from kernel networking to DPU/ SmartNIC-based overlay tunnels between host and gateway node.
 
 This publication looks at the implementation of an **Overlay Tunnel Gateway Solution based on Juniper PTX Series** routers. Although various overlay tunnelling technologies are available e.g. IP over IP, MPLS over GRE, MPLS over UDP, VxLAN (EVPN Type-5) and latest addition is SRv6, but in this blog we will focus on VxLAN (EVPN Type-5) overlay tunnels.
 
 We will cover different design approaches for large-scale front-end fabric for providing connectivity to thousands of DPU nodes, and we will also cover multi-tenancy and integration of management fabric and front fabrics.
 
-[Next article](https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article) will cover North-South and East-West connectivity, firewall integration, redundancy, and DCI over MPLS/RSVP-TE.
+[Next article](https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article) will cover North-South and East-West connectivity, firewall integration, redundancy, and DCI over MPLS/RSVP-TE.
 
 ## Why PTX Routers for Tunnel Aggregation
 
@@ -63,7 +63,7 @@ In this blog, we are using the super-spine / spine layer for tunnel termination,
 
 The Juniper PTX Series routers, based on Juniper Express-4 and Express-5 silicon, support tunnel aggregator functionality.
 
-Available in a variety of fixed and modular chassis, these platforms can deliver exceptionally high packet processing rates ([billions of packets](https://hc34.hotchips.org/assets/program/conference/day2/Network%20and%20Switches/HC2022.Juniper.ChangHong_Wu.v03.pdf) per second) with ultra-low latency and deep buffer to absorb microbursts. The high port density combined with [low power consumption](https://juniper.github.io/techposts/express-5-overview/article) per port makes these routers a perfect choice for power-conscious data centers environments.
+Available in a variety of fixed and modular chassis, these platforms can deliver exceptionally high packet processing rates ([billions of packets](https://hc34.hotchips.org/assets/program/conference/day2/Network%20and%20Switches/HC2022.Juniper.ChangHong_Wu.v03.pdf) per second) with ultra-low latency and deep buffer to absorb microbursts. The high port density combined with [low power consumption](https://techpost.hpe.com/articles/express-5-overview/article) per port makes these routers a perfect choice for power-conscious data centers environments.
 
 With tunnel termination capacity at scale, the PTX Series supports the AI Front-End Network use case where DPU hosted workloads require isolation via overlay networking while maintaining high performance and low latency packet processing demand.
 
@@ -71,7 +71,7 @@ Other features such as line-rate MACsec and native coherent optics support acros
 
 Thus, a single PTX Router provides dual functions of tunnel aggregator and DCI edge devices, eliminating the need for separate network devices to perform distinct functions and yielding substantial reductions in capital and operational costs.
 
-HPE Networking has recently announced Juniper PTX12000: 8 and 12 slots modular chassis offering 432x and 648x 800GE ports respectively. Like their predecessors, newly added models also fit well for low latency Front End tunnel aggregation and DCI edge Roles but with much higher port density. [More details about PTX120008 can be found in the blog post](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article).
+HPE Networking has recently announced Juniper PTX12000: 8 and 12 slots modular chassis offering 432x and 648x 800GE ports respectively. Like their predecessors, newly added models also fit well for low latency Front End tunnel aggregation and DCI edge Roles but with much higher port density. [More details about PTX120008 can be found in the blog post](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article).
 
 ![image](images/picture3.png)
 
@@ -117,7 +117,7 @@ Various routing / switching platforms from Juniper portfolio supports next-hop-b
 
 *The following text only deals with Juniper PTX series routers (based on express-4/5 chipset) running Junos EVO. Other platforms from Juniper portfolio may or may not match this description.*
 
-Once the protocol next-hop (PNH) of a remote prefix is resolved, then Routing Protocols Damon (RPD) creates tunnel composite nexthop (TCNH) with forwarding nexthop from inet.0 (default) routing table. TCNH is chained to Indirect Next-Hop (INH). INH is then further mapped to forwarding next-hop (FNH) using inet.0 routing table. Describing various next-hop types is not in the scope of this document, however [more information can be found in this blog post.](https://juniper.github.io/techposts/mastering-bgp-pic-on-junos/article)
+Once the protocol next-hop (PNH) of a remote prefix is resolved, then Routing Protocols Damon (RPD) creates tunnel composite nexthop (TCNH) with forwarding nexthop from inet.0 (default) routing table. TCNH is chained to Indirect Next-Hop (INH). INH is then further mapped to forwarding next-hop (FNH) using inet.0 routing table. Describing various next-hop types is not in the scope of this document, however [more information can be found in this blog post.](https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article)
 
 ```
 +===============================================================================+
@@ -1227,7 +1227,7 @@ Vxlan DMAC : 9c:5a:80:30:d6:66  ## Remote VTEP Router-MAC
 
 Part 2 addressed the foundational architecture for EVPN Type-5 tunnel aggregation at scale.  We explored the BGP topology connectivity design using unnumbered BGP and hop-by-hop EVPN signaling, how management and frond fabrics integrate, and the multi-tenancy VRF architecture which supports strict tenant isolation.  We also covered forwarding plane mechanisms involved in East-West traffic, i.e. Management Fabric and Front Fabric, and vice versa.
 
-[Part 3](https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article) will cover external connectivity (Internet access, cloud access, DCI for cross-data center connectivity).
+[Part 3](https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article) will cover external connectivity (Internet access, cloud access, DCI for cross-data center connectivity).
 
 ```
 +---------------------------------------------------------------------------------+
@@ -1304,9 +1304,9 @@ Acknowledgment to Sunessh Babu (Principal TME) and Pezhmon Sadjady (Test Enginee
 
 ## Useful Links
 
-- Intro - Overlay Networking in AI Era: [https://juniper.github.io/techposts/overlay-networking-in-ai-era/article](https://juniper.github.io/techposts/overlay-networking-in-ai-era/article)
-- Part2 - Juniper PTX Routers in Front-End Network: [https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article](https://juniper.github.io/techposts/juniper-ptx-routers-in-front-end-network/article)
-- Part3 - DCI Edge for AI Front End Clusters with Juniper PTX: [https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article](https://juniper.github.io/techposts/dci-edge-for-ai-front-end-clusters-part3/article)
+- Intro - Overlay Networking in AI Era: [https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article](https://techpost.hpe.com/articles/overlay-networking-in-ai-era/article)
+- Part2 - Juniper PTX Routers in Front-End Network: [https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article](https://techpost.hpe.com/articles/juniper-ptx-routers-in-front-end-network/article)
+- Part3 - DCI Edge for AI Front End Clusters with Juniper PTX: [https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article](https://techpost.hpe.com/articles/dci-edge-for-ai-front-end-clusters-part3/article)
 
 ## Glossary
 

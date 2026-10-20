@@ -6,7 +6,7 @@ Another use case for link slicing:  instead of data plane identifiers, control p
 
 ## Introduction
 
-The [Link Slicing with MPLS and SRv6 Underlays](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article) blog post discussed the guaranteed link slicing feature, with MPLS and SRv6 as underlay transport. The blog post used data plane identifiers, like for example MPLS labels, or certain bits in SRv6 SID (used as the destination IPv6 address of the outer IP header) as slice identifier. It used firewall filters to match for these slice identifiers in the packets, and assign packets to slices.
+The [Link Slicing with MPLS and SRv6 Underlays](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article) blog post discussed the guaranteed link slicing feature, with MPLS and SRv6 as underlay transport. The blog post used data plane identifiers, like for example MPLS labels, or certain bits in SRv6 SID (used as the destination IPv6 address of the outer IP header) as slice identifier. It used firewall filters to match for these slice identifiers in the packets, and assign packets to slices.
 
 This blog post outlines another use case for link slicing. This time, instead of data plane identifiers, control plane identifiers are used. That is, control plane protocols exchange the information that allows to classify packets to link slices.   This blog post uses L3VPN, where BGP distributes information to identify the slice.
 
@@ -55,7 +55,7 @@ Table: L3VPN instances used in the blog post
 
 Underlay transport is configured to support both SR-MPLS and SRv6 (for example, migration scenario from MPLS to SRv6, where both types of underlay might be required during migration). As visible from Table 1, some VPNs use SR-MPLS as the underlay transport, and some other VPNs use SRv6. Also, the intent is to implement guaranteed link slicing on PE uplinks (PE11 to P1, PE12 to P2).
 
-The link slicing concepts are similar to the concepts discussed in the [Link Slicing with MPLS and SRv6 Underlays](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article) blog post. The reader should be familiar with these concepts, so they will not be repeated here.
+The link slicing concepts are similar to the concepts discussed in the [Link Slicing with MPLS and SRv6 Underlays](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article) blog post. The reader should be familiar with these concepts, so they will not be repeated here.
 
 In this blog post, the slice assignment is achieved with control plane. What does it mean exactly? The slice membership is signaled via some control plane attribute. In this blog, we are using BGP standard community for this purpose, as follows:
 
@@ -67,7 +67,7 @@ When PE11 advertises L3VPN prefixes to PE12, apart from attaching appropriate ro
 
 In order to configure this kind of slicing, following is needed:
 
-- General link slicing infrastructure configuration on PE11 and PE12 (network slices; QoS: classifiers, traffic control profiles, scheduler-maps, schedulers; anchoring of H-QoS traffic control profiles to the sliced interface). This configuration is the same, as already discussed in the [Link Slicing with MPLS and SRv6 Underlays](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article) blog post, so it is not repeated here.
+- General link slicing infrastructure configuration on PE11 and PE12 (network slices; QoS: classifiers, traffic control profiles, scheduler-maps, schedulers; anchoring of H-QoS traffic control profiles to the sliced interface). This configuration is the same, as already discussed in the [Link Slicing with MPLS and SRv6 Underlays](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article) blog post, so it is not repeated here.
 - Signaling the slice intent via control plane
 - Accepting the slice intent and programming appropriate states in RIB and FIB to assign the traffic to appropriate slice
 
@@ -266,7 +266,7 @@ As you can see, all RI-VRF15 prefixes, and no single prefix in RI-VRF16 and RI-V
 
 So far, everything looks good. PE11 signaled via control plane (BGP) it's slice intent, and PE12 received this slice intent. Now, the question is, how PE12 uses this slice intent to actually assign packets received from CE92 to appropriate slices and therefore accomplish guaranteed link slicing?
 
-In the [Link Slicing with MPLS and SRv6 Underlays](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article) blog post a firewall filter was used for that purpose. In order to deploy firewall filter, data plane slice identification (i.e., predefined MPLS label ranges, or predefined values in certain bits of destination IPv6 address) must be known, and configured as matching condition in the firewall filter. In this blog, MPLS labels are assigned dynamically, and also in SRv6 SIDs we didn't specified any concrete field to denote slice ID. Moreover, prefixes that should be assigned to different slices, can use the same SRv6 SID (RI-VRF25, RI-VRF35)
+In the [Link Slicing with MPLS and SRv6 Underlays](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article) blog post a firewall filter was used for that purpose. In order to deploy firewall filter, data plane slice identification (i.e., predefined MPLS label ranges, or predefined values in certain bits of destination IPv6 address) must be known, and configured as matching condition in the firewall filter. In this blog, MPLS labels are assigned dynamically, and also in SRv6 SIDs we didn't specified any concrete field to denote slice ID. Moreover, prefixes that should be assigned to different slices, can use the same SRv6 SID (RI-VRF25, RI-VRF35)
 
 This blog post utilizes lookup entry for assigning packets to slices. When packets arrive to the router, and hit some lookup entry in the FIB, the packet is subject to the execution of actions, which are part of lookup entry. Typically, programmed FIB info contains next-hop, where the packet should be sent, or encapsulation to be used, when the PE-CE packet should be encapsulated in MPLS ore SRv6 tunnel, before being sent to the core. There could be some additional information than can be programed, when the lookup entry is created. Namely Slice ID!
 
@@ -346,7 +346,7 @@ So, let's check these lookup entries, for example in RI-VRF25 (CLI-Output 4).
 
 *CLI-Output 4: Slice ID programming for RI-VRF25 prefixes*
 
-Looking good! We see some slide IDs in the routing entries. However, these IDs are numerical, and the network slices are configured with names (see the[ Link Slicing with MPLS and SRv6 Underlays](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article) blog post, Configuration 1). We will discuss later in this blog post, how to find correlation between slice ID and slice name.
+Looking good! We see some slide IDs in the routing entries. However, these IDs are numerical, and the network slices are configured with names (see the[ Link Slicing with MPLS and SRv6 Underlays](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article) blog post, Configuration 1). We will discuss later in this blog post, how to find correlation between slice ID and slice name.
 
 In CLI-Output 4 only BGP prefixes, i.e., prefixes received by PE12 from PE11 (via P1, as BGP RR) are verified. All these prefixes had some slice community attached (Configuration 1, Configuration 2, CLI-Output 1, CLI-Output 2), and therefore, when lookup entries were programmed in the forwarding table, slice ID was added to the lookup entry.
 
@@ -374,7 +374,7 @@ It should be no surprise that lookup entries for these prefixes are not associat
 
 ## Guaranteed Link Slicing Verification
 
-Once all configuration and basic control plane verification is done, let's push some traffic for data plane verification as well. In this blog post, following basic QoS parameters are used for slices (please refer to the [Link Slicing with MPLS and SRv6 Underlays](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article) blog post regarding configuration details of slice QoS):
+Once all configuration and basic control plane verification is done, let's push some traffic for data plane verification as well. In this blog post, following basic QoS parameters are used for slices (please refer to the [Link Slicing with MPLS and SRv6 Underlays](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article) blog post regarding configuration details of slice QoS):
 
 Table: Slice QoS profiles
 
@@ -642,12 +642,12 @@ In the next blog post we will discuss TI-LFA (Topology Independent LFA) and MLA 
 ## Useful links
 
 - Slice-aware H-QoS: [https://www.juniper.net/documentation/us/en/software/junos/cos-hierarchical/cos/topics/topic-map/HierarchicalCoSqueuingforsliceper-hop-behavior.html](https://www.juniper.net/documentation/us/en/software/junos/cos-hierarchical/cos/topics/topic-map/HierarchicalCoSqueuingforsliceper-hop-behavior.html)
-- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)
-- TechPost 2: L3VPN on SRv6 -[https://juniper.github.io/techposts/l3vpn-over-srv6/article](https://juniper.github.io/techposts/l3vpn-over-srv6/article)
-- TechPost 3: SRv6 Summarisation - [https://juniper.github.io/techposts/srv6-summarization/article](https://juniper.github.io/techposts/srv6-summarization/article)
-- TechPost 4: SRv6 SID Encoding and Transposition - [https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)
-- TechPost 5: SRv6 L3VPN Inter-AS Option-C - [https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article](https://juniper.github.io/techposts/srv6-l3vpn-inter-as-option-c/article)
-- TechPost 6: Link Slicing with MPLS and SRv6 Underlays - [https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article](https://juniper.github.io/techposts/link-slicing-with-mpls-and-srv6-underlays/article)
+- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)
+- TechPost 2: L3VPN on SRv6 -[https://techpost.hpe.com/articles/l3vpn-over-srv6/article](https://techpost.hpe.com/articles/l3vpn-over-srv6/article)
+- TechPost 3: SRv6 Summarisation - [https://techpost.hpe.com/articles/srv6-summarization/article](https://techpost.hpe.com/articles/srv6-summarization/article)
+- TechPost 4: SRv6 SID Encoding and Transposition - [https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)
+- TechPost 5: SRv6 L3VPN Inter-AS Option-C - [https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article](https://techpost.hpe.com/articles/srv6-l3vpn-inter-as-option-c/article)
+- TechPost 6: Link Slicing with MPLS and SRv6 Underlays - [https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article](https://techpost.hpe.com/articles/link-slicing-with-mpls-and-srv6-underlays/article)
 
 ## Glossary
 

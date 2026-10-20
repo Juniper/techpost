@@ -330,7 +330,7 @@ This illustration only shows "a concept" (although all the technologies are avai
 
 The different steps of the process:
 
-1. Redirect the initial packets to a cluster of vSRXs. Note that we'll also be using the latest development of our Symmetrical Load Balancing feature on MX to guarantee that the same vSRX will handle inbound and outbound packets of a given flow - see [3] [https://juniper.github.io/techposts/junos-symmetrical-load-balancing/article](https://juniper.github.io/techposts/junos-symmetrical-load-balancing/article) for more details.
+1. Redirect the initial packets to a cluster of vSRXs. Note that we'll also be using the latest development of our Symmetrical Load Balancing feature on MX to guarantee that the same vSRX will handle inbound and outbound packets of a given flow - see [3] [https://techpost.hpe.com/articles/junos-symmetrical-load-balancing/article](https://techpost.hpe.com/articles/junos-symmetrical-load-balancing/article) for more details.
 2. Process the first packets using the vSRX security policies. Identify the flow (5-tuple), apply the actions, and forward the packets back to their destination through the MX. In parallel, the vSRX will program the 5-tuple entry on the MX.
 3. The JET API is used to program the identified flow as a fast-lookup-tuple entry and its associated action in the MX hardware. For more details on JET, see [4] [https://www.juniper.net/documentation/us/en/software/junos/jet-api/topics/concept/jet-apis.html.](https://www.juniper.net/documentation/us/en/software/junos/jet-api/topics/concept/jet-apis.html.)
 4. Once the 5-tuple entry is installed in the MX, all subsequent packets will bypass the firewall and be forwarded only by the MX. We keep passing certain TCP packets (with FIN&ACK) through the vSRX to detect flow closure and clean the MX entry. Periodically, the vSRX could monitor the statistics of the fast-lookup tuple entries, again thanks to the JET API, to detect zombie flows and trigger their cleaning.
@@ -390,7 +390,7 @@ We already have some ideas for improvements in future releases and further devel
 
 - [1] https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/firewall-fast-lookup-filter.html
 - [2] https://en.wikipedia.org/wiki/Radix_tree
-- [3] https://juniper.github.io/techposts/junos-symmetrical-load-balancing/article
+- [3] https://techpost.hpe.com/articles/junos-symmetrical-load-balancing/article
 - [4] https://www.juniper.net/documentation/us/en/software/junos/jet-api/topics/concept/jet-apis.html
 - [5] https://github.com/Juniper/junos-extension-toolkit/blob/master/24.2/24.2R1.17/2/jnx_firewall_service.proto
 - [6] https://github.com/door7302/fast-lookup-tuple-samples/tree/main/jet

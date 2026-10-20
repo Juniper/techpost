@@ -6,7 +6,7 @@ High-level functionality description of BIER as MVPN provider tunnels in the upc
 
 ## Introduction
 
-[In Cheers! Have a BIER](https://juniper.github.io/techposts/bier-for-sr-multicast-cheers/article), we explained how BIER [RFC8279] works and how it has come to a prime time for BIER deployment with the hardware capabilities from several major vendors across the edge/access/core platforms. This article will discuss the BIER implementation in Juniper's upcoming PTX Express 5 FRS (First Release Shipping).
+[In Cheers! Have a BIER](https://techpost.hpe.com/articles/bier-for-sr-multicast-cheers/article), we explained how BIER [RFC8279] works and how it has come to a prime time for BIER deployment with the hardware capabilities from several major vendors across the edge/access/core platforms. This article will discuss the BIER implementation in Juniper's upcoming PTX Express 5 FRS (First Release Shipping).
 
 ### Supported Functionalities
 

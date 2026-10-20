@@ -6,11 +6,11 @@ Fifth part of the Series on the Context-Files and JMCP, covering Redis and high-
 
 Series Navigation:
 
-- [Part 1: Introduction & Basics](https://juniper.github.io/techposts/managing-junos-devices-with-context-file/article)
-- [Part 2: Tokens & Memory](https://juniper.github.io/techposts/context-file-basics-tokens-and-memory-management/article)
-- [Part 3: Optimization & Alerting](https://juniper.github.io/techposts/context-file-optimization-and-alerting-strategies/article)
-- [Part 4: File Management](https://juniper.github.io/techposts/file-management-and-data-collection-strategies/article)
-- [Part 5: Redis & Performance](https://juniper.github.io/techposts/context-file-redis-and-high-performance-storage/article) <- You are here
+- [Part 1: Introduction & Basics](https://techpost.hpe.com/articles/managing-junos-devices-with-context-file/article)
+- [Part 2: Tokens & Memory](https://techpost.hpe.com/articles/context-file-basics-tokens-and-memory-management/article)
+- [Part 3: Optimization & Alerting](https://techpost.hpe.com/articles/context-file-optimization-and-alerting-strategies/article)
+- [Part 4: File Management](https://techpost.hpe.com/articles/file-management-and-data-collection-strategies/article)
+- [Part 5: Redis & Performance](https://techpost.hpe.com/articles/context-file-redis-and-high-performance-storage/article) <- You are here
 - Part 6: Hybrid Architecture
 
 ## Introduction
@@ -28,7 +28,7 @@ This blog uses a four-phase workflow model introduced in Part 4. As a quick refe
 
 Each phase can run in a separate LLM session. Redis (or files) carries data between them.
 
-> **Note for enhanced JMCP users**: If you are using the [enhanced JMCP server](https://github.com/chrgraf/junos-mcp-server) in artifact mode (introduced [in Part 4](https://juniper.github.io/techposts/file-management-and-data-collection-strategies/article)), Redis is already your storage backend - the server writes the data collection in Phase 0 output directly to Redis or files without touching the LLM context window. This blog covers the key/TTL patterns, Master Index design, Phase 3 trending with TTL-controlled look-back windows, external Python analysis, and the Redis vs Files decision matrix that apply to both storage backends.
+> **Note for enhanced JMCP users**: If you are using the [enhanced JMCP server](https://github.com/chrgraf/junos-mcp-server) in artifact mode (introduced [in Part 4](https://techpost.hpe.com/articles/file-management-and-data-collection-strategies/article)), Redis is already your storage backend - the server writes the data collection in Phase 0 output directly to Redis or files without touching the LLM context window. This blog covers the key/TTL patterns, Master Index design, Phase 3 trending with TTL-controlled look-back windows, external Python analysis, and the Redis vs Files decision matrix that apply to both storage backends.
 
 ## Why Persistent Storage?
 
@@ -294,7 +294,7 @@ These two mechanisms always work as a pair:
 - **setex** writes a data key with automatic expiry (TTL)
 - **hset** records the timestamp of that key in the Master Index (**isis:routers:latest** HASH)
 
-The Master Index was introduced [in Part 4](https://juniper.github.io/techposts/file-management-and-data-collection-strategies/article): File Management where it solved a file-based storage problem: when JMCP collects data from multiple routers sequentially, each snapshot gets a slightly different timestamp. Without a central record of *which timestamp belongs to which router*, analysis phases have no way to detect temporal skew - e.g. an LSDB sync check comparing R1's 10:00 AM snapshot against R2's 11:00 AM snapshot is comparing stale data and may silently produce incorrect results.
+The Master Index was introduced [in Part 4](https://techpost.hpe.com/articles/file-management-and-data-collection-strategies/article): File Management where it solved a file-based storage problem: when JMCP collects data from multiple routers sequentially, each snapshot gets a slightly different timestamp. Without a central record of *which timestamp belongs to which router*, analysis phases have no way to detect temporal skew - e.g. an LSDB sync check comparing R1's 10:00 AM snapshot against R2's 11:00 AM snapshot is comparing stale data and may silently produce incorrect results.
 
 In Redis, the Master Index is a HASH (**isis:routers:latest**): one field per router, value is the latest collection timestamp. It serves the same consistency role as in Part 4, but now instead of pointing to files on disk it points to Redis keys. Without it, you would need to scan all keys (**KEYS isis:database:***) to find what's available - which is slow, unscoped, and error-prone at scale.
 

@@ -30,7 +30,7 @@ In this model, you group together user planes that will be part of the virtual r
 
 The result, you no longer must worry about accurately forecasting or overprovisioning subscriber scale for a given market. Instead, you can share user planes as needed and continually maximize all available resources in the infrastructure.
 
-Read more details in this post gathering both Smart LB and HA: [https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article](https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article)
+Read more details in this post gathering both Smart LB and HA: [https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article](https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article)
 
 ### 2. Centralized Address Pool Management
 
@@ -54,7 +54,7 @@ In traditional vertically integrated networks, most maintenance tasks, changing 
 
 The whole procedure can be handled in a streamlined, low-risk way during normal business hours, with subscribers never noticing a thing. This means you can continually update your network more easily and inexpensively, while improving customer satisfaction and supporting more stringent, and profitable, SLAs.
 
-You can find more details in this techpost:[https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article](https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article)
+You can find more details in this techpost:[https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article](https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article)
 
 ### 4. BNG User Plane Redundancy
 
@@ -66,7 +66,7 @@ You'll be able to choose from two redundancy options, depending on the level of 
 - **Warm oversubscribed standby:** The Backup user-plane holds full subscriber state on the Routing-Engine (RE), full state on the line card but only partial state- (or forwarding state)- is programmed on the Packet Forwarding Engine/ASIC (PFE).
 - Whether to have **Hot or Warm Oversubscribed standby** subscriber sessions while in the Backup state can be set on a subscriber group (SGRP) basis.
 
-Read more details in this post gathering both Smart LB and HA: [https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article](https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article)
+Read more details in this post gathering both Smart LB and HA: [https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article](https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article)
 
 ### 5. Flexible Service Steering
 
@@ -304,9 +304,9 @@ The figure below explains the workflow between APM and BNGs and CUPS controllers
 
 ### Juniper and ACG Networks References:
 
-- [Juniper BNG CUPS Architecture](https://juniper.github.io/techposts/juniper-bng-cups-architecture/article)
+- [Juniper BNG CUPS Architecture](https://techpost.hpe.com/articles/juniper-bng-cups-architecture/article)
 - [Juniper BNG CUPS Documentation](https://www.juniper.net/documentation/product/us/en/juniper-bng-cups/)
-- [Juniper BNG CUPS Hitless User Plane Maintenance](https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article)
+- [Juniper BNG CUPS Hitless User Plane Maintenance](https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article)
 - Juniper BNG CUPS Address Pool Management (coming soon)
 - [Juniper Address Pool Manager Documentation](https://www.juniper.net/documentation/product/us/en/address-pool-manager-apm/)
 - [ACG -- Juniper TCO Benefit for Distributed Broadband with CUPS](https://juniper.highspot.com/items/63b607f251d3ea6ca3d4bb63)

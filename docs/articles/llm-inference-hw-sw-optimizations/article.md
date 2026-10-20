@@ -6,7 +6,7 @@ Details of LLM inference workflow, how it differs from training, the many hardwa
 
 Article initially published on LinkedIn in January 2024 at: [https://www.linkedin.com/pulse/llm-inference-hwsw-optimizations-sharada-yeluri-wfdyc/](https://www.linkedin.com/pulse/llm-inference-hwsw-optimizations-sharada-yeluri-wfdyc/)
 
-It's a sequel to "[Large Language Models - The Hardware Connection](https://juniper.github.io/techposts/gpu-fabrics-for-genai-workloads/article)"
+It's a sequel to "[Large Language Models - The Hardware Connection](https://techpost.hpe.com/articles/gpu-fabrics-for-genai-workloads/article)"
 
 ## Introduction
 

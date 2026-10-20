@@ -6,7 +6,7 @@ Focusing on SRX firewall -- the scaled out device - operational aspects in terms
 
 ## Introduction
 
-This TechPost article is continuation of ["Scale-Out Security Services with Auto-FBF" article](https://juniper.github.io/techposts/scale-out-security-services-with-auto-fbf/article), now focusing on SRX firewall -- the scaled out device - operational aspects in terms of removing device from service and bringing it back. Reading previous TechPost is pre-requisite for understanding the Auto-FBF scale-out concept and its pros and cons compared to classic solutions.
+This TechPost article is continuation of ["Scale-Out Security Services with Auto-FBF" article](https://techpost.hpe.com/articles/scale-out-security-services-with-auto-fbf/article), now focusing on SRX firewall -- the scaled out device - operational aspects in terms of removing device from service and bringing it back. Reading previous TechPost is pre-requisite for understanding the Auto-FBF scale-out concept and its pros and cons compared to classic solutions.
 
 ## The setup
 
@@ -183,7 +183,7 @@ With the above procedure, the setup has been brought back to its initial state o
 ## Useful links
 
 - Previous TechPost introducing Auto-FBF:
-[https://juniper.github.io/techposts/scale-out-security-services-with-Auto-FBF/article](https://juniper.github.io/techposts/scale-out-security-services-with-Auto-FBF/article)
+[https://techpost.hpe.com/articles/scale-out-security-services-with-Auto-FBF/article](https://techpost.hpe.com/articles/scale-out-security-services-with-Auto-FBF/article)
 - PyEZ developer guide:
 [https://www.juniper.net/documentation/us/en/software/junos-pyez/junos-pyez-developer/index.html](https://www.juniper.net/documentation/us/en/software/junos-pyez/junos-pyez-developer/index.html)
 - Junos event options:

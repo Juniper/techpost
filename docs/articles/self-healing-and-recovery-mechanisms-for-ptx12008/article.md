@@ -6,12 +6,12 @@ Modern core networks are expected to operate nonstop, even when components fail.
 
 This article is the third of a series on PTX12000 fabric, we invite the readers to check the two previous posts:
 
-- [Rethinking Fabric Redundancy](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article) by Dmitry Shokarev
-- [PTX12008 Fabric Topology](https://juniper.github.io/techposts/ptx12008-fabric-topology/article) by Rahul Kulkarni
+- [Rethinking Fabric Redundancy](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article) by Dmitry Shokarev
+- [PTX12008 Fabric Topology](https://techpost.hpe.com/articles/ptx12008-fabric-topology/article) by Rahul Kulkarni
 
 ## Introduction: Why Fabric Resiliency Matters
 
-[PTX12008 (PTX12k) is an eight-slot linecards chassis](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article) paired with nine Switch Interface Boards (SIBs), designed to deliver massive, non-blocking throughput: 345.6Tbps.
+[PTX12008 (PTX12k) is an eight-slot linecards chassis](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article) paired with nine Switch Interface Boards (SIBs), designed to deliver massive, non-blocking throughput: 345.6Tbps.
 
 Each line card leverages three BX+BF (BXF) chipsets for packet processing and cross-fabric switching, and offers 54x 800G client ports (QSFP or OSFP).
 
@@ -453,9 +453,9 @@ If resiliency is a requirement (and in modern core networks, it always is), PTX1
 
 ## Useful links
 
-- Introducing the PTX12000 Chassis: [https://juniper.github.io/techposts/introducing-ptx12000-chassis/article](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article)
-- Rethinking Fabric Redundancy: [https://juniper.github.io/techposts/rethinking-fabric-redundancy/article](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article)
-- PTX12008 Fabric Topology: [https://juniper.github.io/techposts/ptx12008-fabric-topology/article](https://juniper.github.io/techposts/ptx12008-fabric-topology/article)
+- Introducing the PTX12000 Chassis: [https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article)
+- Rethinking Fabric Redundancy: [https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article)
+- PTX12008 Fabric Topology: [https://techpost.hpe.com/articles/ptx12008-fabric-topology/article](https://techpost.hpe.com/articles/ptx12008-fabric-topology/article)
 
 ## Glossary
 

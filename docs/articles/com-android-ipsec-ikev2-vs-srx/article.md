@@ -20,7 +20,7 @@ The involved RADIUS backend is used by the SRX for authorization by looking up t
 
 Note: Naturally, a question related to VPNs from the Apple ecosystem arises. For the time being, there is an issue where iOS disconnects after approximately 24 minutes during the first re-key operation. The root cause is unknown and would likely require cooperation with a technical expert on Apple's IKEv2 implementation. The disconnect issue seems to be widespread based on internet searches. Please reach out if you happen to be a technical expert on Apple's IKEv2 implementation.
 
-Although documented first, the IKEv2/IPSec PSK authentication is likely less suitable from a security perspective, particularly regarding user factors (such as PSK leaks) and manageability/scalability. Additionally, mixing the SRX PKI and PSK-based proposals for dynamic endpoints on the same interface is possible only when using an IP alias, as different IKE policies can't coexist for dynamic VPN endpoints. The provided configurations for the PSK scheme are based on the [SRX AutoVPN / PSK with Linux strongSwan](https://juniper.github.io/techposts/srx-autovpn-psk-with-linux-strongswan/article) Tech Post article describing the SRX site-to-site AutoVPN for third-party spokes. For illustration purposes, the approach for both PSK and certificate schemes coexisting on the same device will be covered here.
+Although documented first, the IKEv2/IPSec PSK authentication is likely less suitable from a security perspective, particularly regarding user factors (such as PSK leaks) and manageability/scalability. Additionally, mixing the SRX PKI and PSK-based proposals for dynamic endpoints on the same interface is possible only when using an IP alias, as different IKE policies can't coexist for dynamic VPN endpoints. The provided configurations for the PSK scheme are based on the [SRX AutoVPN / PSK with Linux strongSwan](https://techpost.hpe.com/articles/srx-autovpn-psk-with-linux-strongswan/article) Tech Post article describing the SRX site-to-site AutoVPN for third-party spokes. For illustration purposes, the approach for both PSK and certificate schemes coexisting on the same device will be covered here.
 
 In addition to certificate and PSK, the MSCHAPv2 scheme (which effectively involves EAP) is also implemented in the native Android client. However, it seems to have a known [padding issue](https://wiki.strongswan.org/issues/3673) that is still present, at least in Android 13. The same SRX configuration with the strongSwan app in EAP-MSCHAPv2 mode works fine, leading to this conclusion.
 
@@ -130,7 +130,7 @@ systemctl stop freeradius
 freeradius -X
 ```
 
-In the case of certificate authentication, clients can be effectively banned from connecting if their user certificate is revoked. Alternatively, for both certificate and PSK authentication, blocking certain IKE IDs is possible, as described in the Blocking Certain IKE IDs on the SRX chapter of the [SRX AutoVPN / PSK with Linux strongSwan](https://juniper.github.io/techposts/srx-autovpn-psk-with-linux-strongswan/article) Tech Post.
+In the case of certificate authentication, clients can be effectively banned from connecting if their user certificate is revoked. Alternatively, for both certificate and PSK authentication, blocking certain IKE IDs is possible, as described in the Blocking Certain IKE IDs on the SRX chapter of the [SRX AutoVPN / PSK with Linux strongSwan](https://techpost.hpe.com/articles/srx-autovpn-psk-with-linux-strongswan/article) Tech Post.
 
 Note: If the RADIUS server is EAP-TLS enabled, the SRX behaves transparently and can effectively serve as a VPN termination point for both mutual certificate authentication (with RADIUS authorization) and EAP-TLS authentication (e.g., strongSwan based clients).
 
@@ -1087,7 +1087,7 @@ Sidenote: Outside of JSC, Juniper support will not engage with client-side issue
 - [https://source.android.com/docs/core/ota/modular-system/ipsec](https://source.android.com/docs/core/ota/modular-system/ipsec)
 - [https://github.com/JNPRAutomate/SRX_VPN_demo_CA](https://github.com/JNPRAutomate/SRX_VPN_demo_CA)
 - [https://strongswan.org/](https://strongswan.org/)
-- [https://juniper.github.io/techposts/srx-autovpn-psk-with-linux-strongswan/article](https://juniper.github.io/techposts/srx-autovpn-psk-with-linux-strongswan/article)
+- [https://techpost.hpe.com/articles/srx-autovpn-psk-with-linux-strongswan/article](https://techpost.hpe.com/articles/srx-autovpn-psk-with-linux-strongswan/article)
 - [https://e.foundation/](https://e.foundation/)
 - [https://www.freeradius.org/](https://www.freeradius.org/)
 

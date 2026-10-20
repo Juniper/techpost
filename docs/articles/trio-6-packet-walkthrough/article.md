@@ -283,8 +283,8 @@ This first post described in detail the different resources used for packet forw
 - Placehollder for article 4 on Multicast Packet Walkthrough
 - An Expert Packet Walkthrough on the MX Series 3D: [https://www.juniper.net/documentation/en_US/day-one-books/TW_MX3D_PacketWalkthrough.pdf](https://www.juniper.net/documentation/en_US/day-one-books/TW_MX3D_PacketWalkthrough.pdf)
 - Inside the MX 5G: [https://www.juniper.net/documentation/en_US/day-one-books/DO_MX5G.pdf](https://www.juniper.net/documentation/en_US/day-one-books/DO_MX5G.pdf)
-- Deepdive MX304: [https://juniper.github.io/techposts/mx304-deepdive/article](https://juniper.github.io/techposts/mx304-deepdive/article)
-- Deepdive LC9600: [https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+- Deepdive MX304: [https://techpost.hpe.com/articles/mx304-deepdive/article](https://techpost.hpe.com/articles/mx304-deepdive/article)
+- Deepdive LC9600: [https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 ## Glossary
 

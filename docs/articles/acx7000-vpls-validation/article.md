@@ -8,20 +8,20 @@ Let's verify we can support 8,000 VPLS instances in the ACX7000 products with 64
 
 This is the fifth article in the ACX7k Metro Validation Series:
 
-- [1. EVPN MAC-VRF (E-LAN)](https://juniper.github.io/techposts/evpn-mac-vrf-validation-on-acx7000/article)
-- [2. EVPN VPWS](https://juniper.github.io/techposts/evpn-vpws-validation-on-acx7000/article)
-- [3. L3VPN, 6VPE](https://juniper.github.io/techposts/l3vpn-validation-on-acx7000/article)
-- [4. L2VPN](https://juniper.github.io/techposts/l2vpn-validation-on-acx7000/article)
-- [5. VPLS](https://juniper.github.io/techposts/acx7000-vpls-validation/article)
-- [6. L2 MAC Scale and Learning Rate](https://juniper.github.io/techposts/acx7000-l2-mac-scale-and-learning-rate/article)
+- [1. EVPN MAC-VRF (E-LAN)](https://techpost.hpe.com/articles/evpn-mac-vrf-validation-on-acx7000/article)
+- [2. EVPN VPWS](https://techpost.hpe.com/articles/evpn-vpws-validation-on-acx7000/article)
+- [3. L3VPN, 6VPE](https://techpost.hpe.com/articles/l3vpn-validation-on-acx7000/article)
+- [4. L2VPN](https://techpost.hpe.com/articles/l2vpn-validation-on-acx7000/article)
+- [5. VPLS](https://techpost.hpe.com/articles/acx7000-vpls-validation/article)
+- [6. L2 MAC Scale and Learning Rate](https://techpost.hpe.com/articles/acx7000-l2-mac-scale-and-learning-rate/article)
 
-In this article, we validate the VPLS feature scale support on the [ACX7100-32C](https://juniper.github.io/techposts/acx7100-deepdive/article) platform with 22.2R1 Junos-EVO build.
+In this article, we validate the VPLS feature scale support on the [ACX7100-32C](https://techpost.hpe.com/articles/acx7100-deepdive/article) platform with 22.2R1 Junos-EVO build.
 
 [VPLS](https://www.juniper.net/documentation/us/en/software/junos/vpn-l2/topics/concept/vpn-vpls-introduction.html) is a BGP or LDP MPLS Enabled Solution to connect Customer Edge Devices (CEs) across a Provider Edge Network. [RFC4761](https://www.rfc-editor.org/rfc/rfc4761) describes VPLS using BGP for Auto-Discovery and Signalling and [RFC4762](https://www.rfc-editor.org/rfc/rfc4762.html) presents VPLS using LDP Signalling. The PEs provide Layer 2 bridged connectivity between CEs. The PEs of the network are connected via MPLS technology with the help of [LDP](https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/ldp-overview.html), [RSVP](https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/rsvp-overview.html), [SR-MPLS](https://blogs.juniper.net/en-us/industry-solutions-and-trends/segment-routing-sr-with-multiprotocol-label-switching-mpls), etc. In VPLS, the MAC address associated with the hosts is learned via the data plane.
 
 JUNOS-EVO supports VPLS functionality with the instance type "virtual-switch" on ACX7000 platforms. In this article, we define the support and scale of the VPLS on the ACX7100-32C platform with LDP Signalling.
 
-[ACX7100-32C](https://www.juniper.net/us/en/products/routers/acx-series/acx7000-family-cloud-metro-routers/acx7100-line/acx7100-cloud-metro-routers-datasheet.html) with 22.2R1 Junos Version supports 8,000 VPLS instances. The Key Performance Indicator (KPI) tested are captured in the below table. The same scale is tested on ACX7100-48L as well as on [ACX7509](https://juniper.github.io/techposts/acx7024-deepdive/article) Scale is not covered in this article and supports a different scale.
+[ACX7100-32C](https://www.juniper.net/us/en/products/routers/acx-series/acx7000-family-cloud-metro-routers/acx7100-line/acx7100-cloud-metro-routers-datasheet.html) with 22.2R1 Junos Version supports 8,000 VPLS instances. The Key Performance Indicator (KPI) tested are captured in the below table. The same scale is tested on ACX7100-48L as well as on [ACX7509](https://techpost.hpe.com/articles/acx7024-deepdive/article) Scale is not covered in this article and supports a different scale.
 
  > Please note that despite sharing the same ACX moniker, the ACX7000 products are different products than ACX500/710/1000/1100/2100/2200/4000/5000/5400/6000. They are powered by different Packet Forwarding Engines (PFE), and support different feature sets and scales.
 
@@ -602,8 +602,8 @@ ACX7000 (ACX7100-32C, ACX7100-48L, ACX7509) can scale to 8,000 VPLS instances an
 
 - RFC 4761: [https://www.rfc-editor.org/rfc/rfc4761](https://www.rfc-editor.org/rfc/rfc4761)
 - RFC 4782: [https://www.rfc-editor.org/rfc/rfc4762](https://www.rfc-editor.org/rfc/rfc4762)
-- ACX7100 Deepdive: [https://juniper.github.io/techposts/acx7100-deepdive/article](https://juniper.github.io/techposts/acx7100-deepdive/article)
-- ACX7509 Deepdive: [https://juniper.github.io/techposts/acx7509-deepdive/article](https://juniper.github.io/techposts/acx7509-deepdive/article)
+- ACX7100 Deepdive: [https://techpost.hpe.com/articles/acx7100-deepdive/article](https://techpost.hpe.com/articles/acx7100-deepdive/article)
+- ACX7509 Deepdive: [https://techpost.hpe.com/articles/acx7509-deepdive/article](https://techpost.hpe.com/articles/acx7509-deepdive/article)
 
 ## Glossary
 

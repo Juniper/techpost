@@ -10,9 +10,9 @@ We're not going to take a deep dive into MNHA or RFC 2131. The focus is on hybri
 
 This post assumes familiarity with MNHA fundamentals. If you need a refresher before diving in:
 
-- [Multi-Node High Availability Basics](https://juniper.github.io/techposts/multi-node-high-availability-basics/article) - Steven Jacques covers ICL mechanics, SRG0, session synchronization, and config sync.
-- [Hybrid MNHA with eBGP](https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article) - hybrid deployment mode, BFD-driven failover, signal routes, and VIP behavior. The VIP mechanics in this post build directly on that content.
-- [SRX clustering: from Chassis Cluster to MultiNode High Availability](https://juniper.github.io/techposts/srx-from-chassis-cluster-to-mnha/article) - Laurent Paumelle's architectural overview of MNHA modes, SRG taxonomy, VIP/vMAC behavior, and platform support. Good context for the Default Gateway and Hybrid mode VIP mechanics that underpin the DHCP behavior discussed here.
+- [Multi-Node High Availability Basics](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article) - Steven Jacques covers ICL mechanics, SRG0, session synchronization, and config sync.
+- [Hybrid MNHA with eBGP](https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article) - hybrid deployment mode, BFD-driven failover, signal routes, and VIP behavior. The VIP mechanics in this post build directly on that content.
+- [SRX clustering: from Chassis Cluster to MultiNode High Availability](https://techpost.hpe.com/articles/srx-from-chassis-cluster-to-mnha/article) - Laurent Paumelle's architectural overview of MNHA modes, SRG taxonomy, VIP/vMAC behavior, and platform support. Good context for the Default Gateway and Hybrid mode VIP mechanics that underpin the DHCP behavior discussed here.
 
 ## DHCP Quick Reference
 
@@ -361,9 +361,9 @@ Embrace the ACKs. Avoid the NAKs.
 
 ## Useful links
 
-- Multi-Node High Availability Basics: [https://juniper.github.io/techposts/multi-node-high-availability-basics/article](https://juniper.github.io/techposts/multi-node-high-availability-basics/article)
-- Hybrid MNHA with eBGP: [https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article](https://juniper.github.io/techposts/hybrid-mnha-with-ebgp/article)
-- SRX clustering: from Chassis Cluster to MultiNode High Availability: https://juniper.github.io/techposts/srx-from-chassis-cluster-to-mnha/article
+- Multi-Node High Availability Basics: [https://techpost.hpe.com/articles/multi-node-high-availability-basics/article](https://techpost.hpe.com/articles/multi-node-high-availability-basics/article)
+- Hybrid MNHA with eBGP: [https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article](https://techpost.hpe.com/articles/hybrid-mnha-with-ebgp/article)
+- SRX clustering: from Chassis Cluster to MultiNode High Availability: https://techpost.hpe.com/articles/srx-from-chassis-cluster-to-mnha/article
 - Juniper MNHA Documentation: [https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/mnha-introduction.html](https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/topic-map/mnha-introduction.html)
 - Junos DHCP User Guide: [https://www.juniper.net/documentation/us/en/software/junos/dhcp/dhcp.pdf](https://www.juniper.net/documentation/us/en/software/junos/dhcp/dhcp.pdf)
 - MNHA Preparation (VIP limitations): [https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/concept/mnha-preparation.html](https://www.juniper.net/documentation/us/en/software/junos/high-availability/topics/concept/mnha-preparation.html)

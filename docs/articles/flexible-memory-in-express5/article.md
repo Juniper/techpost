@@ -22,7 +22,7 @@ Each of the above approaches comes with challenges related to software maintaina
 
 ![Express 5 Flexible Shared Memory Approach](images/picture4.png)
 
-Shared memory in Express5 is statically partitioned between Route and Nexthop Memory. Route memory ([used as FIB Cache](https://juniper.github.io/techposts/fib-scale-in-express5/article)) size is fixed and cannot be modified during runtime (after bootup) whereas Nexthop memory can grow dynamically as shown in the above diagram. Nexthop memory is classified into:
+Shared memory in Express5 is statically partitioned between Route and Nexthop Memory. Route memory ([used as FIB Cache](https://techpost.hpe.com/articles/fib-scale-in-express5/article)) size is fixed and cannot be modified during runtime (after bootup) whereas Nexthop memory can grow dynamically as shown in the above diagram. Nexthop memory is classified into:
 
 - **MPLS Label Swap Memory**: Enables sharing the MPLS nexthops by keeping the varying MPLS labels in the swap memory.
 - **Load Balancing Memory**: Load balancing data structures a.k.a selector table are stored in this memory.
@@ -52,10 +52,10 @@ Table: Unidimensional Scale Improvements in Express5 compared to Express4
 
 ## Useful Links
 
-- Express 5 Overview: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- Introducing PTX10002-36QDD: [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
-- Flexible Packet Processing Pipelines: [https://juniper.github.io/techposts/flexible-packet-processing-pipelines/article](https://juniper.github.io/techposts/flexible-packet-processing-pipelines/article)
-- FIB Scale In Express5: [https://juniper.github.io/techposts/fib-scale-in-express5/article](https://juniper.github.io/techposts/fib-scale-in-express5/article)
+- Express 5 Overview: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- Introducing PTX10002-36QDD: [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
+- Flexible Packet Processing Pipelines: [https://techpost.hpe.com/articles/flexible-packet-processing-pipelines/article](https://techpost.hpe.com/articles/flexible-packet-processing-pipelines/article)
+- FIB Scale In Express5: [https://techpost.hpe.com/articles/fib-scale-in-express5/article](https://techpost.hpe.com/articles/fib-scale-in-express5/article)
 
 ## Acknowledgements
 

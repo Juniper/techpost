@@ -233,13 +233,13 @@ Useful links
 
 - BGP Link Bandwidth IETF Draft: [https://datatracker.ietf.org/doc/draft-ietf-idr-link-bandwidth/](https://datatracker.ietf.org/doc/draft-ietf-idr-link-bandwidth/)
 - MX304 FIB install rate
-[https://juniper.github.io/techposts/mx304-fib-install-rate/article](https://juniper.github.io/techposts/mx304-fib-install-rate/article)
+[https://techpost.hpe.com/articles/mx304-fib-install-rate/article](https://techpost.hpe.com/articles/mx304-fib-install-rate/article)
 - Mastering BGP PIC on JUNOS
-[https://juniper.github.io/techposts/mastering-bgp-pic-on-junos/article](https://juniper.github.io/techposts/mastering-bgp-pic-on-junos/article)
+[https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article](https://techpost.hpe.com/articles/mastering-bgp-pic-on-junos/article)
 - FIB Compression
-[https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+[https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 - BGP RIB Sharding
-[https://juniper.github.io/techposts/bgp-rib-sharding/article](https://juniper.github.io/techposts/bgp-rib-sharding/article)
+[https://techpost.hpe.com/articles/bgp-rib-sharding/article](https://techpost.hpe.com/articles/bgp-rib-sharding/article)
 
 ## Acknowledgments
 

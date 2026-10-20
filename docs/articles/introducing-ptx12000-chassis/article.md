@@ -3,10 +3,10 @@
 **Nicolas Fevrier - 02/25/2026**
 
 - Introducing the PTX12000 Series (this blog)
-- [Rethinking Fabric Redundancy](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article)
-- [Deepdive in the Fabric Topology](https://juniper.github.io/techposts/ptx12008-fabric-topology/article)
-- [Fabric Self Healing and Recovery](https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article)
-- [Navigating the Front Panel Display](https://juniper.github.io/techposts/navigating-the-ptx12008-lcd-module/article)
+- [Rethinking Fabric Redundancy](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article)
+- [Deepdive in the Fabric Topology](https://techpost.hpe.com/articles/ptx12008-fabric-topology/article)
+- [Fabric Self Healing and Recovery](https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article)
+- [Navigating the Front Panel Display](https://techpost.hpe.com/articles/navigating-the-ptx12008-lcd-module/article)
 - PTX12k Power Saving and Metrics (coming soon)
 
 ## Introduction
@@ -31,8 +31,8 @@ Many other publications will follow and will be linked from this page when they 
 
 As a prerequisite, for more details on the Packet Forwarding Engine and the Express5 variants, we invite you to read the following blog posts first:
 
-- Introduction to Express 5 TechPost blog: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- [https://juniper.github.io/techposts/introducing-express5-in-ptx10k-chassis/article](https://juniper.github.io/techposts/introducing-express5-in-ptx10k-chassis/article)
+- Introduction to Express 5 TechPost blog: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- [https://techpost.hpe.com/articles/introducing-express5-in-ptx10k-chassis/article](https://techpost.hpe.com/articles/introducing-express5-in-ptx10k-chassis/article)
 (section "Main Forwarding Components")
 
 A bit of vocabulary. In this document, we will talk about:
@@ -397,7 +397,7 @@ This powerful CPU is used by various HPE Juniper software components leveraging 
 
 The storage subsystem is comprised of 400GB solid-state drives (SSDs). Two are provided for redundancy, plus reliable management of the software upgrades and rollbacks. These drives are not field-replaceable.
 
-The RE has enough storage, DRAM capacity, and CPU power to host 3rd party applications. Some of these applications may include custom Service Assurance Agents or statistics collection agents developed by HPE Juniper partners and customers. Even full Telegraf, InfluxDB, Grafana stack can run on the router itself for data collection and visualization, check out the blog post ([https://juniper.github.io/techposts/telemetry-collector-and-dataviz-on-junos-evo/article](https://juniper.github.io/techposts/telemetry-collector-and-dataviz-on-junos-evo/article)).
+The RE has enough storage, DRAM capacity, and CPU power to host 3rd party applications. Some of these applications may include custom Service Assurance Agents or statistics collection agents developed by HPE Juniper partners and customers. Even full Telegraf, InfluxDB, Grafana stack can run on the router itself for data collection and visualization, check out the blog post ([https://techpost.hpe.com/articles/telemetry-collector-and-dataviz-on-junos-evo/article](https://techpost.hpe.com/articles/telemetry-collector-and-dataviz-on-junos-evo/article)).
 
 From a security perspective, the RE is fully compliant with the TPM2.0 standard as published by the Trusted Computing Group (TCG). The TPM's non-volatile storage is used as a persistent, access-controlled area for component registration, location of policy, keys, etc.Trusted extensions are integrated into the Icelake CPU and only it can access the TPM. Hardware and firmware are designed to support FIPS 140-2 Level 2.
 
@@ -971,12 +971,12 @@ This article, despite its length, only scratched the surface of the PTX12000 cha
 
 ## Useful links
 
-- Introduction to Express 5 TechPost blog: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+- Introduction to Express 5 TechPost blog: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
 - PTX12000 Chassis Datasheet: [https://www.hpe.com/psnow/doc/a00155677enw?jumpid=in_pdfviewer-psnow ](https://www.hpe.com/psnow/doc/a00155677enw?jumpid=in_pdfviewer-psnow)
-- Rethinking Fabric Redundancy: [https://juniper.github.io/techposts/rethinking-fabric-redundancy/article](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article)
-- Deepdive in the Fabric Topology: [https://juniper.github.io/techposts/ptx12008-fabric-topology/article](https://juniper.github.io/techposts/ptx12008-fabric-topology/article)
-- Fabric Self Healing and Recovery: [https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article](https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article)
-- Navigating the Front Panel Display: [https://juniper.github.io/techposts/navigating-the-ptx12008-lcd-module/article](https://juniper.github.io/techposts/navigating-the-ptx12008-lcd-module/article)
+- Rethinking Fabric Redundancy: [https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article)
+- Deepdive in the Fabric Topology: [https://techpost.hpe.com/articles/ptx12008-fabric-topology/article](https://techpost.hpe.com/articles/ptx12008-fabric-topology/article)
+- Fabric Self Healing and Recovery: [https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article](https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article)
+- Navigating the Front Panel Display: [https://techpost.hpe.com/articles/navigating-the-ptx12008-lcd-module/article](https://techpost.hpe.com/articles/navigating-the-ptx12008-lcd-module/article)
 - PTX12k Power Saving and Metrics (coming soon)
 
 ## Glossary

@@ -380,9 +380,9 @@ root@rtme-acx7024-01> show chassis fan
 
 We invite you to check the articles to learn more about the ASIC selection process and many more details on the packet forwarding ASIC.
 
-- Building the ACX7000 Series: the PFE: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+- Building the ACX7000 Series: the PFE: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 
-- Let's Talk About VOQ and DNX Pipeline: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+- Let's Talk About VOQ and DNX Pipeline: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 
 The ACX7024 is "Systems on the Chip" (SoC). That means it is based on a single PFE where all parts involved in the forwarding tasks are directly connected. This Qumran (BCM88284) PFE is a deep-buffer ASIC with hybrid packet memory (internal and external). The external buffer is 2x 8Gb (2GB) of GDDR6 memory.
 
@@ -405,8 +405,8 @@ The ACX7024 router is 1-RU, 360Gbps platform, ideally positioned for small cell 
 
 - ACX7024 Data sheet: [https://www.juniper.net/us/en/products/routers/acx-series/acx7024-cloud-metro-router-datasheet.html ](https://www.juniper.net/us/en/products/routers/acx-series/acx7024-cloud-metro-router-datasheet.html)
 - Product introduction on YouTube: [https://www.youtube.com/watch?v=tzEeTW5JODk](https://www.youtube.com/watch?v=tzEeTW5JODk)
-- Building the ACX7100 Series: the PFE: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
-- Let's talk about VOQ and DNX Pipeline: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+- Building the ACX7100 Series: the PFE: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
+- Let's talk about VOQ and DNX Pipeline: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 - Hardware guides: [https://www.juniper.net/documentation/us/en/hardware/acx7024/index.html](https://www.juniper.net/documentation/us/en/hardware/acx7024/index.html)
 - HCT Link: [https://apps.juniper.net/hct/product/?prd=ACX7024](https://apps.juniper.net/hct/product/?prd=ACX7024)
 

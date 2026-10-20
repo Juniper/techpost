@@ -6,10 +6,10 @@ Express5 has leap frogged in terms of Route scale, thanks to a novel approach in
 
 This article is part of a series of publications on Express5:
 
-- Express 5 Overview: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- Introducing PTX10002-36QDD: [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
-- Flexible Packet Processing Pipelines: [https://juniper.github.io/techposts/flexible-packet-processing-pipelines/article](https://juniper.github.io/techposts/flexible-packet-processing-pipelines/article)
-- Flex Offset Filters in Express5: [https://juniper.github.io/techposts/flex-offset-filters-in-express5/article](https://juniper.github.io/techposts/flex-offset-filters-in-express5/article)
+- Express 5 Overview: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- Introducing PTX10002-36QDD: [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
+- Flexible Packet Processing Pipelines: [https://techpost.hpe.com/articles/flexible-packet-processing-pipelines/article](https://techpost.hpe.com/articles/flexible-packet-processing-pipelines/article)
+- Flex Offset Filters in Express5: [https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article](https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article)
 
 ## Introduction
 
@@ -28,7 +28,7 @@ Table: FIB Scale Comparison
 | Express4 | 2.5, 5, 10 words | 2M 2.5-word entries | Up to 4M 2.5-word entries |
 | Express5 | 2.5, 5, 10 words | 10M 10-word entries | Up to 16M 10-word entries |
 
-For more details on the FIB Compression principles, please have a look at this article: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+For more details on the FIB Compression principles, please have a look at this article: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 
 ## FIB Cache
 
@@ -67,11 +67,11 @@ The FIB cache size can be programmed to accommodate up to 1M routes. If the numb
 ## Useful links
 
 - 1. Comcast (NANOG June 2015) [https://archive.nanog.org/sites/default/files/meetings/NANOG64/1031/20150603_Field_Motivation_Analysis_And_v1.pdf](https://archive.nanog.org/sites/default/files/meetings/NANOG64/1031/20150603_Field_Motivation_Analysis_And_v1.pdf)
-- FIB Compression: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
-- Express 5 Overview: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- Introducing PTX10002-36QDD: [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
-- Flexible Packet Processing Pipelines: [https://juniper.github.io/techposts/flexible-packet-processing-pipelines/article](https://juniper.github.io/techposts/flexible-packet-processing-pipelines/article)
-- Flex Offset Filters in Express5: [https://juniper.github.io/techposts/flex-offset-filters-in-express5/article](https://juniper.github.io/techposts/flex-offset-filters-in-express5/article)
+- FIB Compression: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
+- Express 5 Overview: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- Introducing PTX10002-36QDD: [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
+- Flexible Packet Processing Pipelines: [https://techpost.hpe.com/articles/flexible-packet-processing-pipelines/article](https://techpost.hpe.com/articles/flexible-packet-processing-pipelines/article)
+- Flex Offset Filters in Express5: [https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article](https://techpost.hpe.com/articles/flex-offset-filters-in-express5/article)
 
 ## Acknowledgements
 

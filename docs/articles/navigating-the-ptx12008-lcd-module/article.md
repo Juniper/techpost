@@ -10,11 +10,11 @@ The PTX12000 product line is engineered to meet the escalating demands of next g
 
 Built on Juniper's fifth generation Express silicon, the platform delivers massive scale, exceptional power efficiency, and long term architectural longevity, supporting high density 800GbE now and 1.6TbE class infrastructure in the future.
 
-- [Introducing the PTX12000 Series](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article)
-- [Rethinking Fabric Redundancy](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article)
-- [Deepdive in the Fabric Topology](https://juniper.github.io/techposts/ptx12008-fabric-topology/article)
-- [Fabric Self Healing and Recovery](https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article)
-- [Navigating the Front Panel Display](https://juniper.github.io/techposts/navigating-the-ptx12008-lcd-module/article)
+- [Introducing the PTX12000 Series](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article)
+- [Rethinking Fabric Redundancy](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article)
+- [Deepdive in the Fabric Topology](https://techpost.hpe.com/articles/ptx12008-fabric-topology/article)
+- [Fabric Self Healing and Recovery](https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article)
+- [Navigating the Front Panel Display](https://techpost.hpe.com/articles/navigating-the-ptx12008-lcd-module/article)
 - PTX12k Power Saving and Metrics (coming soon)
 
 ## Quick reminder on the PTX12008
@@ -318,11 +318,11 @@ It is assured it does not present any security issues / threats; LCD can't be us
 
 ## Useful links
 
-- [Introducing the PTX12000 Series](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article)
-- [Rethinking Fabric Redundancy](https://juniper.github.io/techposts/rethinking-fabric-redundancy/article)
-- [Deepdive in the Fabric Topology](https://juniper.github.io/techposts/ptx12008-fabric-topology/article)
-- [Fabric Self Healing and Recovery](https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article)
-- [Navigating the Front Panel Display](https://juniper.github.io/techposts/navigating-the-ptx12008-lcd-module/article)
+- [Introducing the PTX12000 Series](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article)
+- [Rethinking Fabric Redundancy](https://techpost.hpe.com/articles/rethinking-fabric-redundancy/article)
+- [Deepdive in the Fabric Topology](https://techpost.hpe.com/articles/ptx12008-fabric-topology/article)
+- [Fabric Self Healing and Recovery](https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article)
+- [Navigating the Front Panel Display](https://techpost.hpe.com/articles/navigating-the-ptx12008-lcd-module/article)
 - PTX12k Power Saving and Metrics (coming soon)
 
 ## Glossary

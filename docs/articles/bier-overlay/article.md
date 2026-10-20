@@ -4,8 +4,8 @@
 
 The series is composed of the following posts:
 
-- [Introduction to BIER and BIER Underlay](https://juniper.github.io/techposts/bier-introduction-and-underlay/article)
-- [BIER Table Lookup](https://juniper.github.io/techposts/bier-table-lookup/article)
+- [Introduction to BIER and BIER Underlay](https://techpost.hpe.com/articles/bier-introduction-and-underlay/article)
+- [BIER Table Lookup](https://techpost.hpe.com/articles/bier-table-lookup/article)
 - BIER Overlay (present article)
 
 In this TechPost, we talk in deeper detail about overlay details.
@@ -911,14 +911,14 @@ RFC/Drafts
 
 PTX10002-36QDD:
 
-- [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
-- [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+- [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
+- [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
 - [https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-36qdd-packet-transport-router.html](https://www.juniper.net/us/en/products/routers/ptx-series/ptx10002-36qdd-packet-transport-router.html)
 
 BIER TechPost Articles
 
-- [https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article](https://juniper.github.io/techposts/bier-mvpn-in-ptx-express-5/article)
-- [https://juniper.github.io/techposts/eantc-bier-interop-testing-on-ptx10002-36qdd/article](https://juniper.github.io/techposts/eantc-bier-interop-testing-on-ptx10002-36qdd/article)
+- [https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article](https://techpost.hpe.com/articles/bier-mvpn-in-ptx-express-5/article)
+- [https://techpost.hpe.com/articles/eantc-bier-interop-testing-on-ptx10002-36qdd/article](https://techpost.hpe.com/articles/eantc-bier-interop-testing-on-ptx10002-36qdd/article)
 
 EANTC 2024 InterOP Report
 

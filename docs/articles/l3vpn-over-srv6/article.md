@@ -8,7 +8,7 @@ How unicast IPv4/IPv6 within L3VPN VRFs are implemented with Segment Routing v6 
 
 In the first blog of SRv6 (Segment Routing version 6) series I discussed the very basic SRv6 concepts: SRv6 locator and SRv6 SID (Segment Identifier), particularly most basic SRv6 SID, which is End SID. This is the second blog in the series of SRv6 blogs. In this blog I will explain, how unicast IPv4/IPv6 within L3VPN (Layer 3 Virtual Private Network) are implemented with SRv6 as underlaying transport technology.
 
-This blog post is based on the capabilities of Junos 20.4 running on MX Series and JUNOS 22.3 on ACX7000 routers. Config and show command outputs have been collected on vMX in our labs. JUNOS 22.3 introduces changes to SRv6 infrastructure, which might change the SRv6 configuration shown in this blog post. Please check [SRv6 SID Encoding and Transposition](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article) blog for more details.
+This blog post is based on the capabilities of Junos 20.4 running on MX Series and JUNOS 22.3 on ACX7000 routers. Config and show command outputs have been collected on vMX in our labs. JUNOS 22.3 introduces changes to SRv6 infrastructure, which might change the SRv6 configuration shown in this blog post. Please check [SRv6 SID Encoding and Transposition](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article) blog for more details.
 
 - [JCL (Junivators and partners)](https://portal.cloudlabs.juniper.net/RM/Topology?b=7d39fd8c-3965-4ffd-bd4a-3eb67519536c&d=c78ae7c7-e93b-4708-813e-109fd780f301)
 - [vLabs (open to all)](https://portal.cloudlabs.juniper.net/RM/Topology?b=1c3af352-c46c-40d9-83d6-8aed0d3a3afe&d=2f99da30-8756-4d15-8822-d648498c7aea)
@@ -475,10 +475,10 @@ In the next blog, we will discuss multi-area SRv6 design, with locator summariza
 
 - RFC 8986: Segment Routing over IPv6 (SRv6) Network Programming: [https://datatracker.ietf.org/doc/rfc8986/](https://datatracker.ietf.org/doc/rfc8986/)
 - SRv6 in Junos: [https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html](https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html)
-- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)
-- TechPost 2: L3VPN on SRv6 - [https://juniper.github.io/techposts/l3vpn-over-srv6/article](https://juniper.github.io/techposts/l3vpn-over-srv6/article)
-- TechPost 3: SRv6 Summarisation - [https://juniper.github.io/techposts/srv6-summarization/article](https://juniper.github.io/techposts/srv6-summarization/article)
-- TechPost 4: SRv6 SID Encoding and Transposition - [https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)
+- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)
+- TechPost 2: L3VPN on SRv6 - [https://techpost.hpe.com/articles/l3vpn-over-srv6/article](https://techpost.hpe.com/articles/l3vpn-over-srv6/article)
+- TechPost 3: SRv6 Summarisation - [https://techpost.hpe.com/articles/srv6-summarization/article](https://techpost.hpe.com/articles/srv6-summarization/article)
+- TechPost 4: SRv6 SID Encoding and Transposition - [https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)
 
 ## Glossary
 

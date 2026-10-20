@@ -10,7 +10,7 @@ While destination-based forwarding works well for most traffic, certain services
 
 The same principle applies to services: not all flows may be treated equally. Tailoring treatment for certain traffic flows enables unique business and operational opportunities -- such as routing via premium paths or steering specific streams over designated network hops.
 
-Speaking technically, two components are required: identifying the "special" flows and forwarding them over a (potentially different from the default) path across the network towards the egress node. The first task is handled by Filter-Based Forwarding (FBF) or Class-Based Forwarding (CBF) -- if you're new to them, please have a look [at this great introductory article into FBF](https://juniper.github.io/techposts/filter-based-forwarding-on-mx/article). The second task can be accomplished by traffic engineering -- for example, RSVP-TE, SR-MPLS TE or SRv6-TE.
+Speaking technically, two components are required: identifying the "special" flows and forwarding them over a (potentially different from the default) path across the network towards the egress node. The first task is handled by Filter-Based Forwarding (FBF) or Class-Based Forwarding (CBF) -- if you're new to them, please have a look [at this great introductory article into FBF](https://techpost.hpe.com/articles/filter-based-forwarding-on-mx/article). The second task can be accomplished by traffic engineering -- for example, RSVP-TE, SR-MPLS TE or SRv6-TE.
 
 The secret sauce is how to combine the two tasks together. We'll review how to apply FBF or CBF to selected traffic streams, forcing them to take specific TE paths.
 
@@ -541,7 +541,7 @@ Junos provides powerful and robust tools for packet routing. In contrast to the 
 
 ## Useful links
 
-- [Introduction to filter based forwarding](https://juniper.github.io/techposts/filter-based-forwarding-on-mx/article)
+- [Introduction to filter based forwarding](https://techpost.hpe.com/articles/filter-based-forwarding-on-mx/article)
 - [Classful Transport (CT) planes  ](https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/color-based-traffic-engineering-configuration.html)
 
 ## Glossary

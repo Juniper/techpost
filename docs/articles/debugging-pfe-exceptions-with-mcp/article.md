@@ -151,7 +151,7 @@ This is the future of networking: less time typing commands, more time interpret
 
 - Junos-mcp-server: [junos-mcp-server](https://github.com/Juniper/junos-mcp-server)
 - Day One: [Inside the MX 5G : Day One](https://www.juniper.net/documentation/en_US/day-one-books/DO_MX5G.pdf)
-- PFE exceptions monitoring : [open source monitoring of forwarding exceptions](https://juniper.github.io/techposts/open-source-monitoring-of-forwarding-exceptions/article)
+- PFE exceptions monitoring : [open source monitoring of forwarding exceptions](https://techpost.hpe.com/articles/open-source-monitoring-of-forwarding-exceptions/article)
 
 ## Glossary
 

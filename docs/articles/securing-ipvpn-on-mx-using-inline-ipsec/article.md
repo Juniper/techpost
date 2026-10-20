@@ -8,7 +8,7 @@ This article provides an example of using the inline IPsec function available on
 
 As part of a recent customer POC test, an MX10004 (25.2R1-S1.4) with line card model LC9600 was positioned as a data center gateway router. In the topology diagram below, the MX10004 router, Edge-1, provides interconnectivity between the local EVPN/VXLAN-based multi-tenant data center (DC1) and a remote data center (DC2), reachable via an IP/MPLS core network. This means the MX10004 router adds and removes VXLAN and MPLS headers as needed when forwarding packets. At the remote data center, another MX304 gateway router, Edge-2, provides similar interconnectivity services.
 
-In addition, secure connectivity between the two data centers is established using an IPsec tunnel between the MX gateways. This functionality is enabled by the inline IPsec capability on the Trio 6-based LC9600 and MX304 which provide encryption/decryption without the need of a specialized service card. [For more details about inline IPsec on the MX routers see [1]](https://juniper.github.io/techposts/inline-ipsec-on-mx-series/article).
+In addition, secure connectivity between the two data centers is established using an IPsec tunnel between the MX gateways. This functionality is enabled by the inline IPsec capability on the Trio 6-based LC9600 and MX304 which provide encryption/decryption without the need of a specialized service card. [For more details about inline IPsec on the MX routers see [1]](https://techpost.hpe.com/articles/inline-ipsec-on-mx-series/article).
 
 ![image](images/picture3.png)
 
@@ -348,9 +348,9 @@ jnpr@Edge-1> show interfaces detail st0.1 | find IPv4
 
 ## Useful Links
 
-- [1] Inline IPsec - HPE Juniper Networking TechPost blog - [https://juniper.github.io/techposts/inline-ipsec-on-mx-series/article](https://juniper.github.io/techposts/inline-ipsec-on-mx-series/article)
+- [1] Inline IPsec - HPE Juniper Networking TechPost blog - [https://techpost.hpe.com/articles/inline-ipsec-on-mx-series/article](https://techpost.hpe.com/articles/inline-ipsec-on-mx-series/article)
 - [2] IPsec VPN Overview - HPE Juniper Network Technical Publication - [https://www.juniper.net/documentation/us/en/software/junos/vpn-ipsec/topics/topic-map/security-ipsecvpn-overview.html](https://www.juniper.net/documentation/us/en/software/junos/vpn-ipsec/topics/topic-map/security-ipsecvpn-overview.html)
-- [3] SRX4700 100Gbps Full Duplex IPSEC tunnel - [https://juniper.github.io/techposts/srx4700-100gbps-full-duplex-ipsec-tunnel/article](https://juniper.github.io/techposts/srx4700-100gbps-full-duplex-ipsec-tunnel/article)
+- [3] SRX4700 100Gbps Full Duplex IPSEC tunnel - [https://techpost.hpe.com/articles/srx4700-100gbps-full-duplex-ipsec-tunnel/article](https://techpost.hpe.com/articles/srx4700-100gbps-full-duplex-ipsec-tunnel/article)
 
 ## Glossary
 

@@ -829,8 +829,8 @@ Juniper MX and PTX devices can use their ASIC capabilities to generate inline mo
 ## Useful links
 
 - Monitoring, Sampling, and Collection Services Interfaces User Guide: [https://www.juniper.net/documentation/us/en/software/junos/flow-monitoring/topics/topic-map/resiliency-exception-reporting.html](https://www.juniper.net/documentation/us/en/software/junos/flow-monitoring/topics/topic-map/resiliency-exception-reporting.html)
-- [TechPost] Detection of Blackholes Using Juniper Resiliency Interface: [https://juniper.github.io/techposts/detection-of-blackholes-in-networks-using-jri/article](https://juniper.github.io/techposts/detection-of-blackholes-in-networks-using-jri/article)
-- [TechPost] Sampling Evolution: [https://juniper.github.io/techposts/sampling-evolution/article](https://juniper.github.io/techposts/sampling-evolution/article)
+- [TechPost] Detection of Blackholes Using Juniper Resiliency Interface: [https://techpost.hpe.com/articles/detection-of-blackholes-in-networks-using-jri/article](https://techpost.hpe.com/articles/detection-of-blackholes-in-networks-using-jri/article)
+- [TechPost] Sampling Evolution: [https://techpost.hpe.com/articles/sampling-evolution/article](https://techpost.hpe.com/articles/sampling-evolution/article)
 - TCPdump: [https://www.tcpdump.org/](https://www.tcpdump.org/)
 - [RFC] Specification of the IP Flow Information Export (IPFIX) Protocol for the Exchange of Flow Information: [https://www.rfc-editor.org/rfc/rfc7011](https://www.rfc-editor.org/rfc/rfc7011)
 - tshark: [https://tshark.dev/](https://tshark.dev/)

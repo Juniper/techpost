@@ -375,7 +375,7 @@ Above example clearly shows that PFE Power off not just bring down Line card pow
 
 More Details on saving power using PFE power of can be found on following TechPost article
 
-[https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article)
+[https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article)
 
 ## MACSEC Block Clock Gating
 
@@ -575,8 +575,8 @@ The PTX12008 demonstrates that significant power savings can be achieved without
 
 ## Useful links
 
-- Power saving using power off: [https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article)
-- TX10000 Power optimization: [https://juniper.github.io/techposts/ptx10000-power-optimization/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article)
+- Power saving using power off: [https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article)
+- TX10000 Power optimization: [https://techpost.hpe.com/articles/ptx10000-power-optimization/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article)
 
 ## Glossary
 

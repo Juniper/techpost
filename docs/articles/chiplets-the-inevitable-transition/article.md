@@ -58,7 +58,7 @@ Samsung unveiled a 3nm process with GAA in 2022. TSMC/Intel plan to use this new
 
 ### Second Inflection Point - 2.5D Integration
 
-The DRAMs used as external memory for GPU/CPUs and networking devices use a different process node than the ones used by the transistors in the ASICs. It is harder to scale the performance and density of the DRAM simultaneously while keeping the cost and power consumption low. DRAM vendors traded capacity over performance as there was more demand for capacity from CPU vendors. The DRAM latencies, dominated by the PCB traces on the board, were not improving either. This widening gap in DRAM versus logic performance is often called a "[memory wall](https://juniper.github.io/techposts/tearing-down-memory-wall/article)."
+The DRAMs used as external memory for GPU/CPUs and networking devices use a different process node than the ones used by the transistors in the ASICs. It is harder to scale the performance and density of the DRAM simultaneously while keeping the cost and power consumption low. DRAM vendors traded capacity over performance as there was more demand for capacity from CPU vendors. The DRAM latencies, dominated by the PCB traces on the board, were not improving either. This widening gap in DRAM versus logic performance is often called a "[memory wall](https://techpost.hpe.com/articles/tearing-down-memory-wall/article)."
 
 GPUs were the first ones to get affected by the memory wall as their workloads, like graphics rendering, are highly parallel in nature and distributed across many cores, and the longer latencies affect the graphics quality.
 

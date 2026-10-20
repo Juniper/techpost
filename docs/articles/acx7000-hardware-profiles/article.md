@@ -72,7 +72,7 @@ Starting from 23.2R1, we simplified the logic by moving all prefixes, host or no
 
 ![LEM and LPM roles starting from Junos 23.2R1](images/picture7.png)
 
-The main goal is: make things simpler. But also, it will eliminate the need to move prefixes from LEM to LPM when subsequent host routes are "aggregated" by the FIB compression algorithm. This cFIB feature is also introduced in Junos 23.2R1. You can read more on this topic here: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+The main goal is: make things simpler. But also, it will eliminate the need to move prefixes from LEM to LPM when subsequent host routes are "aggregated" by the FIB compression algorithm. This cFIB feature is also introduced in Junos 23.2R1. You can read more on this topic here: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 
 One important exception to this new behavior is when the carrier-ethernet profile is activated. We will detail these profiles below in the same article. But when carrier-ethernet is configured, the prefixes are stored with host v4/32 and v6/128 in LEM and the rest in LPM, like it was before 23.2R1.
 
@@ -380,7 +380,7 @@ The Junos 23.2 and 23.3 releases introduced important modification in the hardwa
 
 ## Useful links
 
-- [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+- [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 - [https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/ref/statement/system-packet-forwarding-options-hw-db-profile.html](https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/ref/statement/system-packet-forwarding-options-hw-db-profile.html)
 
 ## Glossary

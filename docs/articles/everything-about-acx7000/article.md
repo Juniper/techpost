@@ -84,7 +84,7 @@ Figure 5 illustrates the position of the FEB cards between FPCs (line cards) and
 
 The ACX7509 can operate with one or two Routing and Controller Board (RCB). If we select the 1x RCB mode, it will also run with a single FEB.
 
-You can find a lot of details on the hardware architecture and the life of a packet in this article: [https://juniper.github.io/techposts/acx7509-deepdive/article](https://juniper.github.io/techposts/acx7509-deepdive/article)
+You can find a lot of details on the hardware architecture and the life of a packet in this article: [https://techpost.hpe.com/articles/acx7509-deepdive/article](https://techpost.hpe.com/articles/acx7509-deepdive/article)
 
 The architecture is optimized significantly with the ACX7300.
 
@@ -154,7 +154,7 @@ Broadcom offers dozens of SKUs in the Jericho2 family, and to select one, or ano
 
 Basically in our current ACX7K portfolio, we are using four different chipsets types: the Jericho 2, the Jericho2C (or Qumran2C), the Qumran2U and the Qumran2n.
 
-To avoid repetitions, we invite you to read this article "Building the ACX7000 Series: the PFE": [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+To avoid repetitions, we invite you to read this article "Building the ACX7000 Series: the PFE": [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 
 The article covers the different PFEs, the Port Macros PM25/PM50 and SerDes, the PHYs used in retimer/gearbox/reverse-gearbox modes, and the resource scale. To complete this article, it's interesting to note that MACsec is not natively supported on these four PFEs, and they can provide class-B or class-C timing quality.
 
@@ -235,9 +235,9 @@ Another example with ACX7100-48L: here we don't have any PHY present between the
 
 ### Resources and Memory
 
-A very important dimension to consider in the PFE selection process is the application memory size and how to manipulate it. We published a recent article on MDB, hardware profiles, and the logic used to sort routes in the different databases: [https://juniper.github.io/techposts/acx7000-hardware-profiles/article](https://juniper.github.io/techposts/acx7000-hardware-profiles/article)
+A very important dimension to consider in the PFE selection process is the application memory size and how to manipulate it. We published a recent article on MDB, hardware profiles, and the logic used to sort routes in the different databases: [https://techpost.hpe.com/articles/acx7000-hardware-profiles/article](https://techpost.hpe.com/articles/acx7000-hardware-profiles/article)
 
-Starting from Junos 23.2R1, the FIB compression is enabled by default. It's common to say it "doubles" the FIB size, but numbers from production networks are showing a much higher (more efficient) compression ratio. The software implementation is the same as PTX's deployed in live networks for 3 years already. More details in this other article: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+Starting from Junos 23.2R1, the FIB compression is enabled by default. It's common to say it "doubles" the FIB size, but numbers from production networks are showing a much higher (more efficient) compression ratio. The software implementation is the same as PTX's deployed in live networks for 3 years already. More details in this other article: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 
 ## CPU
 
@@ -276,7 +276,7 @@ The second differentiator is the PTP FPGA that we have on all ACX7000 products, 
 - Packet rate 128PPS
 - around 300 Mbps packet rate total
 
-Rafik published a detailed article on the Class-D support here: [https://juniper.github.io/techposts/time-synchronization-and-class-d-clocks-support/article](https://juniper.github.io/techposts/time-synchronization-and-class-d-clocks-support/article)
+Rafik published a detailed article on the Class-D support here: [https://techpost.hpe.com/articles/time-synchronization-and-class-d-clocks-support/article](https://techpost.hpe.com/articles/time-synchronization-and-class-d-clocks-support/article)
 
 ![PTP FPGA in ACX7024 and ACX7100](images/picture22.png)
 
@@ -298,15 +298,15 @@ In this very long article, companion of the video [https://www.youtube.com/watch
 
 ## Useful links
 
-- ACX7509 Deepdive: [https://juniper.github.io/techposts/acx7509-deepdive/article](https://juniper.github.io/techposts/acx7509-deepdive/article)
-- ACX7024 Deepdive: [https://juniper.github.io/techposts/acx7024-deepdive/article](https://juniper.github.io/techposts/acx7024-deepdive/article)
-- ACX7100 Deepdive: [https://juniper.github.io/techposts/acx7100-deepdive/article](https://juniper.github.io/techposts/acx7100-deepdive/article)
-- Building the ACX7000 Series: the PFE: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
-- Let's Talk About VOQ and DNX Pipeline: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
-- ACX7000 Hardware Profiles: [https://juniper.github.io/techposts/acx7000-hardware-profiles/article](https://juniper.github.io/techposts/acx7000-hardware-profiles/article)
-- FIB Compression: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+- ACX7509 Deepdive: [https://techpost.hpe.com/articles/acx7509-deepdive/article](https://techpost.hpe.com/articles/acx7509-deepdive/article)
+- ACX7024 Deepdive: [https://techpost.hpe.com/articles/acx7024-deepdive/article](https://techpost.hpe.com/articles/acx7024-deepdive/article)
+- ACX7100 Deepdive: [https://techpost.hpe.com/articles/acx7100-deepdive/article](https://techpost.hpe.com/articles/acx7100-deepdive/article)
+- Building the ACX7000 Series: the PFE: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
+- Let's Talk About VOQ and DNX Pipeline: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
+- ACX7000 Hardware Profiles: [https://techpost.hpe.com/articles/acx7000-hardware-profiles/article](https://techpost.hpe.com/articles/acx7000-hardware-profiles/article)
+- FIB Compression: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 - QSFP-DD MSA Whitepaper: [http://www.qsfp-dd.com/wp-content/uploads/2021/01/2021-QSFP-DD-MSA-Thermal-Whitepaper-Final.pdf](http://www.qsfp-dd.com/wp-content/uploads/2021/01/2021-QSFP-DD-MSA-Thermal-Whitepaper-Final.pdf)
-- Time Synchronization and Class D Clocks Support: [https://juniper.github.io/techposts/time-synchronization-and-class-d-clocks-support/article](https://juniper.github.io/techposts/time-synchronization-and-class-d-clocks-support/article)
+- Time Synchronization and Class D Clocks Support: [https://techpost.hpe.com/articles/time-synchronization-and-class-d-clocks-support/article](https://techpost.hpe.com/articles/time-synchronization-and-class-d-clocks-support/article)
 - Hardware Compatibility Tool: [https://apps.juniper.net/hct/home/](https://apps.juniper.net/hct/home/)
 - Port Checker Tool: [https://apps.juniper.net/port-checker/](https://apps.juniper.net/port-checker/)
 - Power Calculator Tool: [https://apps.juniper.net/power-calculator/](https://apps.juniper.net/power-calculator/)

@@ -45,7 +45,7 @@ And this is what HPE Networking is doing in modern PTX systems, such as PTX12K.
 
 The first technique is obvious -- with more fabric modules the failure impact of single module failure is reducing.
 
-This is why [PTX12K systems](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article) have 9 fabric cards, the highest number of fabrics among routing products available today, as illustrated in Figure 3 below.
+This is why [PTX12K systems](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article) have 9 fabric cards, the highest number of fabrics among routing products available today, as illustrated in Figure 3 below.
 
 ![PTX12008 line card and fabric card configuration.](images/picture5.png)
 
@@ -91,9 +91,9 @@ sync_response: false
 
 ## Useful links
 
-- Introducing PTX12000 Chassis: [https://juniper.github.io/techposts/introducing-ptx12000-chassis/article](https://juniper.github.io/techposts/introducing-ptx12000-chassis/article)
-- PTX12008 Fabric Topology: [https://juniper.github.io/techposts/ptx12008-fabric-topology/article](https://juniper.github.io/techposts/ptx12008-fabric-topology/article)
-- Fabric Self Healing and Recovery: [https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article](https://juniper.github.io/techposts/self-healing-and-recovery-mechanisms-for-ptx12008/article)
+- Introducing PTX12000 Chassis: [https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article](https://techpost.hpe.com/articles/introducing-ptx12000-chassis/article)
+- PTX12008 Fabric Topology: [https://techpost.hpe.com/articles/ptx12008-fabric-topology/article](https://techpost.hpe.com/articles/ptx12008-fabric-topology/article)
+- Fabric Self Healing and Recovery: [https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article](https://techpost.hpe.com/articles/self-healing-and-recovery-mechanisms-for-ptx12008/article)
 
 ## Glossary
 

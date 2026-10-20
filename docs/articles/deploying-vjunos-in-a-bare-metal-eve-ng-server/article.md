@@ -13,7 +13,7 @@ We'll start with instructions on how to deploy EVE-NG as a bare metal install on
 
 Finally, we'll wrap this up by onboarding vJunos-switch and vJunosEvolved devices in Juniper Apstra and building a simple Data Center fabric to show that these devices work seamlessly with Apstra as well.
 
-> Note that another post on [vJunos installation on KVM](https://juniper.github.io/techposts/vjunos-deployment-on-kvm/article) has been published too.
+> Note that another post on [vJunos installation on KVM](https://techpost.hpe.com/articles/vjunos-deployment-on-kvm/article) has been published too.
 
 ### What is EVE-NG and vJunos-switch/vJunosEvolved?
 
@@ -524,7 +524,7 @@ Through this post, we were able to demonstrate a working deployment of Juniper's
 - vJunosEvolved: [https://support.juniper.net/support/downloads/?p=vjunos-evolved](https://support.juniper.net/support/downloads/?p=vjunos-evolved)
 - EVE-NG home page: [https://www.eve-ng.net/](https://www.eve-ng.net/)
 - Juniper Apstra documentation - [https://www.juniper.net/documentation/product/us/en/apstra/](https://www.juniper.net/documentation/product/us/en/apstra/)
-- vJunos Installation on KVM: [https://juniper.github.io/techposts/vjunos-deployment-on-kvm/article](https://juniper.github.io/techposts/vjunos-deployment-on-kvm/article)
+- vJunos Installation on KVM: [https://techpost.hpe.com/articles/vjunos-deployment-on-kvm/article](https://techpost.hpe.com/articles/vjunos-deployment-on-kvm/article)
 
 ## Acknowledgments
 

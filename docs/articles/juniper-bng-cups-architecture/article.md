@@ -106,7 +106,7 @@ In this model, you group together user planes that will be part of the virtual r
 
 The result, you no longer must worry about accurately forecasting or overprovisioning subscriber scale for a given market. Instead, you can share user planes as needed and continually maximize all available resources in the infrastructure.
 
-Read more details in this post gathering both Smart LB and HA: [https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article](https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article)
+Read more details in this post gathering both Smart LB and HA: [https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article](https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article)
 
 ### 2. Centralized Address Pool Management
 
@@ -117,7 +117,7 @@ Juniper makes it possible to manage IP address pools as a shared resource, and a
 - Improve operational efficiency by automatically adding IP addresses when needed: APM delegates IP address pools across all integrated BNG and CUPS Controller entities in the network, as required, on a need basis. If a control plane crosses a predefined utilization threshold, the CUPS controller raises an apportionment alarm to APM that automatically provides a new address pool. You get the IP address resources you need, where and when you need them, without having to manage address pools manually or build and maintain homegrown tools.
 - Lower costs by maximizing IP address utilization: CUPS Controllers automatically release the unused address pools and APM can re-allocate them as required. In a traditional network, those unused (and expensive) addresses would sit idle. APM automatically reclaims and redistributes them across the network where needed, optimizing operational costs for public IPv4 address management.
 
-Read more in this article: [https://juniper.github.io/techposts/juniper-bng-cups-address-pool-management/article](https://juniper.github.io/techposts/juniper-bng-cups-address-pool-management/article)
+Read more in this article: [https://techpost.hpe.com/articles/juniper-bng-cups-address-pool-management/article](https://techpost.hpe.com/articles/juniper-bng-cups-address-pool-management/article)
 
 ### 3. Hitless User Plane Maintenance
 
@@ -130,7 +130,7 @@ In traditional vertically integrated networks, most maintenance tasks, changing 
 
 The whole procedure can be handled in a streamlined, low-risk way during normal business hours, with subscribers never noticing a thing. This means you can continually update your network more easily and inexpensively, while improving customer satisfaction and supporting more stringent, and profitable, SLAs.
 
-You can find more details in this techpost:[https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article](https://juniper.github.io/techposts/juniper-bng-cups-hitless-user-plane-maintenance/article)
+You can find more details in this techpost:[https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article](https://techpost.hpe.com/articles/juniper-bng-cups-hitless-user-plane-maintenance/article)
 
 ### 4. BNG User Plane Redundancy
 
@@ -142,7 +142,7 @@ You'll be able to choose from two redundancy options, depending on the level of 
 - **Warm oversubscribed standby:** The Backup user-plane holds full subscriber state on the Routing-Engine (RE), full state on the line card but only partial state- (or forwarding state)- is programmed on the Packet Forwarding Engine/ASIC (PFE).
 - Whether to have **Hot or Warm Oversubscribed standby** subscriber sessions while in the Backup state can be set on a subscriber group (SGRP) basis.
 
-Read more details in this post gathering both Smart LB and HA: [https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article](https://juniper.github.io/techposts/juniper-bng-cups-smart-load-balancing-with-ha/article)
+Read more details in this post gathering both Smart LB and HA: [https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article](https://techpost.hpe.com/articles/juniper-bng-cups-smart-load-balancing-with-ha/article)
 
 ### 5. Flexible Service Steering
 

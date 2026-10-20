@@ -2,7 +2,7 @@
 
 **Pablo Sagrera Garcia - 04/30/2025**
 
-In Julian Lucek's blog post, [Detection of Blackholes in Networks Using JRI](https://juniper.github.io/techposts/detection-of-blackholes-in-networks-using-jri/article), he explores how Juniper's JRI (Juniper Resiliency Interface) can be leveraged to detect blackholes in networks. Expanding on that idea, c
+In Julian Lucek's blog post, [Detection of Blackholes in Networks Using JRI](https://techpost.hpe.com/articles/detection-of-blackholes-in-networks-using-jri/article), he explores how Juniper's JRI (Juniper Resiliency Interface) can be leveraged to detect blackholes in networks. Expanding on that idea, c
 
 ## The Importance of Exception Monitoring
 
@@ -38,7 +38,7 @@ The foundation of the monitoring solution lies in how IPFIX packets are structur
 
 [RFC7011](https://www.rfc-editor.org/rfc/rfc7011) defines three packet types used by IPFIX: *data template record, options template record *and* data record. *
 
-*Source: [Juniper Community - Packets Lost in Transit](https://juniper.github.io/techposts/packets-lost-in-transit/article)*
+*Source: [Juniper Community - Packets Lost in Transit](https://techpost.hpe.com/articles/packets-lost-in-transit/article)*
 
 ![IPFIX Packet Capture](images/picture5.png)
 
@@ -213,8 +213,8 @@ This framework not only highlights the power of open-source solutions but also s
 - elastic: [https://www.elastic.co/](https://www.elastic.co/)
 - logstash: [https://www.elastic.co/logstash](https://www.elastic.co/logstash)
 - Monitoring, Sampling, and Collection Services Interfaces User Guide: [https://www.juniper.net/documentation/us/en/software/junos/flow-monitoring/topics/topic-map/resiliency-exception-reporting.html](https://www.juniper.net/documentation/us/en/software/junos/flow-monitoring/topics/topic-map/resiliency-exception-reporting.html)
-- [TechPost] Detection of Blackholes Using Juniper Resiliency Interface: [https://juniper.github.io/techposts/detection-of-blackholes-in-networks-using-jri/article](https://juniper.github.io/techposts/detection-of-blackholes-in-networks-using-jri/article)
-- [TechPost] [https://juniper.github.io/techposts/packets-lost-in-transit/article](https://juniper.github.io/techposts/packets-lost-in-transit/article)
+- [TechPost] Detection of Blackholes Using Juniper Resiliency Interface: [https://techpost.hpe.com/articles/detection-of-blackholes-in-networks-using-jri/article](https://techpost.hpe.com/articles/detection-of-blackholes-in-networks-using-jri/article)
+- [TechPost] [https://techpost.hpe.com/articles/packets-lost-in-transit/article](https://techpost.hpe.com/articles/packets-lost-in-transit/article)
 - [RFC] Specification of the IP Flow Information Export (IPFIX) Protocol for the Exchange of Flow Information: [https://www.rfc-editor.org/rfc/rfc7011](https://www.rfc-editor.org/rfc/rfc7011)
 - [IANA] PRIVATE ENTERPRISE NUMBERS: [https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers](https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers)
 - MPLS path trace: [https://dev.azure.com/psagrera/mpls-core-path-tracing](https://dev.azure.com/psagrera/mpls-core-path-tracing)

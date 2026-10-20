@@ -47,7 +47,7 @@ Data Center Interconnect (DCI) enables high-speed connectivity between geographi
 
 The PTX10002-60MR is powered by a single Express 5 Packet Forwarding Engine (PFE). The Express 5 is not just a single chipset but more an ASIC family. It's the first in this industry to propose a design based on chiplets.
 
-You will find more details on this blog post from Dmitry Shokarev: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
+You will find more details on this blog post from Dmitry Shokarev: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
 
 The PTX10002-60MR is a standalone platform with no fabric connectivity requirements. It is based on a single BXM package made of unique X-chiplet, presenting 144x WAN SerDes at 100Gbps (106/112Gbps with overhead).
 
@@ -433,7 +433,7 @@ With support for advanced coherent optics, open programmability, and the robust 
 ## Useful Links
 
 - PTX10002-60MR Datasheet: [https://www.hpe.com/psnow/doc/a00155673enw?jumpid=in_pdfviewer-psnow](https://www.hpe.com/psnow/doc/a00155673enw?jumpid=in_pdfviewer-psnow)
-- Introduction to Express 5 Tech Post blog: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+- Introduction to Express 5 Tech Post blog: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
 - Pathfinder Port Checker: [https://apps.juniper.net/port-checker/ptx10002-60mr/](https://apps.juniper.net/port-checker/ptx10002-60mr/)
 
 ## Glossary

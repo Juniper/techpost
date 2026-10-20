@@ -528,7 +528,7 @@ Junos OS 25.4's route manipulation features, **rib-export **and **route-target-p
 
 ## Useful Links
 
-- L3VPN to Global RIB Leaking: [https://juniper.github.io/techposts/l3vpn-to-global-rib-leaking/article](https://juniper.github.io/techposts/l3vpn-to-global-rib-leaking/article)
+- L3VPN to Global RIB Leaking: [https://techpost.hpe.com/articles/l3vpn-to-global-rib-leaking/article](https://techpost.hpe.com/articles/l3vpn-to-global-rib-leaking/article)
 - Juniper RIB Groups Documentation: [https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/rib-groups-edit-routing-options.html](https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/rib-groups-edit-routing-options.html)
 - What is the use of RIB groups: [https://supportportal.juniper.net/s/article/Junos-What-is-the-use-of-RIB-groups-and-how-are-they-used](https://supportportal.juniper.net/s/article/Junos-What-is-the-use-of-RIB-groups-and-how-are-they-used)
 - BGP Prefix Limit: [https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/prefix-limit-edit-protocols-bgp.html](https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/prefix-limit-edit-protocols-bgp.html)

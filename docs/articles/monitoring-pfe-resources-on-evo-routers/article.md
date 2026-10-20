@@ -369,7 +369,7 @@ In conclusion, leveraging the Utility MIB with event policies on Junos and EVO p
 ## Useful links
 
 - [1] [https://www.juniper.net/documentation/en_US/junos/topics/task/operational/security-snmp-best-practices-utility-mib-using.html](https://www.juniper.net/documentation/en_US/junos/topics/task/operational/security-snmp-best-practices-utility-mib-using.html)
-- [2] [https://juniper.github.io/techposts/using-junos-snmp-utility-mib-on-juniper-srx/article](https://juniper.github.io/techposts/using-junos-snmp-utility-mib-on-juniper-srx/article)
+- [2] [https://techpost.hpe.com/articles/using-junos-snmp-utility-mib-on-juniper-srx/article](https://techpost.hpe.com/articles/using-junos-snmp-utility-mib-on-juniper-srx/article)
 - [3] [https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/netconf/topics/task/sensor-junos-telemetry-interface-configuring.html](https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/netconf/topics/task/sensor-junos-telemetry-interface-configuring.html)
 
 ## Glossary

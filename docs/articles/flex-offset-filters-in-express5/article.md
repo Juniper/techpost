@@ -12,7 +12,7 @@ Express architecture supports a highly versatile, multi-facet, high performance 
 
 The Filter function in Express chips is built using multiple Facet Engines that operate in parallel. The Facet Engines can do specialized lookups to perform Longest Prefix Match, Range Match and Exact Match. Each filter execution can support up to 4 Longest Prefix matches, 4 Range matches and 2 Exact matches. A large set of packet header fields are available for inclusion in the match criteria.
 
-In Express4 and its predecessor chips, the protocol header fields were extracted from the packet by the Parser and made available to the Filter for inclusion in the Facet lookup. So, the firewall terms were restricted to those fields extracted by pre-defined, hard-wired rules of the Parsing function. Check this article for more details: [https://juniper.github.io/techposts/express-4-filters-foundation/article](https://juniper.github.io/techposts/express-4-filters-foundation/article)
+In Express4 and its predecessor chips, the protocol header fields were extracted from the packet by the Parser and made available to the Filter for inclusion in the Facet lookup. So, the firewall terms were restricted to those fields extracted by pre-defined, hard-wired rules of the Parsing function. Check this article for more details: [https://techpost.hpe.com/articles/express-4-filters-foundation/article](https://techpost.hpe.com/articles/express-4-filters-foundation/article)
 
 In Express5 this is entirely flexible, which not only satisfies the most typical firewall applications, but also makes it possible to quickly add support for future applications that require matching on fields from user payload or new protocol headers defined by newly defined drafts and RFCs.
 
@@ -75,7 +75,7 @@ firewall {
 
 - Firewall Filter Flexible Match Conditions on MX: [https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/concept/firewall-filter-flexible-match-conditions-overview.html](https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/concept/firewall-filter-flexible-match-conditions-overview.html)
 - Draft : BGP FlowSpec Payload Matching: [https://datatracker.ietf.org/doc/draft-khare-idr-bgp-flowspec-payload-match/](https://datatracker.ietf.org/doc/draft-khare-idr-bgp-flowspec-payload-match/)
-- Express 4 Filters Foundation: [https://juniper.github.io/techposts/express-4-filters-foundation/article](https://juniper.github.io/techposts/express-4-filters-foundation/article)
+- Express 4 Filters Foundation: [https://techpost.hpe.com/articles/express-4-filters-foundation/article](https://techpost.hpe.com/articles/express-4-filters-foundation/article)
 
 ## Glossary
 

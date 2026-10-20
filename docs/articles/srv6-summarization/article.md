@@ -6,9 +6,9 @@ Let's discuss the multi-domain SRv6 network together with the concept of SRv6 lo
 
 ## Introduction
 
-Third TechPost article in the SRv6 Series: [In the last blog I discussed the End.DT4, End.DT6 and End.DT46 SIDs](https://juniper.github.io/techposts/l3vpn-over-srv6/article), which are used to realize L3VPN, both IPv4 and IPv6, over SRv6. In this blog I will discuss the multi-domain SRv6 network together with the concept of SRv6 locator summarization. SRv6 locator summarization allows for large-scale, multi-domain deployments with SRv6.
+Third TechPost article in the SRv6 Series: [In the last blog I discussed the End.DT4, End.DT6 and End.DT46 SIDs](https://techpost.hpe.com/articles/l3vpn-over-srv6/article), which are used to realize L3VPN, both IPv4 and IPv6, over SRv6. In this blog I will discuss the multi-domain SRv6 network together with the concept of SRv6 locator summarization. SRv6 locator summarization allows for large-scale, multi-domain deployments with SRv6.
 
-This blog is based on the capabilities of JUNOS 22.2 running on MX Series and JUNOS 22.4 on ACX7k routers. Config and show command outputs have been collected on vMX in our labs. JUNOS 22.3 introduces changes to SRv6 infrastructure, which might change the SRv6 configuration shown in this blog post. Please check [SRv6 SID Encoding and Transposition](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article) blog for more details.
+This blog is based on the capabilities of JUNOS 22.2 running on MX Series and JUNOS 22.4 on ACX7k routers. Config and show command outputs have been collected on vMX in our labs. JUNOS 22.3 introduces changes to SRv6 infrastructure, which might change the SRv6 configuration shown in this blog post. Please check [SRv6 SID Encoding and Transposition](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article) blog for more details.
 
 You can test yourself all the concepts described in this article, we created labs in JCL and vLabs:
 [JCL (Junivators and partners)](https://portal.cloudlabs.juniper.net/RM/Topology?b=e4dde6e2-8d1e-413c-a2f9-424f83b6b39a&d=c78ae7c7-e93b-4708-813e-109fd780f301)
@@ -705,10 +705,10 @@ With this, all things started to work: no more hidden routes, and connectivity C
 
 - IS-IS Extensions to Support Segment Routing over IPv6 Dataplane, [draft-ietf-lsr-isis-srv6-extensions](https://datatracker.ietf.org/doc/html/draft-ietf-lsr-isis-srv6-extensions)
 - SRv6 in Junos: [https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html](https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/topic-map/infocus-isis-srv6-network-programming.html)
-- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article](https://juniper.github.io/techposts/srv6-basics-locator-and-end-sids/article)
-- TechPost 2: L3VPN on SRv6 - [https://juniper.github.io/techposts/l3vpn-over-srv6/article](https://juniper.github.io/techposts/l3vpn-over-srv6/article)
-- TechPost 3: SRv6 Summarisation - [https://juniper.github.io/techposts/srv6-summarization/article](https://juniper.github.io/techposts/srv6-summarization/article)
-- TechPost 4: SRv6 SID Encoding and Transposition - [https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article)
+- TechPost 1: SRv6 Basics Locator and End-SIDs - [https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article](https://techpost.hpe.com/articles/srv6-basics-locator-and-end-sids/article)
+- TechPost 2: L3VPN on SRv6 - [https://techpost.hpe.com/articles/l3vpn-over-srv6/article](https://techpost.hpe.com/articles/l3vpn-over-srv6/article)
+- TechPost 3: SRv6 Summarisation - [https://techpost.hpe.com/articles/srv6-summarization/article](https://techpost.hpe.com/articles/srv6-summarization/article)
+- TechPost 4: SRv6 SID Encoding and Transposition - [https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article)
 
 ## Glossary
 

@@ -92,12 +92,12 @@ The validation series will host a lot of collaterals to facilitate the adoption 
 
 The Juniper Validated Design series are organised as:
 
-- [JVD Overview](https://juniper.github.io/techposts/introducing-the-validation-series/article) (present document)
+- [JVD Overview](https://techpost.hpe.com/articles/introducing-the-validation-series/article) (present document)
 - Mobile Backhaul Base
 
-[Mobile Backhaul Overview](https://juniper.github.io/techposts/jvd-mobile-backhaul-overview/article)
-[Seamless MPLS LDP with OSPF underlay](https://juniper.github.io/techposts/seamless-mpls-ldp-with-ospf/article)
-[Building Border Agnostic Architectures with Seamless MPLS](https://juniper.github.io/techposts/building-border-agnostic-architectures-with-seamle/article)
+[Mobile Backhaul Overview](https://techpost.hpe.com/articles/jvd-mobile-backhaul-overview/article)
+[Seamless MPLS LDP with OSPF underlay](https://techpost.hpe.com/articles/seamless-mpls-ldp-with-ospf/article)
+[Building Border Agnostic Architectures with Seamless MPLS](https://techpost.hpe.com/articles/building-border-agnostic-architectures-with-seamle/article)
 
 ## Glossary
 

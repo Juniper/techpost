@@ -12,7 +12,7 @@ vJunos comes in two flavours for the initial release:
 - vJunos-switch : based on the legacy Junos OS running on Free BSD, and targeted for data center and campus switching use cases
 - vJunosEvolved based on the newer Junos OS Evolved on top of Linux, and targeted for both routing and switching use cases
 
-This post provides a comprehensive user guide on how to successfully deploy and use vJunos-switch and vJunosEvolved on KVM. This other post explains [how to deploy vJunos-switch and vJunosEvolved on EVE-NG](https://juniper.github.io/techposts/deploying-vjunos-in-a-bare-metal-eve-ng-server/article).
+This post provides a comprehensive user guide on how to successfully deploy and use vJunos-switch and vJunosEvolved on KVM. This other post explains [how to deploy vJunos-switch and vJunosEvolved on EVE-NG](https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article).
 
 ## Introduction
 
@@ -834,7 +834,7 @@ We hope we achieved this goal.
 - vJunos-switch: [https://support.juniper.net/support/downloads/?p=vjunos](https://support.juniper.net/support/downloads/?p=vjunos)
 - vJunosEvolved: [https://support.juniper.net/support/downloads/?p=vjunos-evolved](https://support.juniper.net/support/downloads/?p=vjunos-evolved)
 - Juniper Apstra documentation: [https://www.juniper.net/documentation/product/us/en/apstra/](https://www.juniper.net/documentation/product/us/en/apstra/)
-- Deploying and Using Junos in a Bare Metal EVEN-NG Server: [https://juniper.github.io/techposts/deploying-vjunos-in-a-bare-metal-eve-ng-server/article](https://juniper.github.io/techposts/deploying-vjunos-in-a-bare-metal-eve-ng-server/article)
+- Deploying and Using Junos in a Bare Metal EVEN-NG Server: [https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article](https://techpost.hpe.com/articles/deploying-vjunos-in-a-bare-metal-eve-ng-server/article)
 
 ## Glossary
 

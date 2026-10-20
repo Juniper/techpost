@@ -95,7 +95,7 @@ This router is populated with two cards, an LC1201 and an LC1301.
 
 ## Main Forwarding Components
 
-LC1301 is the first line card in our portfolio powered by the Express 5 Packet Forwarding Engine. The first standalone router based on an Express 5 architecture is the PTX10002-36QDD: [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
+LC1301 is the first line card in our portfolio powered by the Express 5 Packet Forwarding Engine. The first standalone router based on an Express 5 architecture is the PTX10002-36QDD: [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
 
 The Juniper Express silicon line, first introduced in 2011, aimed to transform the economics of packet transport networks by optimizing the forwarding path for density and interface speeds. Initially, the Express silicon line was designed for core routing functionality and relatively low scale, supporting MPLS Label Switch Router functions.
 
@@ -107,7 +107,7 @@ Figure 3 above illustrates this evolution over generations. The Express 5 suppor
 
 ### Express 5 High-Level Description
 
-The Express 5 is not just a single chipset but more of an ASIC family. It's the first in this industry to propose a design based on chiplets. You will find more details on this blog post from Dmitry Shokarev: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
+The Express 5 is not just a single chipset but more of an ASIC family. It's the first in this industry to propose a design based on chiplets. You will find more details on this blog post from Dmitry Shokarev: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
 
 To keep it short, we have two main chiplets, "X" and "F", and we can mix and match them to create different packages based on the requirements.
 
@@ -154,7 +154,7 @@ Since Express 5 supports MACsec internally, we won't need any additional parts t
 
 *Tested scale, hardware capable of much more (pending software validation)*
 
-FIB compression is enabled by default, but these numbers here represent FIB entries. In consequence, the scale could be much higher because of the compression. For more details on this technology, we invite you to check this article: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+FIB compression is enabled by default, but these numbers here represent FIB entries. In consequence, the scale could be much higher because of the compression. For more details on this technology, we invite you to check this article: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 
 ![Express 5 BXF Chiplets and DataPaths](images/picture8.png)
 
@@ -832,14 +832,14 @@ The LC1301 completes the PTX10008 line card options with 36 ports 800GbE. We off
 
 ## Useful links
 
-- Introduction to Express 5 TechPost blog: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- FIB Compression blog: [https://juniper.github.io/techposts/ptx-fib-compression/article](https://juniper.github.io/techposts/ptx-fib-compression/article)
+- Introduction to Express 5 TechPost blog: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- FIB Compression blog: [https://techpost.hpe.com/articles/ptx-fib-compression/article](https://techpost.hpe.com/articles/ptx-fib-compression/article)
 - Hardware Compatibility: [https://apps.juniper.net/hct/model/?component=PTX10K-LC1301-36DD](https://apps.juniper.net/hct/model/?component=PTX10K-LC1301-36DD)
 - PTX Fabric hardware guide: [https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-switch-fabric.html](https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-switch-fabric.html)
 - PTX Line Cards hardware guide: [https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-line-card-components.html](https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-line-card-components.html)
 - Fan Trays Guide: [https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-cooling-system.html](https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-cooling-system.html)
 - Power Supply Modules Guide: [https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-power-system.html](https://www.juniper.net/documentation/us/en/hardware/ptx10008/topics/topic-map/ptx10008-power-system.html)
-- Power saving features: [https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article)
+- Power saving features: [https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article)
 - Junos 24.4R2 Release Notes: [https://www.juniper.net/documentation/us/en/software/junos/release-notes/24.4/junos-evo-release-notes-24.4r2/junos-evo-release-notes-24.4r2.pdf](https://www.juniper.net/documentation/us/en/software/junos/release-notes/24.4/junos-evo-release-notes-24.4r2/junos-evo-release-notes-24.4r2.pdf)
 - Datasheet with all SKUs: [https://www.juniper.net/us/en/products/routers/ptx-series/ptx10000-line-of-packet-transport-routers-datasheet.html](https://www.juniper.net/us/en/products/routers/ptx-series/ptx10000-line-of-packet-transport-routers-datasheet.html)
 

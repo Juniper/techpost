@@ -2,7 +2,7 @@
 
 **Kashif Nawaz - 07/21/2025**
 
-Modern MPLS networks must support highly dynamic traffic patterns, especially in cloud and service provider environments. While RSVP-TE provides engineered path control, traditional single-LSP scaling is often insufficient. [Auto-bandwidth helps](https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article), but as demand grows, deploying parallel LSPs across ECMP-eligible paths becomes essential. These parallel LSPs improve load distribution, enabling more scalable and resilient transport.
+Modern MPLS networks must support highly dynamic traffic patterns, especially in cloud and service provider environments. While RSVP-TE provides engineered path control, traditional single-LSP scaling is often insufficient. [Auto-bandwidth helps](https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article), but as demand grows, deploying parallel LSPs across ECMP-eligible paths becomes essential. These parallel LSPs improve load distribution, enabling more scalable and resilient transport.
 
 ## Introduction
 
@@ -75,7 +75,7 @@ Once normalization is triggered, it can perform one of the following actions:
 
 ### Container Normalization vs. Auto-Bandwidth Adjustments
 
-Since container LSPs consist of auto-bandwidth member LSPs, it is important to maintain an optimal relationship between the normalization interval and the auto-bandwidth adjust-interval. A recommended best practice is to set the normalization interval to be at least twice the adjust interval of the member LSPs. This configuration allows enough time for meaningful traffic samples to accumulate and stabilize, which improves the accuracy of normalization decisions. In addition, the recommendation for MPLS optimizer-timer is described in [my previous post](https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article).
+Since container LSPs consist of auto-bandwidth member LSPs, it is important to maintain an optimal relationship between the normalization interval and the auto-bandwidth adjust-interval. A recommended best practice is to set the normalization interval to be at least twice the adjust interval of the member LSPs. This configuration allows enough time for meaningful traffic samples to accumulate and stabilize, which improves the accuracy of normalization decisions. In addition, the recommendation for MPLS optimizer-timer is described in [my previous post](https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article).
 
 ### Splitting/Merging Calculation
 
@@ -238,7 +238,7 @@ SiteA-PE1-to-SiteB-PE1-CONTAINER.     Up                4
 
 ![Test bed](images/picture7.png)
 
-The configurations described in this write-up are validated using Juniper PTX10001-36MR (23.4R2-S4.11-EVO) and MX10003 (23.4R2-S4.11).  All the Control plane configurations will work on a Juniper ACX series router (which runs Junos EVO and are based on Broadcom DNX Chipset); however, ACX's PFE specific configuration is explained in [my previous blog post](https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article).
+The configurations described in this write-up are validated using Juniper PTX10001-36MR (23.4R2-S4.11-EVO) and MX10003 (23.4R2-S4.11).  All the Control plane configurations will work on a Juniper ACX series router (which runs Junos EVO and are based on Broadcom DNX Chipset); however, ACX's PFE specific configuration is explained in [my previous blog post](https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article).
 
 ### Test Summary
 
@@ -543,4 +543,4 @@ Special thanks to **Colby Barth** for the insightful review and for refining key
 
 - [https://www.juniper.net/assets/es/es/local/pdf/whitepapers/2000587-en.pdf](https://www.juniper.net/assets/es/es/local/pdf/whitepapers/2000587-en.pdf)
 - [https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/container-lsp-configuration.html ](https://www.juniper.net/documentation/us/en/software/junos/mpls/topics/topic-map/container-lsp-configuration.html)
-- [https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article](https://juniper.github.io/techposts/adaptive-resource-control-in-te-networks/article)
+- [https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article](https://techpost.hpe.com/articles/adaptive-resource-control-in-te-networks/article)

@@ -8,7 +8,7 @@ Second profile of the Juniper Validated Design series on basic Mobile Backhaulin
 
 In this section, we'll walk through essential components of the Seamless MPLS Mobile Backhaul (MBH) topology demonstrated in Profile-2, which features OSPF and LDP-signaling.
 
-Check the first article "JVD Mobile BackHaul Overview" ([https://juniper.github.io/techposts/jvd-mobile-backhaul-overview/article](https://juniper.github.io/techposts/jvd-mobile-backhaul-overview/article)) to understand the different profiles created for this Juniper Validated Design (JVD).
+Check the first article "JVD Mobile BackHaul Overview" ([https://techpost.hpe.com/articles/jvd-mobile-backhaul-overview/article](https://techpost.hpe.com/articles/jvd-mobile-backhaul-overview/article)) to understand the different profiles created for this Juniper Validated Design (JVD).
 
 ## Validated Solution
 
@@ -107,10 +107,10 @@ In this blog, we discussed the foundational aspects of the Mobile Backhaul Junip
 
 The Juniper Validated Design series are organised as:
 
-- [JVD Overview](https://juniper.github.io/techposts/introducing-the-validation-series/article)
-- [Mobile Backhaul Overview](https://juniper.github.io/techposts/jvd-mobile-backhaul-overview/article)
+- [JVD Overview](https://techpost.hpe.com/articles/introducing-the-validation-series/article)
+- [Mobile Backhaul Overview](https://techpost.hpe.com/articles/jvd-mobile-backhaul-overview/article)
 - [Seamless MPLS LDP with OSPF underlay] present document
-- [Building Border Agnostic Architectures with Seamless MPLS](https://juniper.github.io/techposts/border-agnostic-architectures-with-seamless-mpls/article)
+- [Building Border Agnostic Architectures with Seamless MPLS](https://techpost.hpe.com/articles/border-agnostic-architectures-with-seamless-mpls/article)
 
 ## Glossary
 

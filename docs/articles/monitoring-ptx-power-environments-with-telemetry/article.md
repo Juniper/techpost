@@ -6,7 +6,7 @@ How Junos EVO implements the OpenConfig "platform" data model to expose many ind
 
 ## Introduction
 
-Recently, we covered [the PTX power optimization features [1]](https://juniper.github.io/techposts/ptx10000-power-optimization/article). If you didn't read this techpost, we highly recommend having a look at it before reading any further. In this previous article, we presented several built-in functionalities that help reduce power usage. There are also some actions that can be applied manually to save even more power for reducing carbon footprint.
+Recently, we covered [the PTX power optimization features [1]](https://techpost.hpe.com/articles/ptx10000-power-optimization/article). If you didn't read this techpost, we highly recommend having a look at it before reading any further. In this previous article, we presented several built-in functionalities that help reduce power usage. There are also some actions that can be applied manually to save even more power for reducing carbon footprint.
 
 But, how to follow in real time the power consumption of your chassis or even of each hardware component to see the effect of all those unique features powered by Junos EVO on the PTX platform?
 
@@ -187,7 +187,7 @@ In next articles, we will discuss how to collect same data on MX10k and ACX7K pl
 
 ## Useful links
 
-- [1] [https://juniper.github.io/techposts/ptx10000-power-optimization/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article)
+- [1] [https://techpost.hpe.com/articles/ptx10000-power-optimization/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article)
 - [2] [https://openconfig.net/projects/models/schemadocs/](https://openconfig.net/projects/models/schemadocs/)
 - [3] [https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md)
 - [4] [https://openconfig.net/projects/models/schemadocs/jstree/openconfig-platform.html](https://openconfig.net/projects/models/schemadocs/jstree/openconfig-platform.html)

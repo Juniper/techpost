@@ -38,7 +38,7 @@ This QOS model based on Hierarchical Policers improves the latency for cloud str
 
 ## Platforms and Scale
 
-This subscriber QOS model is available first on [MX304](https://juniper.github.io/techposts/mx304-deepdive/article), enabling  48,000 subscriber sessions per LMIC, up to 96,000 session per chassis, assuming Routing Engine redundancy.  Assuming full capacity on an LMIC, the model enables up to 30 Mbps per subscriber.
+This subscriber QOS model is available first on [MX304](https://techpost.hpe.com/articles/mx304-deepdive/article), enabling  48,000 subscriber sessions per LMIC, up to 96,000 session per chassis, assuming Routing Engine redundancy.  Assuming full capacity on an LMIC, the model enables up to 30 Mbps per subscriber.
 
 Here is a set of show commands presenting a MX-304 BNG system running with 96,000 IPoE sessions with ingress and egress Hierarchical Policer,  across 3 LMICs:
 

@@ -85,7 +85,7 @@ The main objectives of this article are the following:
 
 It's important to understand the following points before proceeding:
 
-- Many factors are influencing the power utilization, starting from temperature, elevation and device utilization. We described these parameters at length in this article PTX10000 Power Optimization [https://juniper.github.io/techposts/ptx10000-power-optimization/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article) and video: What does Influence Power Consumption on Networking Devices? [https://www.youtube.com/watch?v=-aEYNDRB9Ck](https://www.youtube.com/watch?v=-aEYNDRB9Ck)
+- Many factors are influencing the power utilization, starting from temperature, elevation and device utilization. We described these parameters at length in this article PTX10000 Power Optimization [https://techpost.hpe.com/articles/ptx10000-power-optimization/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article) and video: What does Influence Power Consumption on Networking Devices? [https://www.youtube.com/watch?v=-aEYNDRB9Ck](https://www.youtube.com/watch?v=-aEYNDRB9Ck)
 - The lab is not a controlled environment and doesn't try to answer the question "*how much is consumed by product X, Y or Z?*" but instead, we want to know "*what's available and how accurate are the power usage counters exposed on product X, Y or Z?*".
 - By nature, power usage is fluctuating. The collection of power consumption counter is just a snapshot of the situation at a given time. That's why we recommend using:
 
@@ -1719,12 +1719,12 @@ Also, you certainly noticed the output of "show chassis power" could be very dif
 
 ### Useful links
 
-- [https://juniper.github.io/techposts/optimizing-power-consumption-in-high-end-routers/article](https://juniper.github.io/techposts/optimizing-power-consumption-in-high-end-routers/article)
-- [https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article](https://juniper.github.io/techposts/saving-energy-on-ptx-with-pfe-power-off/article)
-- [https://juniper.github.io/techposts/ptx10000-power-optimization/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article)
-- [https://juniper.github.io/techposts/saving-power-on-acx7000-series/article](https://juniper.github.io/techposts/saving-power-on-acx7000-series/article)
-- [https://juniper.github.io/techposts/monitoring-ptx-power-environments-with-telemetry/article](https://juniper.github.io/techposts/monitoring-ptx-power-environments-with-telemetry/article)
-- [https://juniper.github.io/techposts/ptx12008-power-distribution-and-optimization/article](https://juniper.github.io/techposts/ptx12008-power-distribution-and-optimization/article)
+- [https://techpost.hpe.com/articles/optimizing-power-consumption-in-high-end-routers/article](https://techpost.hpe.com/articles/optimizing-power-consumption-in-high-end-routers/article)
+- [https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article](https://techpost.hpe.com/articles/saving-energy-on-ptx-with-pfe-power-off/article)
+- [https://techpost.hpe.com/articles/ptx10000-power-optimization/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article)
+- [https://techpost.hpe.com/articles/saving-power-on-acx7000-series/article](https://techpost.hpe.com/articles/saving-power-on-acx7000-series/article)
+- [https://techpost.hpe.com/articles/monitoring-ptx-power-environments-with-telemetry/article](https://techpost.hpe.com/articles/monitoring-ptx-power-environments-with-telemetry/article)
+- [https://techpost.hpe.com/articles/ptx12008-power-distribution-and-optimization/article](https://techpost.hpe.com/articles/ptx12008-power-distribution-and-optimization/article)
 - What does Influence Power Consumption on Networking Devices? [https://www.youtube.com/watch?v=-aEYNDRB9Ck](https://www.youtube.com/watch?v=-aEYNDRB9Ck)
 - Energy Savings in your Network? [https://www.youtube.com/watch?v=TNDoGGC0jqk](https://www.youtube.com/watch?v=TNDoGGC0jqk)
 

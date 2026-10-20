@@ -237,7 +237,7 @@ On the LMIC board, you'll find ethernet port cages (QSFP), multiple PHYs / GearB
 
 The 6x PHYs are used for SERDES adaptation (from 56Gbps PAM4 to 25Gbps NRZ).
 
-We invite you to read Deepak's article on Trio 6 architecture and packet processing in the MX10000 LC9600 Deepdive: [https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+We invite you to read Deepak's article on Trio 6 architecture and packet processing in the MX10000 LC9600 Deepdive: [https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 
 The ports on the front of an LMIC are numbered from 0 to 15 and each port has a LED for interface up/down indication (note: Channel LED is not supported).
 
@@ -642,7 +642,7 @@ Once the know lock is open, it's possible to rotate the lever to extract the LMI
 
 ## References
 
-- LC9600 and Trio 6 TechPost article: [https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article](https://juniper.github.io/techposts/mx10000-lc9600-deepdive/article)
+- LC9600 and Trio 6 TechPost article: [https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article](https://techpost.hpe.com/articles/mx10000-lc9600-deepdive/article)
 - Port configuration: [https://www.juniper.net/documentation/us/en/software/junos/interfaces-ethernet/topics/topic-map/port-speed-configuration.html#concept_shw_4jn_dvb](https://www.juniper.net/documentation/us/en/software/junos/interfaces-ethernet/topics/topic-map/port-speed-configuration.html#concept_shw_4jn_dvb)
 - Port Checker tool: [https://apps.juniper.net/home/port-checker/index.html ](https://apps.juniper.net/home/port-checker/index.html)
 

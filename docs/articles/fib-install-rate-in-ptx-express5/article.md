@@ -12,7 +12,7 @@ TL;DR: that's around 38,000 prefixes / second.
 
 ## Introduction
 
-The new Juniper Networks Packet Forwarding Engine (PFE) is now available in shipping products, for instance the PTX10002-36QDD. We will use this new router for the test and will follow the same methodology described in this article: [https://juniper.github.io/techposts/ptx10001-36mr-fib-install-rate/article](https://juniper.github.io/techposts/ptx10001-36mr-fib-install-rate/article)
+The new Juniper Networks Packet Forwarding Engine (PFE) is now available in shipping products, for instance the PTX10002-36QDD. We will use this new router for the test and will follow the same methodology described in this article: [https://techpost.hpe.com/articles/ptx10001-36mr-fib-install-rate/article](https://techpost.hpe.com/articles/ptx10001-36mr-fib-install-rate/article)
 
 ## Test Methodology
 
@@ -118,10 +118,10 @@ Installation rate has been optimised on the Express5 powering the PTX10002-36QDD
 
 ## Useful links
 
-- Express 5 Overview: [https://juniper.github.io/techposts/express-5-overview/article](https://juniper.github.io/techposts/express-5-overview/article)
-- Introducing PTX10002-36QDD: [https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article](https://juniper.github.io/techposts/introducing-ptx10002-36qdd/article)
-- FIB Scale in Express5: [https://juniper.github.io/techposts/fib-scale-in-express5/article](https://juniper.github.io/techposts/fib-scale-in-express5/article)
-- Tests on PTX10001-36MR: [https://juniper.github.io/techposts/ptx10001-36mr-fib-install-rate/article](https://juniper.github.io/techposts/ptx10001-36mr-fib-install-rate/article)
+- Express 5 Overview: [https://techpost.hpe.com/articles/express-5-overview/article](https://techpost.hpe.com/articles/express-5-overview/article)
+- Introducing PTX10002-36QDD: [https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article](https://techpost.hpe.com/articles/introducing-ptx10002-36qdd/article)
+- FIB Scale in Express5: [https://techpost.hpe.com/articles/fib-scale-in-express5/article](https://techpost.hpe.com/articles/fib-scale-in-express5/article)
+- Tests on PTX10001-36MR: [https://techpost.hpe.com/articles/ptx10001-36mr-fib-install-rate/article](https://techpost.hpe.com/articles/ptx10001-36mr-fib-install-rate/article)
 
 ## Glossary
 

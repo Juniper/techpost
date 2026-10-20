@@ -396,7 +396,7 @@ Port 54 is internal-only and used to connect to the PTP (Precision Time Protocol
 
 To understand the configuration capabilities, we need to introduce the concept of "Port Group" (PG). As the name implies, a PG gathers several adjacent ports.
 
-Internally, the ports of a given PG are mapped to the same Port Macro (PM). A PM is block of SerDes (Serializer/Deserializer) connecting the PFE to other elements inside the router, including Network Interfaces and Fabric Ports. For more details on this concept, we invite you to read the "Port Macros" section of this article: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
+Internally, the ports of a given PG are mapped to the same Port Macro (PM). A PM is block of SerDes (Serializer/Deserializer) connecting the PFE to other elements inside the router, including Network Interfaces and Fabric Ports. For more details on this concept, we invite you to read the "Port Macros" section of this article: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
 
 We can abstract it to this diagram:
 
@@ -916,8 +916,8 @@ Note: it is possible to deactivate half of the ports and shut down the associate
 
 We invite you to check the articles to learn more about the ASIC selection process and many more details on the packet forwarding ASIC.
 
-- Building the ACX7000 Series: the PFE: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
-- Let's Talk About VOQ and DNX Pipeline: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+- Building the ACX7000 Series: the PFE: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
+- Let's Talk About VOQ and DNX Pipeline: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 
 The ACX7100-48L and ACX7100-32C are "Systems on the Chip" (SoC). That means they are based on a single PFE where all parts involved in the forwarding tasks are directly connected. This Jericho2 (BCM88690) PFE is a deep-buffer ASIC with hybrid packet memory (internal and external). The external buffer is actually present in the package itself: 8GB of HBM2 memory.
 
@@ -935,8 +935,8 @@ The ACX7100-48L and ACX7100-32C routers are 1-RU, 4.8Tbps platforms, ideally pos
 
 ## Useful links
 
-- Building the ACX7100 Series: the PFE: [https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article](https://juniper.github.io/techposts/building-the-acx7000-series-the-pfe/article)
-- Let's talk about VOQ and DNX Pipeline: [https://juniper.github.io/techposts/voq-and-dnx-pipeline/article](https://juniper.github.io/techposts/voq-and-dnx-pipeline/article)
+- Building the ACX7100 Series: the PFE: [https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article](https://techpost.hpe.com/articles/building-the-acx7000-series-the-pfe/article)
+- Let's talk about VOQ and DNX Pipeline: [https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article](https://techpost.hpe.com/articles/voq-and-dnx-pipeline/article)
 - Datasheet: [https://www.juniper.net/content/dam/www/assets/datasheets/us/en/routers/acx7100-cloud-metro-routers-datasheet.pdf ](https://www.juniper.net/content/dam/www/assets/datasheets/us/en/routers/acx7100-cloud-metro-routers-datasheet.pdf)
 
 - Hardware Compatibility Tool:

@@ -6,7 +6,7 @@ While Class of Service (CoS) ensures that priority traffic receives preferential
 
 ## Introduction
 
-[In my previous blog, I covered Class of Service (CoS) design considerations](https://juniper.github.io/techposts/wholistic-design-approach-for-mpls-backbone-cos/article). In upcoming posts, I will also explore traffic engineering mechanisms such as Faster Auto-Bandwidth Adjustment and Container LSPs, which help fine-tune the network's responsiveness to rapidly changing traffic conditions.
+[In my previous blog, I covered Class of Service (CoS) design considerations](https://techpost.hpe.com/articles/wholistic-design-approach-for-mpls-backbone-cos/article). In upcoming posts, I will also explore traffic engineering mechanisms such as Faster Auto-Bandwidth Adjustment and Container LSPs, which help fine-tune the network's responsiveness to rapidly changing traffic conditions.
 
 While these features address many modern traffic engineering challenges, there may still be a business need to classify traffic such that high-priority or mission-critical traffic takes the shortest or most optimal path, medium-priority traffic follows the second-best path, and low-priority traffic is routed over the longest or least preferred link.
 

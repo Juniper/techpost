@@ -1011,8 +1011,8 @@ The Express4 ASIC in PTX Series can be configured "power off" via CLI or configu
 
 ## Useful links
 
-- Introduction to PTX10001-36MR: [https://juniper.github.io/techposts/ptx10001-36mr-introduction/article](https://juniper.github.io/techposts/ptx10001-36mr-introduction/article)
-- PTX10000 Power Optimization: [https://juniper.github.io/techposts/ptx10000-power-optimization/article](https://juniper.github.io/techposts/ptx10000-power-optimization/article)
+- Introduction to PTX10001-36MR: [https://techpost.hpe.com/articles/ptx10001-36mr-introduction/article](https://techpost.hpe.com/articles/ptx10001-36mr-introduction/article)
+- PTX10000 Power Optimization: [https://techpost.hpe.com/articles/ptx10000-power-optimization/article](https://techpost.hpe.com/articles/ptx10000-power-optimization/article)
 - Request Chassis FPC config guide: [https://www.juniper.net/documentation/us/en/software/junos/chassis/topics/ref/command/request-chassis-fpc.html](https://www.juniper.net/documentation/us/en/software/junos/chassis/topics/ref/command/request-chassis-fpc.html)
 - PFE power off and PFE Error Action config guide: [https://www.juniper.net/documentation/us/en/software/junos/chassis/topics/ref/statement/action-edit-chassis-fpc-error.html](https://www.juniper.net/documentation/us/en/software/junos/chassis/topics/ref/statement/action-edit-chassis-fpc-error.html)
 

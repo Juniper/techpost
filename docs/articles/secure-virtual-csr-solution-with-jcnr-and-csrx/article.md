@@ -193,7 +193,7 @@ With the rapid advancement of 5G applications towards the edge, it is the perfec
 - JCNR Landing Page: [https://www.juniper.net/documentation/product/us/en/juniper-cloud-native-router/](https://www.juniper.net/documentation/product/us/en/juniper-cloud-native-router/)
 - cSRX Landing Page: [https://www.juniper.net/us/en/products/security/srx-series/csrx-containerized-firewall.html](https://www.juniper.net/us/en/products/security/srx-series/csrx-containerized-firewall.html)
 - Article on JCNR 5G deployment: [https://blogs.juniper.net/en-us/service-provider-transformation/cloud-native-routing-in-5g-deployments](https://blogs.juniper.net/en-us/service-provider-transformation/cloud-native-routing-in-5g-deployments)
-- Article on JCNR deployment in Equinix Metal Cloud: [https://juniper.github.io/techposts/jcnr-for-equinix-metal/article](https://juniper.github.io/techposts/jcnr-for-equinix-metal/article)
+- Article on JCNR deployment in Equinix Metal Cloud: [https://techpost.hpe.com/articles/jcnr-for-equinix-metal/article](https://techpost.hpe.com/articles/jcnr-for-equinix-metal/article)
 - JCNR/cSRX full configurations used in this article: [https://github.com/pvs2401/jcnr-csrx](https://github.com/pvs2401/jcnr-csrx)
 
 ## Glossary

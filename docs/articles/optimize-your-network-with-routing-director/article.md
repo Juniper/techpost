@@ -30,7 +30,7 @@ There are some essential key protocols to enable the communication:
 
 ## Demonstration Topology
 
-I will use the same topology (figure 2) than my previous Techpost article (Service Orchestration in RD) with the addition of SR-MPLS (ISIS) as an underlay protocol. If you have not read it yet, [please go here](https://juniper.github.io/techposts/service-orchestration-with-paragon-automation/article).
+I will use the same topology (figure 2) than my previous Techpost article (Service Orchestration in RD) with the addition of SR-MPLS (ISIS) as an underlay protocol. If you have not read it yet, [please go here](https://techpost.hpe.com/articles/service-orchestration-with-paragon-automation/article).
 
 ![Network Topology](images/picture4.png)
 

@@ -1281,7 +1281,7 @@ round-trip min/avg/max/stddev = 5.169/5.169/5.169/0.000 ms
 
 Uff! It was not easy. But, finally we got it to work!
 
-However, we are not ready yet. At the first look, the VPN labels observed in CLI-Output 28 show some sort of randomness, as they are not allocated sequentially -- the label values are not even close to each other. Such behavior was already discussed in [TechPost SRv6 SID Encoding and Transposition](https://juniper.github.io/techposts/srv6-sid-encoding-and-transposition/article) in the context of classic (full) SRv6 SID. In the context of uSID it is similar: 16 bits uSID-1 value is not carried in 'SRv6 SID' BGP attribute, but in the label field of VPN NRLI itself.
+However, we are not ready yet. At the first look, the VPN labels observed in CLI-Output 28 show some sort of randomness, as they are not allocated sequentially -- the label values are not even close to each other. Such behavior was already discussed in [TechPost SRv6 SID Encoding and Transposition](https://techpost.hpe.com/articles/srv6-sid-encoding-and-transposition/article) in the context of classic (full) SRv6 SID. In the context of uSID it is similar: 16 bits uSID-1 value is not carried in 'SRv6 SID' BGP attribute, but in the label field of VPN NRLI itself.
 
 ![SRv6 Transposition](images/picture6.png)
 
