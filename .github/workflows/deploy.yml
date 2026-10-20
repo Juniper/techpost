@@ -97,7 +97,7 @@ jobs:
           BRANCH="$BRANCH_NAME"
           echo "Branch detected: $BRANCH"
           if [ "$BRANCH" != "main" ]; then
-            echo "Patching mkdocs.yml for branch $BRANCH"
+            echo "Patching mkdocs.yml and preview base URL for branch $BRANCH"
             BRANCH="$BRANCH" python3 .github/scripts/patch_mkdocs.py
           fi
 
@@ -337,12 +337,61 @@ jobs:
           echo "Generated $OUTPUT_FILE with updated PDF list."
 
       # ----------------------------
-      # Branch preview: convert ONLY docs/articles/<branch>/ and publish its PDF/EPUB
-      # into that branch's portal. Pages deploy per branch (destination_dir: <branch>,
-      # publish_dir: ./site), so ./site/download lands at gh-pages/<branch>/download/.
+      # Branch preview: convert ONLY docs/articles/<branch>/ and stage only that
+      # article, its PDF/EPUB, and the shared assets needed to render it.
       # ----------------------------
-      - name: Convert branch article to PDF/EPUB (preview)
+      - name: Check whether branch downloads need regeneration
+        id: branch-pdf
         if: github.ref_type == 'branch' && github.ref_name != 'main'
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+          COMMIT_BEFORE: ${{ github.event.before }}
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          set -euo pipefail
+          REGENERATE=false
+
+          if echo "$COMMIT_MESSAGE" | grep -qi "rebuild-all"; then
+            echo "Commit message requests rebuild-all."
+            REGENERATE=true
+          else
+            if [ -n "$COMMIT_BEFORE" ] && [ "$COMMIT_BEFORE" != "0000000000000000000000000000000000000000" ]; then
+              CHANGED_FILES=$(git diff --name-only "$COMMIT_BEFORE" "$COMMIT_SHA" -- "docs/articles/${BRANCH_NAME}/" || true)
+            else
+              CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- "docs/articles/${BRANCH_NAME}/" || true)
+            fi
+
+            if [ -n "$CHANGED_FILES" ]; then
+              echo "Article files changed; regenerating branch PDF and EPUB:"
+              echo "$CHANGED_FILES"
+              REGENERATE=true
+            fi
+          fi
+
+          if [ "$REGENERATE" != "true" ]; then
+            mkdir -p "$MAIN_PDF_DIR"
+            if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+              git fetch --depth=1 origin gh-pages
+              for extension in pdf epub; do
+                published_path="${BRANCH_NAME}/download/${BRANCH_NAME}.${extension}"
+                if git cat-file -e "origin/gh-pages:${published_path}" 2>/dev/null; then
+                  git show "origin/gh-pages:${published_path}" > "$MAIN_PDF_DIR/${BRANCH_NAME}.${extension}"
+                fi
+              done
+            fi
+            if [ ! -s "$MAIN_PDF_DIR/${BRANCH_NAME}.pdf" ] || [ ! -s "$MAIN_PDF_DIR/${BRANCH_NAME}.epub" ]; then
+              echo "Existing branch downloads are missing; regenerating them."
+              REGENERATE=true
+            else
+              echo "No article changes; reusing this branch's published PDF/EPUB."
+            fi
+          fi
+
+          echo "regenerate=$REGENERATE" >> "$GITHUB_OUTPUT"
+
+      - name: Convert branch article to PDF/EPUB (preview)
+        if: github.ref_type == 'branch' && github.ref_name != 'main' && steps.branch-pdf.outputs.regenerate == 'true'
         env:
           BRANCH_NAME: ${{ github.ref_name }}
         run: |
@@ -352,18 +401,7 @@ jobs:
             exit 0
           fi
 
-          OUTPUT_FILE="$MAIN_PDF_DIR/pdf-list.json"
           mkdir -p "$MAIN_PDF_DIR"
-
-          # Restore this branch's already-published downloads so keep_files and the
-          # JSON list stay consistent (mkdocs build flushed ./site).
-          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
-            git fetch --depth=1 origin gh-pages
-            if git cat-file -e "origin/gh-pages:${BRANCH_NAME}/download" 2>/dev/null; then
-              echo "Restoring existing downloads for branch '$BRANCH_NAME'"
-              git archive origin/gh-pages "${BRANCH_NAME}/download" | tar -x -C "$MAIN_PDF_DIR" --strip-components=2
-            fi
-          fi
 
           cd "$ARTICLE_DIR" || exit 1
 
@@ -394,58 +432,81 @@ jobs:
           echo "Setting lof/lot flags based on article content"
           python3 ../../../.github/scripts/set_lof_lot.py combined.md pandoc-pdf.yml
 
-          echo "Generating DOCX for branch '$BRANCH_NAME'"
-          pandoc -s --number-sections \
-                 --metadata-file article-desc.yml --metadata-file pandoc-pdf.yml --output="${BRANCH_NAME}.docx" combined.md
-          if [ -f "${BRANCH_NAME}.docx" ]; then
-              echo "DOCX generated for branch '$BRANCH_NAME'"
-              cp "${BRANCH_NAME}.docx" "$MAIN_PDF_DIR"
-          else
-              echo "Failed to generate DOCX for branch '$BRANCH_NAME'."
-          fi
-          
           echo "Generating PDF for branch '$BRANCH_NAME'"
           pandoc -s --number-sections --listings --template "/usr/share/pandoc/data/templates/custom.latex" \
                  --metadata-file article-desc.yml --metadata-file pandoc-pdf.yml --output="${BRANCH_NAME}.pdf" combined.md
 
-          if [ -f "${BRANCH_NAME}.pdf" ]; then
-              echo "PDF generated for branch '$BRANCH_NAME'"
-              cp "${BRANCH_NAME}.pdf" "$MAIN_PDF_DIR"
+          test -s "${BRANCH_NAME}.pdf" || { echo "::error::PDF generation failed for branch '$BRANCH_NAME'."; exit 1; }
+          cp "${BRANCH_NAME}.pdf" "$MAIN_PDF_DIR"
 
-              output_png="$MAIN_PDF_DIR/${BRANCH_NAME}"
-              pdftoppm -png -f 1 -l 1 -singlefile "${BRANCH_NAME}.pdf" "$output_png"
-              if [ -f "$output_png.png" ]; then
-                  echo "Generating EPUB for branch '$BRANCH_NAME'"
-                  python3 ../../../.github/scripts/clean_for_epub.py combined.md combined-epub.md
-                  python3 ../../../.github/scripts/epub_numbering.py combined-epub.md
-                  pandoc -s --metadata-file=pandoc-epub.yml \
-                         --metadata-file article-desc.yml --epub-cover-image="$output_png.png" --output="${BRANCH_NAME}.epub" combined-epub.md
-                  if [ -f "${BRANCH_NAME}.epub" ]; then
-                      cp "${BRANCH_NAME}.epub" "$MAIN_PDF_DIR"
-                  else
-                      echo "Failed to generate EPUB for branch '$BRANCH_NAME'."
-                  fi
-              else
-                  echo "Failed to generate icon for '${BRANCH_NAME}.pdf'; skipping EPUB."
-              fi
-          else
-              echo "PDF generation failed for branch '$BRANCH_NAME'."
-          fi
+          output_png="$MAIN_PDF_DIR/${BRANCH_NAME}"
+          pdftoppm -png -f 1 -l 1 -singlefile "${BRANCH_NAME}.pdf" "$output_png"
+          test -s "$output_png.png" || { echo "::error::PDF cover image generation failed for '$BRANCH_NAME'."; exit 1; }
+          echo "Generating EPUB for branch '$BRANCH_NAME'"
+          python3 ../../../.github/scripts/clean_for_epub.py combined.md combined-epub.md
+          python3 ../../../.github/scripts/epub_numbering.py combined-epub.md
+          pandoc -s --metadata-file=pandoc-epub.yml \
+                 --metadata-file article-desc.yml --epub-cover-image="$output_png.png" \
+                 --output="${BRANCH_NAME}.epub" combined-epub.md
+          test -s "${BRANCH_NAME}.epub" || { echo "::error::EPUB generation failed for branch '$BRANCH_NAME'."; exit 1; }
+          cp "${BRANCH_NAME}.epub" "$MAIN_PDF_DIR"
 
           cd "$GITHUB_WORKSPACE" || exit 1
-          # Refresh this branch's pdf-list.json from the download folder
-          branch_pdfs=$(find "$MAIN_PDF_DIR" -maxdepth 1 -name '*.pdf' -printf '"%f",' 2>/dev/null | sed 's/,$//')
-          echo "[${branch_pdfs}]" > "$OUTPUT_FILE"
-          echo "Branch preview downloads ready in $MAIN_PDF_DIR (deploys to gh-pages/${BRANCH_NAME}/download/)."
+          echo "Branch PDF/EPUB ready in $MAIN_PDF_DIR."
 
-      - name: Deploy to GitHub Pages
+      - name: Prepare minimal branch preview
+        id: branch-preview
+        if: github.ref_type == 'branch' && github.ref_name != 'main'
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: python3 .github/scripts/prepare_branch_preview.py
+
+      - name: Checkout GitHub Pages for branch preview
+        if: github.ref_type == 'branch' && github.ref_name != 'main' && steps.branch-preview.outputs.has_article == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-preview
+          fetch-depth: 1
+
+      - name: Replace only this branch preview
+        if: github.ref_type == 'branch' && github.ref_name != 'main' && steps.branch-preview.outputs.has_article == 'true'
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/publish_branch_preview.py \
+            --branch "$BRANCH_NAME" \
+            --preview-dir branch-preview \
+            --pages-dir gh-pages-preview
+          git -C gh-pages-preview config user.name "github-actions"
+          git -C gh-pages-preview config user.email "github-actions@github.com"
+          git -C gh-pages-preview add -A -- "$BRANCH_NAME"
+          if git -C gh-pages-preview diff --cached --quiet -- "$BRANCH_NAME"; then
+            echo "Branch preview is already up to date."
+            exit 0
+          fi
+          git -C gh-pages-preview commit -m "Deploy preview for branch $BRANCH_NAME"
+          git -C gh-pages-preview push origin gh-pages
+
+      - name: Deploy main site to GitHub Pages
+        if: github.ref_name == 'main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./site
           keep_files: true
-          destination_dir: ${{ github.ref_name != 'main' && github.ref_name || '' }}
+
+      - name: Deploy tag build to its Pages directory
+        if: github.ref_type == 'tag'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./site
+          keep_files: true
+          destination_dir: ${{ github.ref_name }}
 
   # ==========================================================
   # CLEANUP JOB — remove ONLY the deleted branch's preview.

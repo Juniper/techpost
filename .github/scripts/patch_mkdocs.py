@@ -1,4 +1,6 @@
 import os
+from urllib.parse import quote, urlsplit, urlunsplit
+
 import yaml
 
 BRANCH_NAME = os.environ.get("BRANCH_NAME", "main")
@@ -17,6 +19,20 @@ if BRANCH_NAME == "main":
 # -------------------------------
 with open(MKDOCS_FILE, "r") as f:
     config = yaml.safe_load(f)
+
+# The preview is published below gh-pages/<branch>/, so its canonical URL and
+# custom site navigation must use that same path prefix.
+site_url = config.get("site_url")
+if not site_url:
+    raise ValueError("mkdocs.yml must define site_url for branch previews.")
+parsed_site_url = urlsplit(site_url)
+if not parsed_site_url.scheme or not parsed_site_url.netloc:
+    raise ValueError(f"Invalid site_url for branch preview: {site_url!r}")
+branch_path = quote(BRANCH_NAME, safe="/-._~")
+preview_path = f"{parsed_site_url.path.rstrip('/')}/{branch_path}/"
+config["site_url"] = urlunsplit(
+    (parsed_site_url.scheme, parsed_site_url.netloc, preview_path, "", "")
+)
 
 # -------------------------------
 # 1. Switch extra.css for branches
@@ -37,9 +53,7 @@ config["extra_css"] = extra_css
 new_nav = [
     {"Home": "index.md"},
     {"Your work-in-progress Article": ARTICLE_PATH},
-    {"DOCX version (for review only)": f"download/{BRANCH_NAME}.docx"},
-    {"About us": "about.md"}
-    ]
+]
 config["nav"] = new_nav
 
 # -------------------------------
@@ -49,6 +63,7 @@ with open(MKDOCS_FILE, "w") as f:
     yaml.dump(config, f, sort_keys=False)
 
 print(f"mkdocs.yml patched for branch: {BRANCH_NAME}")
+print(f"Branch preview base URL: {config['site_url']}")
 
 # Prepare WARNING message
 banner = (
@@ -65,7 +80,11 @@ index_md = f"""
     <p class="banner-eyebrow">HPE Networking Technical Library</p>
     <p class="banner-title">Engineering insights, built for networks</p>
     <p class="banner-description">In-depth technical articles written by engineers, for engineers. Explore expert perspectives on data center, AI, routing, switching, security, wireless &amp; automation.</p>
-    <a href="articles/menu/main/" class="banner-cta">View all articles</a>
+    <a href="articles/{BRANCH_NAME}/article/" class="banner-cta">Read the article</a>
+    <div class="branch-downloads">
+      <a href="download/{BRANCH_NAME}.pdf">Download PDF</a>
+      <a href="download/{BRANCH_NAME}.epub">Download EPUB</a>
+    </div>
   </div>
 </div>
 {banner}
