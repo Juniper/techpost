@@ -3,11 +3,18 @@
 {% block extrahead %}
   {{ super() }}
 
-  {#- Article title for social previews -#}
+  {% set is_homepage = page and page.file.src_uri == "index.md" %}
+  {% if is_homepage %}
+  <meta property="og:title" content="HPE Networking Technical Library. Engineering insights, built for networks" />
+  {% else %}
   <meta property="og:title" content="{{ page.title | default(config.site_name, true) }}" />
+  {% endif %}
 
-  {#- Per-article thumbnail (images/logo.png next to article.md); fall back to site logo -#}
-  {% if page and page.file.src_uri.endswith("article.md") %}
+  {#- Per-article thumbnail (images/logo.png next to article.md); use the
+      dedicated preview image for the home page and fall back to the site logo. -#}
+  {% if is_homepage %}
+    {% set og_image_path = "images/preview.png" %}
+  {% elif page and page.file.src_uri.endswith("article.md") %}
     {% set og_image_path = page.file.src_uri | replace("article.md", "images/logo.png") %}
   {% else %}
     {% set og_image_path = "images/logo.png" %}
@@ -19,7 +26,7 @@
   {% endif %}
   <meta property="og:image" content="{{ og_image }}" />
 
-  <meta property="og:type" content="article" />
+  <meta property="og:type" content="{{ 'website' if is_homepage else 'article' }}" />
   {% if page and page.canonical_url %}
   <meta property="og:url" content="{{ page.canonical_url }}" />
   {% endif %}
