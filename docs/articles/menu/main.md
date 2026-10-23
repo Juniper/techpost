@@ -21,6 +21,17 @@ hide:
 
   <div class="card-grid">
 
+    <a class="card" href="../../preserving-the-nexthop-hierarchy/article" data-date="2026-10-21" data-category="Routing">
+      <img src="../../preserving-the-nexthop-hierarchy/images/logo.png" class="card-icon" alt="Preserving the Nexthop Hierarchy">
+      <div class="card-text">
+        <div class="card-category">Routing</div>
+        <div class="card-title">Preserving the Nexthop Hierarchy</div>
+        <div class="card-description">Cloud and service-provider networks have grown enormously in scale and complexity, and the traffic they carry has increased exponentially year over year. This brief examines how nexthop hierarchies are traditionally programmed in router forwarding hardware, why that traditional approach — compressed hierarchy — runs into trouble at high scale in cloud and SP networks, and how preserving the nexthop hierarchy (expanded hierarchy) solves it. We close with measured scale and convergence results from production EVPN deployments, guidance on how to enable the feature, and the current qualification status for customer deployments. Cloud and service-provider networks have grown enormously in scale and complexity, and the traffic they carry has increased exponentially year over year. To keep up, networks are built to run services over transports — customer-facing services like BGP Internet, L3VPN, EVPN, riding on top of transport protocols like ISIS, OSPF, LDP, RSVP-TE, BGP-LU and increasingly SR-TE, BGP-CT and SRv6. Operators layer these freely: a service such as BGP Internet may run over BGP-LU over IPIP tunnels, BGP L3VPN may run over SR over MPLS-over-UDP, and BGP L3VPN may run over BGP-LU over LDP/RSVP-TE. Networks are also being built in a disaggregated and scale-out manner, which increases the number of routing endpoints, redundancy and load-balancing paths in the network. Underneath all of this sits a deceptively simple question: how does the router represent these layered paths in forwarding hardware? The answer — how we build the nexthop hierarchy — turns out to have an outsized effect on scale, convergence, and resiliency. In this article we will look at how nexthop hierarchies are traditionally programmed, why that traditional approach runs into trouble at high scale in cloud and SP networks, and how preserving the nexthop hierarchy (also called expanded hierarchy) solves it. We close with measured results from EVPN deployments.</div>
+        <div class="card-subtitle">By Navaneetha Krishnan Vasudevan, Kaliraj Vairavakalai, Ravi MR</div>
+      </div>
+    </a>
+
+
     <a class="card" href="../../benchmarking-llms-against-networking-certification/article" data-date="2026-09-20" data-category="AI for Networking for AI">
       <img src="../../benchmarking-llms-against-networking-certification/images/logo.png" class="card-icon" alt="Benchmarking LLMs against Networking Certification Exams">
       <div class="card-text">
