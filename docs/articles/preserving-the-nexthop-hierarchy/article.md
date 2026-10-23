@@ -9,7 +9,6 @@ Cloud and service-provider networks have grown enormously in scale and complexit
 Networks are also being built in a disaggregated and scale-out manner, which increases the number of routing endpoints, redundancy and load-balancing paths in the network.
 Underneath all of this sits a deceptively simple question: how does the router represent these layered paths in forwarding hardware? The answer — how we build the nexthop hierarchy — turns out to have an outsized effect on scale, convergence, and resiliency. In this article we will look at how nexthop hierarchies are traditionally programmed, why that traditional approach runs into trouble at high scale in cloud and SP networks, and how preserving the nexthop hierarchy (also called expanded hierarchy) solves it. We close with measured results from EVPN deployments.
 
-
 ## How Routes and Nexthops Are Programmed
 
 When a router learns that a destination is reachable, it stores that reachability as a route pointing at a nexthop. In a layered network, that nexthop is itself a small hierarchy:
@@ -160,12 +159,10 @@ Preserve-nexthop-hierarchy is being qualified and rolled out progressively acros
 ## A Note on the Trade-off
 Preserving the hierarchy is not free. Because the forwarding plane may traverse several nexthop levels — chain composite, indirect, and unilist — rather than a single flattened forwarding nexthop, it can introduce additional per-packet lookup cost compared with compressed hierarchy. This is a deliberate trade-off for the substantial gains in scale and convergence shown above. It is also exactly why the platform layer matters: on hardware sensitive to hierarchy depth, the platform layer limits how many levels the PFE must traverse, keeping the forwarding cost under control while retaining the benefits of an expanded model wherever the hardware allows.
 
-
 ## Conclusion
 
 The way a router represents layered paths in forwarding hardware is not a minor implementation detail — at cloud scale it determines whether the network fits in PFE memory, whether it can use the redundancy the operator paid for, and how fast it recovers from failure. Compressed hierarchy, which served earlier networks well, duplicates transport forwarding state into every service-and-path combination and runs into a wall as services stack over multi-path transports.
 Preserving the nexthop hierarchy keeps the structure the protocols intended, shares transport nexthops instead of duplicating them, and unlocks fast reroute at every level. The result, as the EVPN numbers show, is dramatically lower nexthop scale and dramatically faster convergence — turning deployments that were previously impractical into ones that simply work. And because it is a reusable forwarding-plane primitive rather than a service feature, it forms a foundation that newer resolver architectures continue to build on.
-
 
 ### References
 preserve-nexthop-hierarchy, Junos OS Documentation: [https://www.juniper.net/documentation/us/en/software/junos/static-routing/topics/concept/preserve-nexthop-hierarchy.html](https://example.com)
