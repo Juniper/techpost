@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  packages: read
 
 # Serialize gh-pages work so concurrent runs never reject each other's push and leave a branch's portal showing stale content.
 concurrency:
@@ -22,6 +23,13 @@ jobs:
     # Branch deletions only need the cleanup job, not a rebuild/redeploy.
     if: github.event_name != 'delete'
     runs-on: ubuntu-latest
+    # Prebuilt image with Python 3.12, Pandoc 3.5, TeX Live, poppler-utils and the
+    # repo's Pandoc templates (see .github/docker/pandoc-ci and build-pandoc-image.yml).
+    container:
+      image: ghcr.io/juniper/techpost/pandoc-ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     env:
       MAIN_PDF_DIR: ${{ github.workspace }}/site/download
 
@@ -33,55 +41,15 @@ jobs:
           fetch-depth: 0
 
       # ----------------------------
-      # Python (with pip cache)
+      # Python / MkDocs (interpreter comes from the container image)
       # ----------------------------
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: 'pip'
-
-      # ----------------------------
-      # Cache Pandoc .deb
-      # ----------------------------
-      - name: Cache Pandoc
+      - name: Cache pip downloads
         uses: actions/cache@v4
-        id: pandoc-cache
         with:
-          path: /tmp/pandoc-3.5-1-amd64.deb
-          key: pandoc-3.5-amd64
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt', 'setup.py') }}
+          restore-keys: pip-${{ runner.os }}-
 
-      - name: Download Pandoc
-        if: steps.pandoc-cache.outputs.cache-hit != 'true'
-        run: wget -O /tmp/pandoc-3.5-1-amd64.deb https://github.com/jgm/pandoc/releases/download/3.5/pandoc-3.5-1-amd64.deb
-
-      # ----------------------------
-      # Cache apt / TexLive packages
-      # ----------------------------
-      - name: Cache apt packages
-        uses: actions/cache@v4
-        id: apt-cache
-        with:
-          path: |
-            /var/cache/apt/archives/*.deb
-          key: apt-texlive-poppler-${{ runner.os }}
-
-      - name: Install Pandoc + TeX Live + PDF utilities
-        run: |
-          sudo dpkg -i /tmp/pandoc-3.5-1-amd64.deb
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-latex-recommended \
-                                  texlive-fonts-recommended texlive-fonts-extra poppler-utils
-
-      - name: Copy Pandoc templates
-        run: |
-          sudo mkdir -p /usr/share/pandoc/data/templates
-          sudo cp templates/custom.latex /usr/share/pandoc/data/templates/custom.latex
-          sudo cp templates/listings-setup.tex /usr/share/pandoc/data/templates/listings-setup.tex
-
-      # ----------------------------
-      # Python / MkDocs
-      # ----------------------------
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
