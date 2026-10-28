@@ -19,9 +19,38 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-deploy:
-    # Branch deletions only need the cleanup job, not a rebuild/redeploy.
+  # Cheap gate: skip the heavy build for branch pushes that have no matching
+  # docs/articles/<branch>/ folder (e.g. a branch freshly created from main).
+  preflight:
     if: github.event_name != 'delete'
+    runs-on: ubuntu-latest
+    outputs:
+      run_build: ${{ steps.check.outputs.run_build }}
+    steps:
+      - name: Decide whether a build is needed
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$REF_TYPE" = "tag" ] || [ "$REF_NAME" = "main" ]; then
+            echo "run_build=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if gh api --silent "repos/${GITHUB_REPOSITORY}/contents/docs/articles/${REF_NAME}?ref=${GITHUB_SHA}" 2>/dev/null; then
+            echo "Found docs/articles/${REF_NAME}; building preview."
+            echo "run_build=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No docs/articles/${REF_NAME} on this branch; skipping build."
+            echo "run_build=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-deploy:
+    needs: preflight
+    if: needs.preflight.outputs.run_build == 'true'
     runs-on: ubuntu-latest
     # Prebuilt image with Python 3.12, Pandoc 3.5, TeX Live, poppler-utils and the
     # repo's Pandoc templates (see .github/docker/pandoc-ci and build-pandoc-image.yml).
