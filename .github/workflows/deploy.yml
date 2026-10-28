@@ -59,8 +59,10 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      MAIN_PDF_DIR: ${{ github.workspace }}/site/download
+    defaults:
+      run:
+        # Container jobs default to `sh`; the scripts below need bash (pipefail, arrays).
+        shell: bash
 
     steps:
       - name: Checkout repository
@@ -68,6 +70,11 @@ jobs:
         with:
           # Full history is required by the change-detection git diff in the convert step
           fetch-depth: 0
+
+      # `${{ github.workspace }}` is the host path; inside the container the
+      # workspace is mounted elsewhere, so resolve it from the runtime env.
+      - name: Set download directory
+        run: echo "MAIN_PDF_DIR=$GITHUB_WORKSPACE/site/download" >> "$GITHUB_ENV"
 
       # ----------------------------
       # Python / MkDocs (interpreter comes from the container image)
