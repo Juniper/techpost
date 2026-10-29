@@ -21,7 +21,7 @@ hide:
 
   <div class="card-grid">
 
-    <a class="card" href="../../preserving-the-nexthop-hierarchy/article" data-date="2026-10-21" data-category="Routing">
+        <a class="card" href="../../preserving-the-nexthop-hierarchy/article" data-date="2026-10-21" data-category="Routing">
       <img src="../../preserving-the-nexthop-hierarchy/images/logo.png" class="card-icon" alt="Preserving the Nexthop Hierarchy">
       <div class="card-text">
         <div class="card-category">Routing</div>

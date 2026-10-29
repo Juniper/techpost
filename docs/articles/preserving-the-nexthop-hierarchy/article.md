@@ -39,7 +39,7 @@ Table: Forwarding-nexthop count under compressed hierarchy — 10,000 BGP-LU rou
 | Chain composite (CNH) | 0 |
 | Unicast forwarding nexthops (FNH) | 64 x 10 K = 640 K |
 | Unilists | 10 K |
-| Total | ~66000 |
+| Total | ~660000 |
 
 The forwarding-nexthop table explodes — 640 K FNHs for what is, logically, a very regular structure. This is the scaling problem with compressed hierarchy, and it directly consumes scarce PFE nexthop memory. Operators running services over existing transports (L3VPN over BGP-LU over LDP over RSVP-TE) hit PFE memory exhaustion and asked, reasonably, why?
 
@@ -165,7 +165,7 @@ The way a router represents layered paths in forwarding hardware is not a minor 
 Preserving the nexthop hierarchy keeps the structure the protocols intended, shares transport nexthops instead of duplicating them, and unlocks fast reroute at every level. The result, as the EVPN numbers show, is dramatically lower nexthop scale and dramatically faster convergence — turning deployments that were previously impractical into ones that simply work. And because it is a reusable forwarding-plane primitive rather than a service feature, it forms a foundation that newer resolver architectures continue to build on.
 
 ### References
-preserve-nexthop-hierarchy, Junos OS Documentation: [https://www.juniper.net/documentation/us/en/software/junos/static-routing/topics/concept/preserve-nexthop-hierarchy.html](https://example.com)
+preserve-nexthop-hierarchy, Junos OS Documentation: [https://www.juniper.net/documentation/us/en/software/junos/static-routing/topics/concept/preserve-nexthop-hierarchy.html](https://www.juniper.net/documentation/us/en/software/junos/static-routing/topics/concept/preserve-nexthop-hierarchy.html)
 
 ### Glossary
 - PNH: Preserve-Nexthop-Hierarchy (expanded hierarchy)
