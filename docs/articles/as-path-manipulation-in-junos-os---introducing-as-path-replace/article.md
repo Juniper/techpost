@@ -4,12 +4,12 @@
 
 ## Introduction
 
-Junos OS 25.4R1 adds as-path-replace, a routing policy action for rewriting the BGP AS_PATH. The action takes the AS numbers to look for, or the keyword private to cover every private AS number, and replaces each match with the session's local AS. Operators can use it to keep private AS numbers out of the default-free zone, retire an AS number after an acquisition, or even out path lengths for load sharing.
-Junos already has several ways to change the AS_PATH, each built for a narrower case. Prepending is a policy action on import and export, but it can only add to the path. as-override and remove-private also change numbers already in the path, but they have narrower scopes: they apply to every route advertised to a peer, replacing the peer's AS with the local AS (as-override) or removing private AS numbers (remove-private). as-path-replace is the first action that lets you select specific AS numbers to rewrite, replacing each match with the session's local AS, for the routes a policy term selects, on import as well as export. That flexibility matters because routers use the AS_PATH to detect loops and compare paths, so rewriting it changes how other networks treat the route.
+Junos OS 25.4R1 adds **as-path-replace**, a routing policy action for rewriting the BGP AS_PATH. The action takes the AS numbers to look for, or the keyword private to cover every private AS number, and replaces each match with the session's local AS. Operators can use it to keep private AS numbers out of the default-free zone, retire an AS number after an acquisition, or even out path lengths for load sharing.
+Junos already has several ways to change the AS_PATH, each built for a narrower case. Prepending is a policy action on import and export, but it can only add to the path. as-override and remove-private also change numbers already in the path, but they have narrower scopes: they apply to every route advertised to a peer, replacing the peer's AS with the local AS (as-override) or removing private AS numbers (remove-private). **as-path-replace** is the first action that lets you select specific AS numbers to rewrite, replacing each match with the session's local AS, for the routes a policy term selects, on import as well as export. That flexibility matters because routers use the AS_PATH to detect loops and compare paths, so rewriting it changes how other networks treat the route.
 
 ## A Simple Example
 
-We want routes that pass through AS 700 to carry our AS, 64496, in its place. A from condition picks the routes, and as-path-replace makes the change:
+We want routes that pass through AS 700 to carry our AS, 64496, in its place. A from condition picks the routes, and **as-path-replace** makes the change:
 
 ```
 set policy-options as-path VIA-700 ".* 700 .*"
@@ -51,7 +51,7 @@ set protocols bgp group TRANSIT remove-private all replace
 
 ### local-as, independent-domain, and strip-as-path
 
-local-as makes one session present a different AS and is the normal AS migration tool. By default the session advertises both numbers, the local AS in front of the global AS. no-prepend-global-as leaves only the local AS. Junos adds these numbers as it builds the update, after export policy, so as-path-replace cannot remove them; in our lab the AS a session adds always went on after policy. In a migration the two features work together: local-as sets the AS the session presents, and as-path-replace rewrites what is already in the path. independent-domain carries a customer's BGP attributes, AS_PATH included, across the provider core and hands them back unchanged at the far PE. strip-as-path replaces the entire received AS_PATH with the local AS on import. It works, but the information it discards cannot be recovered.
+local-as makes one session present a different AS and is the normal AS migration tool. By default the session advertises both numbers, the local AS in front of the global AS. no-prepend-global-as leaves only the local AS. Junos adds these numbers as it builds the update, after export policy, so **as-path-replace** cannot remove them; in our lab the AS a session adds always went on after policy. In a migration the two features work together: local-as sets the AS the session presents, and **as-path-replace** rewrites what is already in the path. independent-domain carries a customer's BGP attributes, AS_PATH included, across the provider core and hands them back unchanged at the far PE. strip-as-path replaces the entire received AS_PATH with the local AS on import. It works, but the information it discards cannot be recovered.
 
 ```plaintext
 set protocols bgp group MIGRATION local-as 64501 no-prepend-global-as
@@ -77,14 +77,14 @@ Table: When using a knob?
 ## The as-path-replace Statement
 ### Syntax
 
-as-path-replace goes in the then clause, for a whole policy or for one of its terms:
+**as-path-replace** goes in the then clause, for a whole policy or for one of its terms:
 
 ```plaintext
 set policy-options policy-statement <name> then as-path-replace (<as-numbers> | private)
 set policy-options policy-statement <name> term <term> then as-path-replace (<as-numbers> | private)
 ```
 
-> Note: Quote the argument the way you would for as-path-prepend. A list needs quotes, and a lone AS number does not. In our 26.2R1 lab, an unquoted list such as as-path-replace 65001 65002 leaves no as-path-replace line in the candidate configuration, so nothing is replaced. If automation generates your policy, confirm the line landed with show policy-options in configuration mode, or show policy <name> after the commit.
+> Note: Quote the argument the way you would for as-path-prepend. A list needs quotes, and a lone AS number does not. In our 26.2R1 lab, an unquoted list such as **as-path-replace** 65001 65002 leaves no **as-path-replace** line in the candidate configuration, so nothing is replaced. If automation generates your policy, confirm the line landed with show policy-options in configuration mode, or show policy <name> after the commit.
 
 ### How Matching Works
 
@@ -108,7 +108,7 @@ Table: Configuration results
 | `as-path-replace "800 900"` | `65001 700 64496 700 800 4200000001` | One run collapses, length 7 becomes 6 |
 | `as-path-replace "800 700"` | `65001 700 800 900 700 800 4200000001` | That order never occurs, nothing replaced |
 
-> Note: as-path-replace works only on numbers the route already carries. The AS the router puts in front of the path when it advertises to an eBGP peer is added after export policy has run, so the policy never sees it.
+> Note: **as-path-replace** works only on numbers the route already carries. The AS the router puts in front of the path when it advertises to an eBGP peer is added after export policy has run, so the policy never sees it.
 
 ## Where It Runs in the Policy Pipeline
 
@@ -116,10 +116,10 @@ When several AS_PATH actions apply, each works on what the previous one left, so
 
 ![Where as-path-replace runs on import and on export, as observed in our lab on Junos 26.2R1](images/where-as-path-replace-runs-on-import-and-on-export-as-observ-93bf18.png)
 
-- On import, a prepend in the same term ran before as-path-replace: a 300 prepended by the import policy was itself rewritten by as-path-replace 300.
-- On export, as-path-replace ran first. With as-override on the session, a quoted list ending in the peer's own AS still matched and collapsed, so as-override had not touched the path yet.
-- remove-private on the same session also acted after as-path-replace: a quoted list that included a private AS still matched it, so the rewrite happened before remove-private stripped anything.
-- Prepending on export came after as-path-replace, as-override and remove-private. A 300 prepended by the export policy survived as-path-replace 300 in the same term, and a prepended private AS survived remove-private. A prepended copy of the peer's own AS was not rewritten by as-override either, so the peer hid the route as a loop.
+- On import, a prepend in the same term ran before **as-path-replace**: a 300 prepended by the import policy was itself rewritten by **as-path-replace** 300.
+- On export, **as-path-replace** ran first. With as-override on the session, a quoted list ending in the peer's own AS still matched and collapsed, so as-override had not touched the path yet.
+- remove-private on the same session also acted after **as-path-replace**: a quoted list that included a private AS still matched it, so the rewrite happened before remove-private stripped anything.
+- Prepending on export came after **as-path-replace**, as-override and remove-private. A 300 prepended by the export policy survived **as-path-replace** 300 in the same term, and a prepended private AS survived remove-private. A prepended copy of the peer's own AS was not rewritten by as-override either, so the peer hid the route as a loop.
 
 ## Worked Examples
 
@@ -144,7 +144,7 @@ set policy-options policy-statement EBGP-OUT term REST then reject
 set protocols bgp group TRANSIT export EBGP-OUT
 ```
 
-as-path-replace modifies the route but does not accept or reject it. The explicit next term keeps the rewrite apart from the accept or reject decision, which makes the policy easier to read.
+**as-path-replace** modifies the route but does not accept or reject it. The explicit next term keeps the rewrite apart from the accept or reject decision, which makes the policy easier to read.
 
 ### Retiring an AS Number After an Acquisition
 
@@ -201,7 +201,7 @@ mnayman@P1-vEVO> show route receive-protocol bgp 10.99.0.1 192.0.2.0/24 detail t
      AS path: 65001 700 800 900 700 800 4200000001 I
 ```
 
-After as-path-replace "700 800" on the import policy, each run of 700 800 becomes a single 64496, the path drops from seven hops to five, the route is still active, and Junos flags that our own AS is now in the path:
+After **as-path-replace** "700 800" on the import policy, each run of 700 800 becomes a single 64496, the path drops from seven hops to five, the route is still active, and Junos flags that our own AS is now in the path:
 
 ```
 mnayman@P1-vEVO> show route 192.0.2.0/24 detail table ASPR-LOCAL.inet.0
@@ -213,7 +213,7 @@ mnayman@P1-vEVO> show route 192.0.2.0/24 detail table ASPR-LOCAL.inet.0
                 AS path: 65001 64496 900 64496 4200000001 I  (Looped: 64496)
 ```
 
-On export, with the import rewrite removed, we send the same route to a downstream peer in AS 65002, this time with as-path-replace "700 800" on the export policy. show route advertising-protocol shows in brackets the local AS it is about to prepend. Without the rewrite, the downstream peer would receive eight hops, the seven we received plus our AS. Because both runs of 700 800 collapsed, it receives six:
+On export, with the import rewrite removed, we send the same route to a downstream peer in AS 65002, this time with **as-path-replace** "700 800" on the export policy. show route advertising-protocol shows in brackets the local AS it is about to prepend. Without the rewrite, the downstream peer would receive eight hops, the seven we received plus our AS. Because both runs of 700 800 collapsed, it receives six:
 
 ```
 mnayman@P1-vEVO> show route advertising-protocol bgp 10.99.1.2 192.0.2.0/24 detail table ASPR-LOCAL.inet.0
@@ -235,9 +235,9 @@ mnayman@P1-vEVO> show route receive-protocol bgp 10.99.1.1 192.0.2.0/24 detail t
 
 Route origin validation, ASPA and your peers' filters all decide what to do with a route by reading its AS_PATH, and so does every operator who troubleshoots it. A rewrite changes what all of them see. Check each of these before you deploy:
 
-- If one of the numbers you replace is the origin AS, peers see your AS as the origin, and route origin validation (ROV, RFC 6811) judges the route against the ROAs for that prefix. In our lab, as-path-replace private replaced the origin this way, turning 4200000001 into 64496. If you mean to take over origination, move the ROA and the IRR route objects first: a prefix whose only ROA still names the previous origin is Invalid at every peer that validates, and peers that drop Invalid routes discard it.
+- If one of the numbers you replace is the origin AS, peers see your AS as the origin, and route origin validation (ROV, RFC 6811) judges the route against the ROAs for that prefix. In our lab, **as-path-replace** private replaced the origin this way, turning 4200000001 into 64496. If you mean to take over origination, move the ROA and the IRR route objects first: a prefix whose only ROA still names the previous origin is Invalid at every peer that validates, and peers that drop Invalid routes discard it.
 
-- ASPA validation, still an IETF work in progress at the time of writing, checks each pair of neighboring ASes in the path against published provider authorizations. A rewrite creates new pairs: the path now claims your AS sits next to whatever was on either side of the replaced hop, and if that neighbor's ASPA record does not list your AS as a provider, a validating peer can mark the route Invalid. A collapse also deletes pairs. After as-path-replace "700 800" in our lab, no pair that included 700 or 800 was left in the path, so a validator downstream cannot check those links at all.
+- ASPA validation, still an IETF work in progress at the time of writing, checks each pair of neighboring ASes in the path against published provider authorizations. A rewrite creates new pairs: the path now claims your AS sits next to whatever was on either side of the replaced hop, and if that neighbor's ASPA record does not list your AS as a provider, a validating peer can mark the route Invalid. A collapse also deletes pairs. After **as-path-replace** "700 800" in our lab, no pair that included 700 or 800 was left in the path, so a validator downstream cannot check those links at all.
 
 - Rewriting interferes with loop prevention in both directions. Toward other networks, it removes a signal: once an AS number is gone from the path, the network that owns it no longer discards the route on receipt, so confirm a rewritten route cannot get back into that AS. Inside your own AS, it adds a false one: an import rewrite, or an export rewrite toward an iBGP peer, writes your own AS into a path that other routers in your AS will receive and hide as a loop (Note 3). Raising loops under routing-options autonomous-system fixes that, but it relaxes loop protection for every route, not only the rewritten ones.
 
@@ -247,17 +247,17 @@ Route origin validation, ASPA and your peers' filters all decide what to do with
 
 ### When Not to Use It
 
-Do not use as-path-replace to make a route pass ROV or ASPA checks for a prefix or adjacency that is not yours. That is a hijack. Do not use it on paths received from peers or transit providers to steer Internet traffic; a shortened path you do not own changes other networks' best path selection in ways you cannot see or undo. Where a narrower knob fits, use that instead.
+Do not use **as-path-replace** to make a route pass ROV or ASPA checks for a prefix or adjacency that is not yours. That is a hijack. Do not use it on paths received from peers or transit providers to steer Internet traffic; a shortened path you do not own changes other networks' best path selection in ways you cannot see or undo. Where a narrower knob fits, use that instead.
 
 ## Conclusion
 
-as-path-replace adds what as-override and remove-private lack: per-prefix control over which AS numbers are rewritten, on import as well as export. The number it writes is always the session's local AS, so an import rewrite puts your own AS in the path, and your iBGP routers will treat it as a loop unless you plan for it.
+**as-path-replace** adds what as-override and remove-private lack: per-prefix control over which AS numbers are rewritten, on import as well as export. The number it writes is always the session's local AS, so an import rewrite puts your own AS in the path, and your iBGP routers will treat it as a loop unless you plan for it.
 
 Before deploying it, know the matching rule. A single AS number and the private keyword replace each occurrence one for one and keep the path length. A quoted sequence collapses the whole matched run into one local AS and shortens the path. The two look alike in configuration and behave very differently on the wire.
 
 ## Acknowledgments
 
-Thanks to Jeff Haas for developing as-path-replace in Junos.
+Thanks to Jeff Haas for developing **as-path-replace** in Junos.
 
 ## Glossary 
 
