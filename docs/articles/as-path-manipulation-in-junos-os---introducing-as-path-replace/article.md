@@ -234,10 +234,15 @@ mnayman@P1-vEVO> show route receive-protocol bgp 10.99.1.1 192.0.2.0/24 detail t
 ## Security Considerations
 
 Route origin validation, ASPA and your peers' filters all decide what to do with a route by reading its AS_PATH, and so does every operator who troubleshoots it. A rewrite changes what all of them see. Check each of these before you deploy:
+
 - If one of the numbers you replace is the origin AS, peers see your AS as the origin, and route origin validation (ROV, RFC 6811) judges the route against the ROAs for that prefix. In our lab, as-path-replace private replaced the origin this way, turning 4200000001 into 64496. If you mean to take over origination, move the ROA and the IRR route objects first: a prefix whose only ROA still names the previous origin is Invalid at every peer that validates, and peers that drop Invalid routes discard it.
+
 - ASPA validation, still an IETF work in progress at the time of writing, checks each pair of neighboring ASes in the path against published provider authorizations. A rewrite creates new pairs: the path now claims your AS sits next to whatever was on either side of the replaced hop, and if that neighbor's ASPA record does not list your AS as a provider, a validating peer can mark the route Invalid. A collapse also deletes pairs. After as-path-replace "700 800" in our lab, no pair that included 700 or 800 was left in the path, so a validator downstream cannot check those links at all.
+
 - Rewriting interferes with loop prevention in both directions. Toward other networks, it removes a signal: once an AS number is gone from the path, the network that owns it no longer discards the route on receipt, so confirm a rewritten route cannot get back into that AS. Inside your own AS, it adds a false one: an import rewrite, or an export rewrite toward an iBGP peer, writes your own AS into a path that other routers in your AS will receive and hide as a loop (Note 3). Raising loops under routing-options autonomous-system fixes that, but it relaxes loop protection for every route, not only the rewritten ones.
+
 - Peers filter on the AS_PATH too. They reject AS numbers they do not expect from you, build origin filters from IRR as-sets, lock transit ASes to particular sessions, and discard paths beyond a length limit. Remove a number or collapse a sequence, and a route the peer meant to reject may get through. On your own routes, with your peers aware, that is policy. On routes you transit for others, it is what those filters exist to catch.
+
 - Troubleshooting gets harder. Only the router that made the rewrite still holds the original path. In our lab, show route receive-protocol bgp on that router still showed 65001 700 800 900 700 800 4200000001, while the downstream peer received 64496 65001 64496 900 64496 4200000001, with nothing to show that 700 and 800 had ever been in it. Keep a record of which policies rewrite which prefixes, so whoever investigates a bad path later knows to look there.
 
 ### When Not to Use It
@@ -247,6 +252,7 @@ Do not use as-path-replace to make a route pass ROV or ASPA checks for a prefix 
 ## Conclusion
 
 as-path-replace adds what as-override and remove-private lack: per-prefix control over which AS numbers are rewritten, on import as well as export. The number it writes is always the session's local AS, so an import rewrite puts your own AS in the path, and your iBGP routers will treat it as a loop unless you plan for it.
+
 Before deploying it, know the matching rule. A single AS number and the private keyword replace each occurrence one for one and keep the path length. A quoted sequence collapses the whole matched run into one local AS and shortens the path. The two look alike in configuration and behave very differently on the wire.
 
 ## Acknowledgments

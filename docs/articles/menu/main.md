@@ -21,7 +21,7 @@ hide:
 
   <div class="card-grid">
 
-        <a class="card" href="../../as-path-manipulation-in-junos-os---introducing-as-path-replace/article" data-date="2026-11-02" data-category="Routing">
+            <a class="card" href="../../as-path-manipulation-in-junos-os---introducing-as-path-replace/article" data-date="2026-11-02" data-category="Routing">
       <img src="../../as-path-manipulation-in-junos-os---introducing-as-path-replace/images/logo.png" class="card-icon" alt="AS Path Manipulation in Junos OS - Introducing as-path-replace">
       <div class="card-text">
         <div class="card-category">Routing</div>
