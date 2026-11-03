@@ -196,6 +196,7 @@ nav:
       - Migrating Colored Resolution from inetcolor to Classful Transport: articles/migrating-colored-resolution-from-inetcolor-to-ct/article.md
       - AI-Driven Brownfield Migration to Juniper Routing Director: articles/ai-driven-brownfield-migration-to-jrd/article.md
       - Preserving the Nexthop Hierarchy: articles/preserving-the-nexthop-hierarchy/article.md
+      - AS Path Manipulation in Junos OS - Introducing as-path-replace: articles/as-path-manipulation-in-junos-os---introducing-as-path-replace/article.md
   - Multicast Routing:
     - Under Construction: build.md
   - Scale and Convergence Tests:
