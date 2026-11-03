@@ -5,6 +5,7 @@
 ## Introduction
 
 Junos OS 25.4R1 adds **as-path-replace**, a routing policy action for rewriting the BGP AS_PATH. The action takes the AS numbers to look for, or the keyword private to cover every private AS number, and replaces each match with the session's local AS. Operators can use it to keep private AS numbers out of the default-free zone, retire an AS number after an acquisition, or even out path lengths for load sharing.
+
 Junos already has several ways to change the AS_PATH, each built for a narrower case. Prepending is a policy action on import and export, but it can only add to the path. as-override and remove-private also change numbers already in the path, but they have narrower scopes: they apply to every route advertised to a peer, replacing the peer's AS with the local AS (as-override) or removing private AS numbers (remove-private). **as-path-replace** is the first action that lets you select specific AS numbers to rewrite, replacing each match with the session's local AS, for the routes a policy term selects, on import as well as export. That flexibility matters because routers use the AS_PATH to detect loops and compare paths, so rewriting it changes how other networks treat the route.
 
 ## A Simple Example

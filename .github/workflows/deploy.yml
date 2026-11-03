@@ -71,6 +71,11 @@ jobs:
           # Full history is required by the change-detection git diff in the convert step
           fetch-depth: 0
 
+      # The container user differs from the owner of the mounted workspace, so git
+      # rejects it as "dubious ownership" and `git diff` degrades to --no-index.
+      - name: Mark workspace as a safe git directory
+        run: git config --global --add safe.directory '*'
+
       # `${{ github.workspace }}` is the host path; inside the container the
       # workspace is mounted elsewhere, so resolve it from the runtime env.
       - name: Set download directory
