@@ -21,6 +21,17 @@ hide:
 
   <div class="card-grid">
 
+    <a class="card" href="../../as-path-manipulation-in-junos-os---introducing-as-path-replace/article" data-date="2026-11-02" data-category="Routing">
+      <img src="../../as-path-manipulation-in-junos-os---introducing-as-path-replace/images/logo.png" class="card-icon" alt="AS Path Manipulation in Junos OS - Introducing as-path-replace">
+      <div class="card-text">
+        <div class="card-category">Routing</div>
+        <div class="card-title">AS Path Manipulation in Junos OS - Introducing as-path-replace</div>
+        <div class="card-description">Junos OS 25.4R1 adds as-path-replace, a routing policy action for rewriting the BGP AS_PATH. The action takes the AS numbers to look for, or the keyword private to cover every private AS number, and replaces each match with the session&#x27;s local AS. Operators can use it to keep private AS numbers out of the default-free zone, retire an AS number after an acquisition, or even out path lengths for load sharing. Junos already has several ways to change the AS_PATH, each built for a narrower case. Prepending is a policy action on import and export, but it can only add to the path. as-override and remove-private also change numbers already in the path, but they have narrower scopes: they apply to every route advertised to a peer, replacing the peer&#x27;s AS with the local AS (as-override) or removing private AS numbers (remove-private). as-path-replace is the first action that lets you select specific AS numbers to rewrite, replacing each match with the session&#x27;s local AS, for the routes a policy term selects, on import as well as export. That flexibility matters because routers use the AS_PATH to detect loops and compare paths, so rewriting it changes how other networks treat the route.</div>
+        <div class="card-subtitle">By Moshiko Nayman</div>
+      </div>
+    </a>
+
+
         <a class="card" href="../../preserving-the-nexthop-hierarchy/article" data-date="2026-10-21" data-category="Routing">
       <img src="../../preserving-the-nexthop-hierarchy/images/logo.png" class="card-icon" alt="Preserving the Nexthop Hierarchy">
       <div class="card-text">
