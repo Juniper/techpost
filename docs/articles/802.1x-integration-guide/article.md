@@ -4,9 +4,9 @@
 
 Aruba ClearPass Policy Manager with HPE Networking Mist Wi-Fi, EX Switching, and SRX: Step-by-step build guide, manual GUI and CLI procedures
 
-## Scope and prerequisites
+## Scope and prerequisites - Step 1
 
-### What this guide covers
+**What this guide covers**
 
 Building 802.1X authentication against ClearPass for:
 
@@ -43,9 +43,9 @@ Table: Reference addressing
 
 > Note: One of ClearPass's many oddities is it requires exactly two interfaces: a management port and a data port. These interfaces must be on different LANs. Each interface must be configured. In my case I set the data port to a bogus LAN. However, all AAA services listen on both interfaces. RADIUS does not require the data port and I don't know what purpose it serves. Point your network devices at whichever ClearPass address they can reach directly, for me the management interface.
 
-## Build the private certificate authority
+## Build the private certificate authority - Step 2
 
-### Create the OpenSSL configuration files
+### Create the OpenSSL configuration files - Step 2.1
 
 If you already have a CA and installed the CA cert onto your endpoints you can skip sections 2.1 and 2.2. Use a machine with OpenSSL 3.x. MacOS, Linux, WSL-on-Windows for instance. 
 
@@ -95,7 +95,7 @@ DNS.2 = clearpass
 IP.1  = 10.0.3.210
 ```
 
-### Generate the root CA
+### Generate the root CA - Step 2.2
 
 ```
 openssl genrsa -out ca-key.pem 4096
@@ -109,7 +109,7 @@ cp ca-cert.pem Example-Lab-Root-CA.crt
 
 Windows and macOS both expect the .crt extension when you double-click a certificate to import it.
 
-### Generate and sign the server certificate
+### Generate and sign the server certificate  - Step 2.3
 
 ```
 openssl genrsa -out clearpass-key.pem 2048
@@ -128,7 +128,7 @@ rm -f clearpass.csr ca-cert.srl
 
 > Note: OpenSSL 3 automatically adds a Subject Key Identifier and an Authority Key Identifier, and the AKI will match the CA Subject Key Identifier. ClearPass requires this linkage. On older OpenSSL versions you may need to add them to the extension block explicitly.
 
-### Produce a passphrase-protected bundle
+### Produce a passphrase-protected bundle - Step 2.4
 
 ClearPass will not import a private key that has no passphrase. The field is mandatory even though nothing forces the key to be encrypted in the first place. Produce a PKCS#12 full-chain with a passphrase which ClearPass accepts.
 
@@ -144,7 +144,7 @@ openssl pkcs12 -export \
 chmod 600 clearpass-radius.p12
 ```
 
-### Verification 
+### Verification - Step 2.5
 
 ```
 openssl verify -CAfile ca-cert.pem clearpass-cert.pem
@@ -169,11 +169,11 @@ X509v3 Extended Key Usage:
 
 If Subject Alternative Name or Extended Key Usage are missing, go back to previous step.
 
-## Install the certificate on ClearPass
+## Install the certificate on ClearPass - Step 3
 
 ClearPass refuses to accept a server certificate whose issuer it does not already trust, so the root CA must go in first.
 
-### Add the root CA to the Certificate Trust List
+### Add the root CA to the Certificate Trust List - Step 3.1
 
 1. In the ClearPass admin UI, go to Administration > Certificates > Trust List.
 2. Click Add.
@@ -184,7 +184,7 @@ ClearPass refuses to accept a server certificate whose issuer it does not alread
 
 Confirm the new entry appears in the Trust List showing your root CA subject, with Enabled set to true and EAP among its usages.
 
-### Import the server certificate
+### Import the server certificate - Step 3.2
 
 1. Go to Administration > Certificates > Certificate Store.
 2. Confirm the Server Certificates tab is selected.
@@ -200,7 +200,7 @@ Confirm the new entry appears in the Trust List showing your root CA subject, wi
 
 Verify by returning to "Certificate Store" with "Usage" set to "RADIUS/EAP Server Certificate." "Subject" should now be your server certificate common name and Issued by should be your root CA. "Validity Status" should read "Valid" and "Certificate Enabled" should be "Yes."
 
-### Restart the RADIUS service
+### Restart the RADIUS service - Step 3.3
 
 1. Go to Administration > Server Manager > Server Configuration.
 2. Click your ClearPass node in the list.
@@ -209,11 +209,15 @@ Verify by returning to "Certificate Store" with "Usage" set to "RADIUS/EAP Serve
 5. Click Stop. Wait until the row reports the service as stopped.
 6. Click Start. Wait until it reports Running again.
 
-### Confirm RADIUS is processing
+### Confirm RADIUS is processing - Step 3.4
 
 Generate any authentication attempt, then go to Monitoring > Live Monitoring > Access Tracker. A new row should appear indicating the authentication result. Note that *any* result indicates RADIUS is working, but no result indicates RADIUS is either not working or the NAD's request never made it to RADIUS.
 
-## Distribute the root CA to client endpoints
+## Distribute the root CA to client endpoints - Step 4
+
+Clients must hold your root CA before they can validate the ClearPass server certificate. Distribute ca-cert.pem, renamed to a .crt extension. This file contains only the public certificate. It is not sensitive and can be emailed or hosted internally.
+
+### Windows - Step 4.1
 
 Install into the "Local Computer" store, not the current user store. 802.1X for a wired or wireless network interface is evaluated in a machine context, and a certificate installed only for the logged-in user will not work reliably.
 
@@ -236,7 +240,7 @@ certutil -addstore -f Root Example-Lab-Root-CA.crt
 
 Of course at scale you would use something like: Group Policy: Computer Configuration > Policies > Windows Settings > Security Settings > Public Key Policies > Trusted Root Certification Authorities.
 
-### macOS
+### macOS - Step 4.2
 
 1. Copy Example-Lab-Root-CA.crt to the Mac.
 2. Double-click the file. Keychain Access opens.
@@ -255,9 +259,9 @@ sudo security add-trusted-cert -d -r trustRoot \
   -k /Library/Keychains/System.keychain Example-Lab-Root-CA.crt
 ```
 
-## ClearPass configuration
+## ClearPass configuration - Step 5
 
-### Create the user account
+### Create the user account - Step 5.1
 
 This guide authenticates against the ClearPass local user database. In production you would point the same services at Active Directory or LDAP instead. The authentication backend selection has no impact on the instructions that follow.
 
@@ -272,7 +276,7 @@ This guide authenticates against the ClearPass local user database. In productio
 
 **IMPORTANT**: The Role assigned here is what the enforcement policy in 5.3 matches on. If you assign a different role, adjust the policy to match or the user will be denied.
 
-### Add the network devices
+### Add the network devices - Step 5.2
 
 Note that a RADIUS client is usually a switch or AP, something that speaks 802.1X. ClearPass refers to RADIUS clients as a "Network Access Device" (NAD).
 ClearPass will not answer a RADIUS request from a source it does not recognise. Every device that sends RADIUS must be listed here: each switch, and each individual access point. If a device's IP changes, ClearPass must be updated with the new IP.
@@ -291,7 +295,7 @@ ClearPass will not answer a RADIUS request from a source it does not recognise. 
 
 Record the shared secrets. You will enter them again in Mist and on the switch, and ClearPass will never show them to you again.
 
-### Create the enforcement policy
+### Create the enforcement policy - Step 5.3
 
 The enforcement policy decides what to send back once a user has authenticated. Build the simplest thing that proves the chain: allow one role, deny everything else.
 
@@ -306,7 +310,7 @@ The enforcement policy decides what to send back once a user has authenticated. 
 9. Profile for that rule: [Allow Access Profile].
 10. Save.
 
-### Create the wireless service
+### Create the wireless service - Step 5.4
 
 1. Go to Configuration > Services.
 2. Click Add.
@@ -315,28 +319,28 @@ The enforcement policy decides what to send back once a user has authenticated. 
 5. On the Service tab, confirm the match conditions include Radius:IETF NAS-Port-Type EQUALS Wireless-802.11 (19).
 6. On the Authentication tab, set Authentication Methods to [EAP PEAP] and [EAP MSCHAPv2].
 7. Set Authentication Sources to [Local User Repository].
-8. On the Enforcement tab, select the 802.1X Enforcement policy from 5.3.
+8. On the Enforcement tab, select the 802.1X Enforcement policy from step 5.3.
 9. Save, and ensure the service is Enabled.
 
-### Create the wired service
+### Create the wired service - Step 5.5
 
 Repeat the previous section with two changes: choose type 802.1X Wired, and confirm the match condition is NAS-Port-Type EQUALS Ethernet (15). Add [PAP] to the authentication methods if you want to be able to test the service without a supplicant.
 
 > Note: ClearPass evaluates services top to bottom and stops at the first match. Go to Configuration > Services and confirm your two new services are not shadowed by a broader service above them. 
  
-## Wireless configuration (Mist)
+## Wireless configuration (Mist) - Step 6
 
 For testing, create a *new* WLAN. Do not convert an existing production SSID to 802.1X as it is likely users will be denied access. If you have distributed certs to everyone and enjoy excitement in your life, sure go ahead with a production WLAN.
 
-### Confirm access point addressing
+### Confirm access point addressing - Step 6.1
 
 1. In the Mist dashboard, go to Access Points.
 2. Note the IP address of each access point.
-3. Confirm each of those addresses is registered in ClearPass as a network device, per section 5.2.
+3. Confirm each of those addresses is registered in ClearPass as a network device, per step 5.2.
 
 Every access point authenticates independently. All of them must be known to ClearPass.
 
-### Create the WLAN
+### Create the WLAN - Step 6.2
 
 1. Go to Site > WLANs, or Organization > WLAN Templates if you use templates.
 2. Click Add WLAN.
@@ -345,7 +349,7 @@ Every access point authenticates independently. All of them must be known to Cle
 5. Under Authentication Servers, click Add Server.
 6. Hostname/IP: your ClearPass address. In this example 10.0.3.210.
 7. Port: 1812.
-8. Shared Secret: the secret you set for the access points in ClearPass 5.2.
+8. Shared Secret: the secret you set for the access points in ClearPass - step 5.2.
 9. Under Accounting Servers, add the same host with port 1813 and the same secret.
 10. VLAN: enable tagging and set your client VLAN, for example 100.
 11. Apply the WLAN to the site or to the desired access points.
@@ -353,15 +357,15 @@ Every access point authenticates independently. All of them must be known to Cle
 
 > Note: Enable accounting even if you don't really need it for testing. ClearPass learns client IP addresses from RADIUS accounting, and that IP-to-user mapping is what the SRX user firewall integration in section 8 consumes.
 
-### Confirm deployment
+### Confirm deployment - Step 6.3
 
 There is a delay of several minutes before the APs will receive the new config from the Mist cloud. Confirm in the Mist dashboard that they show as connected and that the new SSID is broadcast. It will also be visible from a client device.
 
-## HPE Networking EX wired configuration
+## HPE Networking EX wired configuration - Step 7
 
 > Note: Enabling 802.1X on a port will disconnect anything not set up to authenticate. On a switch carrying live traffic this can remove your own access or disable necessary services. Identify your target port before configuring anything, and never apply 802.1X to uplinks, aggregated interfaces, or management ports.
 
-### Identify a safe test port
+### Identify a safe test port - Step 7.1
 
 Before touching configuration, establish what is connected where.
 
@@ -374,11 +378,11 @@ show configuration interfaces
 
 A good test port has no link, no LLDP neighbor, and no entries in the MAC table.
 
-### Resolve RADIUS source addressing first
+### Resolve RADIUS source addressing first - Step 7.2
 
 Be aware of the egress interface used to source RADIUS. Thoroughly check routing instances and default route to assure the IP you think will be used is in fact the interface that will be used. If the switch has only one possible interface this simplifies things.
 
-### Configure RADIUS and 802.1X
+### Configure RADIUS and 802.1X - Step 7.3
 
 Adapt the following as needed:
 
@@ -411,7 +415,7 @@ commit confirmed 5
 
 Assuming you are still connected, do another "commit."
 
-### Verify
+### Verify - Step 7.4
 
 ```plaintext
 show dot1x interface ge-0/0/3.0 detail
@@ -420,34 +424,35 @@ show network-access aaa statistics radius
 
 Then plug in the test client and watch ClearPass Access Tracker. Check section 9 for details.
 
-## HPE Networking SRX user firewall integration
+## HPE Networking SRX user firewall integration - Step 8
 
-### What this integration does
+### What this integration does - Step 8.1
 
 The SRX integrated user firewall matches source-identity in security policies, so rules can be written against users and roles rather than IP addresses. To do that the SRX needs a feed of IP-to-user-to-role mappings. ClearPass supplies that feed by pushing authentication data to the SRX over its RESTful web API.
 
 The direction matters: ClearPass initiates the connection outbound to the SRX. The SRX does not poll ClearPass.
 
-### SRX side outline
+### SRX side outline - Step 8.2
 
 On the SRX you will need a web API user for ClearPass to authenticate as, the web API service enabled and reachable from the ClearPass address, and a user identification authentication source configured to accept the ClearPass feed. Confirm exact syntax against your Junos version.
 
 Ensure host-inbound traffic permits the ClearPass management address to reach the web API port on whichever interface it arrives.
 
-### ClearPass side outline
+### ClearPass side outline - Step 8.3
+
 1. Go to Administration > External Servers > Endpoint Context Servers.
 2. Add a server of the appropriate HPE Networking type, pointing at the SRX address.
 3. Supply the web API credentials created on the SRX.
 4. Create an enforcement profile that posts session data to that context server.
 5. Add that profile to your enforcement policy so it fires on successful authentication.
 
-### Policy
+### Policy  - Step 8.4
 
 Once the SRX is receiving mappings, security policies can match source-identity. Verify the SRX has learned entries before writing rules that depend on them, otherwise a policy that looks correct will simply never match.
 
-## Client configuration and testing
+## Client configuration and testing - Step 9
 
-### Windows client, wireless
+### Windows client, wireless - Step 9.1
 
 1. Confirm the root CA is installed per section 4.1.
 2. Open Settings > Network & Internet > Wi-Fi, and select the new SSID. If Windows prompts for credentials directly, you can enter them, but configuring the profile explicitly is more reliable and lets you set server validation.
@@ -462,7 +467,7 @@ Once the SRX is receiving mappings, security policies can match source-identity.
 11. Click Configure and untick "Automatically use my Windows logon name and password" so you can enter the ClearPass local user credentials.
 12. OK back out, then connect and supply the username and password from step 5.1.
 
-### macOS client, wireless
+### macOS client, wireless - Step 9.2
 
 1. Confirm the root CA is installed and trusted per section 4.2.
 2. Click the Wi-Fi menu and select the SSID.
@@ -472,7 +477,7 @@ Once the SRX is receiving mappings, security policies can match source-identity.
 
 For managed fleets, distribute a configuration profile containing the root CA and the network payload rather than relying on users to inspect certificates correctly.
 
-### Windows client, wired
+### Windows client, wired - Step 93
 
 1. Open services.msc.
 2. Find Wired AutoConfig. Set Startup type to Automatic and Start the service.
@@ -482,7 +487,7 @@ For managed fleets, distribute a configuration profile containing the root CA an
 
 > Note: I ran into a confusing issue with Windows and wired auth. For wired auth to work the "Wired AutoConfig" service must be running or there is no Authentication tab at all, and the adapter will never attempt 802.1X. On my PC it wasn't running and It took a fair bit of Googling to figure out the issue, YMMV.
 
-### Expected outcomes
+### Expected outcomes - Step 9.4
 
 Watch results in ClearPass under Monitoring > Live Monitoring > Access Tracker.
 
@@ -507,20 +512,20 @@ clearpass    RADIUS  jsmith     802.1X Wireless      ACCEPT
 
 Open the entry and check the tabs. Confirm the correct service matched, the expected role was assigned, and the enforcement profile applied was [Allow Access Profile].
 
-### Verify VLAN assignment separately
+### Verify VLAN assignment separately - Step 9.5
 
 > **GOTCHA**: An ACCEPT proves authentication and authorisation succeeded. It does not prove the client landed in the intended VLAN. Check the client IP address on the device itself and confirm it sits in the expected subnet.
 
-## Troubleshooting
+## Troubleshooting - Step 10
 
-### Diagnostic order
+### Diagnostic order - Step 10.1
 
 1. Access Tracker. Is the request there at all?
 2. If absent, Event Viewer. Look for RADIUS / ERROR / Authentication / Unknown, which means the source IP is not a registered network device.
 3. If present but rejected, open the entry and read the Alerts tab.
 4. If nothing is logged anywhere, check the RADIUS service is genuinely processing, per 3.4.
 
-### Common failures
+### Common failures - Step 10.2
 
 Table: Diagnostic Table
 
@@ -535,7 +540,7 @@ Table: Diagnostic Table
 | Wireless works, wired does nothing on Windows | Wired AutoConfig service not running | See section 9.3 |
 | All clients on one AP fail, others fine | That access point changed IP address | Reserve AP addresses in DHCP, section 5.2 |
 
-### Two behaviors that mislead
+### Two behaviors that mislead - Step 10.3
 
 **Silence is not failure.**
 
