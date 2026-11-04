@@ -2,7 +2,17 @@
 
 **Daniel McNulty - 2026-11-02**
 
-Aruba ClearPass Policy Manager with HPE Networking Mist Wi-Fi, EX Switching, and SRX: Step-by-step build guide, manual GUI and CLI procedures
+## Introduction 
+
+This guide provides a step-by-step walkthrough for deploying and configuring Aruba ClearPass Policy Manager in an HPE Networking environment integrating Mist Wi-Fi, EX Switching, and SRX firewalls. It covers configuration and CLI procedures, providing practical instructions for building and validating the complete solution. The following table summarizes the hardware and software specifications of the test environment.
+
+Table: Hardware and Software specifications
+
+| Hardware/Software | Model/Version |
+|---|---|
+| ClearPass | 6.14.0.371380 |
+| HPE Networking EX | EX2300-C-12P Virtual Chassis, Junos 24.2R2-S5.3 |
+| Mist | AP43 Access Points |
 
 ## Scope and prerequisites - Step 1
 
