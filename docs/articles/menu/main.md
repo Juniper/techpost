@@ -21,7 +21,7 @@ hide:
 
   <div class="card-grid">
 
-    <a class="card" href="../../802.1x-integration-guide/article" data-date="2026-11-02" data-category="Security">
+        <a class="card" href="../../802.1x-integration-guide/article" data-date="2026-11-02" data-category="Security">
       <img src="../../802.1x-integration-guide/images/logo.png" class="card-icon" alt="802.1X Integration Guide">
       <div class="card-text">
         <div class="card-category">Security</div>
