@@ -21,6 +21,17 @@ hide:
 
   <div class="card-grid">
 
+    <a class="card" href="../../802.1x-integration-guide/article" data-date="2026-11-02" data-category="Security">
+      <img src="../../802.1x-integration-guide/images/logo.png" class="card-icon" alt="802.1X Integration Guide">
+      <div class="card-text">
+        <div class="card-category">Security</div>
+        <div class="card-title">802.1X Integration Guide</div>
+        <div class="card-description">This guide provides a step-by-step walkthrough for deploying and configuring Aruba ClearPass Policy Manager in an HPE Networking environment integrating Mist Wi-Fi, EX Switching, and SRX firewalls. It covers configuration and CLI procedures, providing practical instructions for building and validating the complete solution. The following table summarizes the hardware and software specifications of the test environment.</div>
+        <div class="card-subtitle">By Daniel McNulty</div>
+      </div>
+    </a>
+
+
     <a class="card" href="../../as-path-manipulation-in-junos-os---introducing-as-path-replace/article" data-date="2026-11-02" data-category="Routing">
       <img src="../../as-path-manipulation-in-junos-os---introducing-as-path-replace/images/logo.png" class="card-icon" alt="AS Path Manipulation in Junos OS - Introducing as-path-replace">
       <div class="card-text">

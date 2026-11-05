@@ -248,6 +248,7 @@ nav:
     - From SRX Chassis Cluster to MNHA Configurations side by side: articles/from-srx-chassis-cluster-to-mnha-configurations/article.md
     - HPE SRX-SSE Link: articles/hpe-srx-sse-link/article.md
     - Secure Active/Active Multivendor Fabrics with MNHA: articles/secure-activeactive-multivendor-fabrics-with-mnha/article.md
+    - 802.1X Integration Guide: articles/802.1x-integration-guide/article.md
   - Power Topics:
     - Automate Juniper Apstra with PowerShell: articles/automate-juniper-apstra-with-powershell/article.md
     - Power Observability: articles/juniper-routers-switches-power-observability/article.md
