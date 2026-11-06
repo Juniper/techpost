@@ -390,18 +390,21 @@ Sufficient buffer provides the headroom required during congestion, but buffer a
 
 Final test sets were executed over 50, 100, 200, 300, 400, and 500 km distances, and two profiles were tested at each distance. 2.5 x RTT buffer size and ECN thresholds marking Kmin 0.75 x RTT and Kmax 1.5 x RTT were used for each profile across all distances.
 
-- Profile-1
-  - 2:1 oversubscription.
-  - .5 BDP load from 4 clients.
-  - DCI link bandwidth, 100Gbps.
-  - Recorded peak queue occupancy was 0.91 to 1.11 x RTT.
-  - Recorded DCI link utilization was ~99.99 Gbps.
-- Profile-2
-  - 4:1 oversubscription.
-  - 1BDP load from 4 clients.
-  - DCI link bandwidth, 100Gbps.
-  - Recorded peak queue occupancy was 1.54 to 2.11RTT.
-  - Recorded DCI link utilization was ~99.5 Gbps.
+**Profile-1**
+
+- 2:1 oversubscription.
+- .5 BDP load from 4 clients.
+- DCI link bandwidth, 100Gbps.
+- Recorded peak queue occupancy was 0.91 to 1.11 x RTT.
+- Recorded DCI link utilization was ~99.99 Gbps.
+
+**Profile-2**
+
+- 4:1 oversubscription.
+- 1BDP load from 4 clients.
+- DCI link bandwidth, 100Gbps.
+- Recorded peak queue occupancy was 1.54 to 2.11RTT.
+- Recorded DCI link utilization was ~99.5 Gbps.
 
 Despite configuring appropriate buffer and ECN marking thresholds, excessive oversubscription can negatively impact lossless behavior as peak queue occupancy scales linearly with the offered tx window. Moreover, DC-facing and core-facing physical connections should be evenly distributed across line cards and forwarding paths.
 
