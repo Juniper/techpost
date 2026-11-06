@@ -137,6 +137,7 @@ nav:
       - L3VPN over SRv6 with JCNR: articles/l3vpn-over-srv6-with-jcnr/article.md
       - SRv6 Explicit LSPs: articles/srv6-static-lsps/article.md
       - Stitching Two Worlds IPv4 L3VPN InterAS (Option C) over an IPv6 Only SRv6 uSID Core: articles/inter-as-option-c-with-srv6-usid/article.md
+      - Dynamic SRv6 TE Tunnels in a Multi-Domain Network: articles/dynamic-srv6-te-tunnels-in-a-multi-domain-network/article.md
     - SR MPLS:
       - Under construction: build.md
     - EVPN:

@@ -21,6 +21,17 @@ hide:
 
   <div class="card-grid">
 
+        <a class="card" href="../../dynamic-srv6-te-tunnels-in-a-multi-domain-network/article" data-date="2026-11-02" data-category="Routing">
+      <img src="../../dynamic-srv6-te-tunnels-in-a-multi-domain-network/images/logo.png" class="card-icon" alt="Dynamic SRv6 TE Tunnels in a Multi-Domain Network">
+      <div class="card-text">
+        <div class="card-category">Routing</div>
+        <div class="card-title">Dynamic SRv6 TE Tunnels in a Multi-Domain Network</div>
+        <div class="card-description">This is the second post in our series on SRv6 TE tunnels. In the first post, we explored Static TE tunnels, examining their design principles and configuration workflows. We demonstrated how manually defined segment lists can be used to steer traffic along predetermined paths across the network.</div>
+        <div class="card-subtitle">By Ricardo Dominguez</div>
+      </div>
+    </a>
+
+
         <a class="card" href="../../802.1x-integration-guide/article" data-date="2026-11-02" data-category="Security">
       <img src="../../802.1x-integration-guide/images/logo.png" class="card-icon" alt="802.1X Integration Guide">
       <div class="card-text">
