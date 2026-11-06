@@ -35,7 +35,7 @@ The congestion-feedback mechanism provides end-to-end close loopback control bet
 
 ![Anatomy of Lossless RDMA](images/figure4.png)
 
-The feedback mechanism shown in above figure reflects the RoCEv2/ Data Center Quantized Congestion Notification (DCQCN) implementation used in our validation, where the receiver generates a Congestion Notification Packet (CNP) after receiving an ECN-marked packet. CNP is specific to RoCEv2/DCQCN. Newer transports such as UET, MRC and MetaRoCE use their own congestion-feedback mechanisms, while still relying on ECN for congestion signaling.
+The feedback mechanism shown in Figure 2 reflects the RoCEv2/ Data Center Quantized Congestion Notification (DCQCN) implementation used in our validation, where the receiver generates a Congestion Notification Packet (CNP) after receiving an ECN-marked packet. CNP is specific to RoCEv2/DCQCN. Newer transports such as UET, MRC and MetaRoCE use their own congestion-feedback mechanisms, while still relying on ECN for congestion signaling.
 
 ## Path RTT and Buffer Depth
 
@@ -62,7 +62,7 @@ The main design objectives are listed below:
 
 - Optimal DCI link utilization (near to full)
 - Zero packet loss
-- Maximum time for packets in the router buffer during congestion state should be ~1 RTT.
+- Peak queue occupancy should remain below the configured buffer depth (lower is better, since queue depth adds latency)
 
 ## Design and Implementation
 
@@ -128,7 +128,7 @@ Our automation testing framework tested 4:1 oversubscription with the buffer set
 
 - 100% DCI link utilization
 - Zero tail drops
-- Maximum queue occupancy ~1 RTT
+- Maximum queue occupancy 0.91-1.11 RTT at 2:1, 1.54-2.11 RTT at 4:1
 
 Hence in Junos, ECN thresholds (Kmin, Kmax) are required to be configured as percentage of the configured buffer. For the tested 2.5 x RTT buffer:
 
@@ -157,6 +157,18 @@ class-of-service {
 }
 ```
 
+Respective "Forwarding Class" is also required to support lossless operation.
+
+```
+class-of-service {
+    forwarding-classes {
+        class rdma-data {
+            no-loss;
+        }
+    }
+}
+```
+
 In order to achieve desired results, we had to do extensive NIC fine tuning on the host-side and adjustment of various transmission parameters which are described in detail in a later section, i.e. "Host-Side Considerations."
 
 ## Host-Side Considerations
@@ -179,14 +191,34 @@ The configured transmit window is the product of the three:
 Configured TX Window = q x t x s
 ```
 
-For the profile used in the final testing:
+For final testing we have selected 2 profiles e.g for 500km tested profiles are appended below - Oversubscription Profiles
+
+- Profile-1 (2:1 oversubscription)
 
 ```
--q 16       16 queue pairs
+-q 8        8 queue pairs
 -s 65536    each message is 64 KB
 -t 64       queue depth of 64 messages per QP
-16 x 64 x 65,536 = 67.1 MB outstanding per client
+8 x 64 x 65,536 = 33.6 MB outstanding per client
 ```
+
+- Profile-2 (4:1 oversubscription)
+
+```
+-q 8        8 queue pairs
+-s 65536    each message is 64 KB
+-t 124      queue depth of 64 messages per QP
+8 x 124 x 65,536 = 65 MB outstanding per client
+```
+
+| Distance km | Measured RTT us | 1 BDP Load MB | 2:1 (Oversubscription) -t | 4:1 (Oversubscription) -t |
+|:--:|:--:|:--:|:--:|:--:|
+| 50 | 632 | 7.9 | 8 | 16 |
+| 100 | 1131 | 14.1 | 14 | 27 |
+| 200 | 2138 | 26.7 | 27 | 51 |
+| 300 | 3158 | 39.5 | 40 | 76 |
+| 400 | 4145 | 51.8 | 52 | 100 |
+| 500 | 5179 | 64.7 | 64 | 124 |
 
 ![Buffer Sizing Considerations](images/figure7.png)
 
@@ -236,7 +268,7 @@ We built the testbed with two HPE Networking PTX10008 routers, each equipped wit
 
 ![Testbed](images/figure8.png)
 
-Our testbed has 4:1 oversubscription where four clients aggregated over a single 100G DCI egress link.  We created link distances from 50 km to 500 km using fiber loops. In addition to the physical fiber length, latency introduced by optics, FEC/framing, OEO regeneration, and EDFA also contributes to the overall path latency. Hence, the buffer size and Kmin/Kmax thresholds should be adjusted based on the measured path RTT rather than a calculated RTT. The path RTT values shown below are specific to our testbed.
+Our testbed has 4:1 oversubscription where four clients aggregated over a single 100G DCI egress link.  We created link distances from 50 km to 500 km using fiber loops. Hence, the buffer size and Kmin/Kmax thresholds should be adjusted based on the measured path RTT rather than a calculated RTT. The path RTT values shown below are specific to our testbed.
 
 | Distance | Measured RTT |
 |:--|:--|
@@ -276,7 +308,7 @@ Grid Test covers 50, 100, 200, 300, 400 and 500 km, with 2- and 4-client offered
 
 We varied the buffer size and Kmin at 200 km. Our intent was to determine the minimum buffer size that could prevent tail drops while maintaining the intended DCI link utilization. We conducted 70 Buffer Sweep runs at 200 km, with 4 clients each sending 1 BDP, sweeping the buffer space from 1.25 RTT to 2.75 RTT and Kmin from 0.25 RTT to 0.50 RTT while keeping Kmax at 1.0 RTT for all runs; each setting was tested twice. In the Buffer Sweep test, a buffer size of 2.5 x RTT and 0.5 x RTT Kmin was sufficient to prevent tail drops; however, DCI link utilization remained at ~96--98 Gbps. It helped us to conclude that by increasing Kmin, we could improve DCI link utilization while keeping the 2.5 x RTT buffer.
 
-![Buffer and Kmin Sweep at 200 km](images/figure9.png)
+![Figure 7: Buffer and Kmin Sweep at 200 km](images/figure9.png)
 
 ### Soak Test
 
@@ -292,30 +324,31 @@ Each profile was tested twice and in total, 36 runs were executed.
 
 Using the final profile described in the Soak Test, the recorded results were:
 
-- 100% DCI link utilization
+- 99.99 Gbps DCI link utilization at 2:1, 99.25-99.99 Gbps at 4:1
 - Zero tail drops
-- Maximum queue occupancy ~1 RTT
+- Maximum queue occupancy 0.91-1.11 RTT at 2:1, 1.54-2.11 RTT at 4:1
 
-Based on our observations, collecting only router-side key performance indicators (KPIs), such as DCI link utilization and buffer occupancy, does not provide a complete assessment, and collecting host-side KPIs was also essential for proper evaluation. For example, one underperforming client can delay the whole collective operation, even if the DCI link utilization and peak buffer occupancy show optimal values. Our results showed that all clients received a fair share of the router's transmission resources, and the available DCI throughput was evenly distributed across all clients, indicating fair scheduling by the DCI router.
+Based on our observations, collecting only router-side key performance indicators (KPIs), such as DCI link utilization and buffer occupancy, does not provide a complete assessment, and collecting host-side KPIs was also essential for proper evaluation. For example, one underperforming client can delay the whole collective operation, even if the DCI link utilization and peak buffer occupancy show optimal values. Our results showed that all clients received a fair share of the router's transmission resources, and the available DCI throughput was evenly distributed across all clients, indicating fair scheduling on DCI router.
 
-### 8 QP vs 16 QP
+### Offered Load and Peak Buffer Occupancy
 
-During the soak testing, we compared 8 QPs and 16 QPs while adjusting the transmit depth (-t) to provide approximately 1 BDP of outstanding traffic per client.
+Both profiles, as described above in "Oversubscription Profiles", were tested for all six distances with the final buffer and ECN settings (buffer 2.5 x RTT, Kmin 0.75 x RTT, Kmax 1.5 x RTT).
 
-**500 km: 8 QP vs 16 QP Comparison:**
-
-| Metric | 8 QPs | 16 QPs |
+| Metric | Profile-1 (2:1 Oversubscription) | Profile-2 (4:1 Oversubscription) |
 |:--|:--|:--|
-| TX depth (-t) | 208 | 64 |
-| Outstanding load Per Client | ~ 1.7BDP | ~ 1.04BDP |
-| DCI Link Throughput | ~99.5 Gbps | ~99.99 Gbps |
-| Peak queue occupancy | Higher than expected | ~1 RTT |
+| Total Clients | 4x100Gbps | 4x100Gbps |
+| Outstanding window per client | 0.5 BDP | 1.0 BDP |
+| DCI Link Bandwidth | 1x100Gbps | 1x100Gbps |
+| Aggregate Tx window | 2.0 BDP | 4.0 BDP |
+| Recorded DCI link Throughput | ~99.99 Gbps | ~99.99 Gbps |
+| Recorded Peak queue Occupancy | 0.91 - 1.11 RTT | 1.54 - 2.11 RTT |
+| Recorded Tail Drops | 0 | 0 |
 
-![Soak Testing - 16 Queue Pairs](images/figure10.png)
+![Profile-1 2:1 Oversubscription](images/profile-1-2-1-oversubscription-385025.png)
 
-At 500 km, 8 QPs required a much higher transmit depth and a larger outstanding window before the DCI link could reach full utilization. With 8 QPs, a transmit depth of 208 provided approximately 1.7 BDP of outstanding traffic and reached 99.5 Gbps. We also observed that with 8 QPs the peak queue occupancy was higher than expected, whereas with 16 QPs the peak queue occupancy remained at approximately 1 RTT.
+![Profile-2 4:1 Oversubscription](images/profile-2-4-1-oversubscription-1bb648.png)
 
-With 16 QPs, a transmit depth of 64 provided approximately 1.04 BDP of outstanding traffic and reached 99.99 Gbps. Hence, 16 QPs were used for the final tested profile because they required significantly less over-posting to achieve the intended DCI link utilization.
+Peak buffer usage depends on the offered transmit (tx) window size rather than on the path distance. Increasing the tx window size for a client increases the peak queue occupancy linearly. However, for our tested profiles a buffer of 2.5 x RTT is adequate to handle the data without dropping any packets.
 
 ## Shallow Buffer Tradeoffs
 
@@ -329,7 +362,7 @@ The above-described scientific test methodology, with more than 4,800 tests, dem
 
 One way to address link congestion caused by oversubscription is to design the DCI with 1:1 subscription. This removes  DCI oversubscription as a primary source of congestion that drives the need for deep buffering.
 
-Backend fabric networks are typically built with 1:1 subscription, however maintaining the same 1:1 subscription for a scale-across network is not practical with growing GPU scale. For example, with two-sites deployment, each hosting 4,096 GPUs (400G NIC per GPU). DCI with 1:1 subscription would require 2,048 x 800G DCI links and with 64 x 800G ports per switch, each site would require 32 switches at DCI / scale-across layer.
+Backend fabric networks are typically built with 1:1 subscription, however maintaining the same 1:1 subscription for a scale-across network is not practical with growing GPU scale. For example, with two-sites deployment, each hosting 4,096 GPUs (400G NIC per GPU). DCI with 1:1 subscription would require 2,048 x 800G DCI links and with 4 x 800G ports per switch, each site would require 32 switches at DCI / scale-across layer.
 
 ## Control Workload Placement
 
@@ -351,17 +384,33 @@ The HPE Networking Express 5 based routing platform provides both deep buffering
 
 ## Conclusion
 
-Making RDMA lossless over longer distances requires adequate buffer size and proper ECN configuration on the network side as well as adequate congestion control on the host side of the NIC.
+Achivig and maintaining RDMA lossless behavior over longer distances requires adequate buffer size and proper ECN configuration on the network side as well as adequate congestion control fine tuning on the host side of the NIC. In addition, workload tx windows is also critical factor as it directly impacts DCI router peak buffer occupancy. Getting higher entropy flows from the host side is also an important factor to avoid network link congestion.
 
 Sufficient buffer provides the headroom required during congestion, but buffer alone cannot prevent tail drops. Packets need to be marked with congestion signaling well before the queue fills, and through the congestion feedback loop, sender(s) must reduce their transmission rate before the buffer is exhausted.
 
-In final tests executed over 50, 100, 200, 300, 400, and 500 km with 4:1 oversubscription, each client was configured with an outstanding window of approximately 1 BDP. With a 2.5 x RTT buffer, Kmin = 0.75 x RTT and Kmax = 1.5 x RTT, the following objectives were achieved:
+Final test sets were executed over 50, 100, 200, 300, 400, and 500 km distances, and two profiles were tested at each distance. 2.5 x RTT buffer size and ECN thresholds marking Kmin 0.75 x RTT and Kmax 1.5 x RTT were used for each profile across all distances.
 
-- 100% DCI link utilization
-- Zero tail drops
-- Peak queue occupancy of ~1 RTT
+**Profile-1**
 
-Despite configuring appropriate buffer and ECN marking thresholds, excessive oversubscription can negatively impact lossless behavior. DC-facing and core-facing physical connections should be evenly distributed across line cards and forwarding paths.
+- 2:1 oversubscription.
+- .5 BDP load from 4 clients.
+- DCI link bandwidth, 100Gbps.
+- Recorded peak queue occupancy was 0.91 to 1.11 x RTT.
+- Recorded DCI link utilization was ~99.99 Gbps.
+
+**Profile-2**
+
+- 4:1 oversubscription.
+- 1BDP load from 4 clients.
+- DCI link bandwidth, 100Gbps.
+- Recorded peak queue occupancy was 1.54 to 2.11RTT.
+- Recorded DCI link utilization was ~99.5 Gbps.
+
+Despite configuring appropriate buffer and ECN marking thresholds, excessive oversubscription can negatively impact lossless behavior as peak queue occupancy scales linearly with the offered tx window. Moreover, DC-facing and core-facing physical connections should be evenly distributed across line cards and forwarding paths.
+
+It is also important to highlight that this blog provides insight into the design considerations for lossless RDMA operation over long distances. However, for any production environment, these specifications should be tested and fine-tuned against the design objectives and environmental variables for that particular deployment.
+
+In this testing, congestion marking was carried in the ECN bits of the IPv4 header. Future work will explore ECN marking in the MPLS header and Multipath Reliable Connection (MRC).
 
 ## Acknowledgments
 

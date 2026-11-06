@@ -105,12 +105,12 @@ hide:
       </div>
     </a>
 
-    <a class="card" href="../../long-distance-lossless-scale-across/article" data-date="2026-02-09" data-category="Scale and Convergence Tests">
+            <a class="card" href="../../long-distance-lossless-scale-across/article" data-date="2026-02-09" data-category="Scale and Convergence Tests">
       <img src="../../long-distance-lossless-scale-across/images/logo.png" class="card-icon" alt="Long-Distance Lossless Scale-Across">
       <div class="card-text">
         <div class="card-category">Scale and Convergence Tests</div>
         <div class="card-title">Long-Distance Lossless Scale-Across</div>
-        <div class="card-description">Artificial Intelligence (AI) and Machine Learning (ML) training clusters can easily outgrow a single data hall. Power and cooling limits decide how many AI accelerators (XPUs) can be hosted in one building, and once that limit is reached, then the clusters need to be deployed across data halls.</div>
+        <div class="card-description">Artificial Intelligence (AI) and Machine Learning (ML) training clusters can easily outgrow a single data hall. Power and cooling limits decide how many AI accelerators (XPUs) can be hosted in one building, and once that limit is reached, then the clusters need to be deployed across data halls. The network that provides connectivity among AI accelerator (XPU) backend fabrics is now commonly called Scale-Across [1,10,11].</div>
         <div class="card-subtitle">By Kashif Nawaz</div>
       </div>
     </a>
