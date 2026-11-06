@@ -21,7 +21,7 @@ hide:
 
   <div class="card-grid">
 
-    <a class="card" href="../../dynamic-srv6-te-tunnels-in-a-multi-domain-network/article" data-date="2026-11-02" data-category="Routing">
+        <a class="card" href="../../dynamic-srv6-te-tunnels-in-a-multi-domain-network/article" data-date="2026-11-02" data-category="Routing">
       <img src="../../dynamic-srv6-te-tunnels-in-a-multi-domain-network/images/logo.png" class="card-icon" alt="Dynamic SRv6 TE Tunnels in a Multi-Domain Network">
       <div class="card-text">
         <div class="card-category">Routing</div>
