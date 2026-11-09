@@ -1,3 +1,21 @@
+function animateCount(el, target) {
+    // rAF is paused in background tabs; show the final value right away there.
+    if (document.hidden || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+        el.textContent = String(target);
+        return;
+    }
+    var duration = 900;
+    var start = null;
+    function step(ts) {
+        if (start === null) start = ts;
+        var t = Math.min(1, (ts - start) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = String(Math.round(target * eased));
+        if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
 function initPageEnhancements() {
     // Latest articles on home page
     var latestGrid = document.getElementById('latest-articles');
@@ -8,6 +26,21 @@ function initPageEnhancements() {
             .then(function(html) {
                 var doc = new DOMParser().parseFromString(html, 'text/html');
                 var cards = Array.prototype.slice.call(doc.querySelectorAll('.card-grid .card'));
+
+                // Counters above "Latest Publications": total cards and those dated in the current year
+                var totalEl = document.getElementById('stat-total');
+                var yearEl = document.getElementById('stat-year');
+                if (totalEl && yearEl) {
+                    var year = String(new Date().getFullYear());
+                    var thisYear = cards.filter(function(c) {
+                        return (c.getAttribute('data-date') || '').indexOf(year) === 0;
+                    }).length;
+                    var yearLabel = document.getElementById('stat-year-label');
+                    if (yearLabel) yearLabel.textContent = year;
+                    animateCount(totalEl, cards.length);
+                    animateCount(yearEl, thisYear);
+                }
+
                 // Most recent first, using each card's data-date (falls back to DOM order if absent)
                 cards.sort(function(a, b) {
                     return (b.getAttribute('data-date') || '').localeCompare(a.getAttribute('data-date') || '');

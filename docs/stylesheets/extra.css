@@ -800,6 +800,64 @@ body:has(.banner-section) .md-header__topic:first-child {
     margin-bottom: 4rem;
 }
 
+/* Article counters (home page), centered above "Latest Publications" */
+.stats-row {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 3rem;
+    margin: 0 auto 3rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 220px;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    background: var(--hpe-bg-back);
+    border-top: 4px solid var(--hpe-green);
+}
+
+.stat-value {
+    font-family: 'HPE Graphik XXCondensed';
+    font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--hpe-midnight);
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hpe-midnight);
+    opacity: 0.75;
+    text-align: center;
+}
+
+[data-md-color-scheme="slate"] .stat-value,
+[data-md-color-scheme="slate"] .stat-label {
+    color: var(--hpe-midnight);
+}
+
+@media (max-width: 600px) {
+    .stats-row {
+        gap: 1rem;
+    }
+
+    .stat {
+        min-width: 0;
+        flex: 1 1 0;
+        padding: 1.1rem 1rem;
+    }
+}
+
 /* Matches the reference page's h2 (font-size/weight/letter-spacing/color) */
 .latest-heading {
     font-size: 2.44rem;
