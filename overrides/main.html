@@ -114,6 +114,16 @@
     };
     window.__TP_SEARCH_INDEX_URL__ = tpSiteUrl + "/search/search_index.json";
     window.__TP_SITE_URL__ = tpSiteUrl;
+
+    // Legacy deep links: PDF/EPUB used to live under /download/ on this site and
+    // now live in Juniper/techpost-downloads. GitHub Pages serves this template
+    // as the 404 page, so redirect those paths instead of showing "not found".
+    (function () {
+      var legacy = window.location.pathname.match(/^(?:\/[^/]+)?\/download\/([A-Za-z0-9._-]+\.(?:pdf|epub|png))$/);
+      if (legacy) {
+        window.location.replace("https://github.com/Juniper/techpost-downloads/raw/main/" + legacy[1]);
+      }
+    })();
   </script>
 
   {#- HPE Header/Footer Web Service (HFWS): corporate branded header & footer.
