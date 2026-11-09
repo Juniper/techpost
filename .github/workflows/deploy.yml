@@ -13,6 +13,13 @@ permissions:
   contents: write
   packages: read
 
+env:
+  # Where PDF/EPUB links point. Empty = this site's own download/ folder on gh-pages.
+  # /raw/ redirects to raw.githubusercontent.com (octet-stream => direct download,
+  # 5-min cache, no repo-size limit). jsDelivr was rejected: 1.3 GB repo > its 50 MB cap.
+  DOWNLOAD_BASE_URL: https://github.com/Juniper/techpost-downloads/raw/main
+  DOWNLOADS_REPO: Juniper/techpost-downloads
+
 # Serialize gh-pages work so concurrent runs never reject each other's push and leave a branch's portal showing stale content.
 concurrency:
   group: gh-pages-deploy
@@ -63,6 +70,10 @@ jobs:
       run:
         # Container jobs default to `sh`; the scripts below need bash (pipefail, arrays).
         shell: bash
+    env:
+      # Fine-grained PAT with contents:write on DOWNLOADS_REPO. Until it is set, the
+      # publish step below is skipped and assets only go to gh-pages as before.
+      DOWNLOADS_TOKEN: ${{ secrets.DOWNLOADS_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -79,7 +90,20 @@ jobs:
       # `${{ github.workspace }}` is the host path; inside the container the
       # workspace is mounted elsewhere, so resolve it from the runtime env.
       - name: Set download directory
-        run: echo "MAIN_PDF_DIR=$GITHUB_WORKSPACE/site/download" >> "$GITHUB_ENV"
+        run: |
+          # External mode needs both the link base and a token to push; otherwise fall
+          # back to publishing PDFs on gh-pages so links never dangle.
+          if [ -n "$DOWNLOAD_BASE_URL" ] && [ -n "$DOWNLOADS_TOKEN" ]; then
+            echo "EXTERNAL_DOWNLOADS=true" >> "$GITHUB_ENV"
+            echo "MAIN_PDF_DIR=$RUNNER_TEMP/downloads" >> "$GITHUB_ENV"
+            echo "Downloads will be published to $DOWNLOADS_REPO (not to gh-pages)"
+          else
+            echo "EXTERNAL_DOWNLOADS=false" >> "$GITHUB_ENV"
+            echo "MAIN_PDF_DIR=$GITHUB_WORKSPACE/site/download" >> "$GITHUB_ENV"
+            echo "Downloads will be published to gh-pages (DOWNLOADS_TOKEN not set)"
+          fi
+          # mtime marker: assets newer than this were generated in this run
+          touch "$RUNNER_TEMP/build-start"
 
       # ----------------------------
       # Python / MkDocs (interpreter comes from the container image)
@@ -170,7 +194,7 @@ jobs:
       # builds keep them and pdf-list.json stays complete (mkdocs build flushes ./site)
       # ----------------------------
       - name: Restore published downloads from gh-pages
-        if: github.ref == 'refs/heads/main' || (github.ref_type == 'tag' && contains(github.ref_name, 'rebuild-all'))
+        if: env.EXTERNAL_DOWNLOADS != 'true' && (github.ref == 'refs/heads/main' || (github.ref_type == 'tag' && contains(github.ref_name, 'rebuild-all')))
         run: |
           mkdir -p "$MAIN_PDF_DIR"
           if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
@@ -378,7 +402,15 @@ jobs:
             fi
           fi
 
-          if [ "$REGENERATE" != "true" ]; then
+          if [ "$REGENERATE" != "true" ] && [ "$EXTERNAL_DOWNLOADS" = "true" ]; then
+            for extension in pdf epub; do
+              if ! curl -fsIL -o /dev/null "$DOWNLOAD_BASE_URL/${BRANCH_NAME}.${extension}"; then
+                echo "${BRANCH_NAME}.${extension} not found on $DOWNLOAD_BASE_URL; regenerating."
+                REGENERATE=true
+              fi
+            done
+            [ "$REGENERATE" = "true" ] || echo "No article changes; branch PDF/EPUB already published externally."
+          elif [ "$REGENERATE" != "true" ]; then
             mkdir -p "$MAIN_PDF_DIR"
             if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
               git fetch --depth=1 origin gh-pages
@@ -462,6 +494,42 @@ jobs:
 
           cd "$GITHUB_WORKSPACE" || exit 1
           echo "Branch PDF/EPUB ready in $MAIN_PDF_DIR."
+
+      # ----------------------------
+      # Publish generated PDF/EPUB/PNG to the external downloads repo
+      # ----------------------------
+      - name: Checkout downloads repository
+        if: env.DOWNLOAD_BASE_URL != '' && env.DOWNLOADS_TOKEN != ''
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.DOWNLOADS_REPO }}
+          token: ${{ env.DOWNLOADS_TOKEN }}
+          path: downloads-repo
+          fetch-depth: 1
+
+      - name: Push download assets to downloads repository
+        if: env.DOWNLOAD_BASE_URL != '' && env.DOWNLOADS_TOKEN != ''
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          mapfile -t new_assets < <(find "$MAIN_PDF_DIR" -maxdepth 1 -type f -newer "$RUNNER_TEMP/build-start" \
+            \( -name '*.pdf' -o -name '*.epub' -o -name '*.png' \) | sort)
+          echo "Assets generated in this run: ${#new_assets[@]}"
+          if [ "${#new_assets[@]}" -eq 0 ]; then
+            echo "Nothing to publish to $DOWNLOADS_REPO."
+            exit 0
+          fi
+          cp "${new_assets[@]}" downloads-repo/
+          git -C downloads-repo config user.name "github-actions"
+          git -C downloads-repo config user.email "github-actions@github.com"
+          git -C downloads-repo add -A
+          if git -C downloads-repo diff --cached --quiet; then
+            echo "Downloads repository is already up to date."
+            exit 0
+          fi
+          git -C downloads-repo commit -m "Update downloads from techpost@${GITHUB_SHA::7} (${REF_NAME})"
+          git -C downloads-repo push origin HEAD
 
       - name: Prepare minimal branch preview
         id: branch-preview

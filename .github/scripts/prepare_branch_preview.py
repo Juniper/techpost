@@ -27,6 +27,8 @@ def main() -> None:
 
     site_dir = Path(os.environ.get("SITE_DIR", "site")).resolve()
     output_dir = Path(os.environ.get("PREVIEW_DIR", "branch-preview")).resolve()
+    # When downloads are hosted externally they are not staged into the preview.
+    external_downloads = bool(os.environ.get("DOWNLOAD_BASE_URL", "").strip())
     article_dir = site_dir / "articles" / branch
     article_page = article_dir / "article" / "index.html"
     if not article_page.is_file():
@@ -34,7 +36,7 @@ def main() -> None:
         _set_output("has_article", "false")
         return
 
-    required_downloads = (
+    required_downloads = () if external_downloads else (
         site_dir / "download" / f"{branch}.pdf",
         site_dir / "download" / f"{branch}.epub",
     )
@@ -71,8 +73,9 @@ def main() -> None:
 
     _set_output("has_article", "true")
     print(
-        f"Prepared {output_dir}: one article, its PDF/EPUB, "
-        "and shared site assets."
+        f"Prepared {output_dir}: one article, "
+        + ("external PDF/EPUB links, " if external_downloads else "its PDF/EPUB, ")
+        + "and shared site assets."
     )
 
 

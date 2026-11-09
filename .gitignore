@@ -6,3 +6,8 @@ site/
 # Python bytecode cache
 __pycache__/
 *.py[cod]
+
+# Local virtualenv and `pip install .` artifacts
+.venv/
+build/
+*.egg-info/

@@ -4,6 +4,8 @@ from urllib.parse import quote, urlsplit, urlunsplit
 import yaml
 
 BRANCH_NAME = os.environ.get("BRANCH_NAME", "main")
+# Empty keeps downloads inside the preview folder; otherwise links go to the external host.
+DOWNLOAD_BASE = os.environ.get("DOWNLOAD_BASE_URL", "").rstrip("/") or "download"
 MKDOCS_FILE = "mkdocs.yml"
 # Nav paths are relative to docs_dir and must include the .md extension so MkDocs
 # can match the source page (otherwise the nav link is broken / points nowhere).
@@ -82,8 +84,8 @@ index_md = f"""
     <p class="banner-description">In-depth technical articles written by engineers, for engineers. Explore expert perspectives on data center, AI, routing, switching, security, wireless &amp; automation.</p>
     <a href="articles/{BRANCH_NAME}/article/" class="banner-cta">Read the article</a>
     <div class="branch-downloads">
-      <a href="download/{BRANCH_NAME}.pdf">Download PDF</a>
-      <a href="download/{BRANCH_NAME}.epub">Download EPUB</a>
+      <a href="{DOWNLOAD_BASE}/{BRANCH_NAME}.pdf">Download PDF</a>
+      <a href="{DOWNLOAD_BASE}/{BRANCH_NAME}.epub">Download EPUB</a>
     </div>
   </div>
 </div>
