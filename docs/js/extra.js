@@ -27,18 +27,18 @@ function initPageEnhancements() {
                 var doc = new DOMParser().parseFromString(html, 'text/html');
                 var cards = Array.prototype.slice.call(doc.querySelectorAll('.card-grid .card'));
 
-                // Counters above "Latest Publications": total cards and those dated in the current year
+                // Counters above "Latest Publications": total cards and those dated within the last 6 months
                 var totalEl = document.getElementById('stat-total');
-                var yearEl = document.getElementById('stat-year');
-                if (totalEl && yearEl) {
-                    var year = String(new Date().getFullYear());
-                    var thisYear = cards.filter(function(c) {
-                        return (c.getAttribute('data-date') || '').indexOf(year) === 0;
+                var recentEl = document.getElementById('stat-recent');
+                if (totalEl && recentEl) {
+                    var since = new Date();
+                    since.setMonth(since.getMonth() - 6);
+                    var sinceIso = since.toISOString().slice(0, 10);
+                    var recent = cards.filter(function(c) {
+                        return (c.getAttribute('data-date') || '') >= sinceIso;
                     }).length;
-                    var yearLabel = document.getElementById('stat-year-label');
-                    if (yearLabel) yearLabel.textContent = year;
                     animateCount(totalEl, cards.length);
-                    animateCount(yearEl, thisYear);
+                    animateCount(recentEl, recent);
                 }
 
                 // Most recent first, using each card's data-date (falls back to DOM order if absent)

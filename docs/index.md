@@ -16,11 +16,11 @@ hide:
   <div class="stats-row" aria-live="polite">
     <div class="stat">
       <span class="stat-value" id="stat-total">–</span>
-      <span class="stat-label">Published articles (so far)</span>
+      <span class="stat-label">Published articles</span>
     </div>
     <div class="stat">
-      <span class="stat-value" id="stat-year">–</span>
-      <span class="stat-label"><span id="stat-year-label">This year</span> articles (so far)</span>
+      <span class="stat-value" id="stat-recent">–</span>
+      <span class="stat-label">New arrivals <span class="stat-sublabel">(last 6 months)</span></span>
     </div>
   </div>
   <h2 class="latest-heading">Latest Publications</h2>
