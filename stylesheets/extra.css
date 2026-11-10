@@ -814,7 +814,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     flex-direction: column;
     align-items: center;
     min-width: 220px;
-    padding: 1.5rem 2rem;
+    padding: 1.125rem 2rem;
     border-radius: 12px;
     background: var(--hpe-bg-back);
     border-top: 4px solid var(--hpe-green);
@@ -822,7 +822,7 @@ body:has(.banner-section) .md-header__topic:first-child {
 
 .stat-value {
     font-family: 'HPE Graphik XXCondensed';
-    font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+    font-size: clamp(1.95rem, 3.4vw, 2.7rem);
     font-weight: 700;
     line-height: 1;
     letter-spacing: 0.02em;
@@ -831,7 +831,7 @@ body:has(.banner-section) .md-header__topic:first-child {
 }
 
 .stat-label {
-    margin-top: 0.6rem;
+    margin-top: 0.45rem;
     font-size: 0.8rem;
     font-weight: 500;
     letter-spacing: 0.08em;
@@ -863,7 +863,7 @@ body:has(.banner-section) .md-header__topic:first-child {
     .stat {
         min-width: 0;
         flex: 1 1 0;
-        padding: 1.1rem 1rem;
+        padding: 0.825rem 1rem;
     }
 }
 
