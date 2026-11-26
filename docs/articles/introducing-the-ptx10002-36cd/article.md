@@ -264,17 +264,17 @@ Table: Port Count
 | 25GE | [0-35] | 36 (4x35G BO) | 144 |
 | 10GE | [0-35] | 36x (4x10G BO) | 144 |
 
-### Target Use Cases
+## Target Use Cases
 The PTX10002-36CD targets three primary roles: Core, Peering and DCI. It also fits data center edge, metro aggregation and AI data center networks.
 
-#### Core
+### Core
 Core routing forms the high-speed backbone that carries massive traffic volumes between data centers, regional networks and service provider PoPs. With 36x 400GbE ports in 2RU, the PTX10002-36CD gives operators dense 400G capacity at a low cost per bit and low watts per Gbps. Its deep buffers and large FIB scale, together with MPLS, SR-MPLS, SRv6 and RSVP-TE, enable scalable traffic engineering across large backbones. Built-in MACsec secures links, and ZR/ZR+ optics extend reach without external transport gear. Customers can move from 400GbE to 800GbE without hardware or software updates.
-#### Peering
+### Peering
 Peering lets independent networks interconnect directly, bypassing transit providers to cut latency and transit cost. The PTX10002-36CD suits peering with high RIB and FIB scale (RIB 40M-60M, FIB 4M+ on the Express 5 platform family), enough for full Internet tables, and support for thousands of BGP peers toward transit providers, CDNs and Internet exchanges. A non-blocking architecture, efficient load balancing and fine-grained policy and filter scale add the flexibility large peering environments need. [Confirm 36CD-specific scale numbers from datasheet]
-#### DCI
+### DCI
 Data Center Interconnect carries traffic between geographically distributed data centers for workload mobility, data replication, disaster recovery and large AI workloads. The PTX10002-36CD offers secure 400G interfaces and 14.4 Tbps of capacity to move east-west traffic efficiently. ZR/ZR+ optics enable long-haul connectivity between sites and reduce dependence on external optical transport systems. Deep buffers, wide ECMP, and RoCEv2, PFC and ECN support help latency-sensitive and AI-driven workloads, while line-rate MACsec protects inter-data-center links. EVPN and VXLAN round out the DCI toolset.
 
-#### Silicon, Software and Security
+### Silicon, Software and Security
 The PTX10002-36CD is powered by a single Express 5 Packet Forwarding Engine. Express 5 is an ASIC family and the first in the industry with a chiplet-based design. For background, see the Express 5 overview and the PTX10002-36QDD introduction.
 Platform capabilities, shared with the PTX10002 family unless the datasheet says otherwise:
 - Line-rate MACsec, implemented in the BXM ASIC and clock-gated until configured
@@ -289,7 +289,7 @@ Platform capabilities, shared with the PTX10002 family unless the datasheet says
 
 The platform runs Junos OS Evolved and offers flexible licensing so costs can follow network growth. [Confirm software release and feature list from datasheet]
 
-#### Key Benefits
+### Key Benefits
 - 14.4 Tbps in 2RU
 - Dense 400GbE with ZR/ZR+ and a seamless path to 800GbE
 - Express 5 silicon for high performance and low power per bit
