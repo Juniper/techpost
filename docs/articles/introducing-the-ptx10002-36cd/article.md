@@ -17,6 +17,8 @@ With the industry-first 800G platform PTX10002-36QDD, we set a new benchmark for
 
 ![PTX10002-36CD Front View](images/ptx10002-36cd-front-view-b98535.jpg)
 
+Figure 1: PTX10002-36CD
+
 The Express 5 "BXM" ASIC forwards up to 4.96 billion packets per second, double the performance of Express 4, and consumes as little as 0.05 W per Gbps. The platform supports ZR/ZR+ coherent optics on the top row 18 ports and offers a migration path from 400GbE to 800GbE without hardware or software updates.
 
 ## Router Description
@@ -43,6 +45,7 @@ Table: PTX10002-36CD Specifications
 
 The top 18 ports support 400G ZR and 800G ZR optics. 
 ![ZR Optics Support](images/zr-optics-support-61ab5b.png)
+Figure 2: PTX10002-36CD ZR/ZR+ Optics Support
 
 The qualified optics are JCO800-QDD-ZR-M-HP, QDD-400G-ZR, QDD-400G-ZR-M, QDD-400G-ZR-M-HP, JCO400-QDD-ZR, JCO400-QDD-ZR-M and JCO400-QDD-ZR-M-HP
 
@@ -97,7 +100,7 @@ Hardware inventory:
 #### Block Diagram
 ![Block Diagram](images/block-diagram-da5046.png)
 
-Figure 2: PTX10002-36CD block diagram.
+Figure 3: PTX10002-36CD block diagram.
 
 The diagram in Figure 2 illustrates the different components in a PTX10002-36CD.
 
@@ -115,7 +118,7 @@ The PTX10002-36CD includes a Trusted Platform Module (TPM) 2.0 chip, which provi
 
 ![Management Ports](images/management-ports-c2de3a.png)
 
-Figure 3: Management Ports of PTX10002-36CD.
+Figure 4: Management Ports of PTX10002-36CD.
 
 The Juniper PTX10002-36CD provides several management and timing interfaces on the front panel to support system administration and network synchronization:
 
@@ -135,39 +138,39 @@ The front panel also includes status LEDs for Power, SSD0, SSD1, and Offline sta
 #### Fans and Power Supply Units
 The rear of the PTX10002-36CD is identical to the PTX10002-60MR: three hot-swappable fan trays and two hot-swappable power supply modules.
 ![Backside_view](images/backside-view-e24746.png)
-Figure 4: Backside view of PTX10002-36CD
+Figure 5: Backside view of PTX10002-36CD
 
 The chassis has three fan trays using high-pressure 80 mm x 80 mm x 86 mm fans, with AFO (airflow out) cooling. Each tray draws 90W to 146W depending on thermal conditions and is rated for -10C to 70C. Fans run at about 16,000 RPM (+/-10%) at the inlet and 14,000 RPM (+/-10%) at the outlet. Each tray holds dual counter-rotating fans, and the chassis tolerates a single rotor failure.
 
 ![Fan Tray](images/fan-tray-1a1c66.png)
 
-Figure 5: PTX10002-36CD Fan Tray
+Figure 6: PTX10002-36CD Fan Tray
 
 The chassis has two PSU slots. Available 2,200W modules are AC (240V), DC and HVDC/HVAC options with a single feed. The chassis supports 1+1 PSU or feed redundancy.
 ![AC Power Unit](images/ac-power-unit-9f1142.png)
 
-Figure 6: PTX10002-36CD AC Power Unit
+Figure 7: PTX10002-36CD AC Power Unit
 
 #### Interfaces
 The PTX10002-36CD (like all members of the PTX10k Series) is an Ethernet-only router. 
 ![Port to PFE Mapping](images/port-to-pfe-mapping-414f94.png)
-Figure 7: Port to PFE mapping
+Figure 8: Port to PFE mapping
 
-Half of the ports will be mapped (directly or indirectly) to one Datapath/PFE. The Figure 7 above is displaying this mapping.
+Half of the ports will be mapped (directly or indirectly) to one Datapath/PFE. The Figure 8 above is displaying this mapping.
 
 #### Port Naming Logic
 The system is made of a single Flexible PIC Card (FPC) and a single Physical Interface Card (PIC), it simplifies the port naming significantly: all interfaces are named et-0/0/[0-35]:[0-7]
 
 #### Different Port Options
 ![All 800G Ports](images/all-800g-ports-c18d54.png)
-Figure 8: All 800G options
+Figure 9: All 800G options
 
 ![All 400G Ports](images/all-400g-ports-96b538.png)
-Figure 9: All 400G options
+Figure 10: All 400G options
 
 ![Mix of 800G and 400G](images/mix-of-800g-and-400g-d38c27.png)
 
-Figure 10: Mix of 800G and 400G options.
+Figure 11: Mix of 800G and 400G options.
 
 As a quick on-box reference, the following CLI command shows transceivers plugged into the port, plus the port speed capabilities (note: it shows capabilities and not necessarily the software support. Please use the port checker and hardware compatibility tools on apps.juniper.net to verify the support).
 
