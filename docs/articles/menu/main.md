@@ -21,6 +21,17 @@ hide:
 
   <div class="card-grid">
 
+    <a class="card" href="../../introducing-the-ptx10002-36cd/article" data-date="2026-11-24" data-category="Platforms / Line Cards Deepdive">
+      <img src="../../introducing-the-ptx10002-36cd/images/logo.png" class="card-icon" alt="Introducing the PTX10002-36CD">
+      <div class="card-text">
+        <div class="card-category">Platforms / Line Cards Deepdive</div>
+        <div class="card-title">Introducing the PTX10002-36CD</div>
+        <div class="card-description">The PTX10002-36CD is a 2RU fixed-configuration router built on the Express 5 ASIC, delivering 14.4 Tbps of forwarding capacity with 36x 400GbE ports or 18x 800GbE. It is designed for space- and power-constrained Core, Peering and Data Center Interconnect (DCI) deployments.</div>
+        <div class="card-subtitle">By Santo K</div>
+      </div>
+    </a>
+
+
         <a class="card" href="../../dynamic-srv6-te-tunnels-in-a-multi-domain-network/article" data-date="2026-11-02" data-category="Routing">
       <img src="../../dynamic-srv6-te-tunnels-in-a-multi-domain-network/images/logo.png" class="card-icon" alt="Dynamic SRv6 TE Tunnels in a Multi-Domain Network">
       <div class="card-text">
