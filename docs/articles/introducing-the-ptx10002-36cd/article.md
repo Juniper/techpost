@@ -31,7 +31,7 @@ Table: PTX10002-36CD Specifications
 | System Throughput | 14.4Tbps |
 | Forwarding Capacity | Up to 5BPPS |
 | Dimensions | H (2RU) x W (445mm) x D (564mm)  3.5"x17.28“x29.13" (H x W x D) |
-| Rack Units | 2 RU, 800 mm rack including cables |
+| Rack Units | 2 RU, 800 mm close rack including cables |
 | Rack Mounting | 2/4-post |
 | Max Weight | 55lbs (24.94 kg) |
 | Power Supply | 2 PSMs, 2200 PSU, AC, DC, HVAC, HVDC,(1+1 Redundancy)|
@@ -110,7 +110,7 @@ The diagram in Figure 2 illustrates the different components in a PTX10002-36CD.
 ## Routing Engine Overview
 The internal PTX10002-36CD Routing Engine is powered by an Intel Ice Lake-D 8-core processor running at frequency up to 3.1GHz. Note it’s a build-in RE, not a FRU (Field Replaceable Unit).
 
-The Routing Engine is equipped with two 32 GB DDR4 RDIMMs (two DIMMs per channel), delivering a total memory capacity of 64GB operating at a memory speed of 2400 MT/s. For local storage, the platform supports two 200 GB NVMe SSDs, which are mounted on the bottom side of the Routing Engine board. A mechanical design provision allows the SSDs to be removed and serviced from the bottom of the chassis, simplifying maintenance operations.
+The Routing Engine is equipped with two 32 GB DDR4 RDIMMs (one DIMM per channel), delivering a total memory capacity of 64GB operating at a memory speed of 2400 MT/s. For local storage, the platform supports two 200 GB NVMe SSDs, which are mounted on the bottom side of the Routing Engine board. A mechanical design provision allows the SSDs to be removed and serviced from the bottom of the chassis, simplifying maintenance operations.
 Additionally, the platform supports Secure Boot mode, ensuring system integrity by allowing only trusted software to run during the boot process.
 
 The PTX10002-36CD includes a Trusted Platform Module (TPM) 2.0 chip, which provides secure, non-volatile storage used as a persistent and access-controlled area for storing critical security information. This includes platform identity, cryptographic keys, security policies, and component registration data. The TPM enhances platform security by ensuring trusted system initialization and protecting sensitive information from unauthorized access.
@@ -127,7 +127,7 @@ The Juniper PTX10002-36CD provides several management and timing interfaces on t
 
 For precise timing and synchronization, the platform supports: 
 
-- 10 MHz input/output
+- 10 MHz Input, 10 MHz Output
 - 1PPS (Pulse Per Second) input/output
 - PTP Class D
 - Sync-E
@@ -139,7 +139,7 @@ The rear of the PTX10002-36CD is identical to the PTX10002-60MR: three hot-swapp
 ![Backside_view](images/backside-view-e24746.png)
 
 
-The chassis has three fan trays using high-pressure 80 mm x 80 mm x 86 mm fans, with AFO (airflow out) cooling. Each tray draws 90W to 146W depending on thermal conditions and is rated for -10C to 70C. Fans run at about 16,000 RPM (+/-10%) at the inlet and 14,000 RPM (+/-10%) at the outlet. Each tray holds dual counter-rotating fans, and the chassis tolerates a single rotor failure.
+The chassis has three fan trays using high-pressure 80 mm x 80 mm x 86 mm fans, with AFO (airflow out) cooling. Each tray draws 90W to 160W depending on thermal conditions and is rated for -10C to 70C. Fans run at about 18,000 RPM (+/-10%) at the inlet and 16,000 RPM (+/-10%) at the outlet. Each tray holds dual counter-rotating fans, and the chassis tolerates a single rotor failure.
 
 ![Fan Tray](images/fan-tray-1a1c66.png)
 
