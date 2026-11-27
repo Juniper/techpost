@@ -21,7 +21,7 @@ hide:
 
   <div class="card-grid">
 
-                <a class="card" href="../../introducing-the-ptx10002-36cd/article" data-date="2026-11-24" data-category="Platforms / Line Cards Deepdive">
+                    <a class="card" href="../../introducing-the-ptx10002-36cd/article" data-date="2026-11-24" data-category="Platforms / Line Cards Deepdive">
       <img src="../../introducing-the-ptx10002-36cd/images/logo.png" class="card-icon" alt="Introducing the PTX10002-36CD">
       <div class="card-text">
         <div class="card-category">Platforms / Line Cards Deepdive</div>

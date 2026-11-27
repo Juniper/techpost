@@ -30,7 +30,7 @@ Table: PTX10002-36CD Specifications
 |----------|----------|
 | System Throughput | 14.4Tbps |
 | Forwarding Capacity | Up to 5BPPS |
-| Dimensions | H (2RU) x W (445mm) x D (564mm)  3.5"x17.28“x29.13" (H x W x D) |
+| Dimensions | H (2RU) x W (445mm) x D (564mm)  3.5"x17.28“x22.20" (H x W x D) |
 | Rack Units | 2 RU, 800 mm close rack including cables |
 | Rack Mounting | 2/4-post |
 | Max Weight | 55lbs (24.94 kg) |
